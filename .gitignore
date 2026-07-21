@@ -2,3 +2,13 @@
 *.tmp
 .DS_Store
 Thumbs.db
+
+# Extract / temp dumps
+extract-out.*
+extract-hth.js
+extract-hth.ps1
+
+# Local duplicates / old copies
+HTH_VBQPPL_v2.html
+HTH_VBQPPL_v3.html
+He Thong Hoa VBQPPL -0807 (1).html
