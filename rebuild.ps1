@@ -1,17 +1,17 @@
 # Rebuild HTH_VBQPPL.html (+ optional docs/index.html) from _extracted_template.html
 # Usage:
 #   .\rebuild.ps1
-#   .\rebuild.ps1 -Pages   # also copy to docs/index.html for GitHub Pages
+#   .\rebuild.ps1 -PublishPages   # also copy to docs/index.html for GitHub Pages
 
 param(
-  [switch]$Pages
+  [switch]$PublishPages
 )
 
 $ErrorActionPreference = 'Stop'
 $dir = $PSScriptRoot
 $extract = Join-Path $dir '_extracted_template.html'
 $target = Join-Path $dir 'HTH_VBQPPL.html'
-$pages = Join-Path $dir 'docs\index.html'
+$pagesPath = Join-Path $dir 'docs\index.html'
 
 if (-not (Test-Path $extract)) { throw "Missing $extract" }
 if (-not (Test-Path $target)) { throw "Missing $target" }
@@ -35,10 +35,10 @@ $updated = [regex]::Replace(
 [System.IO.File]::WriteAllText($target, $updated, $utf8)
 Write-Output "Rebuilt: HTH_VBQPPL.html"
 
-if ($Pages) {
-  $docsDir = Split-Path $pages -Parent
+if ($PublishPages) {
+  $docsDir = Split-Path $pagesPath -Parent
   if (-not (Test-Path $docsDir)) { New-Item -ItemType Directory -Path $docsDir | Out-Null }
-  [System.IO.File]::WriteAllText($pages, $updated, $utf8)
+  [System.IO.File]::WriteAllText($pagesPath, $updated, $utf8)
   Write-Output "Updated: docs/index.html"
 }
 
