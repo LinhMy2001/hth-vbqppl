@@ -413,6 +413,36 @@
             </div>
           </div>
 
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị</label>
+                <div style="position:relative;">
+                  <select value="{{ statDvSel }}" onchange="{{ setStatDv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả đơn vị</option><sc-for list="{{ statDvOpts }}" as="dv" hint-placeholder-count="6"><option value="{{ dv }}">{{ dv }}</option></sc-for></select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Lĩnh vực</label>
+                <div style="position:relative;">
+                  <select value="{{ statLvSel }}" onchange="{{ setStatLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả lĩnh vực</option><sc-for list="{{ statLvOpts }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for></select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Trạng thái</label>
+                <div style="position:relative;">
+                  <select value="{{ statTtSel }}" onchange="{{ setStatTt }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả trạng thái</option><sc-for list="{{ statTtOpts }}" as="tt" hint-placeholder-count="3"><option value="{{ tt }}">{{ tt }}</option></sc-for></select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
+              <button onclick="{{ applyStatFilter }}" style="height:40px;min-width:120px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+              <button onclick="{{ resetStatFilter }}" style="height:40px;min-width:110px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+            </div>
+          </div>
+
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px;">
             <sc-for list="{{ statKpis }}" as="k" hint-placeholder-count="4">
               <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
@@ -469,34 +499,70 @@
             <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;">
               <sc-raw-thead><sc-raw-tr style="background:#f4f7fb;text-align:left;color:#42566c;">
                 <sc-raw-th style="padding:12px 16px;font-weight:600;">Đơn vị</sc-raw-th>
-                <sc-raw-th style="padding:12px 16px;font-weight:600;text-align:right;">Đã kiểm tra</sc-raw-th>
-                <sc-raw-th style="padding:12px 16px;font-weight:600;text-align:right;">Trái pháp luật</sc-raw-th>
-                <sc-raw-th style="padding:12px 16px;font-weight:600;text-align:right;">Đã rà soát</sc-raw-th>
-                <sc-raw-th style="padding:12px 16px;font-weight:600;text-align:right;">Đã xử lý</sc-raw-th>
-                <sc-raw-th style="padding:12px 16px;font-weight:600;text-align:right;">Đưa vào HTH</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;text-align:center;width:100px;">KQ HTH</sc-raw-th>
               </sc-raw-tr></sc-raw-thead>
               <sc-raw-tbody>
-                <sc-for list="{{ statRows }}" as="rec" hint-placeholder-count="4">
+                <sc-for list="{{ statRows }}" as="rec" hint-placeholder-count="6">
                   <sc-raw-tr style="border-top:1px solid #eef1f6;" style-hover="background:#f8fbff;">
                     <sc-raw-td style="padding:11px 16px;color:#16314c;font-weight:500;">{{ rec.dv }}</sc-raw-td>
-                    <sc-raw-td style="padding:11px 16px;text-align:right;color:#42566c;">{{ rec.kt }}</sc-raw-td>
-                    <sc-raw-td style="padding:11px 16px;text-align:right;color:#c0392b;font-weight:600;">{{ rec.tpl }}</sc-raw-td>
-                    <sc-raw-td style="padding:11px 16px;text-align:right;color:#42566c;">{{ rec.rs }}</sc-raw-td>
-                    <sc-raw-td style="padding:11px 16px;text-align:right;color:#1f8a5b;font-weight:600;">{{ rec.xl }}</sc-raw-td>
-                    <sc-raw-td style="padding:11px 16px;text-align:right;color:#42566c;">{{ rec.hth }}</sc-raw-td>
+                    <sc-raw-td style="padding:11px 16px;text-align:center;">
+                      <span onclick="{{ rec.openMau05 }}" title="Xem danh sách mẫu 05" class="ic" style="font-size:20px;color:#2f54eb;cursor:pointer;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
+                    </sc-raw-td>
                   </sc-raw-tr>
                 </sc-for>
-                <sc-raw-tr style="border-top:2px solid #e0e6ee;background:#fafcfe;font-weight:700;color:#10243a;">
-                  <sc-raw-td style="padding:12px 16px;">Tổng cộng</sc-raw-td>
-                  <sc-raw-td style="padding:12px 16px;text-align:right;">284</sc-raw-td>
-                  <sc-raw-td style="padding:12px 16px;text-align:right;color:#c0392b;">17</sc-raw-td>
-                  <sc-raw-td style="padding:12px 16px;text-align:right;">312</sc-raw-td>
-                  <sc-raw-td style="padding:12px 16px;text-align:right;color:#1f8a5b;">231</sc-raw-td>
-                  <sc-raw-td style="padding:12px 16px;text-align:right;">312</sc-raw-td>
-                </sc-raw-tr>
               </sc-raw-tbody>
             </sc-raw-table>
           </div>
+
+          <sc-if value="{{ showStatMau05 }}" hint-placeholder-val="{{ false }}">
+            <div style="position:fixed;inset:0;background:rgba(16,36,58,.45);z-index:80;display:flex;align-items:center;justify-content:center;padding:24px;" onclick="{{ closeStatMau05 }}">
+              <div style="background:#fff;border-radius:14px;width:min(1100px,96vw);max-height:88vh;overflow:hidden;box-shadow:0 20px 50px rgba(16,36,58,.25);display:flex;flex-direction:column;" onclick="{{ stop }}">
+                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:10px;">
+                  <span class="ic" style="font-size:22px;color:#0e4c8f;">folder_open</span>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:15.5px;font-weight:700;color:#10243a;">Mẫu số 05 — Tập hệ thống hóa văn bản QPPL</div>
+                    <div style="font-size:12.5px;color:#5a6b7e;margin-top:2px;">Đơn vị: {{ statMau05Unit }}</div>
+                  </div>
+                  <button onclick="{{ closeStatMau05 }}" style="border:0;background:#f2f4f7;cursor:pointer;width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;"><span class="ic" style="font-size:20px;color:#475467;">close</span></button>
+                </div>
+                <div style="overflow:auto;padding:0;">
+                  <sc-raw-table style="border-collapse:collapse;font-size:12.5px;min-width:1000px;width:100%;">
+                    <sc-raw-thead>
+                      <sc-raw-tr style="background:#0e4c8f;color:#fff;text-align:left;">
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;width:48px;text-align:center;border-right:1px solid rgba(255,255,255,.15);">STT</sc-raw-th>
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">LOẠI VĂN BẢN</sc-raw-th>
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">CƠ QUAN BAN HÀNH</sc-raw-th>
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">SỐ, KÍ HIỆU</sc-raw-th>
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">NGÀY BAN HÀNH</sc-raw-th>
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">TÊN GỌI / TRÍCH YẾU</sc-raw-th>
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">Thời điểm HL</sc-raw-th>
+                        <sc-raw-th style="padding:10px 10px;font-weight:600;">Ghi chú</sc-raw-th>
+                      </sc-raw-tr>
+                    </sc-raw-thead>
+                    <sc-raw-tbody>
+                      <sc-for list="{{ statMau05Groups }}" as="g" hint-placeholder-count="3">
+                        <sc-raw-tr style="background:#eef3f9;">
+                          <sc-raw-td colspan="8" style="padding:10px 12px;font-weight:700;color:#0e4c8f;border-top:1px solid #d8e0ea;">{{ g.label }}</sc-raw-td>
+                        </sc-raw-tr>
+                        <sc-for list="{{ g.items }}" as="doc" hint-placeholder-count="2">
+                          <sc-raw-tr style="border-top:1px solid #eef1f6;vertical-align:top;color:#16314c;">
+                            <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;">{{ doc.stt }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.cq }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;font-family:ui-monospace,monospace;font-size:11.5px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.ngay }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.ty }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;color:#42566c;">{{ doc.e0 }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;color:#42566c;">{{ doc.e1 }}</sc-raw-td>
+                          </sc-raw-tr>
+                        </sc-for>
+                      </sc-for>
+                    </sc-raw-tbody>
+                  </sc-raw-table>
+                </div>
+              </div>
+            </div>
+          </sc-if>
         </div>
       </sc-if>
 
@@ -2213,7 +2279,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -3188,12 +3254,64 @@ class Component extends DCLogic {
       confirmSetPublish: ()=>this.setState({ showSetPublishConfirm:false, setRepublished:true, showSetPublishSuccess:true, setTab:'main' }),
       closeSetPublishSuccess: ()=>this.setState({ showSetPublishSuccess:false }),
 
-      statRows: [
-        { dv:'Phòng Xây dựng VBQPPL', kt:118, tpl:9, rs:124, xl:96, hth:124 },
-        { dv:'Phòng Hành chính tư pháp', kt:74, tpl:4, rs:88, xl:71, hth:88 },
-        { dv:'Phòng Bổ trợ tư pháp', kt:52, tpl:3, rs:61, xl:40, hth:61 },
-        { dv:'Trung tâm Trợ giúp pháp lý', kt:40, tpl:1, rs:39, xl:24, hth:39 },
-      ],
+      statRows: (()=>{
+        const ttStyle = {
+          'Đã công bố': { fg:'#1f8a5b', bg:'#e3f4ec' },
+          'Đang thực hiện': { fg:'#b8860b', bg:'#fbf2dc' },
+          'Chưa hoàn thành': { fg:'#c0392b', bg:'#fbe6e3' },
+        };
+        const all = [
+          { dv:'Bộ Ngoại giao', lv:'Tư pháp', tt:'Đã công bố', kt:86, tpl:4, rs:92, xl:71, hth:92 },
+          { dv:'Bộ Tư pháp', lv:'Tư pháp', tt:'Đã công bố', kt:118, tpl:9, rs:124, xl:96, hth:124 },
+          { dv:'Bộ Công an', lv:'Hộ tịch', tt:'Đang thực hiện', kt:64, tpl:2, rs:70, xl:48, hth:70 },
+          { dv:'Bộ Tài chính', lv:'Lao động', tt:'Chưa hoàn thành', kt:52, tpl:3, rs:58, xl:31, hth:58 },
+          { dv:'UBND tỉnh Hà Tĩnh', lv:'Bổ trợ tư pháp', tt:'Đang thực hiện', kt:47, tpl:2, rs:51, xl:38, hth:51 },
+          { dv:'UBND Tỉnh Hưng Yên', lv:'Hỗ trợ pháp lý', tt:'Đã công bố', kt:41, tpl:1, rs:44, xl:29, hth:44 },
+        ];
+        let rows = all.slice();
+        if(s.statDv) rows = rows.filter(r=>r.dv===s.statDv);
+        if(s.statLv) rows = rows.filter(r=>r.lv===s.statLv);
+        if(s.statTt) rows = rows.filter(r=>r.tt===s.statTt);
+        return rows.map(r=>{
+          const st = ttStyle[r.tt] || { fg:'#475467', bg:'#f2f4f7' };
+          return {
+            ...r, ttFg:st.fg, ttBg:st.bg,
+            openMau05: ()=>this.setState({ showStatMau05:true, statMau05Unit:r.dv }),
+          };
+        });
+      })(),
+      statSum: (()=>{
+        const all = [
+          { dv:'Bộ Ngoại giao', lv:'Tư pháp', tt:'Đã công bố', kt:86, tpl:4, rs:92, xl:71, hth:92 },
+          { dv:'Bộ Tư pháp', lv:'Tư pháp', tt:'Đã công bố', kt:118, tpl:9, rs:124, xl:96, hth:124 },
+          { dv:'Bộ Công an', lv:'Hộ tịch', tt:'Đang thực hiện', kt:64, tpl:2, rs:70, xl:48, hth:70 },
+          { dv:'Bộ Tài chính', lv:'Lao động', tt:'Chưa hoàn thành', kt:52, tpl:3, rs:58, xl:31, hth:58 },
+          { dv:'UBND tỉnh Hà Tĩnh', lv:'Bổ trợ tư pháp', tt:'Đang thực hiện', kt:47, tpl:2, rs:51, xl:38, hth:51 },
+          { dv:'UBND Tỉnh Hưng Yên', lv:'Hỗ trợ pháp lý', tt:'Đã công bố', kt:41, tpl:1, rs:44, xl:29, hth:44 },
+        ];
+        let rows = all.slice();
+        if(s.statDv) rows = rows.filter(r=>r.dv===s.statDv);
+        if(s.statLv) rows = rows.filter(r=>r.lv===s.statLv);
+        if(s.statTt) rows = rows.filter(r=>r.tt===s.statTt);
+        return rows.reduce((a,r)=>({ kt:a.kt+r.kt, tpl:a.tpl+r.tpl, rs:a.rs+r.rs, xl:a.xl+r.xl, hth:a.hth+r.hth }), { kt:0, tpl:0, rs:0, xl:0, hth:0 });
+      })(),
+      statDvOpts: ['Bộ Ngoại giao','Bộ Tư pháp','Bộ Công an','Bộ Tài chính','UBND tỉnh Hà Tĩnh','UBND Tỉnh Hưng Yên'],
+      statLvOpts: lvOrder,
+      statTtOpts: ['Đã công bố','Đang thực hiện','Chưa hoàn thành'],
+      statDvSel: s.statDvSel||'', statLvSel: s.statLvSel||'', statTtSel: s.statTtSel||'',
+      setStatDv: (e)=>this.setState({ statDvSel: e.target.value }),
+      setStatLv: (e)=>this.setState({ statLvSel: e.target.value }),
+      setStatTt: (e)=>this.setState({ statTtSel: e.target.value }),
+      applyStatFilter: ()=>this.setState(st=>({ statDv:st.statDvSel||'', statLv:st.statLvSel||'', statTt:st.statTtSel||'' })),
+      resetStatFilter: ()=>this.setState({ statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'' }),
+      showStatMau05: !!s.showStatMau05,
+      statMau05Unit: s.statMau05Unit||'',
+      closeStatMau05: ()=>this.setState({ showStatMau05:false, statMau05Unit:'' }),
+      statMau05Groups: this.groupMau05Rows(docs.map((d,i)=>({
+        stt:i+1, lv:d.lv||'—', loai:d.loai, cq:d.cq, so:d.so, ngay:d.ngay, ty:d.ty,
+        e0: (detailExtraFor('tap-hth', d)[0]) || '—',
+        e1: (detailExtraFor('tap-hth', d)[1]) || ''
+      }))),
       setGroups, setTableGroups, setTimeline, totalDocsLabel, setSortHint, isSetMain: s.setTab!=='dinhchinh', isSetCorr: s.setTab==='dinhchinh',
       setMainTab: ()=>this.setState({ setTab:'main' }), setCorrTab: ()=>this.setState({ setTab:'dinhchinh' }),
       tabMainStyle: s.setTab!=='dinhchinh' ? 'color:#0e4c8f;border-bottom:2.5px solid #0e4c8f;' : 'color:#6b7a8d;border-bottom:2.5px solid transparent;',
