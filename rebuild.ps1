@@ -35,8 +35,7 @@ $updated = [regex]::Replace(
 [System.IO.File]::WriteAllText($target, $updated, $utf8)
 Write-Output "Rebuilt: HTH_VBQPPL.html"
 
-if ($PublishPages) {
-  $docsDir = Split-Path $pagesPath -Parent
+if ($PublishPages) {  $docsDir = Split-Path $pagesPath -Parent
   if (-not (Test-Path $docsDir)) { New-Item -ItemType Directory -Path $docsDir | Out-Null }
   [System.IO.File]::WriteAllText($pagesPath, $updated, $utf8)
   Write-Output "Updated: docs/index.html"

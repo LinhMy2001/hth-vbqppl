@@ -1739,7 +1739,7 @@
               </div>
               <div style="display:flex;gap:10px;flex:0 0 auto;">
                 <button style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:9px 15px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">download</span>Xuất dữ liệu</button>
-                <button onclick="{{ publishCurType }}" style="border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:9px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:18px;">campaign</span>Công bố</button>
+                <button onclick="{{ openRsPublishConfirm }}" style="border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:9px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:18px;">campaign</span>Công bố</button>
               </div>
             </div>
 
@@ -1861,6 +1861,19 @@
             </div>
           </sc-if>
         </div>
+
+        <sc-if value="{{ showRsPublishConfirm }}" hint-placeholder-val="{{ false }}">
+          <div onclick="{{ cancelRsPublishConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
+            <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+              <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#b8860b;">campaign</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận công bố</h3></div>
+              <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">Bạn có chắc chắn muốn công bố kết quả rà soát <b style="color:#1e2939;">{{ curTypeLabel }}</b>?</div>
+              <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
+                <button onclick="{{ cancelRsPublishConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
+                <button onclick="{{ confirmRsPublish }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">campaign</span>Công bố</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
       </sc-if>
 
       <sc-if value="{{ isTraCuu }}" hint-placeholder-val="{{ false }}">
@@ -2279,7 +2292,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, showRsPublishConfirm:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -2884,7 +2897,11 @@ class Component extends DCLogic {
       rsPublishChecked: ()=>this.setState(st=>{ const np={ ...st.rsPublished }; mauBieuDefs.forEach(t=>{ if((st.rsChecked||{})[t[0]]) np[t[0]]=true; }); return { rsPublished:np, rsChecked:{} }; }),
       rsSubmit: ()=>this.setState(st=>{ const ns={ ...st.rsSent }; mauBieuDefs.forEach(t=>ns[t[0]]=true); return { rsSent:ns }; }),
       rsApproveChecked: ()=>this.setState(st=>{ const na={ ...st.rsApproved }; mauBieuDefs.forEach(t=>{ if((st.rsChecked||{})[t[0]]) na[t[0]]=true; }); return { rsApproved:na, rsChecked:{} }; }),
-      publishCurType: ()=>this.setState(st=>({ rsPublished:{ ...st.rsPublished, [st.reviewType]:true } })),
+      showRsPublishConfirm: !!s.showRsPublishConfirm,
+      openRsPublishConfirm: ()=>this.setState({ showRsPublishConfirm:true }),
+      cancelRsPublishConfirm: ()=>this.setState({ showRsPublishConfirm:false }),
+      confirmRsPublish: ()=>this.setState(st=>({ showRsPublishConfirm:false, rsPublished:{ ...st.rsPublished, [st.reviewType]:true } })),
+      publishCurType: ()=>this.setState({ showRsPublishConfirm:true }),
       rsTotal: mauBieuDefs.length,
       rsAggUnitCount: 4,
       openAgg: ()=>this.setState({ reviewAgg:true }),
