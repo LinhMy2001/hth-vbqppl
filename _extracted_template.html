@@ -2292,7 +2292,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, showRsPublishConfirm:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, showRsPublishConfirm:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -2462,11 +2462,12 @@ class Component extends DCLogic {
 
   lvOptionsForUnit(donVi){
     const map = {
+      'Bộ Ngoại giao': ['Đối ngoại','Lãnh sự','Pháp chế','Hợp tác quốc tế','Biên giới lãnh thổ'],
+      'Bộ Tư pháp': ['Tư pháp','Hộ tịch','Bổ trợ tư pháp','Trợ giúp pháp lý','Pháp chế','Thi hành án dân sự'],
+      'UBND tỉnh Hưng Yên': ['Tư pháp','Giáo dục','Y tế','Đất đai','Xây dựng','Nông nghiệp','Giao thông'],
       'Sở Tư pháp': ['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'],
       'UBND Phường Bạch Mai': ['Giáo dục','Văn hóa','Y tế','Đất đai','Xây dựng','Tư pháp'],
       'Xã Cổ Loa': ['Giáo dục','Văn hóa','Nông nghiệp','Đất đai','Tư pháp'],
-      'Xã Uy Nỗ': ['Giáo dục','Văn hóa','Y tế','Giao thông','Tư pháp'],
-      'Phòng Xây dựng VBQPPL': ['Tư pháp','Hành chính','Kinh tế','Xã hội'],
     };
     return map[donVi] || ['Giáo dục','Văn hóa','Y tế','Đất đai','Tư pháp'];
   }
@@ -3424,7 +3425,7 @@ class Component extends DCLogic {
       // ── Cấu hình tiêu chí sắp xếp ──
       sxInList: s.screen==='catalog' && !s.sxForm,
       sxInForm: s.screen==='catalog' && !!s.sxForm,
-      sxDonViOpts: ['Sở Tư pháp','UBND Phường Bạch Mai','Xã Cổ Loa','Xã Uy Nỗ','Phòng Xây dựng VBQPPL'],
+      sxDonViOpts: ['Bộ Ngoại giao','Bộ Tư pháp','UBND tỉnh Hưng Yên','Sở Tư pháp','UBND Phường Bạch Mai','Xã Cổ Loa'],
       sxDonVi: s.sxDonVi || '',
       sxNgayBH: s.sxNgayBH || 'cu-moi',
       sxHasDonVi: !!s.sxDonVi,
