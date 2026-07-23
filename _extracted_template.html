@@ -580,39 +580,43 @@
           </div>
 
           <sc-if value="{{ isSetMain }}" hint-placeholder-val="{{ true }}">
-          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:18px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="font-size:12px;font-weight:700;letter-spacing:.02em;color:#8094a8;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;color:#0e4c8f;">tune</span>Tìm kiếm theo cấu hình tiêu chí sắp xếp</div>
-            <div style="display:grid;grid-template-columns:1.2fr 1fr auto;gap:14px;align-items:end;">
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;">
               <div style="display:flex;flex-direction:column;gap:7px;">
-                <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị (cấu hình)</label>
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Thời gian ban hành</label>
                 <div style="position:relative;">
-                  <select value="{{ setSxDonViSel }}" onchange="{{ setSetSxDonVi }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value="">Vui lòng chọn đơn vị đã cấu hình</option>
-                    <sc-for list="{{ setSxDonViOpts }}" as="u" hint-placeholder-count="3"><option value="{{ u }}">{{ u }}</option></sc-for>
+                  <select value="{{ setNgayBHSel }}" onchange="{{ setSetNgayBH }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="cu-moi">Cũ → Mới</option>
+                    <option value="moi-cu">Mới → Cũ</option>
                   </select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
-              <div style="min-height:40px;display:flex;align-items:center;">
-                <sc-if value="{{ setSxHasPreview }}" hint-placeholder-val="{{ false }}">
-                  <div style="font-size:12.5px;color:#475467;line-height:1.45;background:#f5f8fc;border:1px solid #e4e9f0;border-radius:8px;padding:8px 12px;width:100%;">
-                    <b style="color:#0e4c8f;">{{ setSxPreviewNgay }}</b>
-                    <span style="color:#98a2b3;"> · </span>{{ setSxPreviewLv }}
-                    <span style="color:#98a2b3;"> · </span>{{ setSxPreviewHl }}
-                  </div>
-                </sc-if>
-                <sc-if value="{{ setSxNoConfig }}" hint-placeholder-val="{{ false }}">
-                  <div style="font-size:12.5px;color:#c0392b;">Chưa có cấu hình cho đơn vị này. Vào menu <b>Cấu hình tiêu chí sắp xếp</b> để tạo.</div>
-                </sc-if>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Danh mục lĩnh vực</label>
+                <div style="position:relative;">
+                  <select value="{{ setLvSel }}" onchange="{{ setSetLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="">Tất cả lĩnh vực</option>
+                    <sc-for list="{{ setLvOpts }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for>
+                  </select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
               </div>
-              <div style="display:flex;gap:10px;">
-                <button onclick="{{ applySetSx }}" style="height:40px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:7px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">search</span>Áp dụng</button>
-                <button onclick="{{ resetSetSx }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#475467;padding:0 16px;border-radius:8px;display:flex;align-items:center;gap:7px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Hiệu lực pháp lý</label>
+                <div style="position:relative;">
+                  <select value="{{ setHlSel }}" onchange="{{ setSetHl }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="">Tất cả hiệu lực</option>
+                    <sc-for list="{{ setHlOpts }}" as="hl" hint-placeholder-count="4"><option value="{{ hl }}">{{ hl }}</option></sc-for>
+                  </select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
               </div>
             </div>
-            <sc-if value="{{ setSxApplied }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:12px;font-size:12.5px;color:#1f8a5b;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">check_circle</span>Đang sắp xếp theo cấu hình đơn vị <b>{{ setSxAppliedDonVi }}</b></div>
-            </sc-if>
+            <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
+              <button onclick="{{ applySetSearch }}" style="height:40px;min-width:120px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+              <button onclick="{{ resetSetSearch }}" style="height:40px;min-width:110px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+            </div>
           </div>
 
           <div style="display:flex;gap:18px;align-items:flex-start;">
@@ -1739,7 +1743,7 @@
               </div>
               <div style="display:flex;gap:10px;flex:0 0 auto;">
                 <button style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:9px 15px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">download</span>Xuất dữ liệu</button>
-                <button onclick="{{ openRsPublishConfirm }}" style="border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:9px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:18px;">campaign</span>Công bố</button>
+                <button onclick="{{ publishCurType }}" style="border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:9px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:18px;">campaign</span>Công bố</button>
               </div>
             </div>
 
@@ -1861,19 +1865,6 @@
             </div>
           </sc-if>
         </div>
-
-        <sc-if value="{{ showRsPublishConfirm }}" hint-placeholder-val="{{ false }}">
-          <div onclick="{{ cancelRsPublishConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
-            <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-              <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#b8860b;">campaign</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận công bố</h3></div>
-              <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">Bạn có chắc chắn muốn công bố kết quả rà soát <b style="color:#1e2939;">{{ curTypeLabel }}</b>?</div>
-              <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
-                <button onclick="{{ cancelRsPublishConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
-                <button onclick="{{ confirmRsPublish }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">campaign</span>Công bố</button>
-              </div>
-            </div>
-          </div>
-        </sc-if>
       </sc-if>
 
       <sc-if value="{{ isTraCuu }}" hint-placeholder-val="{{ false }}">
@@ -1889,7 +1880,7 @@
 
           <sc-if value="{{ tcInList }}" hint-placeholder-val="{{ true }}">
             <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;">
                 <div style="display:flex;flex-direction:column;gap:7px;">
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Kỳ hệ thống hóa</label>
                   <div style="position:relative;">
@@ -1901,6 +1892,13 @@
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Tên mẫu biểu</label>
                   <div style="position:relative;">
                     <select value="{{ tcMauSel }}" onchange="{{ setTcMau }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả mẫu biểu</option><sc-for list="{{ tcMauOpts }}" as="m" hint-placeholder-count="5"><option value="{{ m.ma }}">{{ m.label }}</option></sc-for></select>
+                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị thực hiện HTH</label>
+                  <div style="position:relative;">
+                    <select value="{{ tcDonViHthSel }}" onchange="{{ setTcDonViHth }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả đơn vị</option><sc-for list="{{ tcDonViHthOpts }}" as="u" hint-placeholder-count="6"><option value="{{ u }}">{{ u }}</option></sc-for></select>
                     <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                   </div>
                 </div>
@@ -1985,7 +1983,7 @@
             <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
               <div style="overflow-x:auto;">
                 <sc-if value="{{ isTcTapHth }}" hint-placeholder-val="{{ false }}">
-                <sc-raw-table style="border-collapse:collapse;font-size:12.5px;min-width:1180px;width:100%;">
+                <sc-raw-table style="border-collapse:collapse;font-size:12.5px;min-width:1280px;width:100%;">
                   <sc-raw-thead>
                     <sc-raw-tr style="background:#0e4c8f;color:#fff;text-align:left;">
                       <sc-raw-th style="padding:10px 10px;font-weight:600;width:48px;text-align:center;border-right:1px solid rgba(255,255,255,.15);">STT</sc-raw-th>
@@ -1995,13 +1993,14 @@
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);line-height:1.35;">NGÀY BAN HÀNH <span style="opacity:.9;">*</span><br><span style="font-weight:400;opacity:.8;">(dd/mm/yyyy) (6)</span></sc-raw-th>
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);line-height:1.35;">TÊN GỌI CỦA VĂN BẢN / TRÍCH YẾU NỘI DUNG CỦA VĂN BẢN <span style="opacity:.9;">*</span> <span style="font-weight:400;opacity:.8;">(7)</span></sc-raw-th>
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">Thời điểm có hiệu lực</sc-raw-th>
-                      <sc-raw-th style="padding:10px 10px;font-weight:600;">Ghi chú</sc-raw-th>
+                      <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">Ghi chú</sc-raw-th>
+                      <sc-raw-th style="padding:10px 10px;font-weight:600;">Đơn vị thực hiện HTH</sc-raw-th>
                     </sc-raw-tr>
                   </sc-raw-thead>
                   <sc-raw-tbody>
                     <sc-for list="{{ tcTypeDocGroups }}" as="g" hint-placeholder-count="3">
                       <sc-raw-tr style="background:#eef3f9;">
-                        <sc-raw-td colspan="8" style="padding:10px 12px;font-weight:700;color:#0e4c8f;border-top:1px solid #d8e0ea;">{{ g.label }}</sc-raw-td>
+                        <sc-raw-td colspan="9" style="padding:10px 12px;font-weight:700;color:#0e4c8f;border-top:1px solid #d8e0ea;">{{ g.label }}</sc-raw-td>
                       </sc-raw-tr>
                       <sc-for list="{{ g.items }}" as="doc" hint-placeholder-count="2">
                         <sc-raw-tr style="border-top:1px solid #eef1f6;vertical-align:top;color:#16314c;" style-hover="background:#f8fbff;">
@@ -2012,7 +2011,8 @@
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.ngay }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.ty }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;color:#42566c;">{{ doc.e0 }}</sc-raw-td>
-                          <sc-raw-td style="padding:10px 10px;color:#42566c;">{{ doc.e1 }}</sc-raw-td>
+                          <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;color:#42566c;">{{ doc.e1 }}</sc-raw-td>
+                          <sc-raw-td style="padding:10px 10px;color:#16314c;font-weight:500;">{{ doc.donViHth }}</sc-raw-td>
                         </sc-raw-tr>
                       </sc-for>
                     </sc-for>
@@ -2020,12 +2020,13 @@
                 </sc-raw-table>
                 </sc-if>
                 <sc-if value="{{ !isTcTapHth }}" hint-placeholder-val="{{ true }}">
-                <sc-raw-table style="border-collapse:collapse;font-size:12.5px;min-width:1120px;width:100%;">
+                <sc-raw-table style="border-collapse:collapse;font-size:12.5px;min-width:1240px;width:100%;">
                   <sc-raw-thead>
                     <sc-raw-tr style="background:#0e4c8f;color:#fff;text-align:left;">
                       <sc-raw-th rowspan="2" style="padding:10px 10px;font-weight:600;width:48px;text-align:center;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;">STT<br><span style="font-weight:400;opacity:.8;">(1)</span></sc-raw-th>
                       <sc-raw-th colspan="5" style="padding:10px 10px;font-weight:600;text-align:center;border-right:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.2);"></sc-raw-th>
                       <sc-for list="{{ tcDetailCols }}" as="c" hint-placeholder-count="3"><sc-raw-th rowspan="2" style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;line-height:1.35;">{{ c.h }}</sc-raw-th></sc-for>
+                      <sc-raw-th rowspan="2" style="padding:10px 10px;font-weight:600;vertical-align:middle;line-height:1.35;">Đơn vị thực hiện HTH</sc-raw-th>
                     </sc-raw-tr>
                     <sc-raw-tr style="background:#0c4280;color:#fff;text-align:left;">
                       <sc-raw-th style="padding:8px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">LOẠI VĂN BẢN <span style="opacity:.9;">*</span></sc-raw-th>
@@ -2045,6 +2046,7 @@
                         <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.ngay }}</sc-raw-td>
                         <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.ty }}</sc-raw-td>
                         <sc-for list="{{ doc.extra }}" as="v" hint-placeholder-count="3"><sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;color:#42566c;">{{ v.text }}</sc-raw-td></sc-for>
+                        <sc-raw-td style="padding:10px 10px;color:#16314c;font-weight:500;">{{ doc.donViHth }}</sc-raw-td>
                       </sc-raw-tr>
                     </sc-for>
                   </sc-raw-tbody>
@@ -2292,7 +2294,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, showRsPublishConfirm:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[], planDraft:{ ten:'', tuNam:'', denNam:'', donVi:'', chiTiet:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'Kỳ HTH 2024-2028', docKyApplied:'Kỳ HTH 2024-2028', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -2462,12 +2464,11 @@ class Component extends DCLogic {
 
   lvOptionsForUnit(donVi){
     const map = {
-      'Bộ Ngoại giao': ['Đối ngoại','Lãnh sự','Pháp chế','Hợp tác quốc tế','Biên giới lãnh thổ'],
-      'Bộ Tư pháp': ['Tư pháp','Hộ tịch','Bổ trợ tư pháp','Trợ giúp pháp lý','Pháp chế','Thi hành án dân sự'],
-      'UBND tỉnh Hưng Yên': ['Tư pháp','Giáo dục','Y tế','Đất đai','Xây dựng','Nông nghiệp','Giao thông'],
       'Sở Tư pháp': ['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'],
       'UBND Phường Bạch Mai': ['Giáo dục','Văn hóa','Y tế','Đất đai','Xây dựng','Tư pháp'],
       'Xã Cổ Loa': ['Giáo dục','Văn hóa','Nông nghiệp','Đất đai','Tư pháp'],
+      'Xã Uy Nỗ': ['Giáo dục','Văn hóa','Y tế','Giao thông','Tư pháp'],
+      'Phòng Xây dựng VBQPPL': ['Tư pháp','Hành chính','Kinh tế','Xã hội'],
     };
     return map[donVi] || ['Giáo dục','Văn hóa','Y tế','Đất đai','Tư pháp'];
   }
@@ -2652,12 +2653,14 @@ class Component extends DCLogic {
       'bai-bo': { canCu:'Điều 12 Luật 64/2025/QH15; văn bản trái pháp luật', phanTich:'Đối tượng điều chỉnh không còn; nội dung mâu thuẫn với văn bản cấp trên, kiến nghị bãi bỏ.', hinhThuc:'Bãi bỏ', loTrinh:'Quý III/2025', tieuChi:'Tính hợp pháp', hinhThucND:'Bãi bỏ toàn bộ' },
       'ban-hanh-moi': { canCu:'Yêu cầu quản lý nhà nước phát sinh; văn bản cấp trên giao', phanTich:'Chưa có văn bản điều chỉnh lĩnh vực; cần ban hành văn bản mới để bảo đảm cơ sở pháp lý.', hinhThuc:'Ban hành mới', loTrinh:'Năm 2026', tieuChi:'Tính khả thi, cần thiết', hinhThucND:'Ban hành văn bản mới' },
     };
+    const tcDonViHthOpts = ['Bộ Ngoại giao','Bộ Tư pháp','Bộ Công an','Bộ Tài chính','UBND tỉnh Hà Tĩnh','UBND Tỉnh Hưng Yên'];
     const docs = vb.map((d,i)=>{ const rk = rsTypeByIdx[i % rsTypeByIdx.length]; const det = rsDetailByType[rk];
       return { idx:i+1, so:d[0], loai:d[1], ty:d[2], cq:d[3], ngay:d[4], lv:d[5],
         hl:HL[d[6]].t, hlC:HL[d[6]].c, hlB:HL[d[6]].b, nhom:d[7], hieuLucNgay: d[4],
         ghiChu: ghiChuMap[d[7]] || '', raSoat: rsLabel[rk], rsType: rk,
         rsCanCu: det.canCu, rsPhanTich: det.phanTich, rsHinhThuc: det.hinhThuc, rsLoTrinh: det.loTrinh, rsTieuChi: det.tieuChi, rsHinhThucND: det.hinhThucND,
-        cb: i % 3 !== 2, nguon: i % 4 === 0 ? 'manual' : 'csdl', ky: i % 3 === 0 ? 'Kỳ hệ thống hóa 2019–2024' : 'Kỳ HTH 2024-2028' };
+        cb: i % 3 !== 2, nguon: i % 4 === 0 ? 'manual' : 'csdl', ky: i % 3 === 0 ? 'Kỳ hệ thống hóa 2019–2024' : 'Kỳ HTH 2024-2028',
+        donViHth: tcDonViHthOpts[i % tcDonViHthOpts.length] };
     });
 
     const plans = Array.isArray(s.plans) ? s.plans : [];
@@ -2691,7 +2694,7 @@ class Component extends DCLogic {
       const hit = Object.values(HL).find(h=>h.t===t);
       return hit || HL.con;
     };
-    const docsForSet = docs.map(d=>{
+    const docsForSetBase = docs.map(d=>{
       const p = patches[d.so];
       if (!p) return d;
       const next = { ...d, ...p };
@@ -2703,7 +2706,15 @@ class Component extends DCLogic {
       }
       return next;
     });
-    const setGroups = this.buildSetGroups(docsForSet, (s.setSxAppliedDonVi ? (s.sxConfigs||[]).find(c=>c.donVi===s.setSxAppliedDonVi) : null));
+    let docsForSet = docsForSetBase.slice();
+    if(s.setLv) docsForSet = docsForSet.filter(d=>d.lv===s.setLv);
+    if(s.setHl) docsForSet = docsForSet.filter(d=>this.normalizeHlKey(d.hl)===s.setHl);
+    const setSearchCfg = {
+      ngayBH: s.setNgayBH || 'cu-moi',
+      lvOrder: s.setLv ? [s.setLv].concat(lvOrder.filter(x=>x!==s.setLv)) : lvOrder.slice(),
+      hlOrder: s.setHl ? [s.setHl].concat(this.defaultHlOrder().filter(x=>x!==s.setHl)) : this.defaultHlOrder(),
+    };
+    const setGroups = this.buildSetGroups(docsForSet, setSearchCfg);
     const setTableGroups = setGroups.map((g,gi)=>({
       lv: g.lv,
       label: (['I','II','III','IV','V','VI','VII','VIII','IX','X'][gi]||String(gi+1)) + '. Lĩnh vực ' + g.lv,
@@ -2714,7 +2725,13 @@ class Component extends DCLogic {
         e1: d.ghiChu || d.hl || ''
       }))
     }));
-    const setSortHint = s.setSxAppliedDonVi ? ('Theo cấu hình: ' + s.setSxAppliedDonVi) : 'Sắp xếp mặc định theo lĩnh vực';
+    const setSortParts = [
+      (s.setNgayBH==='moi-cu' ? 'Mới → Cũ' : 'Cũ → Mới'),
+      (s.setLv ? ('Lĩnh vực: '+s.setLv) : 'Tất cả lĩnh vực'),
+      (s.setHl ? ('HL: '+s.setHl) : 'Tất cả hiệu lực'),
+    ];
+    const setSortHint = setSortParts.join(' · ');
+    const totalDocsLabel = docsForSet.length + ' văn bản';
     const roman = ['I','II','III','IV','V','VI','VII','VIII','IX'];
     const docGroups = lvOrder.map(lv=>({ lv, items: docs.filter(d=>d.lv===lv) })).filter(g=>g.items.length).map((g,gi)=>({
       lvUpper: 'LĨNH VỰC ' + g.lv.toUpperCase(), roman: roman[gi], count: g.items.length,
@@ -2725,7 +2742,6 @@ class Component extends DCLogic {
         edit: ()=>this.setState({ docPanel:'form', formMode:'edit', editDoc:d }),
       })),
     }));
-    const totalDocsLabel = docs.length + ' văn bản';
     const docKyOptions = ['Kỳ HTH 2024-2028','Kỳ hệ thống hóa 2019–2024'];
     const docKySel = s.docKySel || docKyOptions[0];
     const docKyApplied = s.docKyApplied || docKyOptions[0];
@@ -2804,18 +2820,19 @@ class Component extends DCLogic {
     const tcMauOpts = mauBieuDefs.map((t,i)=>({ ma:t[0], label:'Mẫu số '+String(i+1).padStart(2,'0')+' - '+t[1] }));
     let tcRowDefs = mauBieuDefs;
     if(s.tcMau) tcRowDefs = mauBieuDefs.filter(t=>t[0]===s.tcMau);
+    const docsByTcUnit = s.tcDonViHth ? docs.filter(d=>d.donViHth===s.tcDonViHth) : docs;
     const tcRows = tcRowDefs.map((t)=>{ const gi = mauBieuDefs.findIndex(x=>x[0]===t[0]);
-      return { ma:t[0], ten:t[1], stt:gi+1, count: docs.filter(t[2]).length,
+      return { ma:t[0], ten:t[1], stt:gi+1, count: docsByTcUnit.filter(t[2]).length,
         open: ()=>this.setState({ tcType:t[0], tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' }) };
     });
     const tcToDate = (str)=>{ const p=(str||'').split('/'); return p.length===3 ? new Date(+p[2], +p[1]-1, +p[0]) : null; };
-    let tcDocsBase = s.tcType ? docs.filter((mauBieuDefs.find(t=>t[0]===s.tcType)||[,,()=>false])[2]) : [];
+    let tcDocsBase = s.tcType ? docsByTcUnit.filter((mauBieuDefs.find(t=>t[0]===s.tcType)||[,,()=>false])[2]) : [];
     if(s.tcLinhVuc) tcDocsBase = tcDocsBase.filter(d=>d.lv===s.tcLinhVuc);
     if(s.tcFrom){ const f=new Date(s.tcFrom); tcDocsBase = tcDocsBase.filter(d=>{ const dt=tcToDate(d.ngay); return dt && dt>=f; }); }
     if(s.tcTo){ const tt=new Date(s.tcTo); tcDocsBase = tcDocsBase.filter(d=>{ const dt=tcToDate(d.ngay); return dt && dt<=tt; }); }
-    const tcTypeDocs = tcDocsBase.map((d,i)=>({ ...d, stt:i+1, extra: this.extrasAsCells(detailExtraFor(s.tcType, d)) }));
+    const tcTypeDocs = tcDocsBase.map((d,i)=>({ ...d, stt:i+1, donViHth:d.donViHth||'—', extra: this.extrasAsCells(detailExtraFor(s.tcType, d)) }));
     const tcTypeDocGroups = s.tcType==='tap-hth' ? this.groupMau05Rows(tcDocsBase.map((d,i)=>({
-      stt:i+1, lv:d.lv||'—', loai:d.loai, cq:d.cq, so:d.so, ngay:d.ngay, ty:d.ty,
+      stt:i+1, lv:d.lv||'—', loai:d.loai, cq:d.cq, so:d.so, ngay:d.ngay, ty:d.ty, donViHth:d.donViHth||'—',
       e0: (detailExtraFor('tap-hth', d)[0]) || '—',
       e1: (detailExtraFor('tap-hth', d)[1]) || ''
     }))) : [];
@@ -2898,11 +2915,7 @@ class Component extends DCLogic {
       rsPublishChecked: ()=>this.setState(st=>{ const np={ ...st.rsPublished }; mauBieuDefs.forEach(t=>{ if((st.rsChecked||{})[t[0]]) np[t[0]]=true; }); return { rsPublished:np, rsChecked:{} }; }),
       rsSubmit: ()=>this.setState(st=>{ const ns={ ...st.rsSent }; mauBieuDefs.forEach(t=>ns[t[0]]=true); return { rsSent:ns }; }),
       rsApproveChecked: ()=>this.setState(st=>{ const na={ ...st.rsApproved }; mauBieuDefs.forEach(t=>{ if((st.rsChecked||{})[t[0]]) na[t[0]]=true; }); return { rsApproved:na, rsChecked:{} }; }),
-      showRsPublishConfirm: !!s.showRsPublishConfirm,
-      openRsPublishConfirm: ()=>this.setState({ showRsPublishConfirm:true }),
-      cancelRsPublishConfirm: ()=>this.setState({ showRsPublishConfirm:false }),
-      confirmRsPublish: ()=>this.setState(st=>({ showRsPublishConfirm:false, rsPublished:{ ...st.rsPublished, [st.reviewType]:true } })),
-      publishCurType: ()=>this.setState({ showRsPublishConfirm:true }),
+      publishCurType: ()=>this.setState(st=>({ rsPublished:{ ...st.rsPublished, [st.reviewType]:true } })),
       rsTotal: mauBieuDefs.length,
       rsAggUnitCount: 4,
       openAgg: ()=>this.setState({ reviewAgg:true }),
@@ -3334,6 +3347,20 @@ class Component extends DCLogic {
       setMainTab: ()=>this.setState({ setTab:'main' }), setCorrTab: ()=>this.setState({ setTab:'dinhchinh' }),
       tabMainStyle: s.setTab!=='dinhchinh' ? 'color:#0e4c8f;border-bottom:2.5px solid #0e4c8f;' : 'color:#6b7a8d;border-bottom:2.5px solid transparent;',
       tabCorrStyle: s.setTab==='dinhchinh' ? 'color:#0e4c8f;border-bottom:2.5px solid #0e4c8f;' : 'color:#6b7a8d;border-bottom:2.5px solid transparent;',
+      setNgayBHSel: s.setNgayBHSel || 'cu-moi',
+      setLvSel: s.setLvSel || '',
+      setHlSel: s.setHlSel || '',
+      setLvOpts: lvOrder,
+      setHlOpts: this.defaultHlOrder(),
+      setSetNgayBH: (e)=>this.setState({ setNgayBHSel: e.target.value }),
+      setSetLv: (e)=>this.setState({ setLvSel: e.target.value }),
+      setSetHl: (e)=>this.setState({ setHlSel: e.target.value }),
+      applySetSearch: ()=>this.setState(st=>({
+        setNgayBH: st.setNgayBHSel || 'cu-moi',
+        setLv: st.setLvSel || '',
+        setHl: st.setHlSel || '',
+      })),
+      resetSetSearch: ()=>this.setState({ setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'' }),
       setSxDonViOpts: [...new Set((s.sxConfigs||[]).map(c=>c.donVi))],
       setSxDonViSel: s.setSxDonViSel || '',
       setSetSxDonVi: (e)=>this.setState({ setSxDonViSel: e.target.value }),
@@ -3425,7 +3452,7 @@ class Component extends DCLogic {
       // ── Cấu hình tiêu chí sắp xếp ──
       sxInList: s.screen==='catalog' && !s.sxForm,
       sxInForm: s.screen==='catalog' && !!s.sxForm,
-      sxDonViOpts: ['Bộ Ngoại giao','Bộ Tư pháp','UBND tỉnh Hưng Yên','Sở Tư pháp','UBND Phường Bạch Mai','Xã Cổ Loa'],
+      sxDonViOpts: ['Sở Tư pháp','UBND Phường Bạch Mai','Xã Cổ Loa','Xã Uy Nỗ','Phòng Xây dựng VBQPPL'],
       sxDonVi: s.sxDonVi || '',
       sxNgayBH: s.sxNgayBH || 'cu-moi',
       sxHasDonVi: !!s.sxDonVi,
@@ -3488,13 +3515,16 @@ class Component extends DCLogic {
       tcResultCount: tcTypeDocs.length,
       tcEmpty: !!s.tcType && tcTypeDocs.length===0,
       tcMauSel: s.tcMauSel || '',
+      tcDonViHthSel: s.tcDonViHthSel || '',
+      tcDonViHthOpts,
       tcDetailCols: s.tcType ? (({ 'het-toan-bo':[{h:'Loại (hết HL/tạm ngưng HL)'},{h:'Lý do'},{h:'Ngày tháng năm'}], 'het-mot-phan':[{h:'Loại (hết HL/tạm ngưng HL)'},{h:'Lý do'},{h:'Ngày tháng năm'}], 'con-hieu-luc':[{h:'Thời điểm có hiệu lực'},{h:'Ghi chú'}], 'tap-hth':[{h:'Thời điểm có hiệu lực'},{h:'Ghi chú'}], 'can-xu-ly':[{h:'Hình thức xử lý *'},{h:'Nội dung/ lý do kiến nghị'},{h:'Cơ quan chủ trì'},{h:'Thời hạn xử lý'}] })[s.tcType] || []) : [],
       tcLvOptions: lvOrder,
       tcDonViOptions: ['Sở Tư pháp','Phòng Xây dựng VBQPPL','Phòng Hành chính tư pháp','Phòng Bổ trợ tư pháp','Trung tâm Trợ giúp pháp lý'],
       tcLvSel: s.tcLvSel || '', tcFromSel: s.tcFromSel || '', tcToSel: s.tcToSel || '', tcDonViSel: s.tcDonViSel || '',
       setTcMau: (e)=>this.setState({ tcMauSel: e.target.value }),
-      applyTcMau: ()=>this.setState(st=>({ tcMau: st.tcMauSel || '' })),
-      resetTcMau: ()=>this.setState({ tcMauSel:'', tcMau:'' }),
+      setTcDonViHth: (e)=>this.setState({ tcDonViHthSel: e.target.value }),
+      applyTcMau: ()=>this.setState(st=>({ tcMau: st.tcMauSel || '', tcDonViHth: st.tcDonViHthSel || '' })),
+      resetTcMau: ()=>this.setState({ tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'' }),
       setTcDonVi: (e)=>this.setState({ tcDonViSel: e.target.value }),
       setTcLv: (e)=>this.setState({ tcLvSel: e.target.value }),
       setTcFrom: (e)=>this.setState({ tcFromSel: e.target.value }),
