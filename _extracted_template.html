@@ -1118,11 +1118,13 @@
               <sc-raw-thead><sc-raw-tr style="background:#0e4c8f;text-align:left;color:#fff;">
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:44px;text-align:center;">TT</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:120px;">Tên loại văn bản</sc-raw-th>
+                <sc-raw-th style="padding:12px 12px;font-weight:600;width:150px;">Loại VB</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:150px;">Số, ký hiệu</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:130px;">Ngày, tháng, năm ban hành</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;">Tên gọi của văn bản</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:120px;">Thời điểm có hiệu lực</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:140px;">Trạng thái</sc-raw-th>
+                <sc-raw-th style="padding:12px 12px;font-weight:600;width:160px;">Tình trạng hiệu lực hiện tại</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:92px;text-align:center;">Thao tác</sc-raw-th>
               </sc-raw-tr></sc-raw-thead>
               <sc-raw-tbody>
@@ -1130,6 +1132,7 @@
                     <sc-raw-tr style="border-top:1px solid #eef1f6;vertical-align:top;" style-hover="background:#f8fbff;">
                       <sc-raw-td style="padding:11px 12px;color:#94a3b8;text-align:center;">{{ doc.stt }}</sc-raw-td>
                       <sc-raw-td style="padding:11px 12px;color:#42566c;">{{ doc.loai }}</sc-raw-td>
+                      <sc-raw-td style="padding:11px 12px;"><span style="display:inline-flex;font-size:11.5px;font-weight:600;color:{{ doc.loaiVbFg }};background:{{ doc.loaiVbBg }};padding:3px 10px;border-radius:20px;white-space:nowrap;">{{ doc.loaiVb }}</span></sc-raw-td>
                       <sc-raw-td style="padding:11px 12px;">
                         <div style="font-family:ui-monospace,monospace;font-size:12px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</div>
                         <sc-if value="{{ doc.srcManual }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:4px;margin-top:5px;font-size:10.5px;font-weight:600;color:#9a5b08;background:#fbf2dc;padding:1px 7px;border-radius:20px;"><span class="ic" style="font-size:13px;">edit</span>Nhập thủ công</span></sc-if>
@@ -1139,6 +1142,7 @@
                       <sc-raw-td style="padding:11px 12px;color:#16314c;line-height:1.45;">{{ doc.ty }}</sc-raw-td>
                       <sc-raw-td style="padding:11px 12px;color:#42566c;">{{ doc.hieuLucNgay }}</sc-raw-td>
                       <sc-raw-td style="padding:11px 12px;"><span style="display:inline-flex;font-size:11.5px;font-weight:600;color:{{ doc.hlC }};background:{{ doc.hlB }};padding:3px 10px;border-radius:20px;white-space:nowrap;">{{ doc.hl }}</span></sc-raw-td>
+                      <sc-raw-td style="padding:11px 12px;"><span style="display:inline-flex;font-size:11.5px;font-weight:600;color:{{ doc.hlHienTaiC }};background:{{ doc.hlHienTaiB }};padding:3px 10px;border-radius:20px;white-space:nowrap;">{{ doc.hlHienTai }}</span></sc-raw-td>
                       <sc-raw-td style="padding:11px 12px;">
                         <div style="display:flex;align-items:center;justify-content:center;gap:3px;">
                           <span onclick="{{ doc.view }}" title="Xem chi tiết" class="ic" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">visibility</span>
@@ -1222,6 +1226,21 @@
               <div style="padding:22px 24px;">
                 <div style="font-size:11.5px;font-weight:700;letter-spacing:.05em;color:#8094a8;margin-bottom:14px;">BẢNG NHẬP THÔNG TIN VĂN BẢN QUY PHẠM PHÁP LUẬT</div>
                 
+                <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+                  <div style="display:flex;flex-direction:column;gap:6px;min-width:280px;flex:0 1 320px;">
+                    <label style="font-size:12.5px;font-weight:600;color:#42566c;">Loại VB <span style="color:#c0392b;">*</span></label>
+                    <div style="position:relative;">
+                      <select data-nf="loaiVb" defaultvalue="{{ ef.loaiVb }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                        <option value="">— Chọn loại VB —</option>
+                        <option value="VB HTH kỳ trước">VB HTH kỳ trước</option>
+                        <option value="VB HTH kỳ hiện tại">VB HTH kỳ hiện tại</option>
+                      </select>
+                      <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                    </div>
+                  </div>
+                  <div style="font-size:12.5px;color:#6b7a8d;padding-bottom:10px;">Chọn loại để phân loại văn bản theo kỳ hệ thống hóa.</div>
+                </div>
+
                 <div style="overflow-x:auto;margin-bottom:20px;border:1px solid #eef1f6;border-radius:11px;">
                   <sc-raw-table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:1600px;">
                     <sc-raw-thead>
@@ -2087,48 +2106,12 @@
                   <input value="{{ planDraftTen }}" oninput="{{ setPlanDraftTen }}" placeholder="VD: Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2024" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;">
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Kỳ hệ thống hóa <span style="color:#c0392b;">*</span> — Từ năm</label>
-                  <div style="position:relative;">
-                    <select value="{{ planDraftTuNam }}" onchange="{{ setPlanDraftTuNam }}" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 34px 10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                      <option value="">-- Chọn năm bắt đầu --</option>
-                      <option value="2014">2014</option>
-                      <option value="2015">2015</option>
-                      <option value="2016">2016</option>
-                      <option value="2017">2017</option>
-                      <option value="2018">2018</option>
-                      <option value="2019">2019</option>
-                      <option value="2020">2020</option>
-                      <option value="2021">2021</option>
-                      <option value="2022">2022</option>
-                      <option value="2023">2023</option>
-                      <option value="2024">2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                    </select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Từ thời gian <span style="color:#c0392b;">*</span></label>
+                  <input type="date" value="{{ planDraftTuNam }}" onchange="{{ setPlanDraftTuNam }}" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;">
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đến năm <span style="color:#c0392b;">*</span></label>
-                  <div style="position:relative;">
-                    <select value="{{ planDraftDenNam }}" onchange="{{ setPlanDraftDenNam }}" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 34px 10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                      <option value="">-- Chọn năm kết thúc --</option>
-                      <option value="2018">2018</option>
-                      <option value="2019">2019</option>
-                      <option value="2020">2020</option>
-                      <option value="2021">2021</option>
-                      <option value="2022">2022</option>
-                      <option value="2023">2023</option>
-                      <option value="2024">2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                      <option value="2027">2027</option>
-                      <option value="2028">2028</option>
-                      <option value="2029">2029</option>
-                      <option value="2030">2030</option>
-                    </select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đến thời gian <span style="color:#c0392b;">*</span></label>
+                  <input type="date" value="{{ planDraftDenNam }}" onchange="{{ setPlanDraftDenNam }}" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;">
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đơn vị chủ trì <span style="color:#c0392b;">*</span></label>
@@ -2749,9 +2732,24 @@ class Component extends DCLogic {
     const syncedForKy = (syncMap[docKyApplied] || []).map(d=>({ ...d, srcCsdl: d.nguon==='csdl', srcManual: d.nguon==='manual' }));
     let _docSeq = 0;
     const docBase = docGroups.flatMap(g=>g.items).filter(d=>d.ky===docKyApplied);
-    const docList = [ ...syncedForKy, ...docBase ].map(d=>({ ...d, stt: ++_docSeq,
-      view: ()=>this.setState({ docPanel:'view', editDoc:d }),
-      edit: ()=>this.setState({ docPanel:'form', formMode:'edit', editDoc:d }) }));
+    const docList = [ ...syncedForKy, ...docBase ].map((d,i)=>{
+      const loaiVb = d.loaiVb || ((d.ky === 'Kỳ hệ thống hóa 2019–2024' || i % 3 === 0) ? 'VB HTH kỳ trước' : 'VB HTH kỳ hiện tại');
+      const isKyTruoc = loaiVb === 'VB HTH kỳ trước';
+      const isKyHienTai = loaiVb === 'VB HTH kỳ hiện tại';
+      const hlHienTai = isKyHienTai ? '—' : (d.hl || 'Còn hiệu lực');
+      const hlStl = isKyHienTai ? { c:'#94a3b8', b:'#f2f4f7' } : hlStyleOf(hlHienTai);
+      return {
+        ...d, stt: ++_docSeq,
+        loaiVb,
+        loaiVbFg: isKyTruoc ? '#9a5b08' : '#0e4c8f',
+        loaiVbBg: isKyTruoc ? '#fbf2dc' : '#e8f0fb',
+        hlHienTai,
+        hlHienTaiC: hlStl.c,
+        hlHienTaiB: hlStl.b,
+        view: ()=>this.setState({ docPanel:'view', editDoc:d }),
+        edit: ()=>this.setState({ docPanel:'form', formMode:'edit', editDoc:d })
+      };
+    });
     const tlRaw = [
       { t:'Lập tập hệ thống hóa', d:'15/03/2025', icon:'edit_document', done:true },
       { t:'Xem xét, cập nhật', d:'02/04/2025', icon:'rule', done:true },
@@ -3384,17 +3382,19 @@ class Component extends DCLogic {
       closePlanForm: () => this.setState({ showPlanForm:false }),
       savePlan: () => this.setState(st=>{
         const d = st.planDraft || {};
-        if(!d.ten || !d.tuNam || !d.denNam || !d.donVi){ alert('Vui lòng nhập đủ Tên kế hoạch, Từ năm, Đến năm và Đơn vị chủ trì.'); return st; }
+        if(!d.ten || !d.tuNam || !d.denNam || !d.donVi){ alert('Vui lòng nhập đủ Tên kế hoạch, Từ thời gian, Đến thời gian và Đơn vị chủ trì.'); return st; }
+        const fmt = (iso)=>{ const p=(iso||'').split('-'); return p.length===3 ? (p[2]+'/'+p[1]+'/'+p[0]) : iso; };
+        const tu = fmt(d.tuNam), den = fmt(d.denNam);
         const list = (st.plans||[]).slice();
         const n = list.length + 1;
-        const ky = d.tuNam + ' – ' + d.denNam;
+        const ky = tu + ' – ' + den;
         list.push({
-          ma: 'KH-HTH/' + d.tuNam + '-' + d.denNam + '-' + String(n).padStart(2,'0'),
+          ma: 'KH-HTH/' + (d.tuNam||'').replace(/-/g,'') + '-' + (d.denNam||'').replace(/-/g,'') + '-' + String(n).padStart(2,'0'),
           ten: d.ten,
           ky,
           donVi: d.donVi,
-          tg: '01/01/' + d.tuNam + ' – 31/12/' + d.denNam,
-          file: 'KeHoach_' + d.tuNam + '_' + d.denNam + '.pdf',
+          tg: ky,
+          file: 'KeHoach_' + (d.tuNam||'tu') + '_' + (d.denNam||'den') + '.pdf',
           tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb',
           chiTiet: d.chiTiet || ''
         });
@@ -3423,12 +3423,14 @@ class Component extends DCLogic {
       submitDocForm: ()=>{
         if(this.state.formMode!=='add'){ this.setState({ docPanel:'', editDoc:null }); return; }
         const g=(k)=>{ const el=document.querySelector('[data-nf="'+k+'"]'); return el ? (el.value||'').trim() : ''; };
+        const loaiVb = g('loaiVb');
+        if(!loaiVb){ alert('Vui lòng chọn Loại VB.'); return; }
         const ky = this.state.docKySel || this.state.docKyApplied || 'Kỳ HTH 2024-2028';
         const hlV = g('hl') || 'Còn hiệu lực';
         const hlMap = { 'Còn hiệu lực':['#1f8a5b','#e3f4ec'], 'Hết hiệu lực':['#c0392b','#fbe6e3'], 'Hết HL một phần':['#c77d11','#fbf2dc'], 'Tạm ngưng HL':['#8a4bd8','#f0e8fb'] };
         const c = hlMap[hlV] || hlMap['Còn hiệu lực'];
         const rec = { so:g('so')||'(Chưa có số)', loai:g('loai')||'Văn bản', ty:g('ty')||'(Chưa nhập tên gọi)', cq:g('cq'), lv:g('lv')||'Tư pháp',
-          ngay:g('ngay'), hieuLucNgay:g('hieuLucNgay')||g('ngay'), hl:hlV, hlC:c[0], hlB:c[1], nhom:'con-hieu-luc', ghiChu:g('ghiChu'), ky, nguon:'manual' };
+          ngay:g('ngay'), hieuLucNgay:g('hieuLucNgay')||g('ngay'), hl:hlV, hlC:c[0], hlB:c[1], nhom:'con-hieu-luc', ghiChu:g('ghiChu'), ky, nguon:'manual', loaiVb };
         this.setState(st=>{ const map={ ...(st.syncedDocs||{}) }; map[ky]=[ rec, ...(map[ky]||[]) ]; return { syncedDocs:map, docKyApplied:ky, docPanel:'', editDoc:null }; });
       },
       docPanel: s.docPanel || '',
