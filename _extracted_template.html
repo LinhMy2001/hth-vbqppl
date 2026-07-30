@@ -789,7 +789,7 @@
                               <sc-raw-td style="padding:6px;border:1px solid #d8e0ea;"><input value="{{ rec.coHieuLuc }}" oninput="{{ rec.onCoHieuLuc }}" style="width:100%;height:32px;font-family:inherit;font-size:12px;padding:0 6px;border:1px solid #d0d5dd;border-radius:5px;outline:none;box-sizing:border-box;"></sc-raw-td>
                               <sc-raw-td style="padding:6px;border:1px solid #d8e0ea;">
                                 <div style="position:relative;">
-                                  <select value="{{ rec.hl }}" onchange="{{ rec.onHl }}" style="width:100%;height:32px;font-family:inherit;font-size:12px;padding:0 20px 0 6px;border:1px solid #d0d5dd;border-radius:5px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="Còn hiệu lực">Còn hiệu lực</option><option value="Hết hiệu lực">Hết hiệu lực</option><option value="Hết hiệu lực một phần">Hết hiệu lực một phần</option><option value="Cần xử lý">Cần xử lý</option></select>
+                                  <select value="{{ rec.hl }}" onchange="{{ rec.onHl }}" style="width:100%;height:32px;font-family:inherit;font-size:12px;padding:0 20px 0 6px;border:1px solid #d0d5dd;border-radius:5px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="Hết hiệu lực">Hết hiệu lực</option><option value="Hết hiệu lực một phần">Hết hiệu lực một phần</option></select>
                                   <span class="ic" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:16px;color:#667085;pointer-events:none;">expand_more</span>
                                 </div>
                               </sc-raw-td>
@@ -1248,8 +1248,8 @@
                         <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:150px;">LĨNH VỰC<br><span style="font-weight:400;opacity:.8;">(2)</span></sc-raw-th>
                         <sc-raw-th colspan="5" style="padding:10px 12px;font-weight:600;text-align:center;border-right:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.25);"></sc-raw-th>
                         <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:140px;">THỜI ĐIỂM CÓ HIỆU LỰC<br><span style="font-weight:400;opacity:.8;">(8)</span></sc-raw-th>
-                        <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:150px;">TÌNH TRẠNG HIỆU LỰC<br><span style="font-weight:400;opacity:.8;">(9)</span></sc-raw-th>
-                        <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:180px;">NHÓM DANH MỤC HTH<br><span style="font-weight:400;opacity:.8;">(10)</span></sc-raw-th>
+                        <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:150px;">TRẠNG THÁI<br><span style="font-weight:400;opacity:.8;">(9)</span></sc-raw-th>
+                        <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:180px;">TÌNH TRẠNG HIỆU LỰC HIỆN TẠI<br><span style="font-weight:400;opacity:.8;">(10)</span></sc-raw-th>
                         <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;vertical-align:middle;text-align:center;width:200px;">GHI CHÚ<br><span style="font-weight:400;opacity:.8;">(11)</span></sc-raw-th>
                       </sc-raw-tr>
                       <sc-raw-tr style="background:#0c4280;color:#fff;text-align:left;">
@@ -1307,7 +1307,7 @@
                         <sc-raw-td style="padding:10px 8px;border-right:1px solid #eef1f6;border-bottom:1px solid #eef1f6;">
                           <input data-nf="hieuLucNgay" defaultvalue="{{ ef.hieuLucNgay }}" placeholder="dd/mm/yyyy" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #cfd9e6;border-radius:6px;outline:none;box-sizing:border-box;">
                         </sc-raw-td>
-                        <!-- Tình trạng hiệu lực -->
+                        <!-- Trạng thái -->
                         <sc-raw-td style="padding:10px 8px;border-right:1px solid #eef1f6;border-bottom:1px solid #eef1f6;">
                           <select data-nf="hl" defaultvalue="{{ ef.hl }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #cfd9e6;border-radius:6px;outline:none;background:#fff;">
                             <option>Còn hiệu lực</option>
@@ -1316,7 +1316,7 @@
                             <option>Tạm ngưng HL</option>
                           </select>
                         </sc-raw-td>
-                        <!-- Nhóm danh mục -->
+                        <!-- Tình trạng hiệu lực hiện tại -->
                         <sc-raw-td style="padding:10px 8px;border-right:1px solid #eef1f6;border-bottom:1px solid #eef1f6;">
                           <select style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #cfd9e6;border-radius:6px;outline:none;background:#fff;">
                             <option>Còn hiệu lực</option>
