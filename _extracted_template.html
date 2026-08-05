@@ -1772,8 +1772,10 @@
                     <div style="position:relative;">
                       <select value="{{ rsPlanTtSel }}" onchange="{{ setRsPlanTtSel }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
                         <option value="">Tất cả trạng thái</option>
-                        <option value="Chưa tạo">Chưa tạo</option>
-                        <option value="Đã tạo">Đã tạo</option>
+                        <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
+                          <option value="Chưa tạo">Chưa tạo</option>
+                          <option value="Đã tạo">Đã tạo</option>
+                        </sc-if>
                         <option value="Chờ duyệt">Chờ duyệt</option>
                         <option value="Đã duyệt">Đã duyệt</option>
                         <option value="Đã công bố">Đã công bố</option>
@@ -1857,7 +1859,12 @@
                         <sc-raw-td style="padding:13px 16px;color:#42566c;">{{ p.donVi }}</sc-raw-td>
                         <sc-raw-td style="padding:13px 16px;text-align:center;"><span style="display:inline-flex;font-size:12px;font-weight:600;color:{{ p.ttColor }};background:{{ p.ttBg }};padding:3px 12px;border-radius:20px;white-space:nowrap;">{{ p.ttLabel }}</span></sc-raw-td>
                         <sc-raw-td style="padding:13px 16px;text-align:center;">
-                          <span onclick="{{ p.open }}" title="Xem / tạo kết quả" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
+                          <div style="display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+                            <span onclick="{{ p.open }}" title="Xem / tạo kết quả" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
+                            <sc-if value="{{ p.canLdEdit }}" hint-placeholder-val="{{ false }}">
+                              <span onclick="{{ p.edit }}" title="Chỉnh sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span>
+                            </sc-if>
+                          </div>
                         </sc-raw-td>
                       </sc-raw-tr>
                     </sc-for>
@@ -1973,6 +1980,9 @@
                             <span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span>
                             <span title="Xoá" class="ic" style="font-size:19px;color:#e5484d;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f3c1c3;background:#fdf0f0;" style-hover="background:#fbe0e1;">delete</span>
                           </sc-if>
+                          <sc-if value="{{ rsLdCanEditRows }}" hint-placeholder-val="{{ false }}">
+                            <span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span>
+                          </sc-if>
                         </div></sc-raw-td>
                       </sc-raw-tr>
                     </sc-for>
@@ -1996,6 +2006,9 @@
               </sc-if>
               <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:16px;">
+                  <sc-if value="{{ rsLdEditMode }}" hint-placeholder-val="{{ false }}">
+                    <button onclick="{{ rsSaveLd }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+                  </sc-if>
                   <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
                     <button disabled="disabled" style="height:40px;border:0;background:#fbf2dc;cursor:default;font-family:inherit;font-size:13.5px;font-weight:600;color:#b8860b;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;"><span class="ic" style="font-size:20px;">campaign</span>Đã công bố</button>
                   </sc-if>
@@ -2723,7 +2736,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Sở Tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Sở Tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Sở Tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Sở Tư pháp', file:'KeHoach_2024_2028.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' }], planDraft:{ ten:'', kyId:'', chiTiet:'' }, currentDonVi:'Sở Tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Sở Tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Sở Tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Sở Tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Sở Tư pháp', file:'KeHoach_2024_2028.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' }], planDraft:{ ten:'', kyId:'', chiTiet:'' }, currentDonVi:'Sở Tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -2878,7 +2891,7 @@ class Component extends DCLogic {
   }
 
 
-  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, showKyHthForm:false, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false }); }
+  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, showKyHthForm:false, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false }); }
 
   moveOrderItem(list, index, dir){
     const a = (list||[]).slice();
@@ -3577,11 +3590,18 @@ class Component extends DCLogic {
         return list.map((p)=>{
           const ttLabel = statusOf(p);
           const st = styleOf(ttLabel);
+          const published = !!(s.rsPlanPublished||{})[p.ma];
+          const ldVisible = ttLabel==='Chờ duyệt' || ttLabel==='Đã duyệt' || ttLabel==='Đã công bố';
           return {
-            ...p, ttLabel, ttColor:st[0], ttBg:st[1],
-            open: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null })
+            ...p, ttLabel, ttColor:st[0], ttBg:st[1], ldVisible,
+            canLdEdit: role==='ld' && ldVisible && !published,
+            open: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:false }),
+            edit: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:true })
           };
-        }).filter(p=> !ttF || p.ttLabel===ttF).map((p,i)=>({ ...p, idx:i+1 }));
+        }).filter(p=>{
+          if(role==='ld' && !p.ldVisible) return false;
+          return !ttF || p.ttLabel===ttF;
+        }).map((p,i)=>({ ...p, idx:i+1 }));
       })(),
       rsPlanCount: (()=>{
         let list = (s.plans||[]).slice();
@@ -3596,6 +3616,7 @@ class Component extends DCLogic {
             : (s.rsPlanApproved||{})[ma] ? 'Đã duyệt'
             : (s.rsPlanSent||{})[ma] ? 'Chờ duyệt'
             : (s.rsHthCreated||{})[ma] ? 'Đã tạo' : 'Chưa tạo';
+          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
           return !ttF || ttLabel===ttF;
         });
         return list.length;
@@ -3613,17 +3634,26 @@ class Component extends DCLogic {
             : (s.rsPlanApproved||{})[ma] ? 'Đã duyệt'
             : (s.rsPlanSent||{})[ma] ? 'Chờ duyệt'
             : (s.rsHthCreated||{})[ma] ? 'Đã tạo' : 'Chưa tạo';
+          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
           return !ttF || ttLabel===ttF;
         });
         return list.length===0;
       })(),
       rsPlanEmptyMsg: (()=>{
         const hasFilter = !!(s.rsPlanKy || s.rsPlanTen || s.rsPlanTt);
-        if(!(s.plans||[]).length) return 'Chưa có kế hoạch. Vui lòng thêm tại menu Kế hoạch hệ thống hóa.';
         if(hasFilter) return 'Không tìm thấy kế hoạch phù hợp với điều kiện tìm kiếm.';
+        if(role==='ld') return 'Chưa có kết quả hệ thống hóa chờ duyệt / công bố.';
+        if(!(s.plans||[]).length) return 'Chưa có kế hoạch. Vui lòng thêm tại menu Kế hoạch hệ thống hóa.';
         return 'Chưa có kế hoạch. Vui lòng thêm tại menu Kế hoạch hệ thống hóa.';
       })(),
-      backToRsPlans: ()=>this.setState({ reviewPlanMa:null, reviewType:null, reviewAdd:false, showRsCreateForm:false, rsCreatePlanMa:'' }),
+      backToRsPlans: ()=>this.setState({ reviewPlanMa:null, reviewType:null, reviewAdd:false, showRsCreateForm:false, rsCreatePlanMa:'', rsLdEditMode:false }),
+      rsLdEditMode: !!s.rsLdEditMode && role==='ld',
+      rsLdCanEditRows: !!s.rsLdEditMode && role==='ld',
+      rsSaveLd: ()=>this.setState(st=>{
+        const ns={ ...(st.rsSaved||{}) };
+        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>ns[t[0]]=true);
+        return { rsSaved:ns, rsLdEditMode:false };
+      }),
       showRsCreateForm: !!s.showRsCreateForm,
       rsCreatePlanOpts: (s.plans||[]).filter(p=>!(s.rsHthCreated||{})[p.ma]).map(p=>({ ma:p.ma, ky:p.ky||'—', ten:p.ten||'', donVi:p.donVi||(s.currentDonVi||'Sở Tư pháp') })),
       rsCreateNoOpts: !(s.plans||[]).some(p=>!(s.rsHthCreated||{})[p.ma]),
