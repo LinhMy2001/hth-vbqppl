@@ -688,13 +688,13 @@
                     <div style="position:relative;">
                       <select value="{{ dinhLoaiThaoTacSel }}" onchange="{{ setDinhLoaiThaoTac }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                         <option value="dinh-chinh">Đính chính văn bản</option>
-                        <option value="bo-sung">Đính chính bổ sung</option>
+                        <option value="bo-sung">Bổ sung văn bản</option>
                       </select>
                       <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                     </div>
                   </div>
                   <sc-if value="{{ showBoSungPicker }}" hint-placeholder-val="{{ false }}">
-                    <div style="grid-column:1 / -1;font-size:12.5px;color:#5a6b7e;">Chọn phụ lục bên dưới rồi nhấn <b style="color:#2f54eb;">Thêm mới</b> để đính chính bổ sung văn bản. Sau khi lưu, gửi lên lãnh đạo duyệt.</div>
+                    <div style="grid-column:1 / -1;font-size:12.5px;color:#5a6b7e;">Chọn phụ lục bên dưới rồi nhấn <b style="color:#2f54eb;">Thêm mới</b> để bổ sung văn bản. Sau khi lưu, gửi lên lãnh đạo duyệt.</div>
                   </sc-if>
                 </div>
               </div>
@@ -704,7 +704,7 @@
               <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);margin-bottom:16px;">
                 <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:8px;">
                   <span class="ic" style="font-size:20px;color:#0e4c8f;">menu_book</span>
-                  <span style="font-size:14px;font-weight:700;color:#1e2939;">Danh sách phụ lục đính chính bổ sung</span>
+                  <span style="font-size:14px;font-weight:700;color:#1e2939;">Danh sách phụ lục bổ sung văn bản</span>
                   <span style="font-size:12px;font-weight:600;color:#5a6b7e;background:#eef3f9;border-radius:20px;padding:2px 10px;">{{ boSungTotalCount }} văn bản</span>
                   <div style="flex:1;"></div>
                   <sc-if value="{{ boSungHasDraft }}" hint-placeholder-val="{{ false }}">
@@ -743,7 +743,7 @@
               <div style="display:flex;align-items:center;gap:13px;background:#eef3f9;border:1px solid #e4e9f0;border-radius:13px;padding:14px 18px;margin-bottom:16px;">
                 <button onclick="{{ closeBoSungAdd }}" style="border:0;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:8px 13px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">arrow_back</span>Quay lại</button>
                 <div style="flex:1;min-width:0;">
-                  <div style="font-size:14.5px;font-weight:700;color:#10243a;">Đính chính bổ sung · {{ boSungPlLabel }}</div>
+                  <div style="font-size:14.5px;font-weight:700;color:#10243a;">Bổ sung văn bản · {{ boSungPlLabel }}</div>
                   <div style="font-size:12.5px;color:#5a6b7e;margin-top:1px;">Nhập thông tin theo mẫu PL{{ addMau }}</div>
                 </div>
               </div>
@@ -1245,7 +1245,7 @@
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:130px;">Ngày, tháng, năm ban hành</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;">Tên gọi của văn bản</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:120px;">Thời điểm có hiệu lực</sc-raw-th>
-                <sc-raw-th style="padding:12px 12px;font-weight:600;width:140px;">Trạng thái</sc-raw-th>
+                <sc-raw-th style="padding:12px 12px;font-weight:600;width:140px;">Tình trạng hiệu lực</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:160px;">Tình trạng hiệu lực hiện tại</sc-raw-th>
                 <sc-raw-th style="padding:12px 12px;font-weight:600;width:92px;text-align:center;">Thao tác</sc-raw-th>
               </sc-raw-tr></sc-raw-thead>
@@ -1384,7 +1384,7 @@
                         <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:150px;">LĨNH VỰC<br><span style="font-weight:400;opacity:.8;">(2)</span></sc-raw-th>
                         <sc-raw-th colspan="5" style="padding:10px 12px;font-weight:600;text-align:center;border-right:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.25);"></sc-raw-th>
                         <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:140px;">THỜI ĐIỂM CÓ HIỆU LỰC<br><span style="font-weight:400;opacity:.8;">(8)</span></sc-raw-th>
-                        <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:150px;">TRẠNG THÁI<br><span style="font-weight:400;opacity:.8;">(9)</span></sc-raw-th>
+                        <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:150px;">TÌNH TRẠNG HIỆU LỰC<br><span style="font-weight:400;opacity:.8;">(9)</span></sc-raw-th>
                         <sc-if value="{{ showFormCol10 }}" hint-placeholder-val="{{ true }}">
                         <sc-raw-th rowspan="2" style="padding:10px 12px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);vertical-align:middle;text-align:center;width:180px;">TÌNH TRẠNG HIỆU LỰC HIỆN TẠI<br><span style="font-weight:400;opacity:.8;">(10)</span></sc-raw-th>
                         </sc-if>
@@ -1445,7 +1445,7 @@
                         <sc-raw-td style="padding:10px 8px;border-right:1px solid #eef1f6;border-bottom:1px solid #eef1f6;">
                           <input data-nf="hieuLucNgay" defaultvalue="{{ ef.hieuLucNgay }}" placeholder="dd/mm/yyyy" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #cfd9e6;border-radius:6px;outline:none;box-sizing:border-box;">
                         </sc-raw-td>
-                        <!-- Trạng thái -->
+                        <!-- Tình trạng hiệu lực -->
                         <sc-raw-td style="padding:10px 8px;border-right:1px solid #eef1f6;border-bottom:1px solid #eef1f6;">
                           <select data-nf="hl" defaultvalue="{{ ef.hl }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #cfd9e6;border-radius:6px;outline:none;background:#fff;">
                             <option>Còn hiệu lực</option>
@@ -1784,9 +1784,51 @@
                 </div>
                 <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px;">
                   <button onclick="{{ applyRsPlanFilter }}" style="height:40px;min-width:120px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
-                  <button onclick="{{ resetRsPlanFilter }}" style="height:40px;min-width:110px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+                  <button onclick="{{ openRsCreateForm }}" style="height:40px;min-width:150px;border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">auto_awesome</span>Tạo kết quả HTH</button>
                 </div>
               </div>
+
+              <sc-if value="{{ showRsCreateForm }}" hint-placeholder-val="{{ false }}">
+                <div onclick="{{ closeRsCreateForm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
+                  <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:560px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+                    <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;">
+                      <span class="ic" style="font-size:21px;color:#0e4c8f;">auto_awesome</span>
+                      <h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Tạo kết quả hệ thống hóa</h3>
+                    </div>
+                    <div style="padding:18px 20px;">
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;">
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                          <label style="font-size:12.5px;font-weight:600;color:#42566c;">Kỳ hệ thống hóa <span style="color:#c0392b;">*</span></label>
+                          <div style="position:relative;">
+                            <select value="{{ rsCreatePlanMa }}" onchange="{{ setRsCreatePlanMa }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                              <option value="">-- Chọn kỳ chưa tạo HTH --</option>
+                              <sc-for list="{{ rsCreatePlanOpts }}" as="op" hint-placeholder-count="2">
+                                <option value="{{ op.ma }}">{{ op.ky }}</option>
+                              </sc-for>
+                            </select>
+                            <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                          </div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                          <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tên đơn vị</label>
+                          <input value="{{ rsCreateDonVi }}" readonly="readonly" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #e4e7ec;border-radius:8px;outline:none;background:#f9fafb;color:#475467;box-sizing:border-box;">
+                        </div>
+                        <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
+                          <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tên kế hoạch</label>
+                          <input value="{{ rsCreateTenKH }}" readonly="readonly" placeholder="Chọn kỳ để hiển thị tên kế hoạch" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #e4e7ec;border-radius:8px;outline:none;background:#f9fafb;color:#1e2939;box-sizing:border-box;">
+                        </div>
+                      </div>
+                      <sc-if value="{{ rsCreateNoOpts }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top:14px;padding:10px 12px;background:#fbf2dc;border:1px solid #f0dca6;border-radius:8px;font-size:12.5px;color:#7a6a3a;">Không còn kế hoạch nào chưa tạo kết quả HTH.</div>
+                      </sc-if>
+                    </div>
+                    <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
+                      <button onclick="{{ closeRsCreateForm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
+                      <button onclick="{{ confirmRsCreate }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">auto_awesome</span>Tạo</button>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
 
               <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);margin-bottom:16px;">
                 <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:8px;">
@@ -2098,6 +2140,22 @@
             </div>
           </sc-if>
 
+          <sc-if value="{{ showAggConfirm }}" hint-placeholder-val="{{ false }}">
+            <div onclick="{{ cancelAggConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
+              <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#2f54eb;">summarize</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận tổng hợp dữ liệu</h3></div>
+                <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
+                  Bạn có chắc chắn muốn <b style="color:#1e2939;">tổng hợp dữ liệu</b> kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> không?
+                  <div style="margin-top:10px;padding:10px 12px;background:#eef3f9;border:1px solid #d8e0ea;border-radius:8px;font-size:12.5px;color:#42566c;line-height:1.5;">Hệ thống sẽ tổng hợp dữ liệu từ các đơn vị / phụ lục liên quan để hiển thị kết quả tổng hợp.</div>
+                </div>
+                <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
+                  <button onclick="{{ cancelAggConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
+                  <button onclick="{{ confirmAgg }}" style="height:38px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">summarize</span>Xác nhận tổng hợp</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
           <sc-if value="{{ showAggPublishConfirm }}" hint-placeholder-val="{{ false }}">
             <div onclick="{{ cancelAggPublishConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
               <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
@@ -2389,45 +2447,38 @@
           <sc-if value="{{ showKyHthForm }}" hint-placeholder-val="{{ false }}">
             <div style="background:#fff;border:1px solid #d6e2f0;border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:0 6px 24px rgba(14,76,143,.1);">
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;">
-                <span class="ic" style="font-size:22px;color:#0e4c8f;">{{ kyHthFormIcon }}</span>
-                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">{{ kyHthFormTitle }}</h3>
+                <span class="ic" style="font-size:22px;color:#0e4c8f;">post_add</span>
+                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">Thêm mới kỳ hệ thống hóa</h3>
               </div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;">
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Từ năm <span style="color:#c0392b;">*</span></label>
-                  <input type="number" min="1990" max="2100" value="{{ kyHthDraftTuNam }}" oninput="{{ setKyHthDraftTuNam }}" readonly="{{ kyHthViewOnly }}" placeholder="VD: 2019" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:{{ kyHthFieldBg }};box-sizing:border-box;color:#1e2939;">
+                  <input type="number" min="1990" max="2100" value="{{ kyHthDraftTuNam }}" oninput="{{ setKyHthDraftTuNam }}" placeholder="VD: 2019" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;">
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đến năm <span style="color:#c0392b;">*</span></label>
-                  <input type="number" min="1990" max="2100" value="{{ kyHthDraftDenNam }}" oninput="{{ setKyHthDraftDenNam }}" readonly="{{ kyHthViewOnly }}" placeholder="VD: 2023" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:{{ kyHthFieldBg }};box-sizing:border-box;color:#1e2939;">
+                  <input type="number" min="1990" max="2100" value="{{ kyHthDraftDenNam }}" oninput="{{ setKyHthDraftDenNam }}" placeholder="VD: 2023" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;">
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mô tả</label>
-                  <textarea value="{{ kyHthDraftMoTa }}" oninput="{{ setKyHthDraftMoTa }}" rows="3" readonly="{{ kyHthViewOnly }}" placeholder="Nhập mô tả kỳ hệ thống hóa..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;background:{{ kyHthFieldBg }};color:#1e2939;"></textarea>
+                  <textarea value="{{ kyHthDraftMoTa }}" oninput="{{ setKyHthDraftMoTa }}" rows="3" placeholder="Nhập mô tả kỳ hệ thống hóa..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;"></textarea>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đính kèm</label>
                   <div style="display:flex;align-items:center;gap:12px;border:1.5px dashed #c3d2e4;border-radius:10px;padding:14px 16px;background:#f7faff;">
-                    <span class="ic" style="font-size:26px;color:#0e4c8f;">attach_file</span>
+                    <span class="ic" style="font-size:26px;color:#0e4c8f;">upload_file</span>
                     <div style="flex:1;min-width:0;">
-                      <sc-if value="{{ !kyHthViewOnly }}" hint-placeholder-val="{{ true }}">
-                        <div style="font-size:13px;color:#5a6b7e;">Kéo thả hoặc <span onclick="{{ pickKyHthFile }}" style="color:#0e4c8f;font-weight:600;cursor:pointer;">chọn tệp</span> — PDF, DOCX, XLSX (tối đa 25MB)</div>
-                      </sc-if>
+                      <div style="font-size:13px;color:#5a6b7e;">Kéo thả hoặc <span onclick="{{ pickKyHthFile }}" style="color:#0e4c8f;font-weight:600;cursor:pointer;">chọn tệp</span> — PDF, DOCX, XLSX (tối đa 25MB)</div>
                       <sc-if value="{{ kyHthDraftHasFile }}" hint-placeholder-val="{{ false }}">
-                        <div style="font-size:12.5px;font-weight:600;color:#0e4c8f;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">attach_file</span>{{ kyHthDraftFile }}</div>
-                      </sc-if>
-                      <sc-if value="{{ kyHthViewOnlyNoFile }}" hint-placeholder-val="{{ false }}">
-                        <div style="font-size:13px;color:#94a3b8;">Không có tệp đính kèm</div>
+                        <div style="margin-top:6px;font-size:12.5px;font-weight:600;color:#0e4c8f;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">attach_file</span>{{ kyHthDraftFile }}</div>
                       </sc-if>
                     </div>
                   </div>
                 </div>
               </div>
-              <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
-                <button onclick="{{ closeKyHthForm }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 18px;border-radius:8px;">{{ kyHthCloseLabel }}</button>
-                <sc-if value="{{ !kyHthViewOnly }}" hint-placeholder-val="{{ true }}">
-                  <button onclick="{{ saveKyHth }}" style="height:40px;border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:7px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
-                </sc-if>
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+                <button onclick="{{ closeKyHthForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Hủy</button>
+                <button onclick="{{ saveKyHth }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu kỳ HTH</button>
               </div>
             </div>
           </sc-if>
@@ -2441,7 +2492,7 @@
                   <sc-raw-th style="padding:13px 14px;font-weight:600;width:160px;">Từ năm – Đến năm</sc-raw-th>
                   <sc-raw-th style="padding:13px 14px;font-weight:600;">Mô tả</sc-raw-th>
                   <sc-raw-th style="padding:13px 14px;font-weight:600;width:220px;">Đính kèm</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:120px;text-align:center;">Thao tác</sc-raw-th>
+                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:100px;text-align:center;">Thao tác</sc-raw-th>
                 </sc-raw-tr>
               </sc-raw-thead>
               <sc-raw-tbody>
@@ -2466,8 +2517,7 @@
                       </sc-if>
                     </sc-raw-td>
                     <sc-raw-td style="padding:13px 14px;">
-                      <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
-                        <span onclick="{{ ky.view }}" class="ic" title="Xem chi tiết" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
+                      <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
                         <span onclick="{{ ky.remove }}" class="ic" title="Xóa" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#fbe6e3;color:#c0392b;">delete</span>
                       </div>
                     </sc-raw-td>
@@ -2499,65 +2549,42 @@
           <sc-if value="{{ showPlanForm }}" hint-placeholder-val="{{ false }}">
             <div style="background:#fff;border:1px solid #d6e2f0;border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:0 6px 24px rgba(14,76,143,.1);">
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;">
-                <span class="ic" style="font-size:22px;color:#0e4c8f;">{{ planFormIcon }}</span>
-                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">{{ planFormTitle }}</h3>
+                <span class="ic" style="font-size:22px;color:#0e4c8f;">post_add</span>
+                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">Thêm mới kế hoạch hệ thống hóa</h3>
               </div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;">
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tên kế hoạch <span style="color:#c0392b;">*</span></label>
-                  <input value="{{ planDraftTen }}" oninput="{{ setPlanDraftTen }}" readonly="{{ planViewOnly }}" placeholder="VD: Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:{{ planFieldBg }};color:#1e2939;box-sizing:border-box;">
+                  <input value="{{ planDraftTen }}" oninput="{{ setPlanDraftTen }}" placeholder="VD: Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;">
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Kỳ hệ thống hóa <span style="color:#c0392b;">*</span></label>
-                  <sc-if value="{{ !planViewOnly }}" hint-placeholder-val="{{ true }}">
-                    <select value="{{ planDraftKyId }}" onchange="{{ setPlanDraftKyId }}" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;">
-                      <option value="">-- Chọn kỳ hệ thống hóa --</option>
-                      <sc-for list="{{ planKyHthOpts }}" as="ky" hint-placeholder-count="2">
-                        <option value="{{ ky.id }}">{{ ky.kyLabel }}</option>
-                      </sc-for>
-                    </select>
-                  </sc-if>
-                  <sc-if value="{{ planViewOnly }}" hint-placeholder-val="{{ false }}">
-                    <input value="{{ planDraftKyLabel }}" readonly="readonly" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#f9fafb;color:#1e2939;box-sizing:border-box;">
-                  </sc-if>
+                  <select value="{{ planDraftKyId }}" onchange="{{ setPlanDraftKyId }}" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;">
+                    <option value="">-- Chọn kỳ hệ thống hóa --</option>
+                    <sc-for list="{{ planKyHthOpts }}" as="ky" hint-placeholder-count="2">
+                      <option value="{{ ky.id }}">{{ ky.kyLabel }}</option>
+                    </sc-for>
+                  </select>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đơn vị chủ trì</label>
-                  <input value="{{ planDraftDonVi }}" disabled style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #e4e9f0;border-radius:9px;outline:none;background:#f2f4f7;color:#475467;box-sizing:border-box;cursor:not-allowed;">
+                  <input value="{{ currentDonVi }}" disabled style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #e4e9f0;border-radius:9px;outline:none;background:#f2f4f7;color:#475467;box-sizing:border-box;cursor:not-allowed;">
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Thông tin chi tiết <span style="font-weight:500;color:#94a3b8;">(nếu có)</span></label>
-                  <textarea value="{{ planDraftChiTiet }}" oninput="{{ setPlanDraftChiTiet }}" rows="3" readonly="{{ planViewOnly }}" placeholder="Nhập thông tin chi tiết bổ sung của kế hoạch (nếu có)..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;background:{{ planFieldBg }};color:#1e2939;"></textarea>
+                  <textarea value="{{ planDraftChiTiet }}" oninput="{{ setPlanDraftChiTiet }}" rows="3" placeholder="Nhập thông tin chi tiết bổ sung của kế hoạch (nếu có)..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;"></textarea>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tệp đính kèm</label>
                   <div style="display:flex;align-items:center;gap:12px;border:1.5px dashed #c3d2e4;border-radius:10px;padding:14px 16px;background:#f7faff;">
-                    <span class="ic" style="font-size:26px;color:#0e4c8f;">attach_file</span>
-                    <div style="flex:1;min-width:0;">
-                      <sc-if value="{{ !planViewOnly }}" hint-placeholder-val="{{ true }}">
-                        <div style="font-size:13px;color:#5a6b7e;">Kéo thả hoặc <span style="color:#0e4c8f;font-weight:600;">chọn tệp</span> — định dạng PDF, DOCX, XLSX (tối đa 25MB)</div>
-                      </sc-if>
-                      <sc-if value="{{ planDraftHasFile }}" hint-placeholder-val="{{ false }}">
-                        <div style="font-size:12.5px;font-weight:600;color:#0e4c8f;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">attach_file</span>{{ planDraftFile }}</div>
-                      </sc-if>
-                      <sc-if value="{{ planViewOnlyNoFile }}" hint-placeholder-val="{{ false }}">
-                        <div style="font-size:13px;color:#94a3b8;">Không có tệp đính kèm</div>
-                      </sc-if>
-                    </div>
+                    <span class="ic" style="font-size:26px;color:#0e4c8f;">upload_file</span>
+                    <div style="font-size:13px;color:#5a6b7e;">Kéo thả hoặc <span style="color:#0e4c8f;font-weight:600;">chọn tệp</span> — định dạng PDF, DOCX, XLSX (tối đa 25MB)</div>
                   </div>
                 </div>
-                <sc-if value="{{ planViewOnly }}" hint-placeholder-val="{{ false }}">
-                  <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
-                    <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mã kế hoạch</label>
-                    <input value="{{ planDraftMa }}" readonly="readonly" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#f9fafb;color:#0e4c8f;font-weight:600;box-sizing:border-box;">
-                  </div>
-                </sc-if>
               </div>
               <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
-                <button onclick="{{ closePlanForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">{{ planCloseLabel }}</button>
-                <sc-if value="{{ !planViewOnly }}" hint-placeholder-val="{{ true }}">
-                  <button onclick="{{ savePlan }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu kế hoạch</button>
-                </sc-if>
+                <button onclick="{{ closePlanForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Hủy</button>
+                <button onclick="{{ savePlan }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu kế hoạch</button>
               </div>
             </div>
           </sc-if>
@@ -2610,7 +2637,7 @@
                     </sc-raw-td>
                     <sc-raw-td style="padding:13px 14px;">
                       <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
-                        <span onclick="{{ plan.view }}" class="ic" title="Xem chi tiết" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
+                        <span class="ic" title="Xem" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">visibility</span>
                         <span class="ic" title="Cập nhật" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">edit</span>
                       </div>
                     </sc-raw-td>
@@ -2696,7 +2723,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Sở Tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'Kế hoạch đã hoàn thành và công bố kết quả hệ thống hóa kỳ 2009–2013.' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Sở Tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'Kế hoạch đã hoàn thành và công bố kết quả hệ thống hóa kỳ 2014–2018.' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Sở Tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Triển khai rà soát, hệ thống hóa và công bố kết quả theo kỳ 2019–2023.' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Sở Tư pháp', file:'KeHoach_2024_2028.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Kế hoạch đang triển khai theo kỳ hệ thống hóa 2024–2028.' }], planDraft:{ ten:'', kyId:'', chiTiet:'' }, currentDonVi:'Sở Tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'' };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Sở Tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Sở Tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Sở Tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Sở Tư pháp', file:'KeHoach_2024_2028.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' }], planDraft:{ ten:'', kyId:'', chiTiet:'' }, currentDonVi:'Sở Tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -2851,7 +2878,7 @@ class Component extends DCLogic {
   }
 
 
-  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, showKyHthForm:false }); }
+  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, showKyHthForm:false, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false }); }
 
   moveOrderItem(list, index, dir){
     const a = (list||[]).slice();
@@ -3173,16 +3200,24 @@ class Component extends DCLogic {
       const loaiVb = d.loaiVb || ((d.ky === '2019 – 2023' || i % 3 === 0) ? 'VB HTH kỳ trước' : 'VB HTH kỳ hiện tại');
       const isKyTruoc = loaiVb === 'VB HTH kỳ trước';
       const isKyHienTai = loaiVb === 'VB HTH kỳ hiện tại';
-      const hlHienTai = isKyHienTai ? '—' : (d.hl || 'Còn hiệu lực');
-      const hlStl = isKyHienTai ? { c:'#94a3b8', b:'#f2f4f7' } : hlStyleOf(hlHienTai);
+      const hlVal = d.hl || 'Còn hiệu lực';
+      // Cột Tình trạng hiệu lực: kỳ hiện tại = "--"; kỳ trước = giá trị HL
+      const hlCol = isKyHienTai ? '--' : hlVal;
+      const hlColStl = isKyHienTai ? { c:'#94a3b8', b:'#f2f4f7' } : hlStyleOf(hlVal);
+      // Cột Tình trạng hiệu lực hiện tại: luôn hiển thị giá trị HL tương ứng
+      const hlHienTai = hlVal;
+      const hlHienTaiStl = hlStyleOf(hlHienTai);
       return {
         ...d, stt: ++_docSeq,
         loaiVb,
         loaiVbFg: isKyTruoc ? '#9a5b08' : '#0e4c8f',
         loaiVbBg: isKyTruoc ? '#fbf2dc' : '#e8f0fb',
+        hl: hlCol,
+        hlC: hlColStl.c,
+        hlB: hlColStl.b,
         hlHienTai,
-        hlHienTaiC: hlStl.c,
-        hlHienTaiB: hlStl.b,
+        hlHienTaiC: hlHienTaiStl.c,
+        hlHienTaiB: hlHienTaiStl.b,
         view: ()=>this.setState({ docPanel:'view', editDoc:d }),
         edit: ()=>this.setState({ docPanel:'form', formMode:'edit', editDoc:d, formLoaiVb: d.loaiVb || '' }),
       };
@@ -3280,40 +3315,8 @@ class Component extends DCLogic {
       roleLdBg: role==='ld' ? '#ffffff' : 'transparent', roleLdFg: role==='ld' ? '#0e4c8f' : '#d6e6fb',
       setChuyenVien: () => this.setState({ role:'cv', reviewAgg:false, reviewUnit:null }),
       setLanhDao: () => this.setState({ role:'ld', reviewAgg:false, reviewUnit:null }),
-      nav, stats, flow, plans: plans.map((p,i)=>({
-        ...p, idx:i+1,
-        view: ()=>this.setState({
-          showPlanForm:true,
-          planViewOnly:true,
-          planDraft:{
-            ma: p.ma||'',
-            ten: p.ten||'',
-            kyId: p.kyId||'',
-            ky: p.ky||'',
-            donVi: p.donVi||'',
-            file: p.file||'',
-            tt: p.tt||'—',
-            ttColor: p.ttColor||'#8c8c8c',
-            ttBg: p.ttBg||'#fafafa',
-            chiTiet: p.chiTiet||''
-          }
-        })
-      })), planCount: plans.length, planEmpty: plans.length===0, planDisp: s.screen==='plan' ? 'block' : 'none',
+      nav, stats, flow, plans: plans.map((p,i)=>({ ...p, idx:i+1 })), planCount: plans.length, planEmpty: plans.length===0, planDisp: s.screen==='plan' ? 'block' : 'none',
       planDraftTen: (s.planDraft&&s.planDraft.ten)||'', planDraftKyId: (s.planDraft&&s.planDraft.kyId)||'', planDraftChiTiet: (s.planDraft&&s.planDraft.chiTiet)||'',
-      planDraftKyLabel: (s.planDraft&&(s.planDraft.ky||s.planDraft.kyLabel))||'',
-      planDraftDonVi: (s.planDraft&&s.planDraft.donVi)||(s.currentDonVi||'Sở Tư pháp'),
-      planDraftFile: (s.planDraft&&s.planDraft.file)||'',
-      planDraftHasFile: !!(s.planDraft&&s.planDraft.file),
-      planDraftMa: (s.planDraft&&s.planDraft.ma)||'',
-      planDraftTt: (s.planDraft&&s.planDraft.tt)||'—',
-      planDraftTtColor: (s.planDraft&&s.planDraft.ttColor)||'#8c8c8c',
-      planDraftTtBg: (s.planDraft&&s.planDraft.ttBg)||'#fafafa',
-      planViewOnly: !!s.planViewOnly,
-      planViewOnlyNoFile: !!s.planViewOnly && !(s.planDraft&&s.planDraft.file),
-      planFormTitle: s.planViewOnly ? 'Chi tiết kế hoạch hệ thống hóa' : 'Thêm mới kế hoạch hệ thống hóa',
-      planFormIcon: s.planViewOnly ? 'visibility' : 'post_add',
-      planCloseLabel: s.planViewOnly ? 'Đóng' : 'Hủy',
-      planFieldBg: s.planViewOnly ? '#f9fafb' : '#fff',
       setPlanDraftTen: (e)=>this.setState(st=>({ planDraft:{ ...(st.planDraft||{}), ten:e.target.value } })),
       setPlanDraftKyId: (e)=>this.setState(st=>({ planDraft:{ ...(st.planDraft||{}), kyId:e.target.value } })),
       setPlanDraftChiTiet: (e)=>this.setState(st=>({ planDraft:{ ...(st.planDraft||{}), chiTiet:e.target.value } })),
@@ -3334,16 +3337,9 @@ class Component extends DCLogic {
         if(name===null) return;
         this.setState(st=>({ kyHthDraft:{ ...(st.kyHthDraft||{}), file:(name||'').trim() } }));
       },
-      openKyHthForm: ()=>this.setState({ showKyHthForm:true, kyHthViewOnly:false, kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' } }),
-      closeKyHthForm: ()=>this.setState({ showKyHthForm:false, kyHthViewOnly:false }),
-      kyHthViewOnly: !!s.kyHthViewOnly,
-      kyHthViewOnlyNoFile: !!s.kyHthViewOnly && !(s.kyHthDraft&&s.kyHthDraft.file),
-      kyHthFormTitle: s.kyHthViewOnly ? 'Chi tiết kỳ hệ thống hóa' : 'Thêm mới kỳ hệ thống hóa',
-      kyHthFormIcon: s.kyHthViewOnly ? 'visibility' : 'post_add',
-      kyHthCloseLabel: s.kyHthViewOnly ? 'Đóng' : 'Hủy',
-      kyHthFieldBg: s.kyHthViewOnly ? '#f9fafb' : '#fff',
+      openKyHthForm: ()=>this.setState({ showKyHthForm:true, kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' } }),
+      closeKyHthForm: ()=>this.setState({ showKyHthForm:false }),
       saveKyHth: ()=>this.setState(st=>{
-        if(st.kyHthViewOnly) return { showKyHthForm:false, kyHthViewOnly:false };
         const d = st.kyHthDraft || {};
         const tu = String(d.tuNam||'').trim();
         const den = String(d.denNam||'').trim();
@@ -3358,20 +3354,10 @@ class Component extends DCLogic {
           moTa: (d.moTa||'').trim() || '—',
           file: (d.file||'').trim()
         });
-        return { showKyHthForm:false, kyHthViewOnly:false, kyHthList:list, kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' } };
+        return { showKyHthForm:false, kyHthList:list, kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' } };
       }),
       kyHthRows: (s.kyHthList||[]).map((k,i)=>({
         ...k, idx:i+1, hasFile:!!(k.file&&String(k.file).trim()),
-        view: ()=>this.setState({
-          showKyHthForm:true,
-          kyHthViewOnly:true,
-          kyHthDraft:{
-            tuNam:k.tuNam||'',
-            denNam:k.denNam||'',
-            moTa:(k.moTa==='—'?'':(k.moTa||'')),
-            file:k.file||''
-          }
-        }),
         remove: ()=>this.setState(st=>({ kyHthList:(st.kyHthList||[]).filter(x=>x.id!==k.id) }))
       })),
       kyHthCount: (s.kyHthList||[]).length,
@@ -3447,7 +3433,17 @@ class Component extends DCLogic {
         mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>ns[t[0]]=true);
         const planSent={ ...(st.rsPlanSent||{}) };
         if(st.reviewPlanMa) planSent[st.reviewPlanMa]=true;
-        return { showRsSubmitConfirm:false, rsSent:ns, rsPlanSent:planSent };
+        return {
+          showRsSubmitConfirm:false,
+          rsSent:ns,
+          rsPlanSent:planSent,
+          reviewPlanMa:null,
+          reviewType:null,
+          reviewAdd:false,
+          reviewAgg:false,
+          showRsCreateForm:false,
+          rsCreatePlanMa:''
+        };
       }),
       showRsApproveConfirm: !!s.showRsApproveConfirm,
       openRsApproveConfirm: ()=>this.setState({ showRsApproveConfirm:true }),
@@ -3486,8 +3482,11 @@ class Component extends DCLogic {
       publishCurType: ()=>this.setState(st=>({ rsPublished:{ ...st.rsPublished, [st.reviewType]:true } })),
       rsTotal: mauBieuDefs.filter(t=>t[0]!=='tap-hth').length,
       rsAggUnitCount: 4,
-      openAgg: ()=>this.setState({ reviewAgg:true }),
-      closeAgg: ()=>this.setState({ reviewAgg:false }),
+      openAgg: ()=>this.setState({ showAggConfirm:true }),
+      closeAgg: ()=>this.setState({ reviewAgg:false, showAggConfirm:false }),
+      showAggConfirm: !!s.showAggConfirm,
+      cancelAggConfirm: ()=>this.setState({ showAggConfirm:false }),
+      confirmAgg: ()=>this.setState({ showAggConfirm:false, reviewAgg:true }),
       inAgg: s.reviewAgg && !s.reviewAdd && !s.reviewType,
       showAgg: s.reviewAgg && !s.reviewAdd && !s.reviewType,
       addCrumb: s.reviewAddMode==='edit' ? 'Cập nhật danh mục' : 'Thêm mới',
@@ -3624,7 +3623,34 @@ class Component extends DCLogic {
         if(hasFilter) return 'Không tìm thấy kế hoạch phù hợp với điều kiện tìm kiếm.';
         return 'Chưa có kế hoạch. Vui lòng thêm tại menu Kế hoạch hệ thống hóa.';
       })(),
-      backToRsPlans: ()=>this.setState({ reviewPlanMa:null, reviewType:null, reviewAdd:false }),
+      backToRsPlans: ()=>this.setState({ reviewPlanMa:null, reviewType:null, reviewAdd:false, showRsCreateForm:false, rsCreatePlanMa:'' }),
+      showRsCreateForm: !!s.showRsCreateForm,
+      rsCreatePlanOpts: (s.plans||[]).filter(p=>!(s.rsHthCreated||{})[p.ma]).map(p=>({ ma:p.ma, ky:p.ky||'—', ten:p.ten||'', donVi:p.donVi||(s.currentDonVi||'Sở Tư pháp') })),
+      rsCreateNoOpts: !(s.plans||[]).some(p=>!(s.rsHthCreated||{})[p.ma]),
+      rsCreatePlanMa: s.rsCreatePlanMa || '',
+      rsCreateTenKH: (()=>{ const p=(s.plans||[]).find(x=>x.ma===s.rsCreatePlanMa); return p ? (p.ten||'') : ''; })(),
+      rsCreateDonVi: (()=>{ const p=(s.plans||[]).find(x=>x.ma===s.rsCreatePlanMa); return p ? (p.donVi||s.currentDonVi||'Sở Tư pháp') : (s.currentDonVi||'Sở Tư pháp'); })(),
+      openRsCreateForm: ()=>this.setState(st=>{
+        const opts=(st.plans||[]).filter(p=>!(st.rsHthCreated||{})[p.ma]);
+        return { showRsCreateForm:true, rsCreatePlanMa: opts[0] ? opts[0].ma : '' };
+      }),
+      closeRsCreateForm: ()=>this.setState({ showRsCreateForm:false, rsCreatePlanMa:'' }),
+      setRsCreatePlanMa: (e)=>this.setState({ rsCreatePlanMa: e.target.value }),
+      confirmRsCreate: ()=>this.setState(st=>{
+        const ma = st.rsCreatePlanMa || '';
+        if(!ma){ alert('Vui lòng chọn Kỳ hệ thống hóa.'); return st; }
+        if((st.rsHthCreated||{})[ma]){ alert('Kế hoạch này đã được tạo kết quả HTH.'); return st; }
+        return {
+          showRsCreateForm:false,
+          rsCreatePlanMa:'',
+          reviewPlanMa: ma,
+          reviewType:null,
+          reviewAdd:false,
+          reviewAgg:false,
+          rsHthCreated:{ ...(st.rsHthCreated||{}), [ma]:true },
+          hasSavedCategory:true
+        };
+      }),
       createRsHth: ()=>this.setState(st=>{
         if(!st.reviewPlanMa){ alert('Vui lòng chọn kế hoạch.'); return st; }
         return {
@@ -3894,8 +3920,8 @@ class Component extends DCLogic {
           list.unshift({
             id:'BS-'+String(list.length+i+1).padStart(3,'0'),
             so:r.so||'(Chưa có số)', loai:r.loai||'', ty:r.ten||'', lv:r.lv||'',
-            truong:'Đính chính bổ sung', giaTriCu:'—', giaTriMoi: plLabel + (r.so?(' · '+r.so):''),
-            lyDo:'Đính chính bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', tt:'nhap', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code
+            truong:'Bổ sung văn bản', giaTriCu:'—', giaTriMoi: plLabel + (r.so?(' · '+r.so):''),
+            lyDo:'Bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', tt:'nhap', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code
           });
         });
         this.setState({ setPlRows:prev, dinhChinh:list, boSungAdd:false, boSungSent:false, addMau:'', addRows:[], addSearch:false });
@@ -4175,10 +4201,9 @@ class Component extends DCLogic {
       setSxAppliedDonVi: s.setSxAppliedDonVi || '',
       isLanhDao: role==='ld', isChuyenVien: role==='cv',
       showPlanForm: s.showPlanForm,
-      openPlanForm: () => this.setState({ showPlanForm:true, planViewOnly:false, planDraft:{ ten:'', kyId:'', chiTiet:'' } }),
-      closePlanForm: () => this.setState({ showPlanForm:false, planViewOnly:false }),
+      openPlanForm: () => this.setState({ showPlanForm:true, planDraft:{ ten:'', kyId:'', chiTiet:'' } }),
+      closePlanForm: () => this.setState({ showPlanForm:false }),
       savePlan: () => this.setState(st=>{
-        if(st.planViewOnly) return { showPlanForm:false, planViewOnly:false };
         const d = st.planDraft || {};
         if(!d.ten || !d.kyId){ alert('Vui lòng nhập Tên kế hoạch và chọn Kỳ hệ thống hóa.'); return st; }
         const kyItem = (st.kyHthList||[]).find(k=>k.id===d.kyId);
@@ -4197,7 +4222,7 @@ class Component extends DCLogic {
           tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb',
           chiTiet: d.chiTiet || ''
         });
-        return { showPlanForm:false, planViewOnly:false, plans:list, planDraft:{ ten:'', kyId:'', chiTiet:'' } };
+        return { showPlanForm:false, plans:list, planDraft:{ ten:'', kyId:'', chiTiet:'' } };
       }),
       docGroups, docList,
       docKyOptions, docKySel, docKyApplied, docKyAppliedLabel, docKyAppliedKy, docKyAppliedTen, docKySelLabel, docKySelKy, docKySelTen, docListCount: docList.length,
