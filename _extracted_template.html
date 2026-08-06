@@ -581,7 +581,17 @@
 
           <sc-if value="{{ isSetMain }}" hint-placeholder-val="{{ true }}">
           <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;">
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 24px;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Kỳ hệ thống hóa</label>
+                <div style="position:relative;">
+                  <select value="{{ setKyIdSel }}" onchange="{{ setSetKyId }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="">-- Chọn kỳ --</option>
+                    <sc-for list="{{ setKyOpts }}" as="ky" hint-placeholder-count="4"><option value="{{ ky.id }}">{{ ky.label }}</option></sc-for>
+                  </select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Thời gian ban hành</label>
                 <div style="position:relative;">
@@ -623,8 +633,8 @@
             <div style="flex:1;min-width:0;background:#fff;border:1px solid #e4e9f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
               <div style="padding:16px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
                 <div style="flex:1;min-width:200px;">
-                  <sc-if value="{{ isSetMain }}" hint-placeholder-val="{{ true }}"><div style="font-size:15px;font-weight:700;color:#10243a;">Tập hệ thống hóa kỳ 2019–2024</div></sc-if>
-                  <sc-if value="{{ isSetCorr }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px;font-weight:700;color:#10243a;">Tập hệ thống hóa kỳ 2019–2024 <span style="color:#9a5b08;">(Bản đính chính)</span></div></sc-if>
+                  <sc-if value="{{ isSetMain }}" hint-placeholder-val="{{ true }}"><div style="font-size:15px;font-weight:700;color:#10243a;">Tập hệ thống hóa kỳ {{ setKyLabel }}</div></sc-if>
+                  <sc-if value="{{ isSetCorr }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px;font-weight:700;color:#10243a;">Tập hệ thống hóa kỳ {{ setKyLabel }} <span style="color:#9a5b08;">(Bản đính chính)</span></div></sc-if>
                   <div style="font-size:12px;color:#8094a8;margin-top:2px;">{{ setSortHint }} · {{ totalDocsLabel }}</div>
                 </div>
                 <button style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#42566c;padding:8px 13px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">download</span>Kết xuất</button>
@@ -680,9 +690,19 @@
           </sc-if>
 
           <sc-if value="{{ isSetCorr }}" hint-placeholder-val="{{ false }}">
-            <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
-              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;align-items:end;">
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;margin-bottom:18px;">
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Kỳ hệ thống hóa <span style="color:#c0392b;">(*)</span></label>
+                  <div style="position:relative;">
+                    <select value="{{ setKyIdSel }}" onchange="{{ setSetKyId }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                      <option value="">-- Chọn kỳ --</option>
+                      <sc-for list="{{ setKyOpts }}" as="ky" hint-placeholder-count="4"><option value="{{ ky.id }}">{{ ky.label }}</option></sc-for>
+                    </select>
+                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                   <div style="display:flex;flex-direction:column;gap:7px;">
                     <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Loại <span style="color:#c0392b;">(*)</span></label>
                     <div style="position:relative;">
@@ -693,12 +713,52 @@
                       <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                     </div>
                   </div>
-                  <sc-if value="{{ showBoSungPicker }}" hint-placeholder-val="{{ false }}">
-                    <div style="grid-column:1 / -1;font-size:12.5px;color:#5a6b7e;">Chọn phụ lục bên dưới rồi nhấn <b style="color:#2f54eb;">Thêm mới</b> để bổ sung văn bản. Sau khi lưu, gửi lên lãnh đạo duyệt.</div>
-                  </sc-if>
+                </sc-if>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;margin-bottom:18px;opacity:{{ dinhDetailFieldsOpacity }};">
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:{{ dinhDetailLabelColor }};line-height:1.4;">Tên phụ lục</label>
+                  <div style="position:relative;">
+                    <select disabled="{{ dinhDetailFieldsDisabled }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:{{ dinhFieldBg }};color:{{ dinhFieldColor }};outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;cursor:{{ dinhFieldCursor }};"><option>Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ</option><option>Phụ lục II - Danh mục văn bản QPPL hết hiệu lực một phần</option><option>Phụ lục III - Danh mục văn bản QPPL còn hiệu lực</option><option>Phụ lục IV - Danh mục văn bản QPPL cần xử lý</option></select>
+                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:{{ dinhDetailLabelColor }};line-height:1.4;">Số, ký hiệu VBQPPL</label>
+                  <input value="{{ dinhSearchVal }}" oninput="{{ setDinhSearch }}" disabled="{{ dinhDetailFieldsDisabled }}" placeholder="Nhập số, ký hiệu văn bản cần đính chính..." style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #d0d5dd;border-radius:8px;outline:none;box-sizing:border-box;background:{{ dinhFieldBg }};color:{{ dinhFieldColor }};cursor:{{ dinhFieldCursor }};">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:{{ dinhDetailLabelColor }};line-height:1.4;">Cơ quan ban hành</label>
+                  <div style="position:relative;">
+                    <select value="{{ dinhCqSel }}" onchange="{{ setDinhCq }}" disabled="{{ dinhDetailFieldsDisabled }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:{{ dinhFieldBg }};color:{{ dinhFieldColor }};outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;cursor:{{ dinhFieldCursor }};"><option value="">Tất cả cơ quan</option><sc-for list="{{ dinhCqOpts }}" as="cq" hint-placeholder-count="5"><option value="{{ cq }}">{{ cq }}</option></sc-for></select>
+                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:{{ dinhDetailLabelColor }};line-height:1.4;">Loại văn bản</label>
+                  <div style="position:relative;">
+                    <select value="{{ dinhLoaiSel }}" onchange="{{ setDinhLoai }}" disabled="{{ dinhDetailFieldsDisabled }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:{{ dinhFieldBg }};color:{{ dinhFieldColor }};outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;cursor:{{ dinhFieldCursor }};"><option value="">Tất cả loại văn bản</option><sc-for list="{{ dinhLoaiOpts }}" as="loai" hint-placeholder-count="5"><option value="{{ loai }}">{{ loai }}</option></sc-for></select>
+                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:{{ dinhDetailLabelColor }};line-height:1.4;">Lĩnh vực</label>
+                  <div style="position:relative;">
+                    <select value="{{ dinhLvSel }}" onchange="{{ setDinhLv }}" disabled="{{ dinhDetailFieldsDisabled }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:{{ dinhFieldBg }};color:{{ dinhFieldColor }};outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;cursor:{{ dinhFieldCursor }};"><option value="">Tất cả lĩnh vực</option><sc-for list="{{ dinhLvOpts }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for></select>
+                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                  </div>
                 </div>
               </div>
-            </sc-if>
+              <div style="display:flex;justify-content:flex-end;gap:12px;">
+                <button onclick="{{ doDinhSearch }}" disabled="{{ dinhDetailFieldsDisabled }}" style="height:40px;min-width:120px;border:0;background:{{ dinhSearchBtnBg }};cursor:{{ dinhSearchBtnCursor }};font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;opacity:{{ dinhDetailFieldsOpacity }};" style-hover="background:#1d39c4;"><span class="ic" style="font-size:19px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ resetDinhSearch }}" disabled="{{ dinhDetailFieldsDisabled }}" style="height:40px;border:1px solid #d0d5dd;background:{{ dinhFieldBg }};cursor:{{ dinhFieldCursor }};font-family:inherit;font-size:13.5px;font-weight:600;color:{{ dinhDetailLabelColor }};padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;opacity:{{ dinhDetailFieldsOpacity }};" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+              </div>
+
+              <sc-if value="{{ showBoSungPicker }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:4px;font-size:12.5px;color:#5a6b7e;">Chọn phụ lục bên dưới rồi nhấn <b style="color:#2f54eb;">Thêm mới</b> để bổ sung văn bản. Sau khi lưu, gửi lên lãnh đạo duyệt.</div>
+              </sc-if>
+            </div>
 
             <sc-if value="{{ showBoSungList }}" hint-placeholder-val="{{ false }}">
               <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);margin-bottom:16px;">
@@ -800,55 +860,6 @@
                 </div>
               </div>
             </sc-if>
-
-            <sc-if value="{{ isDinhChinhMode }}" hint-placeholder-val="{{ true }}">
-            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;margin-bottom:18px;">
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Kỳ hệ thống hóa <span style="color:#c0392b;">(*)</span></label>
-                  <div style="position:relative;">
-                    <select style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option>Kỳ HTH 2019 – 2024</option><option>Kỳ HTH 2014 – 2019</option></select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Tên phụ lục</label>
-                  <div style="position:relative;">
-                    <select style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option>Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ</option><option>Phụ lục II - Danh mục văn bản QPPL hết hiệu lực một phần</option><option>Phụ lục III - Danh mục văn bản QPPL còn hiệu lực</option><option>Phụ lục IV - Danh mục văn bản QPPL cần xử lý</option></select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Số, ký hiệu VBQPPL</label>
-                  <input value="{{ dinhSearchVal }}" oninput="{{ setDinhSearch }}" placeholder="Nhập số, ký hiệu văn bản cần đính chính..." style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #d0d5dd;border-radius:8px;outline:none;box-sizing:border-box;">
-                </div>
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Cơ quan ban hành</label>
-                  <div style="position:relative;">
-                    <select value="{{ dinhCqSel }}" onchange="{{ setDinhCq }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả cơ quan</option><sc-for list="{{ dinhCqOpts }}" as="cq" hint-placeholder-count="5"><option value="{{ cq }}">{{ cq }}</option></sc-for></select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Loại văn bản</label>
-                  <div style="position:relative;">
-                    <select value="{{ dinhLoaiSel }}" onchange="{{ setDinhLoai }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả loại văn bản</option><sc-for list="{{ dinhLoaiOpts }}" as="loai" hint-placeholder-count="5"><option value="{{ loai }}">{{ loai }}</option></sc-for></select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Lĩnh vực</label>
-                  <div style="position:relative;">
-                    <select value="{{ dinhLvSel }}" onchange="{{ setDinhLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả lĩnh vực</option><sc-for list="{{ dinhLvOpts }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for></select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
-                </div>
-              </div>
-              <div style="display:flex;justify-content:flex-end;gap:12px;">
-                <button onclick="{{ doDinhSearch }}" style="height:40px;min-width:120px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:19px;">search</span>Tìm kiếm</button>
-                <button onclick="{{ resetDinhSearch }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#475467;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
-              </div>
-            </div>
 
             <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
               <sc-if value="{{ dinhShowResults }}" hint-placeholder-val="{{ false }}">
@@ -2759,7 +2770,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Sở Tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Sở Tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Sở Tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Sở Tư pháp', file:'KeHoach_2024_2028.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' }], planDraft:{ ten:'', kyId:'', chiTiet:'' }, currentDonVi:'Sở Tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Sở Tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Sở Tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Sở Tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Sở Tư pháp', file:'KeHoach_2024_2028.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' }], planDraft:{ ten:'', kyId:'', chiTiet:'' }, currentDonVi:'Sở Tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -3174,6 +3185,13 @@ class Component extends DCLogic {
       return next;
     });
     let docsForSet = docsForSetBase.slice();
+    if(s.setKyId){
+      const kyItem = (s.kyHthList||[]).find(k=>k.id===s.setKyId);
+      if(kyItem){
+        const kyLabel = kyItem.kyLabel || ((kyItem.tuNam||'')+' – '+(kyItem.denNam||''));
+        docsForSet = docsForSet.filter(d=>d.ky===kyLabel);
+      }
+    }
     if(s.setLv) docsForSet = docsForSet.filter(d=>d.lv===s.setLv);
     if(s.setHl) docsForSet = docsForSet.filter(d=>this.normalizeHlKey(d.hl)===s.setHl);
     const setSearchCfg = {
@@ -3949,6 +3967,15 @@ class Component extends DCLogic {
       statKpis, bars, breakdown, xlTotal,
 
       // ── Đính chính tập hệ thống hóa ──
+      // dinhDetailFieldsDisabled: true khi CV chọn Loại = Bổ sung văn bản (bo-sung) → khóa form tìm kiếm đính chính bên dưới
+      dinhDetailFieldsDisabled: role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung',
+      dinhFieldBg: (role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') ? '#f2f4f7' : '#fff',
+      dinhFieldColor: (role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') ? '#98a2b3' : '#1e2939',
+      dinhFieldCursor: (role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') ? 'not-allowed' : 'pointer',
+      dinhDetailLabelColor: (role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') ? '#98a2b3' : '#1e2939',
+      dinhDetailFieldsOpacity: (role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') ? '0.72' : '1',
+      dinhSearchBtnBg: (role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') ? '#a5b4fc' : '#2f54eb',
+      dinhSearchBtnCursor: (role==='cv' && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') ? 'not-allowed' : 'pointer',
       dinhSearchVal: s.dinhSearch,
       dinhCqSel: s.dinhCqSel||'', dinhLoaiSel: s.dinhLoaiSel||'', dinhLvSel: s.dinhLvSel||'',
       dinhLoaiThaoTacSel: s.dinhLoaiThaoTacSel || 'dinh-chinh',
@@ -4025,7 +4052,11 @@ class Component extends DCLogic {
       setDinhLoai: (e)=>this.setState({ dinhLoaiSel: e.target.value }),
       setDinhLv: (e)=>this.setState({ dinhLvSel: e.target.value }),
       setDinhLoaiThaoTac: (e)=>this.setState({ dinhLoaiThaoTacSel: e.target.value, boSungAdd:false, addMau:'', addRows:[], dinhShowResults:false }),
-      doDinhSearch: ()=>this.setState(st=>({ dinhShowResults:true, dinhCq:st.dinhCqSel||'', dinhLoai:st.dinhLoaiSel||'', dinhLv:st.dinhLvSel||'', dinhLoaiThaoTac:st.dinhLoaiThaoTacSel||'dinh-chinh' })),
+      doDinhSearch: ()=>{
+        const st = this.state;
+        if(st.role==='cv' && (st.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') return;
+        this.setState(st2=>({ dinhShowResults:true, dinhCq:st2.dinhCqSel||'', dinhLoai:st2.dinhLoaiSel||'', dinhLv:st2.dinhLvSel||'', dinhLoaiThaoTac:st2.dinhLoaiThaoTacSel||'dinh-chinh' }));
+      },
       resetDinhSearch: ()=>this.setState({ dinhSearch:'', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhLoaiThaoTacSel:'dinh-chinh', dinhLoaiThaoTac:'dinh-chinh', dinhShowResults:false, dinhEditSo:null, boSungAdd:false, boSungPlSel:'' }),
       dinhShowResults: s.dinhShowResults,
       dinhFieldOptions: ['Loại văn bản','Số, ký hiệu','Ngày ban hành','Tên gọi/trích yếu','Tình trạng hiệu lực','Ghi chú'],
@@ -4253,17 +4284,22 @@ class Component extends DCLogic {
       setNgayBHSel: s.setNgayBHSel || 'cu-moi',
       setLvSel: s.setLvSel || '',
       setHlSel: s.setHlSel || '',
+      setKyOpts: (s.kyHthList||[]).map(k=>({ id:k.id, label:k.kyLabel||((k.tuNam||'')+' – '+(k.denNam||'')) })),
+      setKyIdSel: s.setKyIdSel || 'KY-001',
+      setKyLabel: (()=>{ const id=s.setKyId||s.setKyIdSel||'KY-001'; const k=(s.kyHthList||[]).find(x=>x.id===id); return k?(k.kyLabel||((k.tuNam||'')+' – '+(k.denNam||''))):'—'; })(),
       setLvOpts: lvOrder,
       setHlOpts: this.defaultHlOrder(),
       setSetNgayBH: (e)=>this.setState({ setNgayBHSel: e.target.value }),
       setSetLv: (e)=>this.setState({ setLvSel: e.target.value }),
       setSetHl: (e)=>this.setState({ setHlSel: e.target.value }),
+      setSetKyId: (e)=>this.setState({ setKyIdSel: e.target.value, setKyId: e.target.value }),
       applySetSearch: ()=>this.setState(st=>({
         setNgayBH: st.setNgayBHSel || 'cu-moi',
         setLv: st.setLvSel || '',
         setHl: st.setHlSel || '',
+        setKyId: st.setKyIdSel || 'KY-001',
       })),
-      resetSetSearch: ()=>this.setState({ setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'' }),
+      resetSetSearch: ()=>this.setState({ setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001' }),
       setSxDonViOpts: [...new Set((s.sxConfigs||[]).map(c=>c.donVi))],
       setSxDonViSel: s.setSxDonViSel || '',
       setSetSxDonVi: (e)=>this.setState({ setSxDonViSel: e.target.value }),
