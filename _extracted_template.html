@@ -366,7 +366,7 @@
       <div style="width:32px;height:32px;border-radius:50%;background:#fa8c16;color:#ffffff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;box-shadow:0 1px 2px rgba(0,0,0,.15);">NA</div>
       <div style="display:flex;flex-direction:column;line-height:1.2;">
         <span style="font-size:12.5px;font-weight:600;color:#ffffff;">Nguyễn Thị An</span>
-        <span style="font-size:10.5px;color:#a6c1e1;">{{ roleLabel }} · Sở Tư pháp</span>
+        <span style="font-size:10.5px;color:#a6c1e1;">{{ roleLabel }} · {{ currentDonVi }}</span>
       </div>
     </div>
   </header>
@@ -2585,17 +2585,17 @@
           <sc-if value="{{ showPlanForm }}" hint-placeholder-val="{{ false }}">
             <div style="background:#fff;border:1px solid #d6e2f0;border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:0 6px 24px rgba(14,76,143,.1);">
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;">
-                <span class="ic" style="font-size:22px;color:#0e4c8f;">post_add</span>
-                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">Thêm mới kế hoạch hệ thống hóa</h3>
+                <span class="ic" style="font-size:22px;color:#0e4c8f;">{{ planFormIcon }}</span>
+                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">{{ planFormTitle }}</h3>
               </div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;">
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tên kế hoạch <span style="color:#c0392b;">*</span></label>
-                  <input value="{{ planDraftTen }}" oninput="{{ setPlanDraftTen }}" placeholder="VD: Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;">
+                  <input value="{{ planDraftTen }}" oninput="{{ setPlanDraftTen }}" readonly="{{ planFormReadOnly }}" disabled="{{ planFormReadOnly }}" placeholder="VD: Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:{{ planFieldBg }};color:{{ planFieldColor }};cursor:{{ planFieldCursor }};">
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Kỳ hệ thống hóa <span style="color:#c0392b;">*</span></label>
-                  <select value="{{ planDraftKyId }}" onchange="{{ setPlanDraftKyId }}" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;">
+                  <select value="{{ planDraftKyId }}" onchange="{{ setPlanDraftKyId }}" disabled="{{ planFormReadOnly }}" style="font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:{{ planFieldBg }};color:{{ planFieldColor }};box-sizing:border-box;cursor:{{ planFieldCursor }};">
                     <option value="">-- Chọn kỳ hệ thống hóa --</option>
                     <sc-for list="{{ planKyHthOpts }}" as="ky" hint-placeholder-count="2">
                       <option value="{{ ky.id }}">{{ ky.kyLabel }}</option>
@@ -2604,34 +2604,47 @@
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đơn vị chủ trì</label>
-                  <input value="{{ currentDonVi }}" disabled style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #e4e9f0;border-radius:9px;outline:none;background:#f2f4f7;color:#475467;box-sizing:border-box;cursor:not-allowed;">
+                  <input value="{{ planDraftDonVi }}" disabled style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #e4e9f0;border-radius:9px;outline:none;background:#f2f4f7;color:#475467;box-sizing:border-box;cursor:not-allowed;">
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Số, ký hiệu <span style="color:#c0392b;">*</span></label>
-                  <input value="{{ planDraftSoKyHieu }}" oninput="{{ setPlanDraftSoKyHieu }}" placeholder="VD: 123/KH-STP" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                  <input value="{{ planDraftSoKyHieu }}" oninput="{{ setPlanDraftSoKyHieu }}" readonly="{{ planFormReadOnly }}" disabled="{{ planFormReadOnly }}" placeholder="VD: 123/KH-STP" style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;box-sizing:border-box;background:{{ planFieldBg }};color:{{ planFieldColor }};cursor:{{ planFieldCursor }};" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Ngày ban hành <span style="color:#c0392b;">*</span></label>
                   <div style="position:relative;">
-                    <input type="date" value="{{ planDraftNgayBH }}" oninput="{{ setPlanDraftNgayBH }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 40px 0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;box-sizing:border-box;color:#1e2939;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <input type="date" value="{{ planDraftNgayBH }}" oninput="{{ setPlanDraftNgayBH }}" readonly="{{ planFormReadOnly }}" disabled="{{ planFormReadOnly }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 40px 0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:{{ planFieldBg }};box-sizing:border-box;color:{{ planFieldColor }};cursor:{{ planFieldCursor }};" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                     <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#667085;pointer-events:none;">calendar_today</span>
                   </div>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Thông tin chi tiết <span style="font-weight:500;color:#94a3b8;">(nếu có)</span></label>
-                  <textarea value="{{ planDraftChiTiet }}" oninput="{{ setPlanDraftChiTiet }}" rows="3" placeholder="Nhập thông tin chi tiết bổ sung của kế hoạch (nếu có)..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;"></textarea>
+                  <textarea value="{{ planDraftChiTiet }}" oninput="{{ setPlanDraftChiTiet }}" readonly="{{ planFormReadOnly }}" disabled="{{ planFormReadOnly }}" rows="3" placeholder="Nhập thông tin chi tiết bổ sung của kế hoạch (nếu có)..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;background:{{ planFieldBg }};color:{{ planFieldColor }};cursor:{{ planFieldCursor }};"></textarea>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tệp đính kèm</label>
+                  <sc-if value="{{ planFormView }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;align-items:center;gap:12px;border:1.5px solid #e4e9f0;border-radius:10px;padding:14px 16px;background:#f2f4f7;">
+                      <span class="ic" style="font-size:26px;color:#0e4c8f;">attach_file</span>
+                      <div style="font-size:13px;font-weight:600;color:#0e4c8f;">{{ planDraftFile }}</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ !planFormView }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;align-items:center;gap:12px;border:1.5px dashed #c3d2e4;border-radius:10px;padding:14px 16px;background:#f7faff;">
                     <span class="ic" style="font-size:26px;color:#0e4c8f;">upload_file</span>
                     <div style="font-size:13px;color:#5a6b7e;">Kéo thả hoặc <span style="color:#0e4c8f;font-weight:600;">chọn tệp</span> — định dạng PDF, DOCX, XLSX (tối đa 25MB)</div>
                   </div>
+                  </sc-if>
                 </div>
               </div>
               <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
-                <button onclick="{{ closePlanForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Hủy</button>
-                <button onclick="{{ savePlan }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu kế hoạch</button>
+                <sc-if value="{{ planFormView }}" hint-placeholder-val="{{ true }}">
+                  <button onclick="{{ closePlanForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Đóng</button>
+                </sc-if>
+                <sc-if value="{{ !planFormView }}" hint-placeholder-val="{{ false }}">
+                  <button onclick="{{ closePlanForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Hủy</button>
+                  <button onclick="{{ savePlan }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu kế hoạch</button>
+                </sc-if>
               </div>
             </div>
           </sc-if>
@@ -2684,8 +2697,8 @@
                     </sc-raw-td>
                     <sc-raw-td style="padding:13px 14px;">
                       <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
-                        <span class="ic" title="Xem" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">visibility</span>
-                        <span class="ic" title="Cập nhật" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">edit</span>
+                        <span onclick="{{ plan.view }}" title="Xem chi tiết" class="ic" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">visibility</span>
+                        <span onclick="{{ plan.edit }}" title="Cập nhật" class="ic" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">edit</span>
                       </div>
                     </sc-raw-td>
                   </sc-raw-tr>
@@ -2770,7 +2783,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Sở Tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Sở Tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Sở Tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Sở Tư pháp', file:'KeHoach_2024_2028.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' }], planDraft:{ ten:'', kyId:'', chiTiet:'' }, currentDonVi:'Sở Tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, planFormMode:'add', planViewMa:'', plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Bộ tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Bộ tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Bộ tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Bộ tư pháp', file:'KeHoach_2024_2028.pdf', soKyHieu:'15/KH-STP', ngayBH:'15/03/2024', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Kế hoạch triển khai hệ thống hóa văn bản QPPL kỳ 2024–2028 của Bộ tư pháp.' }], planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' }, currentDonVi:'Bộ tư pháp', showKyHthForm:false, kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -2925,7 +2938,27 @@ class Component extends DCLogic {
   }
 
 
-  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, showKyHthForm:false, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false }); }
+  openPlanDetail(p, mode='view'){
+    const ngay = String((p&&p.ngayBH)||'');
+    let ngayBH = ngay;
+    const m = ngay.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if(m) ngayBH = m[3]+'-'+m[2]+'-'+m[1];
+    this.setState({
+      showPlanForm:true,
+      planFormMode: mode,
+      planViewMa: (p&&p.ma)||'',
+      planDraft:{
+        ten:(p&&p.ten)||'',
+        kyId:(p&&p.kyId)||'',
+        chiTiet:(p&&p.chiTiet)||'',
+        soKyHieu:(p&&p.soKyHieu)||'',
+        ngayBH,
+        file:(p&&p.file)||'',
+        donVi:(p&&p.donVi)||this.state.currentDonVi||'Bộ tư pháp'
+      }
+    });
+  }
+  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false }); }
 
   moveOrderItem(list, index, dir){
     const a = (list||[]).slice();
@@ -3004,6 +3037,7 @@ class Component extends DCLogic {
   renderVals(){
     const s = this.state;
     const role = s.role;
+    const kyHthTableList = (s.kyHthList||[]).filter(k=>k.id==='KY-002' || ((k.tuNam||'')==='2024' && (k.denNam||'')==='2028'));
     const mk = (key, icon, label, badge, badgeKind) => {
       const st = this.navStyle(key);
       const badges = { warn:['#fbe3c4','#9a5b08'], info:['#d7e7fb','#0e4c8f'] };
@@ -3142,6 +3176,7 @@ class Component extends DCLogic {
     });
 
     const plans = Array.isArray(s.plans) ? s.plans : [];
+    const planTableList = plans.filter(p=>p.kyId==='KY-002' || p.ma==='KH-HTH/2024-2028-01' || p.ky==='2024 – 2028');
 
     const catDefs = [
       ['het-toan-bo','Hết hiệu lực, tạm ngưng toàn bộ','block'],
@@ -3369,7 +3404,7 @@ class Component extends DCLogic {
       roleLdBg: role==='ld' ? '#ffffff' : 'transparent', roleLdFg: role==='ld' ? '#0e4c8f' : '#d6e6fb',
       setChuyenVien: () => this.setState({ role:'cv', reviewAgg:false, reviewUnit:null }),
       setLanhDao: () => this.setState({ role:'ld', reviewAgg:false, reviewUnit:null }),
-      nav, stats, flow, plans: plans.map((p,i)=>({ ...p, idx:i+1 })), planCount: plans.length, planEmpty: plans.length===0, planDisp: s.screen==='plan' ? 'block' : 'none',
+      nav, stats, flow, plans: planTableList.map((p,i)=>({ ...p, idx:i+1, view:()=>this.openPlanDetail(p,'view'), edit:()=>this.openPlanDetail(p,'edit') })), planCount: planTableList.length, planEmpty: planTableList.length===0, planDisp: s.screen==='plan' ? 'block' : 'none',
       planDraftTen: (s.planDraft&&s.planDraft.ten)||'', planDraftKyId: (s.planDraft&&s.planDraft.kyId)||'', planDraftChiTiet: (s.planDraft&&s.planDraft.chiTiet)||'',
       planDraftSoKyHieu: (s.planDraft&&s.planDraft.soKyHieu)||'',
       planDraftNgayBH: (s.planDraft&&s.planDraft.ngayBH)||'',
@@ -3379,7 +3414,7 @@ class Component extends DCLogic {
       setPlanDraftSoKyHieu: (e)=>this.setState(st=>({ planDraft:{ ...(st.planDraft||{}), soKyHieu:e.target.value } })),
       setPlanDraftNgayBH: (e)=>this.setState(st=>({ planDraft:{ ...(st.planDraft||{}), ngayBH:e.target.value } })),
       planKyHthOpts: s.kyHthList || [],
-      currentDonVi: s.currentDonVi || 'Sở Tư pháp',
+      currentDonVi: s.currentDonVi || 'Bộ tư pháp',
       isKyHth: s.screen==='kyhth',
       showKyHthForm: !!s.showKyHthForm,
       kyHthDraftTuNam: (s.kyHthDraft&&s.kyHthDraft.tuNam)||'',
@@ -3439,12 +3474,12 @@ class Component extends DCLogic {
         });
         return { showKyHthForm:false, kyHthList:list, kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' } };
       }),
-      kyHthRows: (s.kyHthList||[]).map((k,i)=>({
+      kyHthRows: kyHthTableList.map((k,i)=>({
         ...k, idx:i+1, hasFile:!!(k.file&&String(k.file).trim()),
         remove: ()=>this.setState(st=>({ kyHthList:(st.kyHthList||[]).filter(x=>x.id!==k.id) }))
       })),
-      kyHthCount: (s.kyHthList||[]).length,
-      kyHthEmpty: !(s.kyHthList||[]).length,
+      kyHthCount: kyHthTableList.length,
+      kyHthEmpty: !kyHthTableList.length,
       docs: docs.map(d=>({ ...d, open: ()=>this.setState({ selectedDoc:d.so }) })), cats, catDocs, catTitle: activeCat[1], catPublished,
       catLvChips: lvOrder.map(lv=>{ const i=catSelLv.indexOf(lv); return { label:lv, active:i>=0, order:i+1,
         bg:i>=0?'#0e4c8f':'#fff', fg:i>=0?'#fff':'#42566c', bd:i>=0?'#0e4c8f':'#d8e0ea',
@@ -3725,11 +3760,11 @@ class Component extends DCLogic {
         return { rsSaved:ns, rsLdEditMode:false };
       }),
       showRsCreateForm: !!s.showRsCreateForm,
-      rsCreatePlanOpts: (s.plans||[]).filter(p=>!(s.rsHthCreated||{})[p.ma]).map(p=>({ ma:p.ma, ky:p.ky||'—', ten:p.ten||'', donVi:p.donVi||(s.currentDonVi||'Sở Tư pháp') })),
+      rsCreatePlanOpts: (s.plans||[]).filter(p=>!(s.rsHthCreated||{})[p.ma]).map(p=>({ ma:p.ma, ky:p.ky||'—', ten:p.ten||'', donVi:p.donVi||(s.currentDonVi||'Bộ tư pháp') })),
       rsCreateNoOpts: !(s.plans||[]).some(p=>!(s.rsHthCreated||{})[p.ma]),
       rsCreatePlanMa: s.rsCreatePlanMa || '',
       rsCreateTenKH: (()=>{ const p=(s.plans||[]).find(x=>x.ma===s.rsCreatePlanMa); return p ? (p.ten||'') : ''; })(),
-      rsCreateDonVi: (()=>{ const p=(s.plans||[]).find(x=>x.ma===s.rsCreatePlanMa); return p ? (p.donVi||s.currentDonVi||'Sở Tư pháp') : (s.currentDonVi||'Sở Tư pháp'); })(),
+      rsCreateDonVi: (()=>{ const p=(s.plans||[]).find(x=>x.ma===s.rsCreatePlanMa); return p ? (p.donVi||s.currentDonVi||'Sở Tư pháp') : (s.currentDonVi||'Bộ tư pháp'); })(),
       openRsCreateForm: ()=>this.setState(st=>{
         const opts=(st.plans||[]).filter(p=>!(st.rsHthCreated||{})[p.ma]);
         return { showRsCreateForm:true, rsCreatePlanMa: opts[0] ? opts[0].ma : '' };
@@ -4319,8 +4354,18 @@ class Component extends DCLogic {
       setSxAppliedDonVi: s.setSxAppliedDonVi || '',
       isLanhDao: role==='ld', isChuyenVien: role==='cv',
       showPlanForm: s.showPlanForm,
-      openPlanForm: () => this.setState({ showPlanForm:true, planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' } }),
-      closePlanForm: () => this.setState({ showPlanForm:false }),
+      planFormMode: s.planFormMode || 'add',
+      planFormView: s.planFormMode==='view',
+      planFormReadOnly: s.planFormMode==='view',
+      planFormTitle: s.planFormMode==='view' ? 'Xem chi tiết kế hoạch hệ thống hóa' : (s.planFormMode==='edit' ? 'Cập nhật kế hoạch hệ thống hóa' : 'Thêm mới kế hoạch hệ thống hóa'),
+      planFormIcon: s.planFormMode==='view' ? 'visibility' : 'post_add',
+      planFieldBg: s.planFormMode==='view' ? '#f2f4f7' : '#fff',
+      planFieldColor: s.planFormMode==='view' ? '#475467' : '#1e2939',
+      planFieldCursor: s.planFormMode==='view' ? 'default' : 'text',
+      planDraftDonVi: (s.planDraft&&s.planDraft.donVi) || s.currentDonVi || 'Bộ tư pháp',
+      planDraftFile: (s.planDraft&&s.planDraft.file) || '',
+      openPlanForm: () => this.setState({ showPlanForm:true, planFormMode:'add', planViewMa:'', planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' } }),
+      closePlanForm: () => this.setState({ showPlanForm:false, planFormMode:'add', planViewMa:'' }),
       savePlan: () => this.setState(st=>{
         const d = st.planDraft || {};
         if(!d.ten || !d.kyId){ alert('Vui lòng nhập Tên kế hoạch và chọn Kỳ hệ thống hóa.'); return st; }
@@ -4328,7 +4373,7 @@ class Component extends DCLogic {
         if(!String(d.ngayBH||'').trim()){ alert('Vui lòng chọn Ngày ban hành.'); return st; }
         const kyItem = (st.kyHthList||[]).find(k=>k.id===d.kyId);
         if(!kyItem){ alert('Kỳ hệ thống hóa không hợp lệ. Vui lòng chọn lại từ Danh mục kỳ hệ thống hóa.'); return st; }
-        const donVi = st.currentDonVi || 'Sở Tư pháp';
+        const donVi = st.currentDonVi || 'Bộ tư pháp';
         const list = (st.plans||[]).slice();
         const n = list.length + 1;
         const ky = kyItem.kyLabel || (kyItem.tuNam + ' – ' + kyItem.denNam);
@@ -4350,7 +4395,7 @@ class Component extends DCLogic {
           tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb',
           chiTiet: d.chiTiet || ''
         });
-        return { showPlanForm:false, plans:list, planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' } };
+        return { showPlanForm:false, planFormMode:'add', planViewMa:'', plans:list, planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' } };
       }),
       docGroups, docList,
       docKyOptions, docKySel, docKyApplied, docKyAppliedLabel, docKyAppliedKy, docKyAppliedTen, docKySelLabel, docKySelKy, docKySelTen, docListCount: docList.length,
