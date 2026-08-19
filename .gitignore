@@ -1,4 +1,4 @@
-﻿# Local / build artifacts
+# Local / build artifacts
 *.tmp
 .DS_Store
 Thumbs.db
@@ -12,3 +12,7 @@ extract-hth.ps1
 HTH_VBQPPL_v2.html
 HTH_VBQPPL_v3.html
 He Thong Hoa VBQPPL -0807 (1).html
+
+# BTP report reference (not part of HTH UI)
+Bc fat hanh/
+_bc_extract/
