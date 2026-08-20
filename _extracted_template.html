@@ -1211,39 +1211,39 @@
             </div>
           </div>
 
-          <div style="display:flex;align-items:flex-end;gap:14px;background:#fff;border:1px solid #dbe7f4;border-radius:14px;padding:14px 18px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);flex-wrap:wrap;">
-            <span style="width:38px;height:38px;border-radius:10px;background:#e8f0fb;display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-bottom:2px;"><span class="ic" style="font-size:21px;color:#0e4c8f;">event_note</span></span>
-            <div style="flex:0 0 auto;padding-bottom:2px;">
-              <div style="font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#8094a8;">KỲ HỆ THỐNG HÓA</div>
-              <div style="font-size:12px;color:#6b7a8d;margin-top:1px;">Chọn kỳ từ kế hoạch đã thêm</div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;min-width:180px;">
-              <label style="font-size:12px;font-weight:600;color:#42566c;">Kỳ</label>
-              <div style="position:relative;">
-                <select value="{{ docKySel }}" onchange="{{ setDocKy }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;font-weight:600;color:#10243a;padding:0 36px 0 14px;border:1.5px solid #cfd9e6;border-radius:10px;background:#f8fafc;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;cursor:pointer;">
-                  <option value="">-- Chọn kỳ --</option>
-                  <sc-for list="{{ docKyOptions }}" as="k" hint-placeholder-count="2"><option value="{{ k.value }}">{{ k.label }}</option></sc-for>
-                </select>
-                <span class="ic" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:22px;color:#667085;pointer-events:none;">expand_more</span>
+          <div style="background:#fff;border:1px solid #dbe7f4;border-radius:14px;padding:14px 18px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid #eef1f6;">
+              <span style="width:38px;height:38px;border-radius:10px;background:#e8f0fb;display:flex;align-items:center;justify-content:center;flex:0 0 auto;"><span class="ic" style="font-size:21px;color:#0e4c8f;">event_note</span></span>
+              <div style="flex:0 0 auto;">
+                <div style="font-size:11.5px;font-weight:700;letter-spacing:.04em;color:#8094a8;">KỲ HỆ THỐNG HÓA</div>
+                <div style="font-size:12px;color:#6b7a8d;margin-top:1px;">Chọn kỳ từ kế hoạch đã thêm</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;min-width:180px;">
+                <label style="font-size:12px;font-weight:600;color:#42566c;">Kỳ</label>
+                <div style="position:relative;">
+                  <select value="{{ docKySel }}" onchange="{{ setDocKy }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;font-weight:600;color:#10243a;padding:0 36px 0 14px;border:1.5px solid #cfd9e6;border-radius:10px;background:#f8fafc;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;cursor:pointer;">
+                    <option value="">-- Chọn kỳ --</option>
+                    <sc-for list="{{ docKyOptions }}" as="k" hint-placeholder-count="2"><option value="{{ k.value }}">{{ k.label }}</option></sc-for>
+                  </select>
+                  <span class="ic" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:22px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1;min-width:240px;">
+                <label style="font-size:12px;font-weight:600;color:#42566c;">Tên kế hoạch</label>
+                <div style="height:42px;display:flex;align-items:center;padding:0 14px;border:1.5px solid #e4e9f0;border-radius:10px;background:#f2f4f7;font-size:13.5px;font-weight:600;color:#16314c;box-sizing:border-box;">{{ docKySelTen }}</div>
               </div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:6px;flex:1;min-width:240px;">
-              <label style="font-size:12px;font-weight:600;color:#42566c;">Tên kế hoạch</label>
-              <div style="height:42px;display:flex;align-items:center;padding:0 14px;border:1.5px solid #e4e9f0;border-radius:10px;background:#f2f4f7;font-size:13.5px;font-weight:600;color:#16314c;box-sizing:border-box;">{{ docKySelTen }}</div>
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+              <div style="position:relative;flex:1;min-width:220px;">
+                <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:19px;color:#94a3b8;">search</span>
+                <input placeholder="Tra cứu số/ký hiệu, tên gọi văn bản..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px 10px 38px;border:1px solid #d8e0ea;border-radius:9px;outline:none;background:#f8fafc;box-sizing:border-box;">
+              </div>
+              <select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả loại VB</option><option>Luật</option><option>Nghị định</option><option>Thông tư</option><option>Quyết định</option><option>Nghị quyết</option></select>
+              <select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả lĩnh vực</option><option>Tư pháp</option><option>Hộ tịch</option><option>Lao động</option></select>
+              <select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả nguồn</option><option>Đồng bộ CSDL</option><option>Nhập thủ công</option></select>
+              <button onclick="{{ applyDocKy }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+              <button style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">download</span>Kết xuất</button>
             </div>
-            <button onclick="{{ applyDocKy }}" style="flex:0 0 auto;border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;height:42px;padding:0 20px;border-radius:10px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);margin-bottom:0;" style-hover="background:#0c4280;"><span class="ic" style="font-size:19px;">search</span>Tìm kiếm</button>
-          </div>
-
-          <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="position:relative;flex:1;min-width:220px;">
-              <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:19px;color:#94a3b8;">search</span>
-              <input placeholder="Tra cứu số/ký hiệu, tên gọi văn bản..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px 10px 38px;border:1px solid #d8e0ea;border-radius:9px;outline:none;background:#f8fafc;">
-            </div>
-            <select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả loại VB</option><option>Luật</option><option>Nghị định</option><option>Thông tư</option><option>Quyết định</option><option>Nghị quyết</option></select>
-            <select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả lĩnh vực</option><option>Tư pháp</option><option>Hộ tịch</option><option>Lao động</option></select>
-            <select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả nguồn</option><option>Đồng bộ CSDL</option><option>Nhập thủ công</option></select>
-            <button style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">search</span>Tra cứu</button>
-            <button style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">download</span>Kết xuất</button>
           </div>
 
           <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
