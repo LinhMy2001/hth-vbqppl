@@ -1077,9 +1077,25 @@
           </div>
 
           <sc-if value="{{ sxInList }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:end;">
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đơn vị</label>
+                  <select value="{{ sxSearchDonViSel }}" onchange="{{ setSxSearchDonVi }}" style="width:100%;height:42px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;box-sizing:border-box;">
+                    <option value="">-- Tất cả --</option>
+                    <sc-for list="{{ sxDonViOpts }}" as="u" hint-placeholder-count="5"><option value="{{ u }}">{{ u }}</option></sc-for>
+                  </select>
+                </div>
+                <div style="display:flex;gap:10px;flex:0 0 auto;padding-bottom:1px;">
+                  <button onclick="{{ applySxSearch }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;height:42px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">search</span>Tra cứu</button>
+                  <button onclick="{{ resetSxSearch }}" style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;height:42px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+                </div>
+              </div>
+            </div>
+
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-              <div style="font-size:13.5px;color:#1e2939;font-weight:600;">Tổng cộng: <b style="color:#fa541c;">{{ sxConfigCount }} cấu hình</b></div>
-              <button onclick="{{ openSxForm }}" style="height:40px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:20px;">add</span>Thêm mới tiêu chí sắp xếp</button>
+              <div style="font-size:13.5px;color:#1e2939;font-weight:600;">Tổng cộng: <b style="color:#fa541c;">{{ sxConfigCount }} cấu hình</b><sc-if value="{{ sxHasSearchDonVi }}" hint-placeholder-val="{{ true }}"> <span style="color:#8094a8;font-weight:500;">/ {{ sxConfigTotal }} tổng</span></sc-if></div>
+              <button onclick="{{ openSxForm }}" style="height:40px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:20px;">add</span>Thêm mới cấu hình</button>
             </div>
 
             <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
@@ -1107,7 +1123,10 @@
                     </sc-raw-tr>
                   </sc-for>
                   <sc-if value="{{ sxConfigEmpty }}" hint-placeholder-val="{{ true }}">
-                    <sc-raw-tr><sc-raw-td colspan="6" style="padding:40px 16px;text-align:center;color:#98a2b3;">Chưa có cấu hình tiêu chí sắp xếp. Nhấn <b style="color:#2f54eb;">Thêm mới tiêu chí sắp xếp</b> để tạo.</sc-raw-td></sc-raw-tr>
+                    <sc-raw-tr><sc-raw-td colspan="6" style="padding:40px 16px;text-align:center;color:#98a2b3;">Chưa có cấu hình tiêu chí sắp xếp. Nhấn <b style="color:#2f54eb;">Thêm mới cấu hình</b> để tạo.</sc-raw-td></sc-raw-tr>
+                  </sc-if>
+                  <sc-if value="{{ sxSearchEmpty }}" hint-placeholder-val="{{ false }}">
+                    <sc-raw-tr><sc-raw-td colspan="6" style="padding:40px 16px;text-align:center;color:#98a2b3;">Không tìm thấy cấu hình cho đơn vị đã chọn.</sc-raw-td></sc-raw-tr>
                   </sc-if>
                 </sc-raw-tbody>
               </sc-raw-table>
@@ -1120,71 +1139,67 @@
               <div style="font-size:14.5px;font-weight:700;color:#10243a;">Thêm mới tiêu chí sắp xếp</div>
             </div>
 
-            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-              <div style="font-size:15px;font-weight:700;color:#1e2939;padding-bottom:14px;border-bottom:1px solid #eef1f6;margin-bottom:18px;">Thông tin cấu hình</div>
-              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;">
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị <span style="color:#e5484d;">*</span></label>
-                  <div style="position:relative;">
-                    <select value="{{ sxDonVi }}" onchange="{{ setSxDonVi }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                      <option value="">Vui lòng chọn đơn vị</option>
-                      <sc-for list="{{ sxDonViOpts }}" as="u" hint-placeholder-count="5"><option value="{{ u }}">{{ u }}</option></sc-for>
-                    </select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <label style="font-size:13px;font-weight:600;color:#1e2939;">Ngày ban hành <span style="color:#e5484d;">*</span></label>
-                  <div style="position:relative;">
-                    <select value="{{ sxNgayBH }}" onchange="{{ setSxNgayBH }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                      <option value="cu-moi">Cũ → Mới</option>
-                      <option value="moi-cu">Mới → Cũ</option>
-                    </select>
-                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                  </div>
+            <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);display:flex;flex-direction:column;gap:20px;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị <span style="color:#e5484d;">*</span></label>
+                <div style="position:relative;max-width:520px;">
+                  <select value="{{ sxDonVi }}" onchange="{{ setSxDonVi }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="">Vui lòng chọn đơn vị</option>
+                    <sc-for list="{{ sxDonViOpts }}" as="u" hint-placeholder-count="5"><option value="{{ u }}">{{ u }}</option></sc-for>
+                  </select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
-            </div>
 
-            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:16px;">
-              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-                <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;background:#fafbfc;">
-                  <div style="font-size:14px;font-weight:700;color:#1e2939;">Thứ tự lĩnh vực</div>
-                  <div style="font-size:12px;color:#6b7a8d;margin-top:3px;">Chọn và sắp xếp thứ tự hiển thị lĩnh vực của đơn vị (vd: 1 Giáo dục, 2 Văn hóa…)</div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Ngày ban hành <span style="color:#e5484d;">*</span></label>
+                <div style="position:relative;max-width:520px;">
+                  <select value="{{ sxNgayBH }}" onchange="{{ setSxNgayBH }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="cu-moi">Cũ → Mới</option>
+                    <option value="moi-cu">Mới → Cũ</option>
+                  </select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
-                <div style="padding:14px 18px;">
-                  <sc-if value="{{ !sxHasDonVi }}" hint-placeholder-val="{{ true }}"><div style="padding:20px;text-align:center;color:#98a2b3;font-size:13px;">Vui lòng chọn đơn vị trước</div></sc-if>
-                  <sc-if value="{{ sxHasDonVi }}" hint-placeholder-val="{{ false }}">
-                    <div style="display:flex;flex-direction:column;gap:8px;">
-                      <sc-for list="{{ sxLvRows }}" as="row" hint-placeholder-count="5">
-                        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid {{ row.bd }};background:{{ row.bg }};border-radius:10px;">
-                          <span style="width:28px;height:28px;border-radius:8px;background:{{ row.sttBg }};color:{{ row.sttFg }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:0 0 auto;">{{ row.stt }}</span>
-                          <span style="flex:1;font-size:13.5px;font-weight:600;color:#1e2939;">{{ row.label }}</span>
-                          <button onclick="{{ row.up }}" title="Lên" style="width:32px;height:32px;border:1px solid #d0d5dd;background:#fff;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;color:#475467;">keyboard_arrow_up</span></button>
-                          <button onclick="{{ row.down }}" title="Xuống" style="width:32px;height:32px;border:1px solid #d0d5dd;background:#fff;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;color:#475467;">keyboard_arrow_down</span></button>
-                        </div>
-                      </sc-for>
+              </div>
+
+              <div style="padding-top:4px;border-top:1px solid #eef1f6;">
+                <div style="font-size:14px;font-weight:700;color:#1e2939;margin-bottom:4px;">Danh sách Lĩnh vực đánh số thứ tự <span style="color:#e5484d;">*</span></div>
+                <div style="font-size:12px;color:#6b7a8d;margin-bottom:12px;">Nhập số thứ tự hiển thị cho từng lĩnh vực (vd: Giáo dục = 1, Văn hóa = 2…)</div>
+                <sc-if value="{{ !sxHasDonVi }}" hint-placeholder-val="{{ true }}"><div style="padding:20px;text-align:center;color:#98a2b3;font-size:13px;border:1px dashed #e4e7ec;border-radius:10px;background:#fafbfc;">Vui lòng chọn đơn vị trước</div></sc-if>
+                <sc-if value="{{ sxHasDonVi }}" hint-placeholder-val="{{ false }}">
+                  <div style="max-width:720px;border:1px solid #e4e7ec;border-radius:10px;overflow:hidden;">
+                    <div style="display:grid;grid-template-columns:1fr 120px;background:#f2f4f7;padding:11px 14px;font-size:12.5px;font-weight:600;color:#475467;">
+                      <div>Lĩnh vực</div>
+                      <div style="text-align:center;">Thứ tự</div>
                     </div>
-                  </sc-if>
-                </div>
-              </div>
-
-              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-                <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;background:#fafbfc;">
-                  <div style="font-size:14px;font-weight:700;color:#1e2939;">Thứ tự hiệu lực pháp lý</div>
-                  <div style="font-size:12px;color:#6b7a8d;margin-top:3px;">Sắp xếp thứ tự hiển thị (vd: 1 Hết HL một phần, 2 Còn hiệu lực, 3 Hết HL toàn bộ…)</div>
-                </div>
-                <div style="padding:14px 18px;">
-                  <div style="display:flex;flex-direction:column;gap:8px;">
-                    <sc-for list="{{ sxHlRows }}" as="row" hint-placeholder-count="4">
-                      <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid {{ row.bd }};background:{{ row.bg }};border-radius:10px;">
-                        <span style="width:28px;height:28px;border-radius:8px;background:{{ row.sttBg }};color:{{ row.sttFg }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:0 0 auto;">{{ row.stt }}</span>
-                        <span style="flex:1;font-size:13.5px;font-weight:600;color:#1e2939;">{{ row.label }}</span>
-                        <button onclick="{{ row.up }}" title="Lên" style="width:32px;height:32px;border:1px solid #d0d5dd;background:#fff;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;color:#475467;">keyboard_arrow_up</span></button>
-                        <button onclick="{{ row.down }}" title="Xuống" style="width:32px;height:32px;border:1px solid #d0d5dd;background:#fff;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;color:#475467;">keyboard_arrow_down</span></button>
+                    <sc-for list="{{ sxLvRows }}" as="row" hint-placeholder-count="5">
+                      <div style="display:grid;grid-template-columns:1fr 120px;padding:11px 14px;border-top:1px solid #eef1f6;align-items:center;background:#fff;" style-hover="background:#f9fafb;">
+                        <span style="font-size:13.5px;font-weight:600;color:#1e2939;">{{ row.label }}</span>
+                        <div style="display:flex;justify-content:center;">
+                          <input type="number" min="1" max="{{ row.sttMax }}" value="{{ row.stt }}" onchange="{{ row.setStt }}" style="width:72px;height:36px;font-family:inherit;font-size:13.5px;font-weight:600;text-align:center;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                        </div>
                       </div>
                     </sc-for>
                   </div>
+                </sc-if>
+              </div>
+
+              <div style="padding-top:4px;border-top:1px solid #eef1f6;">
+                <div style="font-size:14px;font-weight:700;color:#1e2939;margin-bottom:4px;">Danh sách hiệu lực pháp lý đánh số thứ tự <span style="color:#e5484d;">*</span></div>
+                <div style="font-size:12px;color:#6b7a8d;margin-bottom:12px;">Nhập số thứ tự hiển thị cho từng tình trạng hiệu lực (vd: Hết hiệu lực một phần = 1, Còn hiệu lực = 2…)</div>
+                <div style="max-width:720px;border:1px solid #e4e7ec;border-radius:10px;overflow:hidden;">
+                  <div style="display:grid;grid-template-columns:1fr 120px;background:#f2f4f7;padding:11px 14px;font-size:12.5px;font-weight:600;color:#475467;">
+                    <div>Hiệu lực pháp lý</div>
+                    <div style="text-align:center;">Thứ tự</div>
+                  </div>
+                  <sc-for list="{{ sxHlRows }}" as="row" hint-placeholder-count="4">
+                    <div style="display:grid;grid-template-columns:1fr 120px;padding:11px 14px;border-top:1px solid #eef1f6;align-items:center;background:#fff;" style-hover="background:#f9fafb;">
+                      <span style="font-size:13.5px;font-weight:600;color:#1e2939;">{{ row.label }}</span>
+                      <div style="display:flex;justify-content:center;">
+                        <input type="number" min="1" max="{{ row.sttMax }}" value="{{ row.stt }}" onchange="{{ row.setStt }}" style="width:72px;height:36px;font-family:inherit;font-size:13.5px;font-weight:600;text-align:center;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                      </div>
+                    </div>
+                  </sc-for>
                 </div>
               </div>
             </div>
@@ -3128,6 +3143,34 @@ class Component extends DCLogic {
   }
   go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false }); }
 
+  reorderByRank(order, label, newRank){
+    const list = (order||[]).slice();
+    const from = list.indexOf(label);
+    if(from < 0) return list;
+    const [item] = list.splice(from, 1);
+    const to = Math.max(0, Math.min(list.length, newRank - 1));
+    list.splice(to, 0, item);
+    return list;
+  }
+
+  setSxLvRank(label){
+    return (e)=>this.setState(st=>{
+      const order = (st.sxLvOrder||[]).slice();
+      const rank = parseInt(e.target.value, 10);
+      if(!order.length || isNaN(rank)) return st;
+      return { sxLvOrder: this.reorderByRank(order, label, rank) };
+    });
+  }
+
+  setSxHlRank(label){
+    return (e)=>this.setState(st=>{
+      const order = (st.sxHlOrder||this.defaultHlOrder()).slice();
+      const rank = parseInt(e.target.value, 10);
+      if(!order.length || isNaN(rank)) return st;
+      return { sxHlOrder: this.reorderByRank(order, label, rank) };
+    });
+  }
+
   moveOrderItem(list, index, dir){
     const a = (list||[]).slice();
     const j = index + dir;
@@ -4960,6 +5003,11 @@ class Component extends DCLogic {
       sxInList: s.screen==='catalog' && !s.sxForm,
       sxInForm: s.screen==='catalog' && !!s.sxForm,
       sxDonViOpts: ['Sở Tư pháp','UBND Phường Bạch Mai','Xã Cổ Loa','Xã Uy Nỗ','Phòng Xây dựng VBQPPL'],
+      sxSearchDonViSel: s.sxSearchDonViSel || '',
+      sxHasSearchDonVi: !!(s.sxSearchDonVi || '').trim(),
+      setSxSearchDonVi: (e)=>this.setState({ sxSearchDonViSel: e.target.value }),
+      applySxSearch: ()=>this.setState(st=>({ sxSearchDonVi: String(st.sxSearchDonViSel||'').trim() })),
+      resetSxSearch: ()=>this.setState({ sxSearchDonViSel:'', sxSearchDonVi:'' }),
       sxDonVi: s.sxDonVi || '',
       sxNgayBH: s.sxNgayBH || 'cu-moi',
       sxHasDonVi: !!s.sxDonVi,
@@ -4971,18 +5019,12 @@ class Component extends DCLogic {
       },
       setSxNgayBH: (e)=>this.setState({ sxNgayBH: e.target.value }),
       sxLvRows: (s.sxLvOrder||[]).map((label,i,arr)=>({
-        label, stt:i+1,
-        bg:'#f8fbff', bd:'#d7e3f4',
-        sttBg:'#0e4c8f', sttFg:'#fff',
-        up: ()=>this.setState(st=>({ sxLvOrder: this.moveOrderItem(st.sxLvOrder, i, -1) })),
-        down: ()=>this.setState(st=>({ sxLvOrder: this.moveOrderItem(st.sxLvOrder, i, 1) })),
+        label, stt:i+1, sttMax:arr.length,
+        setStt: this.setSxLvRank(label),
       })),
-      sxHlRows: (s.sxHlOrder||this.defaultHlOrder()).map((label,i)=>({
-        label, stt:i+1,
-        bg:'#fafbfc', bd:'#e4e7ec',
-        sttBg:'#2f54eb', sttFg:'#fff',
-        up: ()=>this.setState(st=>({ sxHlOrder: this.moveOrderItem(st.sxHlOrder||this.defaultHlOrder(), i, -1) })),
-        down: ()=>this.setState(st=>({ sxHlOrder: this.moveOrderItem(st.sxHlOrder||this.defaultHlOrder(), i, 1) })),
+      sxHlRows: (s.sxHlOrder||this.defaultHlOrder()).map((label,i,arr)=>({
+        label, stt:i+1, sttMax:arr.length,
+        setStt: this.setSxHlRank(label),
       })),
       saveSxForm: ()=>this.setState(st=>{
         if(!st.sxDonVi) return st;
@@ -4998,7 +5040,11 @@ class Component extends DCLogic {
         if(idx>=0) list[idx]=rec; else list = [rec, ...list];
         return { sxConfigs:list, sxForm:false, sxEditId:null };
       }),
-      sxConfigRows: (s.sxConfigs||[]).map((c,i)=>({
+      sxConfigRows: (()=>{
+        const base = s.sxConfigs || [];
+        const dv = String(s.sxSearchDonVi || '').trim();
+        const list = dv ? base.filter(c=>c.donVi === dv) : base;
+        return list.map((c,i)=>({
         stt:i+1,
         donVi:c.donVi,
         ngayLabel: c.ngayBH==='moi-cu' ? 'Mới → Cũ' : 'Cũ → Mới',
@@ -5009,9 +5055,16 @@ class Component extends DCLogic {
           sxLvOrder:(c.lvOrder||[]).slice(), sxHlOrder:(c.hlOrder||this.defaultHlOrder()).slice()
         }),
         del: ()=>this.setState(st=>({ sxConfigs:(st.sxConfigs||[]).filter(x=>x.id!==c.id) })),
-      })),
-      sxConfigCount: (s.sxConfigs||[]).length,
+      }));
+      })(),
+      sxConfigTotal: (s.sxConfigs||[]).length,
+      sxConfigCount: (()=>{
+        const base = s.sxConfigs || [];
+        const dv = String(s.sxSearchDonVi || '').trim();
+        return dv ? base.filter(c=>c.donVi === dv).length : base.length;
+      })(),
       sxConfigEmpty: !(s.sxConfigs||[]).length,
+      sxSearchEmpty: !!(s.sxConfigs||[]).length && !!(s.sxSearchDonVi||'').trim() && !(s.sxConfigs||[]).some(c=>c.donVi===String(s.sxSearchDonVi||'').trim()),
       isSet: s.screen==='set',
       isStats: s.screen==='stats',
       isTraCuu: s.screen==='tracuu',
