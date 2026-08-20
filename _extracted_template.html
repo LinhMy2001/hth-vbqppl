@@ -2165,6 +2165,18 @@
               <sc-if value="{{ typeDocsEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:34px 18px;text-align:center;font-size:13px;color:#94a3b8;">Chưa có văn bản trong mẫu biểu này.</div></sc-if>
               <div style="padding:13px 18px;border-top:1px solid #eef1f6;font-size:12.5px;color:#6b7a8d;display:flex;align-items:center;gap:8px;"><span class="ic" style="font-size:16px;color:#0e4c8f;">swipe</span>Cuộn ngang để xem đầy đủ các cột thông tin của mẫu biểu.</div>
             </div>
+            <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
+              <sc-if value="{{ rsPlanIsApproved }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:16px;">
+                  <sc-if value="{{ curTypePublished }}" hint-placeholder-val="{{ false }}">
+                    <button disabled="disabled" style="height:40px;border:0;background:#fbf2dc;cursor:default;font-family:inherit;font-size:13.5px;font-weight:600;color:#b8860b;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;"><span class="ic" style="font-size:20px;">campaign</span>Đã công bố</button>
+                  </sc-if>
+                  <sc-if value="{{ canPublishCurType }}" hint-placeholder-val="{{ false }}">
+                    <button onclick="{{ openRsTypePublishConfirm }}" style="height:40px;min-width:120px;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:20px;">campaign</span>Công bố</button>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </sc-if>
           </sc-if>
 
           <sc-if value="{{ showAgg }}" hint-placeholder-val="{{ false }}">
@@ -2248,6 +2260,22 @@
                 <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
                   <button onclick="{{ cancelRsPublishConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
                   <button onclick="{{ confirmRsPublish }}" style="height:38px;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">campaign</span>Xác nhận công bố</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showRsTypePublishConfirm }}" hint-placeholder-val="{{ false }}">
+            <div onclick="{{ cancelRsTypePublishConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
+              <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:520px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#b8860b;">campaign</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận công bố phụ lục</h3></div>
+                <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
+                  Bạn có chắc chắn muốn công bố <b style="color:#0e4c8f;">{{ curTypeLabel }}</b> thuộc kỳ hệ thống hóa <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> không?
+                  <div style="margin-top:10px;padding:10px 12px;background:#fbf2dc;border:1px solid #f0dca6;border-radius:8px;font-size:12.5px;color:#7a6a3a;line-height:1.5;">Sau khi công bố, dữ liệu phụ lục này sẽ được đồng bộ lên Cơ sở dữ liệu quốc gia VBQPPL.</div>
+                </div>
+                <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
+                  <button onclick="{{ cancelRsTypePublishConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
+                  <button onclick="{{ confirmRsTypePublish }}" style="height:38px;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">campaign</span>Xác nhận công bố</button>
                 </div>
               </div>
             </div>
@@ -3836,6 +3864,27 @@ class Component extends DCLogic {
         return { rsApproved:na, rsChecked:{}, rsPlanApproved:planAp };
       }),
       publishCurType: ()=>this.setState(st=>({ rsPublished:{ ...st.rsPublished, [st.reviewType]:true } })),
+      curTypePublished: !!(s.reviewType && (s.rsPublished||{})[s.reviewType]),
+      canPublishCurType: !!(s.reviewType && (s.rsPlanApproved||{})[s.reviewPlanMa] && !(s.rsPublished||{})[s.reviewType]),
+      showRsTypePublishConfirm: !!s.showRsTypePublishConfirm,
+      openRsTypePublishConfirm: ()=>{
+        const st = this.state;
+        if(!(st.rsPlanApproved||{})[st.reviewPlanMa]){
+          alert('Bạn cần duyệt kết quả hệ thống hóa trước khi công bố.');
+          return;
+        }
+        if(!st.reviewType) return;
+        this.setState({ showRsTypePublishConfirm:true });
+      },
+      cancelRsTypePublishConfirm: ()=>this.setState({ showRsTypePublishConfirm:false }),
+      confirmRsTypePublish: ()=>this.setState(st=>{
+        if(!st.reviewType) return { showRsTypePublishConfirm:false };
+        const np={ ...(st.rsPublished||{}), [st.reviewType]:true };
+        const planPub={ ...(st.rsPlanPublished||{}) };
+        const allTypes = mauBieuDefs.filter(t=>t[0]!=='tap-hth');
+        if(allTypes.every(t=> np[t[0]]) && st.reviewPlanMa) planPub[st.reviewPlanMa]=true;
+        return { showRsTypePublishConfirm:false, rsPublished:np, rsPlanPublished:planPub };
+      }),
       rsTotal: mauBieuDefs.filter(t=>t[0]!=='tap-hth').length,
       rsAggUnitCount: 4,
       openAgg: ()=>this.setState({ showAggConfirm:true }),
