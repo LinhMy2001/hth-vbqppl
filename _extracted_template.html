@@ -1493,20 +1493,22 @@
                         <sc-raw-td style="padding:10px 8px;border-right:1px solid #eef1f6;border-bottom:1px solid #eef1f6;">
                           <select value="{{ rec.hl }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #cfd9e6;border-radius:6px;outline:none;background:#fff;">
                             <option>Còn hiệu lực</option>
-                            <option>Hết hiệu lực</option>
-                            <option>Hết HL một phần</option>
-                            <option>Tạm ngưng HL</option>
+                            <option>Hết hiệu lực một phần</option>
+                            <option>Tạm ngưng hiệu lực một phần</option>
+                            <option>Chưa có hiệu lực</option>
+                            <option>Hết hiệu lực toàn bộ</option>
+                            <option>Tạm ngưng hiệu lực toàn bộ</option>
                           </select>
                         </sc-raw-td>
                         <sc-if value="{{ showFormCol10 }}" hint-placeholder-val="{{ true }}">
                         <sc-raw-td style="padding:10px 8px;border-right:1px solid #eef1f6;border-bottom:1px solid #eef1f6;">
-                          <select value="{{ rec.hlHienTai }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #cfd9e6;border-radius:6px;outline:none;background:#fff;">
-                            <option>Còn hiệu lực</option>
-                            <option>Cần sửa đổi</option>
-                            <option>Cần bổ sung</option>
-                            <option>Cần thay thế</option>
-                            <option>Cần bãi bỏ</option>
-                            <option>Cần ban hành mới</option>
+                          <select value="{{ rec.kienNghi }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #cfd9e6;border-radius:6px;outline:none;background:#fff;">
+                            <option>Không cần xử lý</option>
+                            <option>Sửa đổi, bổ sung</option>
+                            <option>Thay thế</option>
+                            <option>Bãi bỏ</option>
+                            <option>Tạm ngưng hiệu lực</option>
+                            <option>Ban hành mới</option>
                           </select>
                         </sc-raw-td>
                         </sc-if>
@@ -2980,11 +2982,11 @@ class Component extends DCLogic {
   }
 
   blankDocFormRow(){
-    return { lv:'', loai:'', cq:'', so:'', ngay:'', ty:'', hieuLucNgay:'', hl:'Còn hiệu lực', hlHienTai:'Còn hiệu lực', ghiChu:'' };
+    return { lv:'', loai:'', cq:'', so:'', ngay:'', ty:'', hieuLucNgay:'', hl:'Còn hiệu lực', kienNghi:'Không cần xử lý', ghiChu:'' };
   }
 
   docFormRowFromEdit(d){
-    return { lv:d.lv||'', loai:d.loai||'', cq:d.cq||'', so:d.so||'', ngay:d.ngay||'', ty:d.ty||'', hieuLucNgay:d.hieuLucNgay||d.ngay||'', hl:d.hl||'Còn hiệu lực', hlHienTai:'Còn hiệu lực', ghiChu:d.ghiChu||'' };
+    return { lv:d.lv||'', loai:d.loai||'', cq:d.cq||'', so:d.so||'', ngay:d.ngay||'', ty:d.ty||'', hieuLucNgay:d.hieuLucNgay||d.ngay||'', hl:this.normalizeTthl(d.hl), kienNghi:d.kienNghi||'Không cần xử lý', ghiChu:d.ghiChu||'' };
   }
 
   defaultAddRows(){
@@ -3024,13 +3026,28 @@ class Component extends DCLogic {
 
   assignRowsToMau(assigned, rows, code){
     const next = { ...(assigned||{}) };
-    (rows||[]).forEach(r=>{ if(r && r.so) next[r.so] = code; });
+    (rows||[]).forEach(r=>{
+      if(!r || !r.so) return;
+      const prev = next[r.so];
+      if(Array.isArray(prev)){
+        if(!prev.includes(code)) next[r.so] = [...prev, code];
+      } else if(prev && prev !== code){
+        next[r.so] = [prev, code];
+      } else if(!prev){
+        next[r.so] = [code];
+      }
+    });
     return next;
   }
 
   releaseRowFromMau(assigned, so, code){
     const next = { ...(assigned||{}) };
-    if(so && next[so] === code) delete next[so];
+    if(!so || !next[so]) return next;
+    const v = next[so];
+    if(Array.isArray(v)){
+      const f = v.filter(c=>c!==code);
+      if(f.length) next[so] = f; else delete next[so];
+    } else if(v === code) delete next[so];
     return next;
   }
 
@@ -3119,8 +3136,110 @@ class Component extends DCLogic {
     return a;
   }
 
+  tthlValues(){
+    return ['Còn hiệu lực','Hết hiệu lực một phần','Tạm ngưng hiệu lực một phần','Chưa có hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực toàn bộ'];
+  }
+
+  /** 6 giá trị trục Hiệu lực từ CSDL quốc gia (nhãn gốc API). */
+  csdlTthlValues(){
+    return ['Còn hiệu lực','Hết hiệu lực một phần','Ngưng hiệu lực một phần','Chưa có hiệu lực','Hết hiệu lực toàn bộ','Ngưng hiệu lực'];
+  }
+
+  tthlTruc(){ return 'Hiệu lực'; }
+
+  /** Map giá trị CSDLQG → TTHL nội bộ (NĐ 79/2025). */
+  csdlToTthl(v){
+    return ({
+      'Còn hiệu lực':'Còn hiệu lực',
+      'Hết hiệu lực một phần':'Hết hiệu lực một phần',
+      'Ngưng hiệu lực một phần':'Tạm ngưng hiệu lực một phần',
+      'Chưa có hiệu lực':'Chưa có hiệu lực',
+      'Hết hiệu lực toàn bộ':'Hết hiệu lực toàn bộ',
+      'Ngưng hiệu lực':'Tạm ngưng hiệu lực toàn bộ',
+    })[String(v||'').trim()] || null;
+  }
+
+  hlColors(hl){
+    const t = this.normalizeTthl(hl);
+    return ({
+      'Còn hiệu lực':['#1f8a5b','#e3f4ec'],
+      'Hết hiệu lực toàn bộ':['#c0392b','#fbe6e3'],
+      'Hết hiệu lực một phần':['#c77d11','#fbf2dc'],
+      'Tạm ngưng hiệu lực một phần':['#7b5ea7','#f0e8fb'],
+      'Tạm ngưng hiệu lực toàn bộ':['#8a4bd8','#f0e8fb'],
+      'Chưa có hiệu lực':['#64748b','#f1f5f9'],
+    })[t] || ['#1f8a5b','#e3f4ec'];
+  }
+
+  docFromCsdl(raw, ky){
+    const hlCsdl = String((raw && (raw.hl || raw.tinhTrangHieuLuc)) || '').trim() || 'Còn hiệu lực';
+    const hl = this.normalizeTthl(hlCsdl);
+    const c = this.hlColors(hl);
+    return {
+      so:(raw.so||'').trim()||'(Chưa có số)', loai:raw.loai||'Văn bản', ty:raw.ty||'(Chưa nhập tên gọi)',
+      cq:raw.cq||'', lv:raw.lv||'Tư pháp', ngay:raw.ngay||'', hieuLucNgay:(raw.hieuLucNgay||raw.ngay||''),
+      hlCsdl, hl, hlC:c[0], hlB:c[1], kienNghi:raw.kienNghi||'Không cần xử lý',
+      nhom:'con-hieu-luc', ghiChu:raw.ghiChu||'Đồng bộ từ CSDL quốc gia', ky, nguon:'csdl',
+    };
+  }
+
+  kienNghiValues(){
+    return ['Không cần xử lý','Sửa đổi, bổ sung','Thay thế','Bãi bỏ','Tạm ngưng hiệu lực','Ban hành mới'];
+  }
+
+  kienNghiFromRsType(rk){
+    return ({ 'giu-nguyen':'Không cần xử lý','sua-doi':'Sửa đổi, bổ sung','thay-the':'Thay thế','bai-bo':'Bãi bỏ','ban-hanh-moi':'Ban hành mới' })[rk] || 'Không cần xử lý';
+  }
+
+  normalizeTthl(hl){
+    const t = String(hl||'').trim();
+    if(!t || t==='--') return 'Còn hiệu lực';
+    const fromCsdl = this.csdlToTthl(t);
+    if(fromCsdl) return fromCsdl;
+    if(t==='Còn hiệu lực' || t==='Còn hiệu lực toàn bộ') return 'Còn hiệu lực';
+    if(t==='Hết hiệu lực' || t==='Hết hiệu lực toàn bộ') return 'Hết hiệu lực toàn bộ';
+    if(t==='Hết HL một phần' || t==='Hết hiệu lực một phần') return 'Hết hiệu lực một phần';
+    if(t==='Ngưng hiệu lực một phần' || t==='Tạm ngưng hiệu lực một phần') return 'Tạm ngưng hiệu lực một phần';
+    if(t==='Ngưng hiệu lực' || t==='Ngưng HL' || t==='Tạm ngưng HL' || t==='Tạm ngưng hiệu lực' || t==='Tạm ngưng hiệu lực toàn bộ') return 'Tạm ngưng hiệu lực toàn bộ';
+    if(t==='Chưa có hiệu lực') return 'Chưa có hiệu lực';
+    return t;
+  }
+
+  classifyMau(d){
+    const tthl = this.normalizeTthl(d && d.hl);
+    const kn = String((d && (d.kienNghi || d.kienNghiXuLy)) || 'Không cần xử lý').trim() || 'Không cần xử lý';
+    const m = { m01:false, m02:false, m03:false, m04:false, m05:false };
+    if(tthl==='Hết hiệu lực toàn bộ' || tthl==='Tạm ngưng hiệu lực toàn bộ') m.m01 = true;
+    if(tthl==='Hết hiệu lực một phần' || tthl==='Tạm ngưng hiệu lực một phần'){ m.m02 = true; m.m03 = true; m.m05 = true; }
+    if(tthl==='Còn hiệu lực' || tthl==='Chưa có hiệu lực'){ m.m03 = true; m.m05 = true; }
+    if(kn!=='Không cần xử lý') m.m04 = true;
+    return m;
+  }
+
+  inMau(d, mauKey){
+    const c = this.classifyMau(d);
+    return !!c[{ 'het-toan-bo':'m01','het-mot-phan':'m02','con-hieu-luc':'m03','can-xu-ly':'m04','tap-hth':'m05' }[mauKey]];
+  }
+
+  mauPlLabels(d){
+    const c = this.classifyMau(d);
+    const L = [];
+    if(c.m01) L.push('Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ');
+    if(c.m02) L.push('Phụ lục II - Danh mục văn bản QPPL hết hiệu lực một phần');
+    if(c.m03) L.push('Phụ lục III - Danh mục văn bản QPPL còn hiệu lực');
+    if(c.m04) L.push('Phụ lục IV - Danh mục văn bản QPPL cần xử lý');
+    return L.length ? L.join('; ') : '—';
+  }
+
+  isAssignedTo(assigned, so, code){
+    if(!so) return false;
+    const v = (assigned||{})[so];
+    if(Array.isArray(v)) return v.includes(code);
+    return v === code;
+  }
+
   defaultHlOrder(){
-    return ['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'];
+    return this.tthlValues();
   }
 
   lvOptionsForUnit(donVi){
@@ -3135,12 +3254,7 @@ class Component extends DCLogic {
   }
 
   normalizeHlKey(hl){
-    const t = String(hl||'').trim();
-    if(t==='Hết hiệu lực' || t==='Hết hiệu lực toàn bộ') return 'Hết hiệu lực toàn bộ';
-    if(t==='Hết HL một phần' || t==='Hết hiệu lực một phần') return 'Hết hiệu lực một phần';
-    if(t==='Tạm ngưng HL' || t==='Tạm ngưng hiệu lực') return 'Tạm ngưng hiệu lực';
-    if(t==='Còn hiệu lực') return 'Còn hiệu lực';
-    return t;
+    return this.normalizeTthl(hl);
   }
 
   parseNgay(str){
@@ -3249,9 +3363,11 @@ class Component extends DCLogic {
 
     const HL = {
       con:   { t:'Còn hiệu lực', c:'#1f8a5b', b:'#e3f4ec' },
-      het:   { t:'Hết hiệu lực', c:'#c0392b', b:'#fbe6e3' },
-      hetmp: { t:'Hết HL một phần', c:'#c77d11', b:'#fbf2dc' },
-      ngung: { t:'Tạm ngưng HL', c:'#8a4bd8', b:'#f0e8fb' },
+      het:   { t:'Hết hiệu lực toàn bộ', c:'#c0392b', b:'#fbe6e3' },
+      hetmp: { t:'Hết hiệu lực một phần', c:'#c77d11', b:'#fbf2dc' },
+      ngung: { t:'Tạm ngưng hiệu lực toàn bộ', c:'#8a4bd8', b:'#f0e8fb' },
+      ngungmp:{ t:'Tạm ngưng hiệu lực một phần', c:'#7b5ea7', b:'#f0e8fb' },
+      chua:  { t:'Chưa có hiệu lực', c:'#64748b', b:'#f1f5f9' },
     };
     const vb = [
       ['80/2015/QH13','Luật','Luật Ban hành văn bản quy phạm pháp luật','Quốc hội','22/06/2015','Tư pháp','het','het-toan-bo'],
@@ -3267,17 +3383,17 @@ class Component extends DCLogic {
       ['27/2021/NQ-HĐND','Nghị quyết','Quy định mức thu lệ phí hộ tịch trên địa bàn tỉnh','HĐND tỉnh','08/12/2021','Hộ tịch','con','can-sua-doi'],
       ['03/2022/TT-BTP','Thông tư','Hướng dẫn việc đánh giá tác động của thủ tục hành chính','Bộ Tư pháp','10/02/2022','Tư pháp','con','can-bo-sung'],
       ['41/2014/QĐ-UBND','Quyết định','Quy định về trợ giúp pháp lý tại cơ sở','UBND tỉnh','15/09/2014','Trợ giúp pháp lý','het','can-bai-bo'],
-      ['—','(Chưa ban hành)','Nghị quyết quy định chính sách hỗ trợ pháp lý cho doanh nghiệp nhỏ và vừa','HĐND tỉnh','—','Hỗ trợ pháp lý','con','can-ban-hanh-moi'],
+      ['—','(Chưa ban hành)','Nghị quyết quy định chính sách hỗ trợ pháp lý cho doanh nghiệp nhỏ và vừa','HĐND tỉnh','—','Hỗ trợ pháp lý','chua','can-ban-hanh-moi'],
     ];
     const rsTypeByIdx = ['giu-nguyen','sua-doi','thay-the','bai-bo','ban-hanh-moi','bai-bo'];
     const rsLabel = { 'giu-nguyen':'Đề nghị giữ nguyên','sua-doi':'Đề nghị sửa đổi, bổ sung','thay-the':'Đề nghị thay thế','bai-bo':'Đề nghị bãi bỏ','ban-hanh-moi':'Đề nghị ban hành mới' };
     // Level-1 danh sách loại kết quả rà soát
     const mauBieuDefs = [
-      ['het-toan-bo','Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực toàn bộ', (d)=>d.rsType==='bai-bo'||d.rsType==='thay-the'],
-      ['het-mot-phan','Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực một phần', (d)=>d.rsType==='sua-doi'],
-      ['con-hieu-luc','Danh mục văn bản quy phạm pháp luật còn hiệu lực', (d)=>d.rsType==='giu-nguyen'],
-      ['can-xu-ly','Danh mục văn bản quy phạm pháp luật cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới', (d)=>d.rsType==='ban-hanh-moi'||d.rsType==='sua-doi'||d.rsType==='thay-the'],
-      ['tap-hth','Tập hệ thống hóa văn bản quy phạm pháp luật', ()=>true],
+      ['het-toan-bo','Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực toàn bộ', (d)=>this.inMau(d,'het-toan-bo')],
+      ['het-mot-phan','Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực một phần', (d)=>this.inMau(d,'het-mot-phan')],
+      ['con-hieu-luc','Danh mục văn bản quy phạm pháp luật còn hiệu lực', (d)=>this.inMau(d,'con-hieu-luc')],
+      ['can-xu-ly','Danh mục văn bản quy phạm pháp luật cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới', (d)=>this.inMau(d,'can-xu-ly')],
+      ['tap-hth','Tập hệ thống hóa văn bản quy phạm pháp luật', (d)=>this.inMau(d,'tap-hth')],
     ];
     const raSoatKQ = ['Đề nghị giữ nguyên','Đề nghị sửa đổi, bổ sung','Đề nghị thay thế','Đề nghị bãi bỏ','Đề nghị ban hành mới','Đề nghị bãi bỏ'];
     // Cột riêng của từng danh mục mẫu biểu (m01–m04) khi xem chi tiết
@@ -3305,11 +3421,12 @@ class Component extends DCLogic {
       ],
     };
     const detailExtraFor = (ma,d)=>{
-      if(ma==='het-toan-bo') return [ (d.rsType==='bai-bo'||d.rsType==='thay-the') ? 'Hết hiệu lực' : 'Tạm ngưng hiệu lực', d.rsPhanTich, d.ngay];
-      if(ma==='het-mot-phan') return [ d.rsType==='sua-doi' ? 'Hết hiệu lực' : 'Tạm ngưng hiệu lực', d.rsPhanTich, d.ngay];
-      if(ma==='con-hieu-luc') return [d.ngay, d.ghiChu || 'Còn hiệu lực'];
-      if(ma==='tap-hth') return [d.hieuLucNgay || d.ngay, d.ghiChu || 'Còn hiệu lực'];
-      if(ma==='can-xu-ly') return [d.rsHinhThuc, d.rsPhanTich, d.cq, d.rsLoTrinh];
+      const tthl = this.normalizeTthl(d && d.hl);
+      if(ma==='het-toan-bo') return [ tthl.indexOf('Tạm ngưng')>=0 ? 'Tạm ngưng hiệu lực' : 'Hết hiệu lực', d.rsPhanTich || d.ghiChu, d.ngay];
+      if(ma==='het-mot-phan') return [ tthl.indexOf('Tạm ngưng')>=0 ? 'Tạm ngưng hiệu lực một phần' : 'Hết hiệu lực một phần', d.rsPhanTich || d.ghiChu, d.ngay];
+      if(ma==='con-hieu-luc') return [d.hieuLucNgay || d.ngay, d.ghiChu || tthl];
+      if(ma==='tap-hth') return [d.hieuLucNgay || d.ngay, d.ghiChu || tthl];
+      if(ma==='can-xu-ly') return [d.kienNghi || d.rsHinhThuc, d.rsPhanTich, d.cq, d.rsLoTrinh];
       return [];
     };
     const ghiChuMap = {
@@ -3328,13 +3445,18 @@ class Component extends DCLogic {
     };
     const tcDonViHthOpts = ['Bộ Ngoại giao','Bộ Tư pháp','Bộ Công an','Bộ Tài chính','UBND tỉnh Hà Tĩnh','UBND Tỉnh Hưng Yên'];
     const docs = vb.map((d,i)=>{ const rk = rsTypeByIdx[i % rsTypeByIdx.length]; const det = rsDetailByType[rk];
+      const hlText = HL[d[6]].t;
       return { idx:i+1, so:d[0], loai:d[1], ty:d[2], cq:d[3], ngay:d[4], lv:d[5],
-        hl:HL[d[6]].t, hlC:HL[d[6]].c, hlB:HL[d[6]].b, nhom:d[7], hieuLucNgay: d[4],
+        hl:hlText, hlC:HL[d[6]].c, hlB:HL[d[6]].b, nhom:d[7], hieuLucNgay: d[4],
+        kienNghi: this.kienNghiFromRsType(rk),
         ghiChu: ghiChuMap[d[7]] || '', raSoat: rsLabel[rk], rsType: rk,
         rsCanCu: det.canCu, rsPhanTich: det.phanTich, rsHinhThuc: det.hinhThuc, rsLoTrinh: det.loTrinh, rsTieuChi: det.tieuChi, rsHinhThucND: det.hinhThucND,
         cb: i % 3 !== 2, nguon: i % 4 === 0 ? 'manual' : 'csdl', ky: i % 3 === 0 ? '2019 – 2023' : '2024 – 2028',
         donViHth: tcDonViHthOpts[i % tcDonViHthOpts.length] };
     });
+
+    this._docsCache = docs;
+    this._detailExtraFor = detailExtraFor;
 
     const plans = Array.isArray(s.plans) ? s.plans : [];
     const planBaseList = plans.filter(p=>p.kyId==='KY-002' || p.ma==='KH-HTH/2024-2028-01' || p.ky==='2024 – 2028');
@@ -3373,13 +3495,13 @@ class Component extends DCLogic {
     const lvOrder = ['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'];
     const patches = s.setDocPatches || {};
     const hlStyleOf = (text)=>{
-      const t = text || '';
-      if (t.includes('một phần') || t.includes('HL một phần')) return HL.hetmp;
-      if (t.includes('Tạm ngưng')) return HL.ngung;
-      if (t.includes('Hết hiệu lực') || t === 'Hết hiệu lực') return HL.het;
-      if (t.includes('Còn hiệu lực')) return HL.con;
-      const hit = Object.values(HL).find(h=>h.t===t);
-      return hit || HL.con;
+      const t = this.normalizeTthl(text);
+      if(t==='Hết hiệu lực một phần') return HL.hetmp;
+      if(t==='Tạm ngưng hiệu lực một phần') return HL.ngungmp;
+      if(t==='Tạm ngưng hiệu lực toàn bộ') return HL.ngung;
+      if(t==='Hết hiệu lực toàn bộ') return HL.het;
+      if(t==='Chưa có hiệu lực') return HL.chua;
+      return HL.con;
     };
     const docsForSetBase = docs.map(d=>{
       const p = patches[d.so];
@@ -3463,12 +3585,9 @@ class Component extends DCLogic {
       const loaiVb = d.loaiVb || ((d.ky === '2019 – 2023' || i % 3 === 0) ? 'VB HTH kỳ trước' : 'VB HTH kỳ hiện tại');
       const isKyTruoc = loaiVb === 'VB HTH kỳ trước';
       const isKyHienTai = loaiVb === 'VB HTH kỳ hiện tại';
-      const hlVal = d.hl || 'Còn hiệu lực';
-      // Cột Tình trạng hiệu lực: kỳ hiện tại = "--"; kỳ trước = giá trị HL
-      const hlCol = isKyHienTai ? '--' : hlVal;
-      const hlColStl = isKyHienTai ? { c:'#94a3b8', b:'#f2f4f7' } : hlStyleOf(hlVal);
-      // Cột Tình trạng hiệu lực hiện tại: luôn hiển thị giá trị HL tương ứng
-      const hlHienTai = hlVal;
+      const hlHienTai = this.normalizeTthl(d.hl);
+      const hlCol = isKyHienTai ? '--' : hlHienTai;
+      const hlColStl = isKyHienTai ? { c:'#94a3b8', b:'#f2f4f7' } : hlStyleOf(hlHienTai);
       const hlHienTaiStl = hlStyleOf(hlHienTai);
       return {
         ...d, stt: ++_docSeq,
@@ -3481,6 +3600,7 @@ class Component extends DCLogic {
         hlHienTai,
         hlHienTaiC: hlHienTaiStl.c,
         hlHienTaiB: hlHienTaiStl.b,
+        kienNghi: d.kienNghi || 'Không cần xử lý',
         view: ()=>this.setState({ docPanel:'view', editDoc:d }),
         edit: ()=>this.setState({ docPanel:'form', formMode:'edit', editDoc:d, formLoaiVb: d.loaiVb || '', docFormRows:[this.docFormRowFromEdit(d)] }),
       };
@@ -3526,7 +3646,7 @@ class Component extends DCLogic {
       { code:'05', label:'Tập hệ thống hoá văn bản quy phạm pháp luật', secTitle:'Tập hệ thống hoá văn bản quy phạm pháp luật', col9:'PHÂN TÍCH, KIẾN NGHỊ XỬ LÝ' },
     ];
     const activeCat = catDefs.find(c=>c[0]===s.catTab) || catDefs[0];
-    const hlOrderAll = ['Hết hiệu lực','Hết HL một phần','Tạm ngưng HL','Còn hiệu lực'];
+    const hlOrderAll = this.tthlValues();
     const parseCatD = (str)=>{ const p=(str||'').split('/'); return p.length===3 ? new Date(+p[2],+p[1]-1,+p[0]) : null; };
     const catSelLv = s.catSelLv || [];
     const catSelHl = s.catSelHl || [];
@@ -4065,6 +4185,33 @@ class Component extends DCLogic {
         const ma = st.rsCreatePlanMa || '';
         if(!ma){ alert('Vui lòng chọn Kỳ hệ thống hóa.'); return st; }
         if((st.rsHthCreated||{})[ma]){ alert('Kế hoạch này đã được tạo kết quả HTH.'); return st; }
+        const plan = (st.plans||[]).find(p=>p.ma===ma);
+        const kyLabel = plan ? (plan.ky || '') : '';
+        const allDocs = docs.slice();
+        const planDocs = kyLabel ? allDocs.filter(d=>d.ky===kyLabel) : allDocs;
+        const mauRows = {};
+        const assigned = {};
+        const codeMap = { 'het-toan-bo':'01','het-mot-phan':'02','con-hieu-luc':'03','can-xu-ly':'04','tap-hth':'05' };
+        mauBieuDefs.forEach(t=>{
+          const code = codeMap[t[0]];
+          const filtered = planDocs.filter(t[2]);
+          const rows = this.rowsFromTypeDocs(t[0], filtered, detailExtraFor);
+          if(code) mauRows[code] = rows;
+          filtered.forEach(d=>{
+            if(!d || !d.so) return;
+            const prev = assigned[d.so];
+            if(Array.isArray(prev)){
+              if(!prev.includes(code)) assigned[d.so] = [...prev, code];
+            } else if(prev && prev !== code){
+              assigned[d.so] = [prev, code];
+            } else if(!prev){
+              assigned[d.so] = [code];
+            }
+          });
+        });
+        const c01 = (mauRows['01']||[]).length, c02 = (mauRows['02']||[]).length;
+        const c03 = (mauRows['03']||[]).length, c04 = (mauRows['04']||[]).length, c05 = (mauRows['05']||[]).length;
+        alert('Đã phân loại tự động theo tình trạng hiệu lực và kiến nghị:\n• Mẫu 01: '+c01+' VB\n• Mẫu 02: '+c02+' VB\n• Mẫu 03: '+c03+' VB\n• Mẫu 04: '+c04+' VB\n• Mẫu 05: '+c05+' VB');
         return {
           showRsCreateForm:false,
           rsCreatePlanMa:'',
@@ -4072,7 +4219,9 @@ class Component extends DCLogic {
           reviewType:null,
           reviewAdd:false,
           reviewAgg:false,
-          rsHthDraft:{ ...(st.rsHthDraft||{}), [ma]:true }
+          rsHthDraft:{ ...(st.rsHthDraft||{}), [ma]:true },
+          rsMauRows: mauRows,
+          rsAssigned: assigned,
         };
       }),
       rsSave: ()=>this.setState(st=>{
@@ -4094,9 +4243,31 @@ class Component extends DCLogic {
         this.setState(st=>{
           if(!st.reviewPlanMa) return st;
           const ma = st.reviewPlanMa;
-          // Xóa bản lưu mẫu 01–04 gắn với lần tạo cũ (prototype: clear rsMauRows keys)
-          const rows = { ...(st.rsMauRows||{}) };
-          ['01','02','03','04'].forEach(k=>{ delete rows[k]; });
+          const plan = (st.plans||[]).find(p=>p.ma===ma);
+          const kyLabel = plan ? (plan.ky || '') : '';
+          const allDocs = (this._docsCache || []).slice();
+          const planDocs = kyLabel ? allDocs.filter(d=>d.ky===kyLabel) : allDocs;
+          const detailFn = this._detailExtraFor;
+          const mauRows = {};
+          const assigned = {};
+          const codeMap = { 'het-toan-bo':'01','het-mot-phan':'02','con-hieu-luc':'03','can-xu-ly':'04','tap-hth':'05' };
+          mauBieuDefs.forEach(t=>{
+            const code = codeMap[t[0]];
+            const filtered = planDocs.filter(t[2]);
+            const rows = this.rowsFromTypeDocs(t[0], filtered, detailFn);
+            if(code) mauRows[code] = rows;
+            filtered.forEach(d=>{
+              if(!d || !d.so) return;
+              const prev = assigned[d.so];
+              if(Array.isArray(prev)){
+                if(!prev.includes(code)) assigned[d.so] = [...prev, code];
+              } else if(prev && prev !== code){
+                assigned[d.so] = [prev, code];
+              } else if(!prev){
+                assigned[d.so] = [code];
+              }
+            });
+          });
           const checked = { ...(st.rsChecked||{}) };
           const published = { ...(st.rsPublished||{}) };
           const sent = { ...(st.rsSent||{}) };
@@ -4108,7 +4279,8 @@ class Component extends DCLogic {
           const planSent={ ...(st.rsPlanSent||{}) }; delete planSent[ma];
           const planAp={ ...(st.rsPlanApproved||{}) }; delete planAp[ma];
           return {
-            rsMauRows: rows,
+            rsMauRows: mauRows,
+            rsAssigned: assigned,
             rsChecked: checked,
             rsPublished: published,
             rsSent: sent,
@@ -4265,7 +4437,13 @@ class Component extends DCLogic {
         const rows = this.rowsFromTypeDocs(ma, filtered, detailExtraFor);
         const finalRows = rows.length ? rows : this.defaultAddRows();
         let assigned = { ...(st.rsAssigned||{}) };
-        Object.keys(assigned).forEach(so=>{ if(assigned[so]===code) delete assigned[so]; });
+        Object.keys(assigned).forEach(so=>{
+          const v = assigned[so];
+          if(Array.isArray(v)){
+            const f = v.filter(c=>c!==code);
+            if(f.length) assigned[so] = f; else delete assigned[so];
+          } else if(v === code) delete assigned[so];
+        });
         assigned = this.assignRowsToMau(assigned, finalRows, code);
         return { addRows: finalRows, rsAssigned: assigned };
       }),
@@ -4273,24 +4451,36 @@ class Component extends DCLogic {
       closeAddSearch: ()=>this.setState({ addSearch:false }),
       showAddSearch: s.addSearch,
       pickDocs: docs.filter(d=>{
-        if((s.rsAssigned||{})[d.so]) return false;
+        const code = s.addMau;
+        if(code && this.isAssignedTo(s.rsAssigned, d.so, code)) return false;
         if((s.addRows||[]).some(r=>r.so===d.so)) return false;
+        if(code){
+          const ma = this.mauKeyFromCode(code);
+          const def = mauBieuDefs.find(t=>t[0]===ma);
+          if(def && !def[2](d)) return false;
+        }
         return true;
       }).map(d=>({ ...d, pick: ()=>this.setState(st=>{
         const code = st.addMau;
         if(!code) return { addSearch:false };
-        if((st.rsAssigned||{})[d.so]) return st;
+        if(this.isAssignedTo(st.rsAssigned, d.so, code)) return st;
         if((st.addRows||[]).some(r=>r.so===d.so)) return st;
         const row = this.rowFromDoc(code, d, detailExtraFor);
         return {
           addSearch:true,
           addRows:[ ...st.addRows, row ],
-          rsAssigned:{ ...(st.rsAssigned||{}), [d.so]: code }
+          rsAssigned: this.assignRowsToMau(st.rsAssigned, [row], code)
         };
       }) })),
       pickDocsEmpty: docs.filter(d=>{
-        if((s.rsAssigned||{})[d.so]) return false;
+        const code = s.addMau;
+        if(code && this.isAssignedTo(s.rsAssigned, d.so, code)) return false;
         if((s.addRows||[]).some(r=>r.so===d.so)) return false;
+        if(code){
+          const ma = this.mauKeyFromCode(code);
+          const def = mauBieuDefs.find(t=>t[0]===ma);
+          if(def && !def[2](d)) return false;
+        }
         return true;
       }).length === 0,
 
@@ -4423,16 +4613,10 @@ class Component extends DCLogic {
         const ghiChuVal = dr.ghiChu !== undefined ? dr.ghiChu : docGhiChu;
         const lyDoVal = dr.lyDo !== undefined ? dr.lyDo : '';
 
-        const plNames = {
-          'Hết hiệu lực': 'Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ',
-          'Hết hiệu lực một phần': 'Phụ lục II - Danh mục văn bản QPPL hết hiệu lực một phần',
-          'Còn hiệu lực': 'Phụ lục III - Danh mục văn bản QPPL còn hiệu lực',
-          'Cần xử lý': 'Phụ lục IV - Danh mục văn bản QPPL cần xử lý'
-        };
-        const plName = plNames[docHl] || 'Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ';
+        const plName = this.mauPlLabels({ ...d, hl: this.normalizeTthl(docHl), kienNghi: d.kienNghi });
 
         return { so:docSo, loai:docLoai, ty:docTy, lv:docLv, cq:docCq, ngay:docNgay, hl:docHl, coHieuLuc:docCoHieuLuc, ghiChu:docGhiChu, plName, stt: di+1,
-          truongLoai: dr.truongLoai || (docHl==='Hết hiệu lực'?'Hết hiệu lực':'Tạm ngưng'),
+          truongLoai: dr.truongLoai || (String(docHl||'').indexOf('Tạm ngưng')>=0?'Tạm ngưng hiệu lực':'Hết hiệu lực'),
           giaTriMoi: dr.giaTriMoi || '',
           lyDo: lyDoVal,
           isEditing,
@@ -4503,12 +4687,7 @@ class Component extends DCLogic {
         cq: (s.syncedDocs[first.so] || {}).cq || first.cq,
         ngay: (s.syncedDocs[first.so] || {}).ngay || first.ngay,
         hl: (s.syncedDocs[first.so] || {}).hl || first.hl,
-        plName: {
-          'Hết hiệu lực': 'Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ',
-          'Hết hiệu lực một phần': 'Phụ lục II - Danh mục văn bản QPPL hết hiệu lực một phần',
-          'Còn hiệu lực': 'Phụ lục III - Danh mục văn bản QPPL còn hiệu lực',
-          'Cần xử lý': 'Phụ lục IV - Danh mục văn bản QPPL cần xử lý'
-        }[(s.syncedDocs[first.so] || {}).hl || first.hl] || 'Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ'
+        plName: this.mauPlLabels({ ...first, hl: this.normalizeTthl((s.syncedDocs[first.so] || {}).hl || first.hl), kienNghi: first.kienNghi })
       };
       })(),
       dinhChinhList: (s.dinhChinh||this.seedDinhChinh()).map(r=>{
@@ -4710,12 +4889,11 @@ class Component extends DCLogic {
         const existing = (st.syncedDocs||{})[ky] || [];
         const n = existing.length;
         const now = '05/07/2026 · 09:' + String(20+n).padStart(2,'0');
-        const mk2 = (so,loai,ty,cq,lv)=>({ so, loai, ty, cq, lv, ngay:'05/07/2026', hieuLucNgay:'05/07/2026',
-          hl:'Còn hiệu lực', hlC:'#1f8a5b', hlB:'#e3f4ec', nhom:'con-hieu-luc', ghiChu:'Đồng bộ từ CSDL quốc gia', ky, nguon:'csdl' });
-        const added = [
-          mk2('0'+(n+1)+'/2026/NĐ-CP','Nghị định','Văn bản mới đồng bộ từ CSDL quốc gia về pháp luật','Chính phủ','Tư pháp'),
-          mk2('0'+(n+2)+'/2026/TT-BTP','Thông tư','Văn bản mới đồng bộ từ CSDL quốc gia về pháp luật','Bộ Tư pháp','Hộ tịch'),
+        const csdlSamples = [
+          { so:'0'+(n+1)+'/2026/NĐ-CP', loai:'Nghị định', ty:'Văn bản mới đồng bộ từ CSDL quốc gia — còn hiệu lực', cq:'Chính phủ', lv:'Tư pháp', hl:'Còn hiệu lực' },
+          { so:'0'+(n+2)+'/2026/TT-BTP', loai:'Thông tư', ty:'Văn bản đồng bộ CSDL — ngưng hiệu lực một phần', cq:'Bộ Tư pháp', lv:'Hộ tịch', hl:'Ngưng hiệu lực một phần' },
         ];
+        const added = csdlSamples.map(r=>this.docFromCsdl(r, ky));
         const map = { ...(st.syncedDocs||{}) };
         map[ky] = [ ...added, ...existing ];
         return { syncedDocs: map, docKyApplied: plan ? plan.ma : st.docKyApplied, docSyncTime: now };
@@ -4729,14 +4907,15 @@ class Component extends DCLogic {
         const plan = plans2.find(p=>p.ma===(this.state.docKySel||this.state.docKyApplied)) || plans2[0];
         const ky = plan ? (plan.ky || '') : '';
         if(!ky){ alert('Vui lòng chọn Kỳ HTH từ kế hoạch trước khi thêm văn bản.'); return; }
-        const hlMap = { 'Còn hiệu lực':['#1f8a5b','#e3f4ec'], 'Hết hiệu lực':['#c0392b','#fbe6e3'], 'Hết HL một phần':['#c77d11','#fbf2dc'], 'Tạm ngưng HL':['#8a4bd8','#f0e8fb'] };
+        const hlMap = Object.fromEntries(this.tthlValues().map(v=>[v, this.hlColors(v)]));
         const rows = (this.state.docFormRows||[]).filter(r=> (r.so&&String(r.so).trim()) || (r.ty&&String(r.ty).trim()) || (r.loai&&String(r.loai).trim()) );
         if(!rows.length){ alert('Vui lòng nhập ít nhất một văn bản.'); return; }
         const recs = rows.map(r=>{
-          const hlV = (r.hl||'').trim() || 'Còn hiệu lực';
-          const c = hlMap[hlV] || hlMap['Còn hiệu lực'];
+          const hlV = this.normalizeTthl((r.hl||'').trim());
+          const kn = (r.kienNghi||'').trim() || 'Không cần xử lý';
+          const c = hlMap[hlV] || this.hlColors(hlV);
           return { so:(r.so||'').trim()||'(Chưa có số)', loai:(r.loai||'').trim()||'Văn bản', ty:(r.ty||'').trim()||'(Chưa nhập tên gọi)', cq:r.cq||'', lv:(r.lv||'').trim()||'Tư pháp',
-            ngay:r.ngay||'', hieuLucNgay:(r.hieuLucNgay||'').trim()||r.ngay||'', hl:hlV, hlC:c[0], hlB:c[1], nhom:'con-hieu-luc', ghiChu:r.ghiChu||'', ky, nguon:'manual', loaiVb };
+            ngay:r.ngay||'', hieuLucNgay:(r.hieuLucNgay||'').trim()||r.ngay||'', hl:hlV, hlC:c[0], hlB:c[1], kienNghi:kn, nhom:'con-hieu-luc', ghiChu:r.ghiChu||'', ky, nguon:'manual', loaiVb };
         });
         this.setState(st=>{ const map={ ...(st.syncedDocs||{}) }; map[ky]=[ ...recs, ...(map[ky]||[]) ]; return { syncedDocs:map, docKyApplied: plan ? plan.ma : st.docKyApplied, docPanel:'', editDoc:null, formLoaiVb:'', docFormRows:[] }; });
       },
