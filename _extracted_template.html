@@ -1379,7 +1379,7 @@
           <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px;">
             <div>
               <div style="font-size:12px;color:#6b7a8d;font-weight:500;margin-bottom:5px;display:flex;align-items:center;gap:6px;"><span>Quy trình hệ thống hóa</span></div>
-              <h1 style="margin:0;font-size:23px;font-weight:700;color:#10243a;">Danh sách văn bản thuộc đối tượng hệ thống hóa</h1>
+              <h1 style="margin:0;font-size:23px;font-weight:700;color:#10243a;">Danh sách văn bản HTH</h1>
               <p style="margin:6px 0 0;font-size:13.5px;color:#5a6b7e;">Lập, cập nhật danh sách văn bản QPPL thuộc đối tượng hệ thống hóa theo định kỳ.</p>
             </div>
             <div style="display:flex;gap:10px;flex:0 0 auto;">
@@ -3575,7 +3575,7 @@ class Component extends DCLogic {
       grp('QUY TRÌNH HỆ THỐNG HÓA'),
       mk('kyhth','date_range','Danh mục kỳ hệ thống hóa'),
       mk('plan','event_note','Kế hoạch hệ thống hóa'),
-      mk('doclist','list_alt','Danh sách văn bản đối tượng'),
+      mk('doclist','list_alt','Danh sách văn bản HTH'),
       mk('review','fact_check','Kết quả Hệ thống hóa'),
       { ...mk('dinhchinh','edit_document','Đính chính'), go: ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); } },
       mk('set','menu_book','Tập hệ thống hóa'),
