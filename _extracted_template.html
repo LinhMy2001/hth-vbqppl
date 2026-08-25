@@ -645,7 +645,7 @@
                 <div style="flex:1;min-width:200px;">
                   <sc-if value="{{ isSetMain }}" hint-placeholder-val="{{ true }}"><div style="font-size:15px;font-weight:700;color:#10243a;">Tập hệ thống hóa kỳ {{ setKyLabel }}</div></sc-if>
                   <sc-if value="{{ isSetCorr }}" hint-placeholder-val="{{ false }}"><div style="font-size:15px;font-weight:700;color:#10243a;">Tập hệ thống hóa kỳ {{ setKyLabel }} <span style="color:#9a5b08;">(Bản đính chính)</span></div></sc-if>
-                  <div style="font-size:12px;color:#8094a8;margin-top:2px;">{{ setSortHint }} · {{ totalDocsLabel }}</div>
+                  <sc-if value="{{ !isLanhDao }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:#8094a8;margin-top:2px;">{{ setSortHint }} · {{ totalDocsLabel }}</div></sc-if>
                 </div>
                 <button style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#42566c;padding:8px 13px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">download</span>Kết xuất</button>
               </div>
@@ -670,7 +670,7 @@
                         <sc-raw-td colspan="8" style="padding:10px 12px;font-weight:700;color:#0e4c8f;border-top:1px solid #d8e0ea;">{{ g.label }}</sc-raw-td>
                       </sc-raw-tr>
                       <sc-for list="{{ g.items }}" as="doc" hint-placeholder-count="2">
-                        <sc-raw-tr style="border-top:1px solid #eef1f6;vertical-align:top;color:#16314c;" style-hover="background:#f8fbff;">
+                        <sc-raw-tr style="border-top:1px solid #eef1f6;vertical-align:top;color:#16314c;background:{{ doc.rowBg }};" style-hover="background:#f8fbff;">
                           <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;">{{ doc.stt }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.cq }}</sc-raw-td>
@@ -692,6 +692,12 @@
                 <div style="background:linear-gradient(180deg,#fdf8ec,#fbf2dc);border:1px solid #ecdcb4;border-radius:14px;padding:18px;">
                   <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#7a5a08;margin-bottom:6px;"><span class="ic" style="font-size:20px;">gavel</span>Thẩm quyền Lãnh đạo</div>
                   <div style="font-size:12.5px;color:#7a6a3a;line-height:1.5;margin-bottom:14px;">Phê duyệt quyết định và công bố lại tập hệ thống hóa (bản đính chính) lên Cơ sở dữ liệu quốc gia.</div>
+                  <sc-if value="{{ setHasCorrected }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;align-items:flex-start;gap:8px;background:#e3f4ec;border:1px solid #b9e4cc;border-radius:10px;padding:10px 12px;margin-bottom:14px;">
+                      <span class="ic" style="font-size:18px;color:#1f8a5b;">info</span>
+                      <div style="font-size:12px;color:#175c3f;line-height:1.45;">Dữ liệu đã thay đổi: <b>{{ setCorrectedCountLabel }}</b> văn bản trong tập này đã được đính chính thông tin so với lần công bố trước.</div>
+                    </div>
+                  </sc-if>
                   <button onclick="{{ openSetPublishConfirm }}" style="width:100%;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:11px;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 2px 8px rgba(184,134,11,.3);"><span class="ic" style="font-size:19px;">published_with_changes</span>Công bố lại (đính chính)</button>
                 </div>
               </sc-if>
@@ -723,7 +729,10 @@
           <div onclick="{{ cancelSetPublishConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
             <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
               <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#b8860b;">published_with_changes</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận công bố lại</h3></div>
-              <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">Bạn có chắc chắn muốn công bố lại tập hệ thống hóa (bản đính chính) lên Cơ sở dữ liệu quốc gia?</div>
+              <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
+                Bạn có chắc chắn muốn công bố lại tập hệ thống hóa (bản đính chính) lên Cơ sở dữ liệu quốc gia?
+                <sc-if value="{{ setHasCorrected }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:12.5px;color:#9a5b08;background:#fbf2dc;border-radius:8px;padding:8px 10px;">Dữ liệu đã thay đổi: <b>{{ setCorrectedCountLabel }}</b> văn bản đã được đính chính so với lần công bố trước.</div></sc-if>
+              </div>
               <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
                 <button onclick="{{ cancelSetPublishConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
                 <button onclick="{{ confirmSetPublish }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button>
@@ -803,6 +812,13 @@
                   <button onclick="{{ resetListSearch }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
                 </div>
               </div>
+
+              <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:14px;">
+                  <button onclick="{{ openBulkRejectDinh }}" style="height:40px;border:1px solid #f3c1c3;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#c0392b;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#fdf0f0;"><span class="ic" style="font-size:19px;">close</span>Từ chối</button>
+                  <button onclick="{{ bulkApproveDinh }}" style="height:40px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:19px;">check</span>Phê duyệt</button>
+                </div>
+              </sc-if>
               <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
                   <button onclick="{{ openDinhAdd }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;"><span class="ic" style="font-size:20px;">add</span>Thêm mới</button>
@@ -820,6 +836,7 @@
                       <sc-raw-th style="padding:10px 12px;font-weight:600;">Giá trị cũ → mới</sc-raw-th>
                       <sc-raw-th style="padding:10px 12px;font-weight:600;">Lý do</sc-raw-th>
                       <sc-raw-th style="padding:10px 12px;font-weight:600;width:170px;">Trạng thái</sc-raw-th>
+                      <sc-raw-th style="padding:10px 12px;font-weight:600;width:80px;text-align:center;">Thao tác</sc-raw-th>
                     </sc-raw-tr></sc-raw-thead>
                     <sc-raw-tbody>
                       <sc-for list="{{ dinhChinhList }}" as="rec" hint-placeholder-count="3">
@@ -829,10 +846,62 @@
                           <sc-raw-td style="padding:10px 12px;color:#475467;"><span style="text-decoration:line-through;color:#98a2b3;">{{ rec.giaTriCu }}</span> → <b style="color:#1e2939;">{{ rec.giaTriMoi }}</b></sc-raw-td>
                           <sc-raw-td style="padding:10px 12px;color:#475467;">{{ rec.lyDo }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 12px;"><span style="font-size:11.5px;font-weight:600;color:{{ rec.ttColor }};background:{{ rec.ttBg }};padding:3px 10px;border-radius:20px;white-space:nowrap;">{{ rec.ttLabel }}</span><sc-if value="{{ rec.isRejected }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#c0392b;margin-top:4px;">Lý do: {{ rec.lyDoTuChoi }}</div></sc-if></sc-raw-td>
+                          <sc-raw-td style="padding:10px 12px;text-align:center;">
+                            <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                              <sc-if value="{{ rec.isCreated }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.edit }}" title="Sửa" class="ic" style="font-size:18px;color:#2f54eb;cursor:pointer;">edit</span></sc-if>
+                              <sc-if value="{{ rec.isCreated }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.view }}" title="Xem" class="ic" style="font-size:18px;color:#667085;cursor:pointer;">visibility</span></sc-if>
+                              <sc-if value="{{ rec.isApproved }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.view }}" title="Xem" class="ic" style="font-size:18px;color:#667085;cursor:pointer;">visibility</span></sc-if>
+                            </div>
+                          </sc-raw-td>
                         </sc-raw-tr>
                       </sc-for>
                     </sc-raw-tbody>
                   </sc-raw-table>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ showDinhVe }}" hint-placeholder-val="{{ false }}">
+                <div onclick="{{ closeDinhVe }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:90;padding:24px;">
+                  <div onclick="{{ stop }}" style="background:#fff;border-radius:16px;width:520px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+                    <div style="padding:18px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;justify-content:space-between;">
+                      <div style="display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#0e4c8f;">edit_document</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;"><sc-if value="{{ dinhVeIsEdit }}" hint-placeholder-val="{{ false }}">Sửa bản ghi đính chính</sc-if><sc-if value="{{ !dinhVeIsEdit }}" hint-placeholder-val="{{ true }}">Xem bản ghi đính chính</sc-if></h3></div>
+                      <span onclick="{{ closeDinhVe }}" class="ic" style="font-size:22px;color:#94a3b8;cursor:pointer;">close</span>
+                    </div>
+                    <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+                      <div style="display:flex;gap:14px;">
+                        <div style="flex:1;">
+                          <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Số, ký hiệu</div>
+                          <div style="font-size:13.5px;font-weight:600;color:#2f54eb;font-family:ui-monospace,monospace;">{{ dinhVeRec.so }}</div>
+                        </div>
+                        <div style="flex:1;">
+                          <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Trạng thái</div>
+                          <span style="font-size:11.5px;font-weight:600;color:{{ dinhVeRec.ttColor }};background:{{ dinhVeRec.ttBg }};padding:3px 10px;border-radius:20px;">{{ dinhVeRec.ttLabel }}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Trường đính chính</div>
+                        <div style="font-size:13.5px;color:#1e2939;">{{ dinhVeRec.truong }}</div>
+                      </div>
+                      <div>
+                        <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Giá trị cũ</div>
+                        <div style="font-size:13.5px;color:#98a2b3;text-decoration:line-through;">{{ dinhVeRec.giaTriCu }}</div>
+                      </div>
+                      <div>
+                        <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Giá trị mới</div>
+                        <sc-if value="{{ dinhVeIsEdit }}" hint-placeholder-val="{{ false }}"><input value="{{ dinhVeGiaTriMoiVal }}" oninput="{{ setDinhVeGiaTriMoi }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #cfd9e6;border-radius:7px;outline:none;box-sizing:border-box;"></sc-if>
+                        <sc-if value="{{ !dinhVeIsEdit }}" hint-placeholder-val="{{ true }}"><div style="font-size:13.5px;font-weight:600;color:#1e2939;">{{ dinhVeRec.giaTriMoi }}</div></sc-if>
+                      </div>
+                      <div>
+                        <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Lý do</div>
+                        <sc-if value="{{ dinhVeIsEdit }}" hint-placeholder-val="{{ false }}"><textarea value="{{ dinhVeLyDoVal }}" oninput="{{ setDinhVeLyDo }}" rows="2" style="width:100%;font-family:inherit;font-size:13px;padding:8px 10px;border:1px solid #cfd9e6;border-radius:7px;outline:none;resize:vertical;box-sizing:border-box;"></textarea></sc-if>
+                        <sc-if value="{{ !dinhVeIsEdit }}" hint-placeholder-val="{{ true }}"><div style="font-size:13.5px;color:#1e2939;">{{ dinhVeRec.lyDo }}</div></sc-if>
+                      </div>
+                    </div>
+                    <div style="padding:16px 20px;border-top:1px solid #eef1f6;display:flex;justify-content:flex-end;gap:10px;">
+                      <button onclick="{{ closeDinhVe }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;"><sc-if value="{{ dinhVeIsEdit }}" hint-placeholder-val="{{ false }}">Hủy</sc-if><sc-if value="{{ !dinhVeIsEdit }}" hint-placeholder-val="{{ true }}">Đóng</sc-if></button>
+                      <sc-if value="{{ dinhVeIsEdit }}" hint-placeholder-val="{{ false }}"><button onclick="{{ saveDinhVe }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button></sc-if>
+                    </div>
+                  </div>
                 </div>
               </sc-if>
 
@@ -848,30 +917,22 @@
                   <div style="overflow-x:auto;">
                     <sc-raw-table style="border-collapse:collapse;font-size:12.5px;min-width:1120px;width:100%;">
                       <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:left;color:#475467;">
-                        <sc-raw-th style="padding:10px 12px;font-weight:600;width:44px;text-align:center;">STT</sc-raw-th>
+                        <sc-raw-th style="padding:10px 12px;font-weight:600;width:44px;text-align:center;"><input type="checkbox" checked="{{ dinhSelAllPendingChecked }}" onchange="{{ toggleDinhSelAll }}" style="width:15px;height:15px;cursor:pointer;accent-color:#2f54eb;"></sc-raw-th>
                         <sc-raw-th style="padding:10px 12px;font-weight:600;width:150px;">Số, ký hiệu</sc-raw-th>
                         <sc-raw-th style="padding:10px 12px;font-weight:600;">Tên gọi / Trường đính chính</sc-raw-th>
                         <sc-raw-th style="padding:10px 12px;font-weight:600;">Giá trị cũ → mới</sc-raw-th>
                         <sc-raw-th style="padding:10px 12px;font-weight:600;width:130px;">Người / Ngày</sc-raw-th>
                         <sc-raw-th style="padding:10px 12px;font-weight:600;width:160px;">Trạng thái</sc-raw-th>
-                        <sc-raw-th style="padding:10px 12px;font-weight:600;width:240px;text-align:center;">Thao tác</sc-raw-th>
                       </sc-raw-tr></sc-raw-thead>
                       <sc-raw-tbody>
                         <sc-for list="{{ dinhChinhList }}" as="rec" hint-placeholder-count="3">
                           <sc-raw-tr style="border-top:1px solid #eef1f6;vertical-align:top;">
-                            <sc-raw-td style="padding:10px 12px;color:#98a2b3;text-align:center;">{{ rec.stt }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 12px;text-align:center;"><sc-if value="{{ rec.isPending }}" hint-placeholder-val="{{ true }}"><input type="checkbox" checked="{{ rec.checked }}" onchange="{{ rec.toggleCheck }}" style="width:15px;height:15px;cursor:pointer;accent-color:#2f54eb;"></sc-if></sc-raw-td>
                             <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-size:12px;color:#2f54eb;font-weight:600;">{{ rec.so }}</sc-raw-td>
                             <sc-raw-td style="padding:10px 12px;color:#1e2939;">{{ rec.ty }}<div style="font-size:11.5px;color:#8094a8;margin-top:2px;">Trường: <b style="color:#475467;">{{ rec.truong }}</b></div></sc-raw-td>
                             <sc-raw-td style="padding:10px 12px;color:#475467;"><span style="text-decoration:line-through;color:#98a2b3;">{{ rec.giaTriCu }}</span> → <b style="color:#1e2939;">{{ rec.giaTriMoi }}</b><div style="font-size:11.5px;color:#8094a8;margin-top:3px;">{{ rec.lyDo }}</div></sc-raw-td>
                             <sc-raw-td style="padding:10px 12px;color:#475467;">{{ rec.nguoi }}<div style="font-size:11px;color:#98a2b3;margin-top:2px;">{{ rec.ngay }}</div></sc-raw-td>
                             <sc-raw-td style="padding:10px 12px;"><span style="font-size:11.5px;font-weight:600;color:{{ rec.ttColor }};background:{{ rec.ttBg }};padding:3px 10px;border-radius:20px;white-space:nowrap;">{{ rec.ttLabel }}</span><sc-if value="{{ rec.isRejected }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#c0392b;margin-top:4px;">Lý do: {{ rec.lyDoTuChoi }}</div></sc-if></sc-raw-td>
-                            <sc-raw-td style="padding:10px 12px;text-align:center;">
-                              <sc-if value="{{ rec.isPending }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:center;justify-content:center;gap:6px;">
-                                <button onclick="{{ rec.approve }}" title="Duyệt" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:#fff;padding:6px 11px;border-radius:7px;display:inline-flex;align-items:center;gap:5px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:16px;">check</span>Duyệt và công bố</button>
-                                <button onclick="{{ rec.reject }}" title="Từ chối" style="border:1px solid #f3c1c3;background:#fff;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:#c0392b;padding:6px 11px;border-radius:7px;display:inline-flex;align-items:center;gap:5px;" style-hover="background:#fdf0f0;"><span class="ic" style="font-size:16px;">close</span>Từ chối</button>
-                              </div></sc-if>
-                              <sc-if value="{{ rec.isPending }}" hint-placeholder-val="{{ false }}"></sc-if>
-                            </sc-raw-td>
                           </sc-raw-tr>
                         </sc-for>
                       </sc-raw-tbody>
@@ -2120,7 +2181,12 @@
                 <div style="display:flex;gap:10px;flex-wrap:wrap;">
                   <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                     <sc-if value="{{ rsHthCreated }}" hint-placeholder-val="{{ false }}">
-                      <button onclick="{{ openAgg }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">summarize</span>Tổng hợp</button>
+                      <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
+                        <button onclick="{{ openAgg }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">summarize</span>Tổng hợp</button>
+                      </sc-if>
+                      <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
+                        <button onclick="{{ goToDinhChinh }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
+                      </sc-if>
                     </sc-if>
                   </sc-if>
                 </div>
@@ -2202,7 +2268,7 @@
                         <sc-raw-td style="padding:13px 16px;"><div style="display:flex;align-items:center;justify-content:center;gap:8px;">
                           <span onclick="{{ rec.open }}" title="Xem chi tiết" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
                           <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
-                            <span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span>
+                            <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}"><span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span></sc-if>
                             <span title="Xoá" class="ic" style="font-size:19px;color:#e5484d;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f3c1c3;background:#fdf0f0;" style-hover="background:#fbe0e1;">delete</span>
                           </sc-if>
                           <sc-if value="{{ rsLdCanEditRows }}" hint-placeholder-val="{{ false }}">
@@ -2225,8 +2291,13 @@
               </div>
               <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:16px;">
-                  <button onclick="{{ rsSave }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
-                  <button onclick="{{ openRsSubmitConfirm }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">send</span>Gửi</button>
+                  <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
+                    <button onclick="{{ rsSave }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+                    <button onclick="{{ openRsSubmitConfirm }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">send</span>Gửi</button>
+                  </sc-if>
+                  <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
+                    <button onclick="{{ goToDinhChinh }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
+                  </sc-if>
                 </div>
               </sc-if>
               <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
@@ -2340,6 +2411,7 @@
                 <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:16px;">
                   <sc-if value="{{ curTypePublished }}" hint-placeholder-val="{{ false }}">
                     <button disabled="disabled" style="height:40px;border:0;background:#fbf2dc;cursor:default;font-family:inherit;font-size:13.5px;font-weight:600;color:#b8860b;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;"><span class="ic" style="font-size:20px;">campaign</span>Đã công bố</button>
+                    <button onclick="{{ goToDinhChinh }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
                   </sc-if>
                   <sc-if value="{{ canPublishCurType }}" hint-placeholder-val="{{ false }}">
                     <button onclick="{{ openRsTypePublishConfirm }}" style="height:40px;min-width:120px;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:20px;">campaign</span>Công bố</button>
@@ -3773,6 +3845,7 @@ class Component extends DCLogic {
         docsForSet = docsForSet.filter(d=>d.ky===kyLabel);
       }
     }
+    const setCorrectedCount = docsForSet.filter(d=>!!patches[d.so]).length;
     if(s.setLv) docsForSet = docsForSet.filter(d=>d.lv===s.setLv);
     if(s.setHl) docsForSet = docsForSet.filter(d=>this.normalizeHlKey(d.hl)===s.setHl);
     // Cấu hình tiêu chí sắp xếp đã lưu cho đơn vị hiện tại — Điều 51.4.a/Điều 52 NĐ 79/2025
@@ -3794,7 +3867,8 @@ class Component extends DCLogic {
       items: g.items.map((d,j)=>({
         stt:j+1, loai:d.loai, cq:d.cq, so:d.so, ngay:d.ngay, ty:d.ty,
         e0: d.hieuLucNgay || d.ngay || '—',
-        e1: d.ghiChu || d.hl || ''
+        e1: d.ghiChu || d.hl || '',
+        rowBg: patches[d.so] ? '#e3f4ec' : 'transparent'
       }))
     }));
     const setSortParts = [
@@ -4130,7 +4204,7 @@ class Component extends DCLogic {
       closeDetail: () => this.setState({ selectedDoc:null }),
       detail: s.selectedDoc ? docs.find(d=>d.so===s.selectedDoc) : null,
       hasDetail: !!s.selectedDoc,
-      rsRows: mauBieuDefs.filter(t=>t[0]!=='tap-hth').map((t,i)=>{
+      rsRows: mauBieuDefs.map((t,i)=>{
         return { ma:t[0], ten:t[1], stt:i+1, nam:'2026', dot:'Kỳ HTH 2024-2028',
           count: docs.filter(t[2]).length,
           published: !!(s.rsPublished||{})[t[0]],
@@ -4168,7 +4242,7 @@ class Component extends DCLogic {
       cancelRsPublishConfirm: ()=>this.setState({ showRsPublishConfirm:false }),
       confirmRsPublish: ()=>this.setState(st=>{
         const np={ ...st.rsPublished };
-        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>{ np[t[0]]=true; });
+        mauBieuDefs.forEach(t=>{ np[t[0]]=true; });
         const planPub={ ...(st.rsPlanPublished||{}) };
         const planAp={ ...(st.rsPlanApproved||{}) };
         if(st.reviewPlanMa){ planPub[st.reviewPlanMa]=true; planAp[st.reviewPlanMa]=true; }
@@ -4179,7 +4253,7 @@ class Component extends DCLogic {
       cancelRsSubmitConfirm: ()=>this.setState({ showRsSubmitConfirm:false }),
       confirmRsSubmit: ()=>this.setState(st=>{
         const ns={ ...st.rsSent };
-        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>ns[t[0]]=true);
+        mauBieuDefs.forEach(t=>ns[t[0]]=true);
         const planSent={ ...(st.rsPlanSent||{}) };
         if(st.reviewPlanMa) planSent[st.reviewPlanMa]=true;
         return {
@@ -4199,7 +4273,7 @@ class Component extends DCLogic {
       cancelRsApproveConfirm: ()=>this.setState({ showRsApproveConfirm:false }),
       confirmRsApprove: ()=>this.setState(st=>{
         const na={ ...st.rsApproved };
-        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>{ na[t[0]]=true; });
+        mauBieuDefs.forEach(t=>{ na[t[0]]=true; });
         const planAp={ ...(st.rsPlanApproved||{}) };
         if(st.reviewPlanMa) planAp[st.reviewPlanMa]=true;
         return { showRsApproveConfirm:false, rsApproved:na, rsPlanApproved:planAp };
@@ -4216,14 +4290,14 @@ class Component extends DCLogic {
       }),
       rsSubmit: ()=>this.setState(st=>{
         const ns={ ...st.rsSent };
-        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>ns[t[0]]=true);
+        mauBieuDefs.forEach(t=>ns[t[0]]=true);
         const planSent={ ...(st.rsPlanSent||{}) };
         if(st.reviewPlanMa) planSent[st.reviewPlanMa]=true;
         return { rsSent:ns, rsPlanSent:planSent };
       }),
       rsApproveChecked: ()=>this.setState(st=>{
         const na={ ...st.rsApproved };
-        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>{ na[t[0]]=true; });
+        mauBieuDefs.forEach(t=>{ na[t[0]]=true; });
         const planAp={ ...(st.rsPlanApproved||{}) };
         if(st.reviewPlanMa) planAp[st.reviewPlanMa]=true;
         return { rsApproved:na, rsChecked:{}, rsPlanApproved:planAp };
@@ -4231,6 +4305,7 @@ class Component extends DCLogic {
       publishCurType: ()=>this.setState(st=>({ rsPublished:{ ...st.rsPublished, [st.reviewType]:true } })),
       curTypePublished: !!(s.reviewType && (s.rsPublished||{})[s.reviewType]),
       canPublishCurType: !!(s.reviewType && (s.rsPlanApproved||{})[s.reviewPlanMa] && !(s.rsPublished||{})[s.reviewType]),
+      goToDinhChinh: ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); },
       showRsTypePublishConfirm: !!s.showRsTypePublishConfirm,
       openRsTypePublishConfirm: ()=>{
         const st = this.state;
@@ -4246,11 +4321,11 @@ class Component extends DCLogic {
         if(!st.reviewType) return { showRsTypePublishConfirm:false };
         const np={ ...(st.rsPublished||{}), [st.reviewType]:true };
         const planPub={ ...(st.rsPlanPublished||{}) };
-        const allTypes = mauBieuDefs.filter(t=>t[0]!=='tap-hth');
+        const allTypes = mauBieuDefs;
         if(allTypes.every(t=> np[t[0]]) && st.reviewPlanMa) planPub[st.reviewPlanMa]=true;
         return { showRsTypePublishConfirm:false, rsPublished:np, rsPlanPublished:planPub };
       }),
-      rsTotal: mauBieuDefs.filter(t=>t[0]!=='tap-hth').length,
+      rsTotal: mauBieuDefs.length,
       rsAggUnitCount: 4,
       openAgg: ()=>this.setState({ showAggConfirm:true }),
       closeAgg: ()=>this.setState({ reviewAgg:false, showAggConfirm:false }),
@@ -4422,7 +4497,7 @@ class Component extends DCLogic {
       rsLdCanEditRows: !!s.rsLdEditMode && role==='ld',
       rsSaveLd: ()=>this.setState(st=>{
         const ns={ ...(st.rsSaved||{}) };
-        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>ns[t[0]]=true);
+        mauBieuDefs.forEach(t=>ns[t[0]]=true);
         return { rsSaved:ns, rsLdEditMode:false };
       }),
       showRsCreateForm: !!s.showRsCreateForm,
@@ -4484,7 +4559,7 @@ class Component extends DCLogic {
         const ma = st.reviewPlanMa;
         if(!ma){ alert('Không xác định được kế hoạch.'); return st; }
         const ns={ ...st.rsSaved };
-        mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>ns[t[0]]=true);
+        mauBieuDefs.forEach(t=>ns[t[0]]=true);
         const draft = { ...(st.rsHthDraft||{}) };
         delete draft[ma];
         return {
@@ -4528,7 +4603,7 @@ class Component extends DCLogic {
           const published = { ...(st.rsPublished||{}) };
           const sent = { ...(st.rsSent||{}) };
           const saved = { ...(st.rsSaved||{}) };
-          mauBieuDefs.filter(t=>t[0]!=='tap-hth').forEach(t=>{
+          mauBieuDefs.forEach(t=>{
             delete checked[t[0]]; delete published[t[0]]; delete sent[t[0]]; delete saved[t[0]];
           });
           const planPub={ ...(st.rsPlanPublished||{}) }; delete planPub[ma];
@@ -4833,7 +4908,7 @@ class Component extends DCLogic {
         if(st.role==='cv' && (st.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') return;
         this.setState(st2=>({ dinhShowResults:true, dinhCq:st2.dinhCqSel||'', dinhLoai:st2.dinhLoaiSel||'', dinhLv:st2.dinhLvSel||'', dinhLoaiThaoTac:st2.dinhLoaiThaoTacSel||'dinh-chinh' }));
       },
-      resetDinhSearch: ()=>this.setState({ dinhSearch:'', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhLoaiThaoTacSel:'dinh-chinh', dinhLoaiThaoTac:'dinh-chinh', dinhShowResults:false, dinhEditSo:null, boSungAdd:false, boSungPlSel:'' }),
+      resetDinhSearch: ()=>this.setState({ dinhSearch:'', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhLoaiThaoTacSel:'dinh-chinh', dinhLoaiThaoTac:'dinh-chinh', dinhShowResults:false, dinhEditSo:null, dinhEditRecId:null, boSungAdd:false, boSungPlSel:'' }),
       backDinhSearch: ()=>this.setState({ dinhShowResults:false }),
       isDinhChinh: s.screen==='dinhchinh',
       dinhIsList: (s.dinhStep||'list')==='list' || (s.dinhStep==='add' && !s.dinhAddConfirmed),
@@ -4863,8 +4938,8 @@ class Component extends DCLogic {
       dinhIsAddStep1: s.dinhStep==='add' && !s.dinhAddConfirmed,
       dinhIsAddDinhChinh: s.dinhStep==='add' && !!s.dinhAddConfirmed && (s.dinhLoaiThaoTacSel||'dinh-chinh')==='dinh-chinh',
       dinhIsAddBoSung: s.dinhStep==='add' && !!s.dinhAddConfirmed && s.dinhLoaiThaoTacSel==='bo-sung',
-      openDinhAdd: ()=>this.setState({ dinhStep:'add', dinhAddConfirmed:false, dinhLoaiThaoTacSel:'dinh-chinh', setKyIdSel:'', dinhShowResults:false }),
-      closeDinhAdd: ()=>this.setState({ dinhStep:'list' }),
+      openDinhAdd: ()=>this.setState({ dinhStep:'add', dinhAddConfirmed:false, dinhLoaiThaoTacSel:'dinh-chinh', setKyIdSel:'', dinhShowResults:false, dinhEditRecId:null }),
+      closeDinhAdd: ()=>this.setState({ dinhStep:'list', dinhEditRecId:null }),
       confirmDinhAdd: ()=>{
         if(!this.state.setKyIdSel){ alert('Vui lòng chọn kỳ hệ thống hóa.'); return; }
         this.setState({ dinhAddConfirmed:true });
@@ -4964,6 +5039,18 @@ class Component extends DCLogic {
             if (finalCoHieuLuc !== docCoHieuLuc) changes.push(`Có hiệu lực: ${finalCoHieuLuc}`);
             if (finalGhiChu !== docGhiChu) changes.push(`Ghi chú: ${finalGhiChu}`);
 
+            const syncedDocs = { ...st.syncedDocs, [d.so]: { lv:finalLv, loai:finalLoai, cq:finalCq, so:finalSo, ngay:finalNgay, ty:finalTy, coHieuLuc:finalCoHieuLuc, hl:finalHl, ghiChu:finalGhiChu } };
+            const nd = { ...st.dinhDraft }; delete nd[d.so];
+
+            if(st.dinhEditRecId){
+              const list2 = (st.dinhChinh||this.seedDinhChinh()).map(x=>x.id===st.dinhEditRecId ? {
+                ...x, so:finalSo, loai:finalLoai, ty:finalTy, lv:finalLv,
+                giaTriMoi: changes.length > 0 ? changes.join(', ') : x.giaTriMoi,
+                lyDo: finalLyDo || x.lyDo,
+              } : x);
+              return { dinhChinh:list2, dinhDraft:nd, dinhEditSo:null, syncedDocs, dinhEditRecId:null, dinhStep:'list', dinhShowResults:false };
+            }
+
             const rec = { id:'DC-'+String((st.dinhChinh||this.seedDinhChinh()).length+1).padStart(3,'0'),
               so:finalSo, loai:finalLoai, ty:finalTy, lv:finalLv,
               truong: 'Đính chính thông tin VB',
@@ -4972,9 +5059,6 @@ class Component extends DCLogic {
               lyDo: finalLyDo || 'Yêu cầu đính chính', nguoi:'Nguyễn Thị An', ngay:'05/07/2026', tt:'nhap', lyDoTuChoi:'' };
             const list = (st.dinhChinh||this.seedDinhChinh()).slice();
             list.unshift(rec);
-            
-            const syncedDocs = { ...st.syncedDocs, [d.so]: { lv:finalLv, loai:finalLoai, cq:finalCq, so:finalSo, ngay:finalNgay, ty:finalTy, coHieuLuc:finalCoHieuLuc, hl:finalHl, ghiChu:finalGhiChu } };
-            const nd = { ...st.dinhDraft }; delete nd[d.so];
             return { dinhChinh:list, dinhDraft:nd, dinhEditSo:null, syncedDocs };
           }) };
       });
@@ -5017,6 +5101,25 @@ class Component extends DCLogic {
         };
         const m = map[r.tt] || map.cho;
         return { ...r, ttLabel:m[0], ttColor:m[1], ttBg:m[2], isPending:r.tt==='cho', isRejected:r.tt==='tuchoi',
+          isCreated: r.tt==='nhap'||r.tt==='luu', isApproved: r.tt==='duyet',
+          view: ()=>this.setState({ dinhVeId:r.id, dinhVeMode:'view', dinhVeGiaTriMoi:null, dinhVeLyDo:null }),
+          edit: ()=>{
+            const targetDoc = docs.find(x=>x.so===r.so);
+            const c = targetDoc ? this.classifyMau(targetDoc) : {};
+            const mauKeyMap = { m01:'het-toan-bo', m02:'het-mot-phan', m03:'con-hieu-luc', m04:'can-xu-ly', m05:'tap-hth' };
+            const foundKey = Object.keys(mauKeyMap).find(k=>c[k]);
+            this.setState({
+              dinhStep:'add', dinhAddConfirmed:true, dinhLoaiThaoTacSel:'dinh-chinh', dinhLoaiThaoTac:'dinh-chinh',
+              dinhMauTab: foundKey ? mauKeyMap[foundKey] : 'het-toan-bo',
+              dinhSearch:r.so, dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhNgaySel:'',
+              dinhShowResults:true, dinhEditRecId:r.id
+            });
+          },
+          checked: (s.dinhSelIds||[]).includes(r.id),
+          toggleCheck: ()=>this.setState(st=>{
+            const cur = st.dinhSelIds||[]; const has = cur.includes(r.id);
+            return { dinhSelIds: has ? cur.filter(x=>x!==r.id) : [...cur, r.id] };
+          }),
           approve: ()=>this.setState(st=>{
             const list = (st.dinhChinh||this.seedDinhChinh()).map(x=>x.id===r.id?{...x,tt:'duyet'}:x);
             const patches = { ...(st.setDocPatches||{}) };
@@ -5024,9 +5127,61 @@ class Component extends DCLogic {
             patches[r.so] = { ...prev, ...this.patchFromDinhRec(r) };
             return { dinhChinh:list, setDocPatches:patches };
           }),
-          reject: ()=>this.setState({ rejectId:r.id, rejectReason:'' }) };
+          reject: ()=>this.setState({ rejectIds:[r.id], rejectReason:'' }) };
+      }),
+      dinhSelAllPendingChecked: (()=>{
+        const ids = (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='cho').map(r=>r.id);
+        return !!ids.length && ids.every(id=>(s.dinhSelIds||[]).includes(id));
+      })(),
+      toggleDinhSelAll: ()=>this.setState(st=>{
+        const ids = (st.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='cho').map(r=>r.id);
+        const cur = st.dinhSelIds||[];
+        const allSelected = !!ids.length && ids.every(id=>cur.includes(id));
+        return { dinhSelIds: allSelected ? cur.filter(id=>!ids.includes(id)) : [...new Set([...cur, ...ids])] };
+      }),
+      canBulkDinhAction: (s.dinhSelIds||[]).some(id=>{
+        const rec = (s.dinhChinh||this.seedDinhChinh()).find(x=>x.id===id);
+        return rec && rec.tt==='cho';
+      }),
+      bulkApproveDinh: ()=>this.setState(st=>{
+        const ids = (st.dinhSelIds||[]).filter(id=>{
+          const rec = (st.dinhChinh||this.seedDinhChinh()).find(x=>x.id===id);
+          return rec && rec.tt==='cho';
+        });
+        if(!ids.length){ alert('Vui lòng chọn ít nhất 1 bản ghi chờ duyệt.'); return st; }
+        const base = st.dinhChinh||this.seedDinhChinh();
+        const list = base.map(x=>ids.includes(x.id)?{...x,tt:'duyet'}:x);
+        const patches = { ...(st.setDocPatches||{}) };
+        ids.forEach(id=>{ const r = base.find(x=>x.id===id); if(r){ const prev = patches[r.so]||{}; patches[r.so] = { ...prev, ...this.patchFromDinhRec(r) }; } });
+        return { dinhChinh:list, setDocPatches:patches, dinhSelIds: (st.dinhSelIds||[]).filter(id=>!ids.includes(id)) };
+      }),
+      openBulkRejectDinh: ()=>this.setState(st=>{
+        const ids = (st.dinhSelIds||[]).filter(id=>{
+          const rec = (st.dinhChinh||this.seedDinhChinh()).find(x=>x.id===id);
+          return rec && rec.tt==='cho';
+        });
+        if(!ids.length){ alert('Vui lòng chọn ít nhất 1 bản ghi chờ duyệt.'); return st; }
+        return { rejectIds:ids, rejectReason:'' };
       }),
       saveDinhList: ()=>this.setState(st=>({ dinhChinh: (st.dinhChinh||this.seedDinhChinh()).map(x=>(x.tt==='nhap')?{...x,tt:'luu'}:x) })),
+      showDinhVe: !!s.dinhVeId,
+      dinhVeIsEdit: s.dinhVeMode==='edit',
+      dinhVeRec: (()=>{
+        const r = (s.dinhChinh||this.seedDinhChinh()).find(x=>x.id===s.dinhVeId);
+        if(!r) return null;
+        const map = { nhap:['Đã tạo','#0e4c8f','#eef3f9'], luu:['Đã tạo','#0e4c8f','#eef3f9'], cho:['Chờ duyệt đính chính','#fa8c16','#fffbe6'], duyet:['Đã duyệt','#52c41a','#f6ffed'], tuchoi:['Từ chối','#ff4d4f','#fff1f0'] };
+        const m = map[r.tt] || map.cho;
+        return { ...r, ttLabel:m[0], ttColor:m[1], ttBg:m[2] };
+      })(),
+      dinhVeGiaTriMoiVal: s.dinhVeGiaTriMoi!=null ? s.dinhVeGiaTriMoi : '',
+      dinhVeLyDoVal: s.dinhVeLyDo!=null ? s.dinhVeLyDo : '',
+      setDinhVeGiaTriMoi: (e)=>this.setState({ dinhVeGiaTriMoi: e.target.value }),
+      setDinhVeLyDo: (e)=>this.setState({ dinhVeLyDo: e.target.value }),
+      closeDinhVe: ()=>this.setState({ dinhVeId:null, dinhVeMode:'view', dinhVeGiaTriMoi:null, dinhVeLyDo:null }),
+      saveDinhVe: ()=>this.setState(st=>({
+        dinhChinh: (st.dinhChinh||this.seedDinhChinh()).map(x=>x.id===st.dinhVeId ? { ...x, giaTriMoi: (st.dinhVeGiaTriMoi!=null?st.dinhVeGiaTriMoi:x.giaTriMoi), lyDo: (st.dinhVeLyDo!=null?st.dinhVeLyDo:x.lyDo) } : x),
+        dinhVeId:null, dinhVeMode:'view', dinhVeGiaTriMoi:null, dinhVeLyDo:null
+      })),
       sendDinhList: ()=>this.setState({ showSendDinh:true }),
       showSendDinh: !!s.showSendDinh,
       cancelSendDinh: ()=>this.setState({ showSendDinh:false }),
@@ -5035,13 +5190,14 @@ class Component extends DCLogic {
       dinhPendingCount: (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='cho').length,
       dinhTotalCount: (s.dinhChinh||this.seedDinhChinh()).length,
       // reject modal
-      showReject: !!s.rejectId,
+      showReject: !!(s.rejectIds && s.rejectIds.length),
       rejectReasonVal: s.rejectReason,
       setRejectReason: (e)=>this.setState({ rejectReason:e.target.value }),
-      cancelReject: ()=>this.setState({ rejectId:null, rejectReason:'' }),
+      cancelReject: ()=>this.setState({ rejectIds:null, rejectReason:'' }),
       confirmReject: ()=>this.setState(st=>({
-        dinhChinh:(st.dinhChinh||this.seedDinhChinh()).map(x=>x.id===st.rejectId?{...x,tt:'tuchoi',lyDoTuChoi:st.rejectReason||'Không đạt yêu cầu'}:x),
-        rejectId:null, rejectReason:'' })),
+        dinhChinh:(st.dinhChinh||this.seedDinhChinh()).map(x=>(st.rejectIds||[]).includes(x.id)?{...x,tt:'tuchoi',lyDoTuChoi:st.rejectReason||'Không đạt yêu cầu'}:x),
+        dinhSelIds:(st.dinhSelIds||[]).filter(id=>!(st.rejectIds||[]).includes(id)),
+        rejectIds:null, rejectReason:'' })),
       showSetPublishConfirm: !!s.showSetPublishConfirm,
       showSetPublishSuccess: !!s.showSetPublishSuccess,
       openSetPublishConfirm: ()=>this.setState({ showSetPublishConfirm:true }),
@@ -5108,6 +5264,8 @@ class Component extends DCLogic {
         e1: (detailExtraFor('tap-hth', d)[1]) || ''
       }))),
       setGroups, setTableGroups, setTimeline, totalDocsLabel, setSortHint,
+      setHasCorrected: setCorrectedCount > 0,
+      setCorrectedCountLabel: String(setCorrectedCount).padStart(2,'0'),
       isSetMain: s.setTab!=='dinhchinh',
       isSetCorr: s.setTab==='dinhchinh',
       setNgayBHSel: s.setNgayBHSel || 'cu-moi',
