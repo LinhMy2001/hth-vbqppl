@@ -1441,7 +1441,8 @@
             </div>
             <div style="display:flex;gap:10px;flex:0 0 auto;">
               <button onclick="{{ syncCsdl }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#0e4c8f;padding:11px 16px;border-radius:9px;display:flex;align-items:center;gap:8px;" style-hover="background:#f3f8ff;"><span class="ic" style="font-size:20px;">sync</span>Đồng bộ CSDL</button>
-              <button onclick="{{ openAddChoose }}" style="border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;background:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;"><span class="ic" style="font-size:20px;">add</span>Thêm mới văn bản</button>
+              <button onclick="{{ openAddBoSungKyTruoc }}" style="border:1px solid #0e4c8f;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;" style-hover="background:#f3f8ff;"><span class="ic" style="font-size:20px;">history</span>Bổ sung VB HTH Kỳ {{ docKyTruocLabel }}</button>
+              <button onclick="{{ openAddCurrent }}" style="border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;background:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;"><span class="ic" style="font-size:20px;">add</span>Thêm mới VB HTH kỳ {{ docKyAppliedKy }}</button>
             </div>
           </div>
 
@@ -1532,51 +1533,14 @@
           </div>
         </div>
 
-        <sc-if value="{{ showChoose }}" hint-placeholder-val="{{ false }}">
-          <div onclick="{{ closeDocPanel }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
-            <div onclick="{{ stop }}" style="background:#fff;border-radius:16px;width:640px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-              <div style="padding:18px 22px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;justify-content:space-between;">
-                <div style="display:flex;align-items:center;gap:10px;"><span class="ic" style="font-size:23px;color:#0e4c8f;">add_circle</span><h3 style="margin:0;font-size:17px;font-weight:700;color:#10243a;">Thêm mới văn bản vào danh sách</h3></div>
-                <span onclick="{{ closeDocPanel }}" class="ic" style="cursor:pointer;font-size:22px;color:#94a3b8;">close</span>
-              </div>
-              <div style="padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-                <div onclick="{{ chooseManual }}" style="border:1.5px solid #dbe7f4;border-radius:13px;padding:20px;cursor:pointer;text-align:center;transition:.14s;" style-hover="border-color:#0e4c8f;background:#f7faff;transform:translateY(-2px);">
-                  <span style="width:52px;height:52px;border-radius:13px;background:#e8f0fb;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;"><span class="ic" style="font-size:28px;color:#0e4c8f;">edit_note</span></span>
-                  <div style="font-size:15px;font-weight:700;color:#10243a;">Thêm thủ công từng văn bản</div>
-                  <div style="font-size:12.5px;color:#6b7a8d;margin-top:6px;line-height:1.45;">Nhập trực tiếp thông tin từng văn bản QPPL theo biểu mẫu.</div>
-                </div>
-                <div onclick="{{ chooseImport }}" style="border:1.5px solid #dbe7f4;border-radius:13px;padding:20px;cursor:pointer;text-align:center;transition:.14s;" style-hover="border-color:#0e4c8f;background:#f7faff;transform:translateY(-2px);">
-                  <span style="width:52px;height:52px;border-radius:13px;background:#e3f4ec;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;"><span class="ic" style="font-size:28px;color:#1f8a5b;">upload_file</span></span>
-                  <div style="font-size:15px;font-weight:700;color:#10243a;">Nhập từ Excel theo mẫu</div>
-                  <div style="font-size:12.5px;color:#6b7a8d;margin-top:6px;line-height:1.45;">Tải lên danh sách văn bản hàng loạt theo mẫu Excel quy định.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </sc-if>
-
         <sc-if value="{{ showImport }}" hint-placeholder-val="{{ false }}">
           <div onclick="{{ closeDocPanel }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
             <div onclick="{{ stop }}" style="background:#fff;border-radius:16px;width:640px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
               <div style="padding:18px 22px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;justify-content:space-between;">
-                <div style="display:flex;align-items:center;gap:10px;"><span class="ic" style="font-size:23px;color:#1f8a5b;">upload_file</span><h3 style="margin:0;font-size:17px;font-weight:700;color:#10243a;">Nhập danh sách văn bản từ Excel</h3></div>
+                <div style="display:flex;align-items:center;gap:10px;"><span class="ic" style="font-size:23px;color:#1f8a5b;">upload_file</span><h3 style="margin:0;font-size:17px;font-weight:700;color:#10243a;">Nhập danh sách văn bản từ Excel — {{ formLoaiVb }}</h3></div>
                 <span onclick="{{ closeDocPanel }}" class="ic" style="cursor:pointer;font-size:22px;color:#94a3b8;">close</span>
               </div>
               <div style="padding:22px;">
-                <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
-                  <div style="display:flex;flex-direction:column;gap:6px;min-width:280px;flex:0 1 320px;">
-                    <label style="font-size:12.5px;font-weight:600;color:#42566c;">Loại VB <span style="color:#c0392b;">*</span></label>
-                    <div style="position:relative;">
-                      <sc-raw-select value="{{ formLoaiVb }}" onchange="{{ setFormLoaiVb }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                        <option value="">— Chọn loại VB —</option>
-                        <option value="VB HTH kỳ trước">VB HTH kỳ trước</option>
-                        <option value="VB HTH kỳ hiện tại">VB HTH kỳ hiện tại</option>
-                      </sc-raw-select>
-                      <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                    </div>
-                  </div>
-                  <div style="font-size:12.5px;color:#6b7a8d;padding-bottom:10px;">Chọn loại để phân loại toàn bộ văn bản import theo kỳ hệ thống hóa.</div>
-                </div>
                 <div style="display:flex;align-items:center;gap:12px;background:#f7faff;border:1px solid #e0eaf5;border-radius:11px;padding:14px 16px;margin-bottom:16px;">
                   <span class="ic" style="font-size:24px;color:#0e4c8f;">description</span>
                   <div style="flex:1;"><div style="font-size:13.5px;font-weight:600;color:#16314c;">Bước 1 — Tải mẫu Excel chuẩn</div><div style="font-size:12px;color:#6b7a8d;margin-top:1px;">Mẫu gồm các cột: Tên loại VB · Số, ký hiệu · Ngày ban hành · Tên gọi · Thời điểm có hiệu lực · Lĩnh vực · Ghi chú</div></div>
@@ -1607,20 +1571,18 @@
               <div style="padding:22px 24px;">
                 <div style="font-size:11.5px;font-weight:700;letter-spacing:.05em;color:#8094a8;margin-bottom:14px;">BẢNG NHẬP THÔNG TIN VĂN BẢN QUY PHẠM PHÁP LUẬT</div>
                 
-                <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
-                  <div style="display:flex;flex-direction:column;gap:6px;min-width:280px;flex:0 1 320px;">
-                    <label style="font-size:12.5px;font-weight:600;color:#42566c;">Loại VB <span style="color:#c0392b;">*</span></label>
-                    <div style="position:relative;">
-                      <sc-raw-select data-nf="loaiVb" value="{{ formLoaiVb }}" onchange="{{ setFormLoaiVb }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                        <option value="">— Chọn loại VB —</option>
-                        <option value="VB HTH kỳ trước">VB HTH kỳ trước</option>
-                        <option value="VB HTH kỳ hiện tại">VB HTH kỳ hiện tại</option>
-                      </sc-raw-select>
-                      <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                    </div>
+                <sc-if value="{{ formShowSyncOld }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f7faff;border:1px solid #e0eaf5;border-radius:11px;padding:12px 14px;margin-bottom:16px;">
+                    <div style="font-size:12.5px;color:#42566c;">Tự động lấy danh sách văn bản HTH của kỳ liền trước để bổ sung, không cần nhập lại thủ công.</div>
+                    <button onclick="{{ syncOldDocs }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:9px 14px;border-radius:8px;display:flex;align-items:center;gap:6px;white-space:nowrap;"><span class="ic" style="font-size:17px;">sync</span>Đồng bộ DL</button>
                   </div>
-                  <div style="font-size:12.5px;color:#6b7a8d;padding-bottom:10px;">Chọn loại để phân loại văn bản theo kỳ hệ thống hóa.</div>
-                </div>
+                </sc-if>
+                <sc-if value="{{ formShowImportIcons }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:16px;">
+                    <button style="border:1px solid #0e4c8f;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#0e4c8f;padding:8px 13px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">download</span>Tải file mẫu</button>
+                    <button onclick="{{ chooseImport }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:8px 13px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">upload_file</span>Nhập dữ liệu</button>
+                  </div>
+                </sc-if>
 
                 <div style="overflow-x:auto;margin-bottom:20px;border:1px solid #eef1f6;border-radius:11px;">
                   <sc-raw-table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:1600px;">
@@ -5412,7 +5374,16 @@ class Component extends DCLogic {
         this.setState(st=>{ const map={ ...(st.syncedDocs||{}) }; map[ky]=[ ...recs, ...(map[ky]||[]) ]; return { syncedDocs:map, docKyApplied: plan ? plan.ma : st.docKyApplied, docPanel:'', editDoc:null, formLoaiVb:'', docFormRows:[] }; });
       },
       docPanel: s.docPanel || '',
-      showChoose: s.docPanel==='choose', showForm: s.docPanel==='form',
+      showForm: s.docPanel==='form',
+      docKyTruocLabel: (()=>{
+        const list = s.kyHthList || [];
+        const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
+        if (idx <= 0) return '';
+        const prevKy = list[idx-1];
+        return prevKy.kyLabel || ((prevKy.tuNam||'')+' – '+(prevKy.denNam||''));
+      })(),
+      formShowImportIcons: s.formMode==='add' && (s.formLoaiVb==='VB HTH kỳ hiện tại' || s.formLoaiVb==='VB HTH kỳ trước'),
+      formShowSyncOld: s.formMode==='add' && s.formLoaiVb==='VB HTH kỳ trước',
       showImport: s.docPanel==='import', showView: s.docPanel==='view',
       anyDocPanel: !!s.docPanel,
       formTitle: s.formMode==='edit' ? 'Cập nhật thông tin văn bản' : 'Thêm mới văn bản',
@@ -5444,9 +5415,19 @@ class Component extends DCLogic {
         dup: ()=>this.setState(st=>{ const a=(st.docFormRows||[]).slice(); a.splice(i+1,0,{ ...st.docFormRows[i], so:((st.docFormRows[i].so||'')+'-copy').replace(/^-copy$/,'copy') }); return { docFormRows:a }; }),
       })),
       addDocFormRow: ()=>this.setState(st=>({ docFormRows:[ ...(st.docFormRows||[]), this.blankDocFormRow() ] })),
-      openAddChoose: () => this.setState({ docPanel:'choose' }),
-      chooseManual: () => this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'', docFormRows:[this.blankDocFormRow()] }),
-      chooseImport: () => this.setState({ docPanel:'import', formLoaiVb:'' }),
+      openAddCurrent: () => this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ hiện tại', docFormRows:[this.blankDocFormRow()] }),
+      openAddBoSungKyTruoc: () => this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ trước', docFormRows:[this.blankDocFormRow()] }),
+      chooseImport: () => this.setState({ docPanel:'import' }),
+      syncOldDocs: ()=>{
+        const list = s.kyHthList || [];
+        const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
+        if (idx <= 0) { alert('Không tìm thấy kỳ hệ thống hóa liền trước kỳ đang chọn.'); return; }
+        const prevKy = list[idx-1];
+        const prevLabel = prevKy.kyLabel || ((prevKy.tuNam||'')+' – '+(prevKy.denNam||''));
+        const srcDocs = docs.filter(d=>d.ky===prevLabel);
+        if (!srcDocs.length) { alert('Không có văn bản nào thuộc kỳ '+prevLabel+' để đồng bộ.'); return; }
+        this.setState({ docFormRows: srcDocs.map(d=>this.docFormRowFromEdit(d)) });
+      },
       submitImport: ()=>{
         if(!(this.state.formLoaiVb||'').trim()){ alert('Vui lòng chọn Loại VB (VB HTH kỳ trước / VB HTH kỳ hiện tại).'); return; }
         this.setState({ docPanel:'', formLoaiVb:'' });
