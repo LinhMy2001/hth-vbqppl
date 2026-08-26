@@ -1441,8 +1441,8 @@
             </div>
             <div style="display:flex;gap:10px;flex:0 0 auto;">
               <button onclick="{{ syncCsdl }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#0e4c8f;padding:11px 16px;border-radius:9px;display:flex;align-items:center;gap:8px;" style-hover="background:#f3f8ff;"><span class="ic" style="font-size:20px;">sync</span>Đồng bộ CSDL</button>
-              <button onclick="{{ openAddBoSungKyTruoc }}" style="border:1px solid #0e4c8f;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;" style-hover="background:#f3f8ff;"><span class="ic" style="font-size:20px;">history</span>Bổ sung VB HTH Kỳ {{ docKyTruocLabel }}</button>
-              <button onclick="{{ openAddCurrent }}" style="border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;background:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;"><span class="ic" style="font-size:20px;">add</span>Thêm mới VB HTH kỳ {{ docKyAppliedKy }}</button>
+              <button onclick="{{ openAddBoSungKyTruoc }}" style="border:1px solid #0e4c8f;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;" style-hover="background:#f3f8ff;"><span class="ic" style="font-size:20px;">history</span>Bổ sung VB HTH Kỳ trước</button>
+              <button onclick="{{ openAddCurrent }}" style="border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;background:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;"><span class="ic" style="font-size:20px;">add</span>Thêm mới</button>
             </div>
           </div>
 
@@ -1570,10 +1570,25 @@
               </div>
               <div style="padding:22px 24px;">
                 <div style="font-size:11.5px;font-weight:700;letter-spacing:.05em;color:#8094a8;margin-bottom:14px;">BẢNG NHẬP THÔNG TIN VĂN BẢN QUY PHẠM PHÁP LUẬT</div>
-                
+
+                <sc-if value="{{ formShowKySelect }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+                    <div style="display:flex;flex-direction:column;gap:6px;min-width:220px;flex:0 1 260px;">
+                      <label style="font-size:12.5px;font-weight:600;color:#42566c;">Chọn kỳ HTH <span style="color:#c0392b;">*</span></label>
+                      <div style="position:relative;">
+                        <sc-raw-select value="{{ formKyId }}" onchange="{{ setFormKyId }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                          <sc-for list="{{ formKyOptions }}" as="k" hint-placeholder-count="3"><option value="{{ k.id }}">{{ k.label }}</option></sc-for>
+                        </sc-raw-select>
+                        <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                      </div>
+                    </div>
+                    <div style="font-size:12.5px;color:#6b7a8d;padding-bottom:10px;">Văn bản nhập/đồng bộ sẽ được gắn vào kỳ này.</div>
+                  </div>
+                </sc-if>
+
                 <sc-if value="{{ formShowSyncOld }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f7faff;border:1px solid #e0eaf5;border-radius:11px;padding:12px 14px;margin-bottom:16px;">
-                    <div style="font-size:12.5px;color:#42566c;">Tự động lấy danh sách văn bản HTH của kỳ liền trước để bổ sung, không cần nhập lại thủ công.</div>
+                    <div style="font-size:12.5px;color:#42566c;">Tự động lấy danh sách văn bản HTH của kỳ đã chọn ở trên để bổ sung, không cần nhập lại thủ công.</div>
                     <button onclick="{{ syncOldDocs }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:9px 14px;border-radius:8px;display:flex;align-items:center;gap:6px;white-space:nowrap;"><span class="ic" style="font-size:17px;">sync</span>Đồng bộ DL</button>
                   </div>
                 </sc-if>
@@ -5354,13 +5369,12 @@ class Component extends DCLogic {
       }),
       submitDocForm: ()=>{
         if(this.state.formMode!=='add'){ this.setState({ docPanel:'', editDoc:null, docFormRows:[] }); return; }
-        const g=(k)=>{ const el=document.querySelector('[data-nf="'+k+'"]'); return el ? (el.value||'').trim() : ''; };
-        const loaiVb = g('loaiVb');
+        const loaiVb = this.state.formLoaiVb || '';
         if(!loaiVb){ alert('Vui lòng chọn Loại VB.'); return; }
-        const plans2 = this.state.plans || [];
-        const plan = plans2.find(p=>p.ma===(this.state.docKySel||this.state.docKyApplied)) || plans2[0];
-        const ky = plan ? (plan.ky || '') : '';
-        if(!ky){ alert('Vui lòng chọn Kỳ HTH từ kế hoạch trước khi thêm văn bản.'); return; }
+        const kyList = this.state.kyHthList || [];
+        const kyItem = kyList.find(k=>k.id===this.state.formKyId);
+        const ky = kyItem ? (kyItem.kyLabel || ((kyItem.tuNam||'')+' – '+(kyItem.denNam||''))) : '';
+        if(!ky){ alert('Vui lòng chọn Kỳ HTH trước khi thêm văn bản.'); return; }
         const hlMap = Object.fromEntries(this.tthlValues().map(v=>[v, this.hlColors(v)]));
         const rows = (this.state.docFormRows||[]).filter(r=> (r.so&&String(r.so).trim()) || (r.ty&&String(r.ty).trim()) || (r.loai&&String(r.loai).trim()) );
         if(!rows.length){ alert('Vui lòng nhập ít nhất một văn bản.'); return; }
@@ -5371,7 +5385,7 @@ class Component extends DCLogic {
           return { so:(r.so||'').trim()||'(Chưa có số)', loai:(r.loai||'').trim()||'Văn bản', ty:(r.ty||'').trim()||'(Chưa nhập tên gọi)', cq:r.cq||'', lv:(r.lv||'').trim()||'Tư pháp',
             ngay:r.ngay||'', hieuLucNgay:(r.hieuLucNgay||'').trim()||r.ngay||'', hl:hlV, hlC:c[0], hlB:c[1], kienNghi:kn, nhom:'con-hieu-luc', ghiChu:r.ghiChu||'', ky, nguon:'manual', loaiVb };
         });
-        this.setState(st=>{ const map={ ...(st.syncedDocs||{}) }; map[ky]=[ ...recs, ...(map[ky]||[]) ]; return { syncedDocs:map, docKyApplied: plan ? plan.ma : st.docKyApplied, docPanel:'', editDoc:null, formLoaiVb:'', docFormRows:[] }; });
+        this.setState(st=>{ const map={ ...(st.syncedDocs||{}) }; map[ky]=[ ...recs, ...(map[ky]||[]) ]; return { syncedDocs:map, docPanel:'', editDoc:null, formLoaiVb:'', formKyId:'', docFormRows:[] }; });
       },
       docPanel: s.docPanel || '',
       showForm: s.docPanel==='form',
@@ -5415,25 +5429,42 @@ class Component extends DCLogic {
         dup: ()=>this.setState(st=>{ const a=(st.docFormRows||[]).slice(); a.splice(i+1,0,{ ...st.docFormRows[i], so:((st.docFormRows[i].so||'')+'-copy').replace(/^-copy$/,'copy') }); return { docFormRows:a }; }),
       })),
       addDocFormRow: ()=>this.setState(st=>({ docFormRows:[ ...(st.docFormRows||[]), this.blankDocFormRow() ] })),
-      openAddCurrent: () => this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ hiện tại', docFormRows:[this.blankDocFormRow()] }),
-      openAddBoSungKyTruoc: () => this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ trước', docFormRows:[this.blankDocFormRow()] }),
-      chooseImport: () => this.setState({ docPanel:'import' }),
-      syncOldDocs: ()=>{
+      openAddCurrent: () => {
         const list = s.kyHthList || [];
         const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
-        if (idx <= 0) { alert('Không tìm thấy kỳ hệ thống hóa liền trước kỳ đang chọn.'); return; }
-        const prevKy = list[idx-1];
-        const prevLabel = prevKy.kyLabel || ((prevKy.tuNam||'')+' – '+(prevKy.denNam||''));
-        const srcDocs = docs.filter(d=>d.ky===prevLabel);
-        if (!srcDocs.length) { alert('Không có văn bản nào thuộc kỳ '+prevLabel+' để đồng bộ.'); return; }
+        const cur = idx>=0 ? list[idx] : (list[list.length-1]||null);
+        this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ hiện tại', formKyId: cur?cur.id:'', docFormRows:[this.blankDocFormRow()] });
+      },
+      openAddBoSungKyTruoc: () => {
+        const list = s.kyHthList || [];
+        const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
+        const prev = idx>0 ? list[idx-1] : null;
+        this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ trước', formKyId: prev?prev.id:'', docFormRows:[this.blankDocFormRow()] });
+      },
+      chooseImport: () => this.setState({ docPanel:'import' }),
+      setFormKyId: (e)=>this.setState({ formKyId: e.target.value }),
+      formShowKySelect: s.formMode==='add' && (s.formLoaiVb==='VB HTH kỳ hiện tại' || s.formLoaiVb==='VB HTH kỳ trước'),
+      formKyOptions: (()=>{
+        const list = s.kyHthList || [];
+        const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
+        const toOpt = k => ({ id:k.id, label: k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||'')) });
+        if (s.formLoaiVb === 'VB HTH kỳ trước') return idx>0 ? list.slice(0, idx).map(toOpt) : [];
+        return idx>=0 ? [list[idx]].map(toOpt) : list.map(toOpt);
+      })(),
+      syncOldDocs: ()=>{
+        const list = s.kyHthList || [];
+        const sel = list.find(k=>k.id===s.formKyId);
+        if (!sel) { alert('Vui lòng chọn kỳ HTH cần đồng bộ.'); return; }
+        const label = sel.kyLabel || ((sel.tuNam||'')+' – '+(sel.denNam||''));
+        const srcDocs = docs.filter(d=>d.ky===label);
+        if (!srcDocs.length) { alert('Không có văn bản nào thuộc kỳ '+label+' để đồng bộ.'); return; }
         this.setState({ docFormRows: srcDocs.map(d=>this.docFormRowFromEdit(d)) });
       },
       submitImport: ()=>{
         if(!(this.state.formLoaiVb||'').trim()){ alert('Vui lòng chọn Loại VB (VB HTH kỳ trước / VB HTH kỳ hiện tại).'); return; }
-        this.setState({ docPanel:'', formLoaiVb:'' });
+        this.setState({ docPanel:'', formLoaiVb:'', formKyId:'' });
       },
-      backToChoose: () => this.setState({ docPanel:'choose' }),
-      closeDocPanel: () => this.setState({ docPanel:'', editDoc:null, formLoaiVb:'', docFormRows:[] }),
+      closeDocPanel: () => this.setState({ docPanel:'', editDoc:null, formLoaiVb:'', formKyId:'', docFormRows:[] }),
       stop: (e) => e.stopPropagation(),
       isHome: s.screen==='home',
       isPlan: s.screen==='plan',
