@@ -3196,9 +3196,16 @@ class Component extends DCLogic {
     const T=(key,label,w,note)=>({key,label,w,type:'text',note:note||''});
     const D=(key,label,w,note)=>({key,label,w,type:'date',note:note||''});
     const S=(key,label,w,options,note)=>({key,label,w,type:'select',options,note:note||''});
-    if(code==='01' || code==='02'){
+    if(code==='01'){
       return [
-        S('loaiHl','Loại (hết HL/tạm ngưng HL)',180,['-- Chọn --','Hết hiệu lực','Tạm ngưng hiệu lực']),
+        S('loaiHl','Loại (hết HL/tạm ngưng HL)',180,['-- Chọn --','Hết hiệu lực toàn bộ','Ngưng hiệu lực']),
+        T('lyDo','Lý do',260),
+        D('ngayHetHl','Ngày tháng năm (hết HL/tạm ngưng HL)',180),
+      ];
+    }
+    if(code==='02'){
+      return [
+        S('loaiHl','Loại (hết HL/tạm ngưng HL)',180,['-- Chọn --','Hết hiệu lực một phần','Ngưng hiệu lực một phần']),
         T('lyDo','Lý do',260),
         D('ngayHetHl','Ngày tháng năm (hết HL/tạm ngưng HL)',180),
       ];
@@ -3211,7 +3218,7 @@ class Component extends DCLogic {
     }
     if(code==='04'){
       return [
-        S('htXuLyVB','Hình thức xử lý văn bản được rà soát *',210,['-- Chọn --','Sửa đổi, bổ sung','Thay thế','Bãi bỏ','Ban hành mới','Tạm ngưng hiệu lực','Giữ nguyên'],'(10)'),
+        S('htXuLyVB','Kiến nghị hình thức xử lý văn bản*',210,['-- Chọn --','Sửa đổi, bổ sung','Thay thế','Bãi bỏ toàn bộ','Bãi bỏ một phần','Ban hành mới','Ngưng hiệu lực'],'(10)'),
         T('ndKienNghi','Nội dung/ lý do kiến nghị',260),
         T('cqChuTri','Cơ quan/ đơn vị chủ trì soạn thảo',200),
         D('thoiHan','Thời hạn phải xử lý',150),
@@ -3732,7 +3739,7 @@ class Component extends DCLogic {
         { h:'Ghi chú', note:'' },
       ],
       'can-xu-ly': [
-        { h:'Hình thức xử lý văn bản được rà soát *', note:'(10)' },
+        { h:'Kiến nghị hình thức xử lý văn bản*', note:'(10)' },
         { h:'Nội dung/ lý do kiến nghị', note:'' },
         { h:'Cơ quan/ đơn vị chủ trì soạn thảo', note:'' },
         { h:'Thời hạn phải xử lý', note:'' },
@@ -3945,12 +3952,16 @@ class Component extends DCLogic {
       lineBg: i===tlRaw.length-1 ? 'transparent' : (tlRaw[i+1].done||tlRaw[i+1].warn ? '#1f8a5b' : '#e7ecf3'),
       tColor: t.done||t.warn ? '#16314c' : '#9aa7b6',
     }));
-    const statKpis = [
-      { label:'Văn bản đã kiểm tra', value:'284', icon:'rule_folder', color:'#0e4c8f', tint:'#e8f0fb', sub:'' },
-      { label:'Phát hiện trái pháp luật', value:'17', icon:'report', color:'#c0392b', tint:'#fbe6e3', sub:'' },
-      { label:'Đã xử lý theo thẩm quyền', value:'231', icon:'task_alt', color:'#1f8a5b', tint:'#e3f4ec', sub:'' },
-      { label:'Văn bản đã rà soát', value:'312', icon:'fact_check', color:'#b8860b', tint:'#fbf2dc', sub:'' },
+    const statKpiDefs = [
+      ['het-toan-bo', 'VB hết hiệu lực toàn bộ', 'block', '#c0392b', '#fbe6e3'],
+      ['het-mot-phan', 'VB hết hiệu lực một phần', 'warning', '#b8860b', '#fbf2dc'],
+      ['con-hieu-luc', 'VB còn hiệu lực', 'check_circle', '#1f8a5b', '#e3f4ec'],
+      ['can-xu-ly', 'VB cần xử lý', 'build_circle', '#0e4c8f', '#e8f0fb'],
     ];
+    const statKpis = statKpiDefs.map(([ma, label, icon, color, tint])=>{
+      const def = mauBieuDefs.find(t=>t[0]===ma);
+      return { label, value: String(def ? docs.filter(def[2]).length : 0), icon, color, tint, sub:'' };
+    });
     const barData = [
       { lv:'Tư pháp', v:96 }, { lv:'Hộ tịch', v:58 }, { lv:'Lao động', v:42 },
       { lv:'Đất đai', v:64 }, { lv:'Xây dựng', v:31 }, { lv:'Bổ trợ tư pháp', v:21 },
