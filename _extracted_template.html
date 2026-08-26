@@ -591,23 +591,13 @@
 
           <sc-if value="{{ isSetMain }}" hint-placeholder-val="{{ true }}">
           <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 24px;">
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;">
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Kỳ hệ thống hóa</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ setKyIdSel }}" onchange="{{ setSetKyId }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                     <option value="">-- Chọn kỳ --</option>
                     <sc-for list="{{ setKyOpts }}" as="ky" hint-placeholder-count="4"><option value="{{ ky.id }}">{{ ky.label }}</option></sc-for>
-                  </sc-raw-select>
-                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
-                </div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:7px;">
-                <label style="font-size:13px;font-weight:600;color:#1e2939;">Thời gian ban hành</label>
-                <div style="position:relative;">
-                  <sc-raw-select value="{{ setNgayBHSel }}" onchange="{{ setSetNgayBH }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value="cu-moi">Cũ → Mới</option>
-                    <option value="moi-cu">Mới → Cũ</option>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
@@ -658,7 +648,7 @@
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">LOẠI VĂN BẢN <span style="opacity:.9;">*</span> <span style="font-weight:400;opacity:.8;">(3)</span></sc-raw-th>
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">CƠ QUAN BAN HÀNH VĂN BẢN <span style="opacity:.9;">*</span></sc-raw-th>
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">SỐ, KÍ HIỆU <span style="opacity:.9;">*</span> <span style="font-weight:400;opacity:.8;">(5)</span></sc-raw-th>
-                      <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);line-height:1.35;">NGÀY BAN HÀNH <span style="opacity:.9;">*</span><br><span style="font-weight:400;opacity:.8;">(dd/mm/yyyy) (6)</span></sc-raw-th>
+                      <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);line-height:1.35;cursor:pointer;" onclick="{{ toggleSetNgayBHSort }}" title="Sắp xếp theo ngày ban hành">NGÀY BAN HÀNH <span style="opacity:.9;">*</span> <span class="ic" style="font-size:15px;vertical-align:middle;">{{ setNgayBHSortIcon }}</span><br><span style="font-weight:400;opacity:.8;">(dd/mm/yyyy) (6)</span></sc-raw-th>
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);line-height:1.35;">TÊN GỌI CỦA VĂN BẢN / TRÍCH YẾU NỘI DUNG CỦA VĂN BẢN <span style="opacity:.9;">*</span> <span style="font-weight:400;opacity:.8;">(7)</span></sc-raw-th>
                       <sc-raw-th style="padding:10px 10px;font-weight:600;border-right:1px solid rgba(255,255,255,.15);">Thời điểm có hiệu lực</sc-raw-th>
                       <sc-raw-th style="padding:10px 10px;font-weight:600;">Ghi chú</sc-raw-th>
@@ -5285,6 +5275,11 @@ class Component extends DCLogic {
       setLvOpts: lvOrder,
       setHlOpts: this.defaultHlOrder(),
       setSetNgayBH: (e)=>this.setState({ setNgayBHSel: e.target.value }),
+      setNgayBHSortIcon: (s.setNgayBH==='moi-cu') ? 'arrow_downward' : 'arrow_upward',
+      toggleSetNgayBHSort: ()=>this.setState(st=>{
+        const next = (st.setNgayBH==='moi-cu') ? 'cu-moi' : 'moi-cu';
+        return { setNgayBH: next, setNgayBHSel: next };
+      }),
       setSetLv: (e)=>this.setState({ setLvSel: e.target.value }),
       setSetHl: (e)=>this.setState({ setHlSel: e.target.value }),
       setSetKyId: (e)=>this.setState({ setKyIdSel: e.target.value, setKyId: e.target.value }),
