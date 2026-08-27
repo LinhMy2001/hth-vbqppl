@@ -2241,11 +2241,11 @@
                         <sc-raw-td style="padding:13px 16px;"><div style="display:flex;align-items:center;justify-content:center;gap:8px;">
                           <span onclick="{{ rec.open }}" title="Xem chi tiết" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
                           <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
-                            <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}"><span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span></sc-if>
+                            <sc-if value="{{ rec.canEdit }}" hint-placeholder-val="{{ true }}"><sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}"><span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span></sc-if></sc-if>
                             <span title="Xoá" class="ic" style="font-size:19px;color:#e5484d;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f3c1c3;background:#fdf0f0;" style-hover="background:#fbe0e1;">delete</span>
                           </sc-if>
                           <sc-if value="{{ rsLdCanEditRows }}" hint-placeholder-val="{{ false }}">
-                            <span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span>
+                            <sc-if value="{{ rec.canEdit }}" hint-placeholder-val="{{ true }}"><span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:19px;color:#dc8a0c;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #f0dca6;background:#fdf8ec;" style-hover="background:#fbf1d6;">edit</span></sc-if>
                           </sc-if>
                         </div></sc-raw-td>
                       </sc-raw-tr>
@@ -4189,7 +4189,7 @@ class Component extends DCLogic {
       detail: s.selectedDoc ? docs.find(d=>d.so===s.selectedDoc) : null,
       hasDetail: !!s.selectedDoc,
       rsRows: mauBieuDefs.map((t,i)=>{
-        return { ma:t[0], ten:t[1], stt:i+1, nam:'2026', dot:'Kỳ HTH 2024-2028',
+        return { ma:t[0], ten:t[1], stt:i+1, nam:'2026', dot:'Kỳ HTH 2024-2028', canEdit: t[0]!=='tap-hth',
           count: docs.filter(t[2]).length,
           published: !!(s.rsPublished||{})[t[0]],
           open: ()=>this.setState({ reviewType:t[0] }),
