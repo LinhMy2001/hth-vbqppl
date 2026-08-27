@@ -1159,6 +1159,7 @@
                 <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);margin-bottom:16px;">
                   <div style="padding:15px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fafbfc;">
                     <div style="flex:1;min-width:220px;font-size:14px;font-weight:700;color:#1e2939;">{{ curMauTitle }}</div>
+                    <button onclick="{{ openAddSearch }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 12px;border-radius:8px;display:flex;align-items:center;gap:6px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:16px;">search</span>Tìm văn bản từ danh sách đối tượng</button>
                     <button onclick="{{ resetAddRows }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 12px;border-radius:8px;display:flex;align-items:center;gap:6px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:16px;">refresh</span>Reset dữ liệu</button>
                   </div>
                   <div style="overflow-x:auto;">
@@ -1976,46 +1977,6 @@
             <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:18px;">
               <button onclick="{{ closeReviewAdd }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;">Hủy</button>
               <button onclick="{{ saveReviewAdd }}" style="height:40px;min-width:120px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">save</span>Lưu danh mục</button>
-            </div>
-          </sc-if>
-
-          <sc-if value="{{ showAddSearch }}" hint-placeholder-val="{{ false }}">
-            <div onclick="{{ closeAddSearch }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
-              <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:900px;max-width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-                <div style="background:#2f54eb;color:#fff;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;flex:0 0 auto;">
-                  <div style="display:flex;align-items:center;gap:10px;"><span class="ic" style="font-size:21px;">search</span><h3 style="margin:0;font-size:16px;font-weight:700;">Tìm văn bản từ danh sách văn bản đối tượng</h3></div>
-                  <span onclick="{{ closeAddSearch }}" class="ic" style="cursor:pointer;font-size:22px;opacity:.85;">close</span>
-                </div>
-                <div style="padding:16px 22px 0;flex:0 0 auto;">
-                  <div style="position:relative;">
-                    <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:19px;color:#98a2b3;">search</span>
-                    <input placeholder="Tra cứu số/ký hiệu, tên gọi văn bản..." style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px 0 38px;border:1px solid #d0d5dd;border-radius:8px;outline:none;background:#f9fafb;box-sizing:border-box;">
-                  </div>
-                </div>
-                <div style="padding:14px 22px 20px;overflow:auto;">
-                  <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;">
-                    <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:left;color:#475467;position:sticky;top:0;">
-                      <sc-raw-th style="padding:10px 12px;font-weight:600;">Số / ký hiệu</sc-raw-th>
-                      <sc-raw-th style="padding:10px 12px;font-weight:600;">Loại</sc-raw-th>
-                      <sc-raw-th style="padding:10px 12px;font-weight:600;">Tên gọi của văn bản</sc-raw-th>
-                      <sc-raw-th style="padding:10px 12px;font-weight:600;width:90px;text-align:center;">Chọn</sc-raw-th>
-                    </sc-raw-tr></sc-raw-thead>
-                    <sc-raw-tbody>
-                      <sc-for list="{{ pickDocs }}" as="doc" hint-placeholder-count="6">
-                        <sc-raw-tr style="border-top:1px solid #eaecf0;" style-hover="background:#f9fafb;">
-                          <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-size:12px;color:#2f54eb;font-weight:600;white-space:nowrap;">{{ doc.so }}</sc-raw-td>
-                          <sc-raw-td style="padding:10px 12px;color:#475467;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
-                          <sc-raw-td style="padding:10px 12px;color:#1e2939;">{{ doc.ty }}</sc-raw-td>
-                          <sc-raw-td style="padding:10px 12px;text-align:center;"><span onclick="{{ doc.pick }}" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">add</span></sc-raw-td>
-                        </sc-raw-tr>
-                      </sc-for>
-                      <sc-if value="{{ pickDocsEmpty }}" hint-placeholder-val="{{ false }}">
-                        <sc-raw-tr><sc-raw-td colspan="4" style="padding:28px 16px;text-align:center;color:#98a2b3;">Không còn văn bản khả dụng — các văn bản đã được chọn ở mẫu khác hoặc đã có trong bảng.</sc-raw-td></sc-raw-tr>
-                      </sc-if>
-                    </sc-raw-tbody>
-                  </sc-raw-table>
-                </div>
-              </div>
             </div>
           </sc-if>
 
@@ -3136,6 +3097,46 @@
     </main>
   </div>
 </div>
+
+<sc-if value="{{ showAddSearch }}" hint-placeholder-val="{{ false }}">
+  <div onclick="{{ closeAddSearch }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:200;padding:24px;">
+    <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:900px;max-width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+      <div style="background:#2f54eb;color:#fff;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;flex:0 0 auto;">
+        <div style="display:flex;align-items:center;gap:10px;"><span class="ic" style="font-size:21px;">search</span><h3 style="margin:0;font-size:16px;font-weight:700;">Tìm văn bản từ danh sách văn bản đối tượng</h3></div>
+        <span onclick="{{ closeAddSearch }}" class="ic" style="cursor:pointer;font-size:22px;opacity:.85;">close</span>
+      </div>
+      <div style="padding:16px 22px 0;flex:0 0 auto;">
+        <div style="position:relative;">
+          <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:19px;color:#98a2b3;">search</span>
+          <input placeholder="Tra cứu số/ký hiệu, tên gọi văn bản..." style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px 0 38px;border:1px solid #d0d5dd;border-radius:8px;outline:none;background:#f9fafb;box-sizing:border-box;">
+        </div>
+      </div>
+      <div style="padding:14px 22px 20px;overflow:auto;">
+        <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:left;color:#475467;position:sticky;top:0;">
+            <sc-raw-th style="padding:10px 12px;font-weight:600;">Số / ký hiệu</sc-raw-th>
+            <sc-raw-th style="padding:10px 12px;font-weight:600;">Loại</sc-raw-th>
+            <sc-raw-th style="padding:10px 12px;font-weight:600;">Tên gọi của văn bản</sc-raw-th>
+            <sc-raw-th style="padding:10px 12px;font-weight:600;width:90px;text-align:center;">Chọn</sc-raw-th>
+          </sc-raw-tr></sc-raw-thead>
+          <sc-raw-tbody>
+            <sc-for list="{{ pickDocs }}" as="doc" hint-placeholder-count="6">
+              <sc-raw-tr style="border-top:1px solid #eaecf0;" style-hover="background:#f9fafb;">
+                <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-size:12px;color:#2f54eb;font-weight:600;white-space:nowrap;">{{ doc.so }}</sc-raw-td>
+                <sc-raw-td style="padding:10px 12px;color:#475467;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
+                <sc-raw-td style="padding:10px 12px;color:#1e2939;">{{ doc.ty }}</sc-raw-td>
+                <sc-raw-td style="padding:10px 12px;text-align:center;"><span onclick="{{ doc.pick }}" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">add</span></sc-raw-td>
+              </sc-raw-tr>
+            </sc-for>
+            <sc-if value="{{ pickDocsEmpty }}" hint-placeholder-val="{{ false }}">
+              <sc-raw-tr><sc-raw-td colspan="4" style="padding:28px 16px;text-align:center;color:#98a2b3;">Không còn văn bản khả dụng — các văn bản đã được chọn ở mẫu khác hoặc đã có trong bảng.</sc-raw-td></sc-raw-tr>
+            </sc-if>
+          </sc-raw-tbody>
+        </sc-raw-table>
+      </div>
+    </div>
+  </div>
+</sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
@@ -4838,7 +4839,7 @@ class Component extends DCLogic {
           else if(count){ ttLabel='Đã lưu'; ttColor='#52c41a'; ttBg='#f6ffed'; }
           return {
             ...pl, stt:i+1, count, ttLabel, ttColor, ttBg,
-            openAdd: ()=>this.setState({ boSungPlSel:pl.code, boSungAdd:true, addMau:pl.code, addRows:this.defaultAddRows(), addSearch:false })
+            openAdd: ()=>this.setState({ boSungPlSel:pl.code, boSungAdd:true, addMau:pl.code, addRows:[], addSearch:false })
           };
         });
       })(),
@@ -4848,7 +4849,7 @@ class Component extends DCLogic {
       openBoSungAdd: ()=>{
         const code = this.state.boSungPlSel || '';
         if(!code){ alert('Vui lòng chọn Phụ lục.'); return; }
-        this.setState({ boSungAdd:true, addMau:code, addRows:this.defaultAddRows(), addSearch:false });
+        this.setState({ boSungAdd:true, addMau:code, addRows:[], addSearch:false });
       },
       closeBoSungAdd: ()=>this.setState({ boSungAdd:false, addMau:'', addRows:[], addSearch:false }),
       saveBoSungAdd: ()=>{
