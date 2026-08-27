@@ -681,14 +681,7 @@
               <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
                 <div style="background:linear-gradient(180deg,#fdf8ec,#fbf2dc);border:1px solid #ecdcb4;border-radius:14px;padding:18px;">
                   <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#7a5a08;margin-bottom:6px;"><span class="ic" style="font-size:20px;">gavel</span>Thẩm quyền Lãnh đạo</div>
-                  <div style="font-size:12.5px;color:#7a6a3a;line-height:1.5;margin-bottom:14px;">Phê duyệt quyết định và công bố lại tập hệ thống hóa (bản đính chính) lên Cơ sở dữ liệu quốc gia.</div>
-                  <sc-if value="{{ setHasCorrected }}" hint-placeholder-val="{{ false }}">
-                    <div style="display:flex;align-items:flex-start;gap:8px;background:#e3f4ec;border:1px solid #b9e4cc;border-radius:10px;padding:10px 12px;margin-bottom:14px;">
-                      <span class="ic" style="font-size:18px;color:#1f8a5b;">info</span>
-                      <div style="font-size:12px;color:#175c3f;line-height:1.45;">Dữ liệu đã thay đổi: <b>{{ setCorrectedCountLabel }}</b> văn bản trong tập này đã được đính chính thông tin so với lần công bố trước.</div>
-                    </div>
-                  </sc-if>
-                  <button onclick="{{ openSetPublishConfirm }}" style="width:100%;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:11px;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 2px 8px rgba(184,134,11,.3);"><span class="ic" style="font-size:19px;">published_with_changes</span>Công bố lại (đính chính)</button>
+                  <div style="font-size:12.5px;color:#7a6a3a;line-height:1.5;">Việc công bố lại tập hệ thống hóa (sau khi có đính chính) được thực hiện tại màn <span onclick="{{ goToRsPlans }}" style="color:#0e4c8f;font-weight:700;cursor:pointer;text-decoration:underline;">"Kết quả Hệ thống hóa"</span>.</div>
                 </div>
               </sc-if>
             </div>
@@ -715,36 +708,6 @@
           </div>
         </sc-if>
 
-        <sc-if value="{{ showSetPublishConfirm }}" hint-placeholder-val="{{ false }}">
-          <div onclick="{{ cancelSetPublishConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
-            <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-              <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#b8860b;">published_with_changes</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận công bố lại</h3></div>
-              <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
-                Bạn có chắc chắn muốn công bố lại tập hệ thống hóa (bản đính chính) lên Cơ sở dữ liệu quốc gia?
-                <sc-if value="{{ setHasCorrected }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;font-size:12.5px;color:#9a5b08;background:#fbf2dc;border-radius:8px;padding:8px 10px;">Dữ liệu đã thay đổi: <b>{{ setCorrectedCountLabel }}</b> văn bản đã được đính chính so với lần công bố trước.</div></sc-if>
-              </div>
-              <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
-                <button onclick="{{ cancelSetPublishConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
-                <button onclick="{{ confirmSetPublish }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button>
-              </div>
-            </div>
-          </div>
-        </sc-if>
-
-        <sc-if value="{{ showSetPublishSuccess }}" hint-placeholder-val="{{ false }}">
-          <div onclick="{{ closeSetPublishSuccess }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:55;padding:24px;">
-            <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:420px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-              <div style="padding:22px 20px 8px;text-align:center;">
-                <span class="ic" style="font-size:42px;color:#1f8a5b;">check_circle</span>
-                <h3 style="margin:10px 0 6px;font-size:17px;font-weight:700;color:#10243a;">Công bố thành công</h3>
-                <div style="font-size:13.5px;color:#5a6b7e;line-height:1.5;">Tập hệ thống hóa (bản đính chính) đã được công bố lại.</div>
-              </div>
-              <div style="padding:12px 20px 18px;display:flex;justify-content:center;">
-                <button onclick="{{ closeSetPublishSuccess }}" style="height:38px;border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 22px;border-radius:8px;">Đóng</button>
-              </div>
-            </div>
-          </div>
-        </sc-if>
       </sc-if>
           <sc-if value="{{ isDinhChinh }}" hint-placeholder-val="{{ false }}">
         <sc-if value="{{ showSendDinh }}" hint-placeholder-val="{{ false }}">
@@ -2087,7 +2050,12 @@
                         <sc-raw-td style="padding:13px 16px;color:#16314c;font-weight:600;white-space:nowrap;">{{ p.ky }}</sc-raw-td>
                         <sc-raw-td style="padding:13px 16px;color:#1e2939;font-weight:500;line-height:1.4;">{{ p.ten }}</sc-raw-td>
                         <sc-raw-td style="padding:13px 16px;color:#42566c;">{{ p.donVi }}</sc-raw-td>
-                        <sc-raw-td style="padding:13px 16px;text-align:center;"><span style="display:inline-flex;font-size:12px;font-weight:600;color:{{ p.ttColor }};background:{{ p.ttBg }};padding:3px 12px;border-radius:20px;white-space:nowrap;">{{ p.ttLabel }}</span></sc-raw-td>
+                        <sc-raw-td style="padding:13px 16px;text-align:center;">
+                          <span style="display:inline-flex;font-size:12px;font-weight:600;color:{{ p.ttColor }};background:{{ p.ttBg }};padding:3px 12px;border-radius:20px;white-space:nowrap;">{{ p.ttLabel }}</span>
+                          <sc-if value="{{ p.hasChange }}" hint-placeholder-val="{{ false }}">
+                            <div title="Có văn bản đã đính chính chưa công bố lại" style="display:inline-flex;align-items:center;gap:3px;margin-top:5px;font-size:11px;font-weight:600;color:#9a5b08;background:#fbf2dc;padding:2px 8px;border-radius:20px;white-space:nowrap;"><span class="ic" style="font-size:13px;">warning</span>Có thay đổi</div>
+                          </sc-if>
+                        </sc-raw-td>
                         <sc-raw-td style="padding:13px 16px;text-align:center;">
                           <div style="display:inline-flex;align-items:center;justify-content:center;gap:6px;">
                             <span onclick="{{ p.open }}" title="Xem / tạo kết quả" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">visibility</span>
@@ -2120,6 +2088,13 @@
                       </sc-if>
                       <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
                         <button onclick="{{ goToDinhChinh }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
+                      </sc-if>
+                    </sc-if>
+                  </sc-if>
+                  <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
+                      <sc-if value="{{ curPlanHasChange }}" hint-placeholder-val="{{ false }}">
+                        <button onclick="{{ openRsRepublishConfirm }}" style="height:40px;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:19px;">published_with_changes</span>Công bố lại</button>
                       </sc-if>
                     </sc-if>
                   </sc-if>
@@ -3098,6 +3073,37 @@
   </div>
 </div>
 
+<sc-if value="{{ showRsRepublishConfirm }}" hint-placeholder-val="{{ false }}">
+  <div onclick="{{ cancelRsRepublishConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:150;padding:24px;">
+    <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+      <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#b8860b;">published_with_changes</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận công bố lại</h3></div>
+      <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
+        Bạn có chắc chắn muốn công bố lại kết quả hệ thống hóa kỳ <b>{{ reviewPlanKy }}</b> (bao gồm cả 5 danh mục) lên Cơ sở dữ liệu quốc gia?
+        <div style="margin-top:8px;font-size:12.5px;color:#9a5b08;background:#fbf2dc;border-radius:8px;padding:8px 10px;">Dữ liệu đã thay đổi: <b>{{ curPlanApprovedCount }}</b> văn bản đã được đính chính so với lần công bố trước.</div>
+      </div>
+      <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
+        <button onclick="{{ cancelRsRepublishConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
+        <button onclick="{{ confirmRsRepublish }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ showRsRepublishSuccess }}" hint-placeholder-val="{{ false }}">
+  <div onclick="{{ closeRsRepublishSuccess }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:155;padding:24px;">
+    <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:420px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+      <div style="padding:22px 20px 8px;text-align:center;">
+        <span class="ic" style="font-size:42px;color:#1f8a5b;">check_circle</span>
+        <h3 style="margin:10px 0 6px;font-size:17px;font-weight:700;color:#10243a;">Công bố lại thành công</h3>
+        <div style="font-size:13.5px;color:#5a6b7e;line-height:1.5;">Kết quả hệ thống hóa (bản đính chính) đã được công bố lại lên Cơ sở dữ liệu quốc gia.</div>
+      </div>
+      <div style="padding:12px 20px 18px;display:flex;justify-content:center;">
+        <button onclick="{{ closeRsRepublishSuccess }}" style="height:38px;border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 22px;border-radius:8px;">Đóng</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
 <sc-if value="{{ showAddSearch }}" hint-placeholder-val="{{ false }}">
   <div onclick="{{ closeAddSearch }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:200;padding:24px;">
     <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:900px;max-width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
@@ -3140,7 +3146,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, planFormMode:'add', planViewMa:'', plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Bộ tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Bộ tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Bộ tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Bộ tư pháp', file:'KeHoach_2024_2028.pdf', soKyHieu:'15/KH-STP', ngayBH:'15/03/2024', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Kế hoạch triển khai hệ thống hóa văn bản QPPL kỳ 2024–2028 của Bộ tư pháp.' }], planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' }, planSearchTenSel:'', planSearchKySel:'', planSearchTen:'', planSearchKy:'', currentDonVi:'Bộ tư pháp', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', kyHthSearchTuSel:'', kyHthSearchDenSel:'', kyHthSearchTu:'', kyHthSearchDen:'', kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsHthDraft:{}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhStep:'list', dinhAddConfirmed:false, dinhMauTab:'het-toan-bo', dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'], priorityOrder:['hieuLuc','linhVuc','ngayBanHanh'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxPriorityOrder:[], sxShowHint:true, sxLvSearch:'', sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
+  state = { screen: 'home', role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, planFormMode:'add', planViewMa:'', plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Bộ tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Bộ tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Bộ tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Bộ tư pháp', file:'KeHoach_2024_2028.pdf', soKyHieu:'15/KH-STP', ngayBH:'15/03/2024', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Kế hoạch triển khai hệ thống hóa văn bản QPPL kỳ 2024–2028 của Bộ tư pháp.' }], planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' }, planSearchTenSel:'', planSearchKySel:'', planSearchTen:'', planSearchKy:'', currentDonVi:'Bộ tư pháp', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', kyHthSearchTuSel:'', kyHthSearchDenSel:'', kyHthSearchTu:'', kyHthSearchDen:'', kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsHthDraft:{}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{'KH-HTH/2019-2023-01':true}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhStep:'list', dinhAddConfirmed:false, dinhMauTab:'het-toan-bo', dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'], priorityOrder:['hieuLuc','linhVuc','ngayBanHanh'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxPriorityOrder:[], sxShowHint:true, sxLvSearch:'', sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, rsRepublishedCount:{}, showRsRepublishConfirm:false, showRsRepublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -3164,7 +3170,7 @@ class Component extends DCLogic {
   seedDinhChinh(){
     return [
       { id:'DC-001', so:'52/2015/QĐ-UBND', loai:'Quyết định', ty:'Quy định về quản lý hoạt động công chứng trên địa bàn tỉnh', lv:'Bổ trợ tư pháp', truong:'Tình trạng hiệu lực', giaTriCu:'Còn hiệu lực', giaTriMoi:'Hết hiệu lực', lyDo:'Đã được thay thế bởi Quyết định 18/2023/QĐ-UBND, cập nhật lại tình trạng hiệu lực trong tập.', nguoi:'Trần Văn B', ngay:'12/05/2025', tt:'cho', lyDoTuChoi:'' },
-      { id:'DC-002', so:'12/2017/TT-BTP', loai:'Thông tư', ty:'Hướng dẫn nghiệp vụ rà soát, hệ thống hóa VBQPPL', lv:'Tư pháp', truong:'Ngày ban hành', giaTriCu:'07/12/2017', giaTriMoi:'07/11/2017', lyDo:'Sai sót số liệu ngày ban hành khi nhập tập hệ thống hóa.', nguoi:'Lê Thị C', ngay:'15/05/2025', tt:'cho', lyDoTuChoi:'' },
+      { id:'DC-002', so:'12/2017/TT-BTP', loai:'Thông tư', ty:'Hướng dẫn nghiệp vụ rà soát, hệ thống hóa VBQPPL', lv:'Tư pháp', truong:'Ngày ban hành', giaTriCu:'07/12/2017', giaTriMoi:'07/11/2017', lyDo:'Sai sót số liệu ngày ban hành khi nhập tập hệ thống hóa.', nguoi:'Lê Thị C', ngay:'15/05/2025', tt:'duyet', lyDoTuChoi:'' },
       { id:'DC-003', so:'27/2021/NQ-HĐND', loai:'Nghị quyết', ty:'Quy định mức thu lệ phí hộ tịch trên địa bàn tỉnh', lv:'Hộ tịch', truong:'Tên gọi/trích yếu', giaTriCu:'Quy định mức thu lệ phí hộ tịch', giaTriMoi:'Quy định mức thu lệ phí hộ tịch trên địa bàn tỉnh', lyDo:'Bổ sung đầy đủ tên gọi văn bản.', nguoi:'Trần Văn B', ngay:'02/04/2025', tt:'duyet', lyDoTuChoi:'' },
     ];
   }
@@ -3759,6 +3765,19 @@ class Component extends DCLogic {
     });
 
     this._docsCache = docs;
+
+    if (role==='ld') {
+      const dinhListForNav = s.dinhChinh || this.seedDinhChinh();
+      const hasAnyRsChange = (s.plans||[]).some(p=>{
+        if(!(s.rsPlanPublished||{})[p.ma]) return false;
+        const approvedCount = dinhListForNav.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===p.ky).length;
+        return approvedCount > ((s.rsRepublishedCount||{})[p.ma]||0);
+      });
+      if (hasAnyRsChange) {
+        const reviewNavItem = nav.find(n=>n.label==='Kết quả Hệ thống hóa');
+        if (reviewNavItem) { reviewNavItem.badge = '!'; reviewNavItem.badgeBg = '#fbe3c4'; reviewNavItem.badgeFg = '#9a5b08'; }
+      }
+    }
     this._detailExtraFor = detailExtraFor;
 
     const plans = Array.isArray(s.plans) ? s.plans : [];
@@ -3826,7 +3845,6 @@ class Component extends DCLogic {
         docsForSet = docsForSet.filter(d=>d.ky===kyLabel);
       }
     }
-    const setCorrectedCount = docsForSet.filter(d=>!!patches[d.so]).length;
     if(s.setLv) docsForSet = docsForSet.filter(d=>d.lv===s.setLv);
     if(s.setHl) docsForSet = docsForSet.filter(d=>this.normalizeHlKey(d.hl)===s.setHl);
     // Cấu hình tiêu chí sắp xếp đã lưu cho đơn vị hiện tại — Điều 51.4.a/Điều 52 NĐ 79/2025
@@ -4291,6 +4309,7 @@ class Component extends DCLogic {
       curTypePublished: !!(s.reviewType && (s.rsPublished||{})[s.reviewType]),
       canPublishCurType: !!(s.reviewType && (s.rsPlanApproved||{})[s.reviewPlanMa] && !(s.rsPublished||{})[s.reviewType]),
       goToDinhChinh: ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); },
+      goToRsPlans: ()=>this.go('review')(),
       showRsTypePublishConfirm: !!s.showRsTypePublishConfirm,
       openRsTypePublishConfirm: ()=>{
         const st = this.state;
@@ -4352,6 +4371,33 @@ class Component extends DCLogic {
       rsPublishLocked: !!(s.reviewPlanMa && !(s.rsPlanApproved||{})[s.reviewPlanMa] && !(s.rsPlanPublished||{})[s.reviewPlanMa]),
       reviewPlan: (s.plans||[]).find(p=>p.ma===s.reviewPlanMa) || null,
       reviewPlanKy: (()=>{ const p=(s.plans||[]).find(x=>x.ma===s.reviewPlanMa); return p ? (p.ky||'—') : '—'; })(),
+      curPlanApprovedCount: (()=>{
+        const list = s.dinhChinh || this.seedDinhChinh();
+        const p = (s.plans||[]).find(x=>x.ma===s.reviewPlanMa);
+        const ky = p ? (p.ky||'') : '';
+        if(!ky) return 0;
+        return list.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===ky).length;
+      })(),
+      curPlanHasChange: (()=>{
+        const list = s.dinhChinh || this.seedDinhChinh();
+        const p = (s.plans||[]).find(x=>x.ma===s.reviewPlanMa);
+        const ky = p ? (p.ky||'') : '';
+        if(!ky) return false;
+        const count = list.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===ky).length;
+        return count > ((s.rsRepublishedCount||{})[s.reviewPlanMa]||0);
+      })(),
+      showRsRepublishConfirm: !!s.showRsRepublishConfirm,
+      openRsRepublishConfirm: ()=>this.setState({ showRsRepublishConfirm:true }),
+      cancelRsRepublishConfirm: ()=>this.setState({ showRsRepublishConfirm:false }),
+      confirmRsRepublish: ()=>this.setState(st=>{
+        const list = st.dinhChinh || this.seedDinhChinh();
+        const p = (st.plans||[]).find(x=>x.ma===st.reviewPlanMa);
+        const ky = p ? (p.ky||'') : '';
+        const count = list.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===ky).length;
+        return { showRsRepublishConfirm:false, showRsRepublishSuccess:true, setRepublished:true, rsRepublishedCount: { ...(st.rsRepublishedCount||{}), [st.reviewPlanMa]: count } };
+      }),
+      showRsRepublishSuccess: !!s.showRsRepublishSuccess,
+      closeRsRepublishSuccess: ()=>this.setState({ showRsRepublishSuccess:false }),
       reviewPlanTen: (()=>{ const p=(s.plans||[]).find(x=>x.ma===s.reviewPlanMa); return p ? (p.ten||'—') : '—'; })(),
       rsPlanKySel: s.rsPlanKySel || '',
       rsPlanTenSel: s.rsPlanTenSel || '',
@@ -4411,13 +4457,16 @@ class Component extends DCLogic {
           };
           return map[label] || ['#8c8c8c','#fafafa'];
         };
+        const dinhListForChange = s.dinhChinh || this.seedDinhChinh();
         return list.filter(inList).map((p)=>{
           const ttLabel = statusOf(p);
           const st = styleOf(ttLabel);
           const published = !!(s.rsPlanPublished||{})[p.ma];
           const ldVisible = ttLabel==='Chờ duyệt' || ttLabel==='Đã duyệt' || ttLabel==='Đã công bố';
+          const approvedCount = dinhListForChange.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===p.ky).length;
+          const hasChange = published && approvedCount > ((s.rsRepublishedCount||{})[p.ma]||0);
           return {
-            ...p, ttLabel, ttColor:st[0], ttBg:st[1], ldVisible,
+            ...p, ttLabel, ttColor:st[0], ttBg:st[1], ldVisible, hasChange,
             canLdEdit: role==='ld' && ldVisible && !published,
             open: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:false }),
             edit: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:true })
@@ -5185,13 +5234,6 @@ class Component extends DCLogic {
         dinhChinh:(st.dinhChinh||this.seedDinhChinh()).map(x=>(st.rejectIds||[]).includes(x.id)?{...x,tt:'tuchoi',lyDoTuChoi:st.rejectReason||'Không đạt yêu cầu'}:x),
         dinhSelIds:(st.dinhSelIds||[]).filter(id=>!(st.rejectIds||[]).includes(id)),
         rejectIds:null, rejectReason:'' })),
-      showSetPublishConfirm: !!s.showSetPublishConfirm,
-      showSetPublishSuccess: !!s.showSetPublishSuccess,
-      openSetPublishConfirm: ()=>this.setState({ showSetPublishConfirm:true }),
-      cancelSetPublishConfirm: ()=>this.setState({ showSetPublishConfirm:false }),
-      confirmSetPublish: ()=>this.setState({ showSetPublishConfirm:false, setRepublished:true, showSetPublishSuccess:true, setTab:'main' }),
-      closeSetPublishSuccess: ()=>this.setState({ showSetPublishSuccess:false }),
-
       statRows: (()=>{
         const ttStyle = {
           'Đã công bố': { fg:'#1f8a5b', bg:'#e3f4ec' },
@@ -5251,8 +5293,6 @@ class Component extends DCLogic {
         e1: (detailExtraFor('tap-hth', d)[1]) || ''
       }))),
       setGroups, setTableGroups, setTimeline, totalDocsLabel, setSortHint,
-      setHasCorrected: setCorrectedCount > 0,
-      setCorrectedCountLabel: String(setCorrectedCount).padStart(2,'0'),
       isSetMain: s.setTab!=='dinhchinh',
       isSetCorr: s.setTab==='dinhchinh',
       setNgayBHSel: s.setNgayBHSel || 'cu-moi',
