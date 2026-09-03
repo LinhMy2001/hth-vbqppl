@@ -3189,9 +3189,10 @@ class Component extends DCLogic {
     }
     if(code==='02'){
       return [
-        S('loaiHl','Loại (hết HL/tạm ngưng HL)',180,['-- Chọn --','Hết hiệu lực một phần','Ngưng hiệu lực một phần']),
-        T('lyDo','Lý do',260),
-        D('ngayHetHl','Ngày tháng năm (hết HL/tạm ngưng HL)',180),
+        T('noiDungHetHl','Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực',260,'(8)'),
+        S('loaiHl','Loại (hết HL/tạm ngưng HL)',180,['-- Chọn --','Hết hiệu lực một phần','Ngưng hiệu lực một phần'],'(9)'),
+        T('lyDo','Lý do',260,'(10)'),
+        D('ngayHetHl','Ngày tháng năm (hết HL/tạm ngưng HL)',180,'(11)'),
       ];
     }
     if(code==='03'){
@@ -3216,7 +3217,7 @@ class Component extends DCLogic {
   }
 
   blankAddRow(){
-    return { lv:'', loai:'', cq:'', so:'', ngay:'', ten:'', loaiHl:'', lyDo:'', ngayHetHl:'', thoiDiemHL:'', ghiChu:'', htXuLyVB:'', ndKienNghi:'', cqChuTri:'', thoiHan:'' };
+    return { lv:'', loai:'', cq:'', so:'', ngay:'', ten:'', noiDungHetHl:'', loaiHl:'', lyDo:'', ngayHetHl:'', thoiDiemHL:'', ghiChu:'', htXuLyVB:'', ndKienNghi:'', cqChuTri:'', thoiHan:'' };
   }
 
   blankDocFormRow(){
@@ -3240,7 +3241,8 @@ class Component extends DCLogic {
     return filtered.map(d=>{
       const base = { ...this.blankAddRow(), lv:d.lv||'', loai:d.loai||'', cq:d.cq||'', so:d.so||'', ngay:d.ngay||'', ten:d.ty||'', fromPool:true };
       const ex = detailExtraFor(ma, d);
-      if(code==='01' || code==='02') return { ...base, loaiHl:ex[0]||'', lyDo:ex[1]||'', ngayHetHl:ex[2]||'' };
+      if(code==='01') return { ...base, loaiHl:ex[0]||'', lyDo:ex[1]||'', ngayHetHl:ex[2]||'' };
+      if(code==='02') return { ...base, noiDungHetHl:'', loaiHl:ex[0]||'', lyDo:ex[1]||'', ngayHetHl:ex[2]||'' };
       if(code==='03' || code==='05') return { ...base, thoiDiemHL:ex[0]||'', ghiChu:ex[1]||'' };
       if(code==='04') return { ...base, htXuLyVB:ex[0]||'', ndKienNghi:ex[1]||'', cqChuTri:ex[2]||'', thoiHan:ex[3]||'' };
       return base;
@@ -3713,7 +3715,10 @@ class Component extends DCLogic {
     ];
     const detailColDefs = {
       'het-toan-bo': hetHLCols,
-      'het-mot-phan': hetHLCols,
+      'het-mot-phan': [
+        { h:'Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực', note:'' },
+        ...hetHLCols,
+      ],
       'con-hieu-luc': [
         { h:'Thời điểm có hiệu lực', note:'' },
         { h:'Ghi chú', note:'' },
@@ -3732,7 +3737,7 @@ class Component extends DCLogic {
     const detailExtraFor = (ma,d)=>{
       const tthl = this.normalizeTthl(d && d.hl);
       if(ma==='het-toan-bo') return [ tthl.indexOf('Tạm ngưng')>=0 ? 'Tạm ngưng hiệu lực' : 'Hết hiệu lực', d.rsPhanTich || d.ghiChu, d.ngay];
-      if(ma==='het-mot-phan') return [ tthl.indexOf('Tạm ngưng')>=0 ? 'Tạm ngưng hiệu lực một phần' : 'Hết hiệu lực một phần', d.rsPhanTich || d.ghiChu, d.ngay];
+      if(ma==='het-mot-phan') return [ '', tthl.indexOf('Tạm ngưng')>=0 ? 'Tạm ngưng hiệu lực một phần' : 'Hết hiệu lực một phần', d.rsPhanTich || d.ghiChu, d.ngay];
       if(ma==='con-hieu-luc') return [d.hieuLucNgay || d.ngay, d.ghiChu || tthl];
       if(ma==='tap-hth') return [d.hieuLucNgay || d.ngay, d.ghiChu || tthl];
       if(ma==='can-xu-ly') return [d.kienNghi || d.rsHinhThuc, d.rsPhanTich, d.cq, d.rsLoTrinh];
