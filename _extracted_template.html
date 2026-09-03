@@ -3189,7 +3189,7 @@ class Component extends DCLogic {
     }
     if(code==='02'){
       return [
-        T('noiDungHetHl','Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực',260,'(8)'),
+        T('noiDungHetHl','Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực*',260,'(8)'),
         S('loaiHl','Loại (hết HL/tạm ngưng HL)',180,['-- Chọn --','Hết hiệu lực một phần','Ngưng hiệu lực một phần'],'(9)'),
         T('lyDo','Lý do',260,'(10)'),
         D('ngayHetHl','Ngày tháng năm (hết HL/tạm ngưng HL)',180,'(11)'),
@@ -3716,7 +3716,7 @@ class Component extends DCLogic {
     const detailColDefs = {
       'het-toan-bo': hetHLCols,
       'het-mot-phan': [
-        { h:'Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực', note:'' },
+        { h:'Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực*', note:'' },
         ...hetHLCols,
       ],
       'con-hieu-luc': [
