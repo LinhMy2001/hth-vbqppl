@@ -1432,14 +1432,26 @@
                 <div style="height:42px;display:flex;align-items:center;padding:0 14px;border:1.5px solid #e4e9f0;border-radius:10px;background:#f2f4f7;font-size:13.5px;font-weight:600;color:#16314c;box-sizing:border-box;">{{ docKySelTen }}</div>
               </div>
             </div>
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-              <div style="position:relative;flex:1;min-width:220px;">
-                <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:19px;color:#94a3b8;">search</span>
-                <input placeholder="Tra cứu số/ký hiệu, tên gọi văn bản..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px 10px 38px;border:1px solid #d8e0ea;border-radius:9px;outline:none;background:#f8fafc;box-sizing:border-box;">
+            <div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;">
+              <div style="display:flex;flex-direction:column;gap:7px;flex:1;min-width:220px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Số, ký hiệu</label>
+                <div style="position:relative;">
+                  <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:19px;color:#94a3b8;">search</span>
+                  <input placeholder="Tra cứu số/ký hiệu văn bản..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px 10px 38px;border:1px solid #d8e0ea;border-radius:9px;outline:none;background:#f8fafc;box-sizing:border-box;">
+                </div>
               </div>
-              <sc-raw-select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả loại VB</option><option>Luật</option><option>Nghị định</option><option>Thông tư</option><option>Quyết định</option><option>Nghị quyết</option></sc-raw-select>
-              <sc-raw-select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả lĩnh vực</option><option>Tư pháp</option><option>Hộ tịch</option><option>Lao động</option></sc-raw-select>
-              <sc-raw-select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả nguồn</option><option>Đồng bộ CSDL</option><option>Nhập thủ công</option></sc-raw-select>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Loại văn bản</label>
+                <sc-raw-select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả loại VB</option><option>Luật</option><option>Nghị định</option><option>Thông tư</option><option>Quyết định</option><option>Nghị quyết</option></sc-raw-select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Lĩnh vực</label>
+                <sc-raw-select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả lĩnh vực</option><option>Tư pháp</option><option>Hộ tịch</option><option>Lao động</option></sc-raw-select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Nguồn</label>
+                <sc-raw-select style="font-family:inherit;font-size:13px;padding:10px 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;"><option>Tất cả nguồn</option><option>Đồng bộ CSDL</option><option>Nhập thủ công</option></sc-raw-select>
+              </div>
               <button onclick="{{ applyDocKy }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
               <button style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">download</span>Kết xuất</button>
             </div>
@@ -1783,7 +1795,7 @@
               <sc-if value="{{ inAgg }}" hint-placeholder-val="{{ false }}"><span class="ic" style="font-size:14px;">chevron_right</span><span onclick="{{ closeAgg }}" style="color:#0e4c8f;cursor:pointer;font-weight:600;">Kết quả Hệ thống hóa</span><span class="ic" style="font-size:14px;">chevron_right</span><span>Tổng hợp từ các đơn vị</span></sc-if>
             </div>
             <h1 style="margin:0;font-size:23px;font-weight:700;color:#10243a;">Kết quả Hệ thống hóa</h1>
-            <p style="margin:6px 0 0;font-size:13.5px;color:#5a6b7e;"><sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">Chọn kế hoạch hệ thống hóa, tạo và quản lý 4 phụ lục kết quả hệ thống hóa văn bản QPPL.</sc-if><sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">Xem danh sách kỳ hệ thống hóa của đơn vị, duyệt / trả lại và công bố kết quả hệ thống hóa.</sc-if></p>
+            <p style="margin:6px 0 0;font-size:13.5px;color:#5a6b7e;"><sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">Chọn kế hoạch hệ thống hóa, tạo và quản lý 4 phụ lục kết quả hệ thống hóa văn bản QPPL.</sc-if><sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">Xem danh sách kỳ hệ thống hóa của đơn vị, duyệt / từ chối và công bố kết quả hệ thống hóa.</sc-if></p>
           </div>
 
           <sc-if value="{{ inAdd }}" hint-placeholder-val="{{ false }}">
@@ -1970,6 +1982,7 @@
                           <option value="Đã tạo">Đã tạo</option>
                         </sc-if>
                         <option value="Chờ duyệt">Chờ duyệt</option>
+                        <option value="Bị từ chối">Bị từ chối</option>
                         <option value="Đã duyệt">Đã duyệt</option>
                         <option value="Đã công bố">Đã công bố</option>
                       </sc-raw-select>
@@ -2084,7 +2097,7 @@
                   <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                     <sc-if value="{{ rsHthCreated }}" hint-placeholder-val="{{ false }}">
                       <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
-                        <button onclick="{{ openAgg }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">summarize</span>Tổng hợp</button>
+                        <button onclick="{{ openAgg }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">sync</span>Tổng hợp lại</button>
                       </sc-if>
                       <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
                         <button onclick="{{ goToDinhChinh }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
@@ -2106,7 +2119,7 @@
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
                 <div style="font-size:13.5px;color:#1e2939;font-weight:600;">Danh sách đơn vị: <b style="color:#fa541c;">{{ rsAggUnitCount }} đơn vị</b></div>
                 <div style="display:flex;align-items:center;gap:10px;">
-                  <button onclick="{{ openAgg }}" style="height:40px;border:1px solid #0e4c8f;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#0e4c8f;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#eef3f9;"><span class="ic" style="font-size:20px;">summarize</span>Tổng hợp</button>
+                  <button onclick="{{ openAgg }}" style="height:40px;border:1px solid #0e4c8f;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#0e4c8f;padding:0 18px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#eef3f9;"><span class="ic" style="font-size:20px;">sync</span>Tổng hợp lại</button>
                 </div>
               </div>
               <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
@@ -2148,7 +2161,7 @@
                 <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
                   <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
                     <div style="display:flex;align-items:center;gap:10px;">
-                      <button onclick="{{ openRsReturnConfirm }}" style="height:40px;border:1px solid #f3c1c3;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#e5484d;padding:0 16px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#fdf0f0;"><span class="ic" style="font-size:20px;">undo</span>Trả lại</button>
+                      <button onclick="{{ openRsReturnConfirm }}" style="height:40px;border:1px solid #f3c1c3;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#e5484d;padding:0 16px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#fdf0f0;"><span class="ic" style="font-size:20px;">undo</span>Từ chối</button>
                       <sc-if value="{{ !rsPlanIsApproved }}" hint-placeholder-val="{{ true }}">
                         <button onclick="{{ openRsApproveConfirm }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 16px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:20px;">verified</span>Duyệt</button>
                       </sc-if>
@@ -2374,14 +2387,14 @@
           <sc-if value="{{ showAggConfirm }}" hint-placeholder-val="{{ false }}">
             <div onclick="{{ cancelAggConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
               <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#2f54eb;">summarize</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận tổng hợp dữ liệu</h3></div>
+                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#2f54eb;">sync</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Tổng hợp lại dữ liệu</h3></div>
                 <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
-                  Bạn có chắc chắn muốn <b style="color:#1e2939;">tổng hợp dữ liệu</b> kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> không?
-                  <div style="margin-top:10px;padding:10px 12px;background:#eef3f9;border:1px solid #d8e0ea;border-radius:8px;font-size:12.5px;color:#42566c;line-height:1.5;">Hệ thống sẽ tổng hợp dữ liệu từ các đơn vị / phụ lục liên quan để hiển thị kết quả tổng hợp.</div>
+                  Tổng hợp lại dữ liệu kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của <b style="color:#0e4c8f;">{{ currentDonVi }}</b>?
+                  <div style="margin-top:10px;padding:10px 12px;background:#f2f4f7;border-radius:8px;font-size:12.5px;color:#475467;line-height:1.5;">Dữ liệu được lấy từ các đơn vị và phụ lục liên quan. Số liệu đang hiển thị sẽ được thay bằng kết quả mới.</div>
                 </div>
                 <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
                   <button onclick="{{ cancelAggConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
-                  <button onclick="{{ confirmAgg }}" style="height:38px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">summarize</span>Xác nhận tổng hợp</button>
+                  <button onclick="{{ confirmAgg }}" style="height:38px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">sync</span>Tổng hợp</button>
                 </div>
               </div>
             </div>
@@ -2467,14 +2480,14 @@
           <sc-if value="{{ showRsReturnConfirm }}" hint-placeholder-val="{{ false }}">
             <div onclick="{{ cancelRsReturnConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
               <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:500px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#e5484d;">undo</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận trả lại</h3></div>
+                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#e5484d;">undo</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận từ chối</h3></div>
                 <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
-                  Bạn có chắc chắn muốn trả lại kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> cho chuyên viên chỉnh sửa không?
-                  <div style="margin-top:10px;padding:10px 12px;background:#fdf0f0;border:1px solid #f3c1c3;border-radius:8px;font-size:12.5px;color:#9b2c2c;line-height:1.5;">Sau khi trả lại, trạng thái sẽ chuyển về <b>Đã tạo</b>.</div>
+                  Bạn có chắc chắn muốn từ chối kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> cho chuyên viên chỉnh sửa không?
+                  <div style="margin-top:10px;padding:10px 12px;background:#fdf0f0;border:1px solid #f3c1c3;border-radius:8px;font-size:12.5px;color:#9b2c2c;line-height:1.5;">Sau khi từ chối, trạng thái sẽ chuyển sang <b>Bị từ chối</b>.</div>
                 </div>
                 <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
                   <button onclick="{{ cancelRsReturnConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
-                  <button onclick="{{ confirmRsReturn }}" style="height:38px;border:0;background:#e5484d;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">undo</span>Xác nhận trả lại</button>
+                  <button onclick="{{ confirmRsReturn }}" style="height:38px;border:0;background:#e5484d;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">undo</span>Xác nhận từ chối</button>
                 </div>
               </div>
             </div>
@@ -3107,7 +3120,7 @@
       <div style="padding:16px 22px 0;flex:0 0 auto;">
         <div style="position:relative;">
           <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:19px;color:#98a2b3;">search</span>
-          <input placeholder="Tra cứu số/ký hiệu, tên gọi văn bản..." style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px 0 38px;border:1px solid #d0d5dd;border-radius:8px;outline:none;background:#f9fafb;box-sizing:border-box;">
+          <input placeholder="Tra cứu số/ký hiệu văn bản..." style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px 0 38px;border:1px solid #d0d5dd;border-radius:8px;outline:none;background:#f9fafb;box-sizing:border-box;">
         </div>
       </div>
       <div style="padding:14px 22px 20px;overflow:auto;">
@@ -4257,10 +4270,12 @@ class Component extends DCLogic {
         mauBieuDefs.forEach(t=>ns[t[0]]=true);
         const planSent={ ...(st.rsPlanSent||{}) };
         if(st.reviewPlanMa) planSent[st.reviewPlanMa]=true;
+        const planRej={ ...(st.rsPlanRejected||{}) }; if(st.reviewPlanMa) delete planRej[st.reviewPlanMa];
         return {
           showRsSubmitConfirm:false,
           rsSent:ns,
           rsPlanSent:planSent,
+          rsPlanRejected:planRej,
           reviewPlanMa:null,
           reviewType:null,
           reviewAdd:false,
@@ -4287,14 +4302,16 @@ class Component extends DCLogic {
         if(!ma) return { showRsReturnConfirm:false };
         const planSent={ ...(st.rsPlanSent||{}) }; delete planSent[ma];
         const planAp={ ...(st.rsPlanApproved||{}) }; delete planAp[ma];
-        return { showRsReturnConfirm:false, rsPlanSent:planSent, rsPlanApproved:planAp };
+        const planRej={ ...(st.rsPlanRejected||{}) }; planRej[ma]=true;
+        return { showRsReturnConfirm:false, rsPlanSent:planSent, rsPlanApproved:planAp, rsPlanRejected:planRej };
       }),
       rsSubmit: ()=>this.setState(st=>{
         const ns={ ...st.rsSent };
         mauBieuDefs.forEach(t=>ns[t[0]]=true);
         const planSent={ ...(st.rsPlanSent||{}) };
         if(st.reviewPlanMa) planSent[st.reviewPlanMa]=true;
-        return { rsSent:ns, rsPlanSent:planSent };
+        const planRej={ ...(st.rsPlanRejected||{}) }; if(st.reviewPlanMa) delete planRej[st.reviewPlanMa];
+        return { rsSent:ns, rsPlanSent:planSent, rsPlanRejected:planRej };
       }),
       rsApproveChecked: ()=>this.setState(st=>{
         const na={ ...st.rsApproved };
@@ -4411,16 +4428,18 @@ class Component extends DCLogic {
         if((s.rsPlanPublished||{})[ma]) return 'Đã công bố';
         if((s.rsPlanApproved||{})[ma]) return 'Đã duyệt';
         if((s.rsPlanSent||{})[ma]) return 'Chờ duyệt';
+        if((s.rsPlanRejected||{})[ma]) return 'Bị từ chối';
         if((s.rsHthCreated||{})[ma]) return 'Đã tạo';
         return '';
       },
       rsPlanInList: (p)=>{
         const ma = p.ma;
-        return !!(s.rsHthCreated||{})[ma] || !!(s.rsPlanSent||{})[ma] || !!(s.rsPlanApproved||{})[ma] || !!(s.rsPlanPublished||{})[ma];
+        return !!(s.rsHthCreated||{})[ma] || !!(s.rsPlanSent||{})[ma] || !!(s.rsPlanApproved||{})[ma] || !!(s.rsPlanPublished||{})[ma] || !!(s.rsPlanRejected||{})[ma];
       },
       rsPlanStatusStyle: (label)=>{
         const map = {
           'Đã tạo': ['#52c41a','#f6ffed'],
+          'Bị từ chối': ['#ff4d4f','#fff1f0'],
           'Chờ duyệt': ['#fa8c16','#fffbe6'],
           'Đã duyệt': ['#1890ff','#e6f7ff'],
           'Đã công bố': ['#b8860b','#fbf2dc']
@@ -4439,15 +4458,17 @@ class Component extends DCLogic {
           if((s.rsPlanPublished||{})[ma]) return 'Đã công bố';
           if((s.rsPlanApproved||{})[ma]) return 'Đã duyệt';
           if((s.rsPlanSent||{})[ma]) return 'Chờ duyệt';
+          if((s.rsPlanRejected||{})[ma]) return 'Bị từ chối';
           if((s.rsHthCreated||{})[ma]) return 'Đã tạo';
           return '';
         };
         const inList = (p)=>{
           const ma = p.ma;
-          return !!(s.rsHthCreated||{})[ma] || !!(s.rsPlanSent||{})[ma] || !!(s.rsPlanApproved||{})[ma] || !!(s.rsPlanPublished||{})[ma];
+          return !!(s.rsHthCreated||{})[ma] || !!(s.rsPlanSent||{})[ma] || !!(s.rsPlanApproved||{})[ma] || !!(s.rsPlanPublished||{})[ma] || !!(s.rsPlanRejected||{})[ma];
         };
         const styleOf = (label)=>{
           const map = {
+            'Bị từ chối': ['#ff4d4f','#fff1f0'],
             'Đã tạo': ['#52c41a','#f6ffed'],
             'Chờ duyệt': ['#fa8c16','#fffbe6'],
             'Đã duyệt': ['#1890ff','#e6f7ff'],
@@ -4460,12 +4481,12 @@ class Component extends DCLogic {
           const ttLabel = statusOf(p);
           const st = styleOf(ttLabel);
           const published = !!(s.rsPlanPublished||{})[p.ma];
-          const ldVisible = ttLabel==='Chờ duyệt' || ttLabel==='Đã duyệt' || ttLabel==='Đã công bố';
+          const ldVisible = ttLabel==='Chờ duyệt' || ttLabel==='Bị từ chối' || ttLabel==='Đã duyệt' || ttLabel==='Đã công bố';
           const approvedCount = dinhListForChange.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===p.ky).length;
           const hasChange = published && approvedCount > ((s.rsRepublishedCount||{})[p.ma]||0);
           return {
             ...p, ttLabel, ttColor:st[0], ttBg:st[1], ldVisible, hasChange,
-            canLdEdit: role==='ld' && ldVisible && !published,
+            canLdEdit: role==='ld' && ldVisible && !published && ttLabel!=='Bị từ chối',
             open: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:false }),
             edit: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:true })
           };
@@ -4483,12 +4504,13 @@ class Component extends DCLogic {
         if(tenF) list = list.filter(p=>String(p.ten||'').toLowerCase().includes(tenF));
         list = list.filter(p=>{
           const ma = p.ma;
-          if(!(s.rsHthCreated||{})[ma] && !(s.rsPlanSent||{})[ma] && !(s.rsPlanApproved||{})[ma] && !(s.rsPlanPublished||{})[ma]) return false;
+          if(!(s.rsHthCreated||{})[ma] && !(s.rsPlanSent||{})[ma] && !(s.rsPlanApproved||{})[ma] && !(s.rsPlanPublished||{})[ma] && !(s.rsPlanRejected||{})[ma]) return false;
           const ttLabel = (s.rsPlanPublished||{})[ma] ? 'Đã công bố'
             : (s.rsPlanApproved||{})[ma] ? 'Đã duyệt'
             : (s.rsPlanSent||{})[ma] ? 'Chờ duyệt'
+            : (s.rsPlanRejected||{})[ma] ? 'Bị từ chối'
             : 'Đã tạo';
-          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
+          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Bị từ chối' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
           return !ttF || ttLabel===ttF;
         });
         return list.length;
@@ -4502,12 +4524,13 @@ class Component extends DCLogic {
         if(tenF) list = list.filter(p=>String(p.ten||'').toLowerCase().includes(tenF));
         list = list.filter(p=>{
           const ma = p.ma;
-          if(!(s.rsHthCreated||{})[ma] && !(s.rsPlanSent||{})[ma] && !(s.rsPlanApproved||{})[ma] && !(s.rsPlanPublished||{})[ma]) return false;
+          if(!(s.rsHthCreated||{})[ma] && !(s.rsPlanSent||{})[ma] && !(s.rsPlanApproved||{})[ma] && !(s.rsPlanPublished||{})[ma] && !(s.rsPlanRejected||{})[ma]) return false;
           const ttLabel = (s.rsPlanPublished||{})[ma] ? 'Đã công bố'
             : (s.rsPlanApproved||{})[ma] ? 'Đã duyệt'
             : (s.rsPlanSent||{})[ma] ? 'Chờ duyệt'
+            : (s.rsPlanRejected||{})[ma] ? 'Bị từ chối'
             : 'Đã tạo';
-          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
+          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Bị từ chối' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
           return !ttF || ttLabel===ttF;
         });
         return list.length===0;
@@ -4641,7 +4664,9 @@ class Component extends DCLogic {
           const planPub={ ...(st.rsPlanPublished||{}) }; delete planPub[ma];
           const planSent={ ...(st.rsPlanSent||{}) }; delete planSent[ma];
           const planAp={ ...(st.rsPlanApproved||{}) }; delete planAp[ma];
+          const planRej={ ...(st.rsPlanRejected||{}) }; delete planRej[ma];
           return {
+            rsPlanRejected: planRej,
             rsMauRows: mauRows,
             rsAssigned: assigned,
             rsChecked: checked,
