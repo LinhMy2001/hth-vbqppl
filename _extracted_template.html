@@ -2495,6 +2495,94 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isRxKq }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:24px 32px 48px;">
+          <div style="margin-bottom:18px;">
+            <div style="font-size:12px;color:#6b7a8d;font-weight:500;margin-bottom:5px;display:flex;align-items:center;gap:6px;">
+              <span>Rà soát thường xuyên</span><span class="ic" style="font-size:14px;">chevron_right</span><span>Kết quả rà soát</span>
+            </div>
+            <h1 style="margin:0;font-size:23px;font-weight:700;color:#10243a;">Kết quả rà soát</h1>
+            <p style="margin:6px 0 0;font-size:13.5px;color:#5a6b7e;">Danh sách văn bản cần rà soát và quan hệ căn cứ theo từng đợt rà soát thường xuyên.</p>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 24px;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Số hiệu / Trích yếu</label>
+                <input value="{{ rxKw }}" oninput="{{ setRxKw }}" placeholder="Nhập số hiệu hoặc trích yếu văn bản..." style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #d0d5dd;border-radius:8px;outline:none;box-sizing:border-box;">
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Cơ quan ban hành</label>
+                <div style="position:relative;">
+                  <sc-raw-select value="{{ rxCq }}" onchange="{{ setRxCq }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ rxCqOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Lĩnh vực rà soát</label>
+                <div style="position:relative;">
+                  <sc-raw-select value="{{ rxLv }}" onchange="{{ setRxLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ rxLvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:13px;font-weight:600;color:#1e2939;">Quan hệ căn cứ</label>
+                <div style="position:relative;">
+                  <sc-raw-select value="{{ rxQh }}" onchange="{{ setRxQh }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ rxQhOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
+                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:22px;">
+              <button onclick="{{ applyRx }}" style="height:40px;min-width:120px;border:0;background:#2f54eb;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+              <button onclick="{{ resetRx }}" style="height:40px;min-width:110px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+            </div>
+          </div>
+
+          <div style="font-size:13.5px;color:#1e2939;font-weight:600;margin-bottom:14px;">Tổng cộng: <b style="color:#fa541c;">{{ rxTotal }} văn bản</b></div>
+
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13.5px;">
+              <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:left;color:#475467;">
+                <sc-raw-th style="padding:12px 16px;font-weight:600;width:60px;text-align:center;">STT</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;min-width:200px;">Đợt / Căn cứ rà soát</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;width:130px;">Số hiệu văn bản</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;width:110px;">Ngày ban hành</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;width:120px;">Cơ quan ban hành</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;width:100px;">Lĩnh vực rà soát</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;width:120px;">Quan hệ căn cứ</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;width:130px;">Phạm vi bị tác động</sc-raw-th>
+                <sc-raw-th style="padding:12px 16px;font-weight:600;min-width:220px;">Trích yếu nội dung văn bản</sc-raw-th>
+              </sc-raw-tr></sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-for list="{{ rxRows }}" as="r" hint-placeholder-count="5">
+                  <sc-raw-tr style="border-top:1px solid #eaecf0;vertical-align:top;" style-hover="background:#f9fafb;">
+                    <sc-raw-td style="padding:13px 16px;text-align:center;color:#2f54eb;font-weight:600;">{{ r.stt }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#475467;line-height:1.45;">{{ r.dot }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#1e2939;font-weight:500;">{{ r.so }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#475467;">{{ r.ngay }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#475467;">{{ r.cq }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#475467;">{{ r.lv }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#475467;">{{ r.qh }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#475467;">{{ r.pv }}</sc-raw-td>
+                    <sc-raw-td style="padding:13px 16px;color:#475467;line-height:1.45;">{{ r.ty }}</sc-raw-td>
+                  </sc-raw-tr>
+                </sc-for>
+              </sc-raw-tbody>
+            </sc-raw-table>
+            <sc-if value="{{ rxEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:28px;text-align:center;color:#667085;font-size:13.5px;border-top:1px solid #eaecf0;">Không có văn bản phù hợp.</div></sc-if>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-top:1px solid #eaecf0;font-size:12.5px;color:#667085;gap:10px;">
+              <span>Hiển thị {{ rxFrom }} đến {{ rxTo }} của {{ rxTotal }} văn bản · 10 dòng/trang</span>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <button onclick="{{ rxPrev }}" style="width:32px;height:32px;border:1px solid #d0d5dd;background:#fff;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><span class="ic" style="font-size:18px;">chevron_left</span></button>
+                <sc-for list="{{ rxPages }}" as="p" hint-placeholder-count="3"><button onclick="{{ p.go }}" style="min-width:32px;height:32px;border:1px solid #d0d5dd;background:{{ p.bg }};color:{{ p.fg }};border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;">{{ p.n }}</button></sc-for>
+                <button onclick="{{ rxNext }}" style="width:32px;height:32px;border:1px solid #d0d5dd;background:#fff;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;"><span class="ic" style="font-size:18px;">chevron_right</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isTraCuu }}" hint-placeholder-val="{{ false }}">
         <div style="padding:24px 32px 48px;">
           <div style="margin-bottom:18px;">
@@ -2508,7 +2596,7 @@
 
           <sc-if value="{{ tcInList }}" hint-placeholder-val="{{ true }}">
             <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;">
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;">
                 <div style="display:flex;flex-direction:column;gap:7px;">
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Kỳ hệ thống hóa</label>
                   <div style="position:relative;">
@@ -2520,6 +2608,13 @@
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Tên mẫu biểu</label>
                   <div style="position:relative;">
                     <sc-raw-select value="{{ tcMauSel }}" onchange="{{ setTcMau }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả mẫu biểu</option><sc-for list="{{ tcMauOpts }}" as="m" hint-placeholder-count="5"><option value="{{ m.ma }}">{{ m.label }}</option></sc-for></sc-raw-select>
+                    <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị thực hiện HTH</label>
+                  <div style="position:relative;">
+                    <sc-raw-select value="{{ tcDonViHthSel }}" onchange="{{ setTcDonViHth }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả đơn vị</option><sc-for list="{{ tcDonViHthOpts }}" as="u" hint-placeholder-count="6"><option value="{{ u }}">{{ u }}</option></sc-for></sc-raw-select>
                     <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                   </div>
                 </div>
@@ -3598,6 +3693,19 @@ class Component extends DCLogic {
     });
     return groups;
   }
+  rxData(){
+    const base = [
+      ['17/2025/TT-BTP — Thông tư quy định chế độ báo cáo thống kê ngành Tư pháp','03/2019/TT-BTP','20/03/2019','Bộ Tư pháp','Tư pháp','Thay thế','Toàn bộ','Thông tư quy định một số nội dung về hoạt động thống kê của ngành Tư pháp'],
+      ['17/2025/TT-BTP — Thông tư quy định chế độ báo cáo thống kê ngành Tư pháp','07/2017/TT-BTP','28/07/2017','Bộ Tư pháp','Tư pháp','Bãi bỏ','Điều 5, Điều 6','Thông tư hướng dẫn về công tác kiểm tra, xử lý văn bản quy phạm pháp luật'],
+      ['64/2025/QH15 — Luật Ban hành văn bản quy phạm pháp luật','34/2016/NĐ-CP','14/05/2016','Chính phủ','Tư pháp','Quy định hướng dẫn chi tiết','Khoản 2 Điều 12','Nghị định quy định chi tiết một số điều và biện pháp thi hành Luật Ban hành VBQPPL'],
+      ['64/2025/QH15 — Luật Ban hành văn bản quy phạm pháp luật','80/2015/QH13','22/06/2015','Quốc hội','Tư pháp','Thay thế','Toàn bộ','Luật Ban hành văn bản quy phạm pháp luật'],
+      ['19/2024/NĐ-CP — Nghị định về quản lý nhà nước về đất đai','43/2014/NĐ-CP','15/05/2014','Chính phủ','Đất đai','Bãi bỏ','Toàn bộ','Nghị định quy định chi tiết thi hành một số điều của Luật Đất đai'],
+      ['19/2024/NĐ-CP — Nghị định về quản lý nhà nước về đất đai','01/2017/NĐ-CP','06/01/2017','Chính phủ','Đất đai','Sửa đổi bổ sung','Điều 3','Nghị định sửa đổi, bổ sung một số nghị định quy định chi tiết thi hành Luật Đất đai'],
+    ];
+    const rows = [];
+    for (let i=0;i<23;i++){ const b = base[i % base.length]; rows.push({ dot:b[0], so:b[1].replace(/^(\d+)/, n=>String(((+n+i) % 98) + 1).padStart(2,'0')), ngay:b[2], cq:b[3], lv:b[4], qh:b[5], pv:b[6], ty:b[7] }); }
+    return rows;
+  }
   navStyle(key){
     const active = this.state.screen === key;
     return {
@@ -3650,6 +3758,8 @@ class Component extends DCLogic {
       mk('set','menu_book','Tập hệ thống hóa'),
       mk('tracuu','manage_search','Tra cứu dữ liệu HTH'),
       mk('catalog','tune','Cấu hình tiêu chí sắp xếp'),
+      grp('RÀ SOÁT THƯỜNG XUYÊN'),
+      mk('rstx','rule','Kết quả rà soát'),
       grp('BÁO CÁO'),
       mk('stats','bar_chart','Thống kê số liệu'),
     ];
@@ -5642,6 +5752,26 @@ class Component extends DCLogic {
       sxSearchEmpty: !!(s.sxConfigs||[]).length && !!(s.sxSearchDonVi||'').trim() && !(s.sxConfigs||[]).some(c=>c.donVi===String(s.sxSearchDonVi||'').trim()),
       isSet: s.screen==='set',
       isStats: s.screen==='stats',
+      isRxKq: s.screen==='rstx',
+      ...(()=>{
+        const kw = (s.rxKwA||'').trim().toLowerCase();
+        const f = this.rxData().filter(r => (!kw || (r.so+' '+r.ty).toLowerCase().includes(kw)) && (!s.rxCqA || r.cq===s.rxCqA) && (!s.rxLvA || r.lv===s.rxLvA) && (!s.rxQhA || r.qh===s.rxQhA));
+        const PS = 10, total = f.length, pages = Math.max(1, Math.ceil(total/PS));
+        const cur = Math.min(s.rxPage||1, pages);
+        const rxRows = f.slice((cur-1)*PS, cur*PS).map((r,i)=>({ ...r, stt:(cur-1)*PS+i+1 }));
+        const rxPages = Array.from({length:pages},(_,i)=>({ n:i+1, go:()=>this.setState({ rxPage:i+1 }), bg:(i+1)===cur?'#2f54eb':'#fff', fg:(i+1)===cur?'#fff':'#475467' }));
+        return {
+          rxRows, rxPages, rxTotal: total, rxEmpty: !total,
+          rxFrom: total ? (cur-1)*PS+1 : 0, rxTo: Math.min(cur*PS, total),
+          rxPrev: ()=>this.setState({ rxPage: Math.max(1, cur-1) }), rxNext: ()=>this.setState({ rxPage: Math.min(pages, cur+1) }),
+          rxKw: s.rxKw||'', rxCq: s.rxCq||'', rxLv: s.rxLv||'', rxQh: s.rxQh||'',
+          setRxKw:(e)=>this.setState({ rxKw:e.target.value }), setRxCq:(e)=>this.setState({ rxCq:e.target.value }),
+          setRxLv:(e)=>this.setState({ rxLv:e.target.value }), setRxQh:(e)=>this.setState({ rxQh:e.target.value }),
+          applyRx: ()=>this.setState(st=>({ rxKwA:st.rxKw||'', rxCqA:st.rxCq||'', rxLvA:st.rxLv||'', rxQhA:st.rxQh||'', rxPage:1 })),
+          resetRx: ()=>this.setState({ rxKw:'', rxCq:'', rxLv:'', rxQh:'', rxKwA:'', rxCqA:'', rxLvA:'', rxQhA:'', rxPage:1 }),
+          rxCqOpts: ['Quốc hội','Chính phủ','Bộ Tư pháp'], rxLvOpts: ['Tư pháp','Đất đai'], rxQhOpts: ['Bãi bỏ','Sửa đổi bổ sung','Tạm ngưng hiệu lực','Thay thế','Bổ sung','Căn cứ','Hướng dẫn áp dụng','Quy định hướng dẫn chi tiết'],
+        };
+      })(),
       isTraCuu: s.screen==='tracuu',
       tcInList: !s.tcType, tcInDetail: !!s.tcType,
       isTcTapHth: s.tcType==='tap-hth',
