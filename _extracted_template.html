@@ -1545,11 +1545,13 @@
                       </div>
                       <sc-if value="{{ formShowSyncOld }}" hint-placeholder-val="{{ false }}">
                         <div style="flex:1 1 360px;display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:8px 12px;font-size:12.5px;color:#1d4ed8;">
-                          <span class="ic" style="font-size:17px;">info</span><span>Chỉ dùng để lấy lại danh sách văn bản Mẫu 03 của kỳ này - văn bản vẫn được lưu vào kỳ hệ thống hóa hiện tại.</span>
+                          <span class="ic" style="font-size:17px;">info</span><span>Văn bản được lấy về theo lĩnh vực đã cấu hình của đơn vị, là văn bản do đơn vị ban hành.</span>
                         </div>
                       </sc-if>
                       <sc-if value="{{ !formShowSyncOld }}" hint-placeholder-val="{{ true }}">
-                        <div style="font-size:12.5px;color:#6b7a8d;">Văn bản nhập/đồng bộ sẽ được gắn vào kỳ này.</div>
+                        <div style="flex:1 1 360px;display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:8px 12px;font-size:12.5px;color:#1d4ed8;">
+                          <span class="ic" style="font-size:17px;">info</span><span>Văn bản được lấy từ CSDL quốc gia theo lĩnh vực đã cấu hình và Cơ quan ban hành của đơn vị đang thao tác.</span>
+                        </div>
                       </sc-if>
                     </div>
                   </div>
@@ -1557,7 +1559,7 @@
 
                 <sc-if value="{{ formShowSyncOld }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:10px 14px;margin-bottom:16px;">
-                    <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#1d4ed8;"><span class="ic" style="font-size:17px;">info</span><span>Tự động lấy danh sách văn bản HTH của kỳ đã chọn ở trên để bổ sung, không cần nhập lại thủ công.</span></div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#1d4ed8;"><span class="ic" style="font-size:17px;">info</span><span>Nhấn đồng bộ để tự động lấy danh sách văn bản HTH của kỳ đã chọn ở trên để bổ sung, không cần nhập lại thủ công.</span></div>
                     <button onclick="{{ syncOldDocs }}" style="height:32px;border:1px solid #d0d5dd;background:#f2f4f7;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;white-space:nowrap;"><span class="ic" style="font-size:16px;">sync</span>Đồng bộ DL</button>
                   </div>
                 </sc-if>
@@ -1565,12 +1567,21 @@
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
                   <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#1456d8;"><span class="ic" style="font-size:17px;">grid_on</span>BẢNG NHẬP THÔNG TIN VĂN BẢN QUY PHẠM PHÁP LUẬT</div>
                   <sc-if value="{{ formShowImportIcons }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ isFormKyHienTai }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                      <button onclick="{{ resetDocForm }}" style="height:32px;border:1px solid #1456d8;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">refresh</span>Reset dữ liệu</button>
+                      <button style="height:32px;border:1px solid #0e9f8e;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#0e9f8e;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">download</span>Xuất file mẫu</button>
+                      <button onclick="{{ chooseImport }}" style="height:32px;border:1px solid #1f8a5b;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1f8a5b;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">upload_file</span>Nhập từ Excel</button>
+                      <button onclick="{{ syncCsdl }}" style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">sync</span>Đồng bộ từ CSDLQG</button>
+                    </div>
+                    </sc-if>
+                    <sc-if value="{{ !isFormKyHienTai }}" hint-placeholder-val="{{ false }}">
                     <div style="display:flex;gap:8px;flex-wrap:wrap;">
                       <button onclick="{{ resetDocForm }}" style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">refresh</span>Reset dữ liệu</button>
                       <button style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">download</span>Xuất file mẫu</button>
                       <button onclick="{{ chooseImport }}" style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">upload_file</span>Nhập từ Excel</button>
-                      <button onclick="{{ syncCsdl }}" style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">sync</span>Đồng bộ từ CSDLQG</button>
                     </div>
+                    </sc-if>
                   </sc-if>
                 </div>
                 <div style="overflow-x:auto;margin-bottom:20px;border:1px solid #eef1f6;border-radius:11px;">
