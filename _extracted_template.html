@@ -382,6 +382,13 @@
         <sc-if value="{{ item.isGroup }}" hint-placeholder-val="{{ false }}">
           <div style="padding:12px 24px 6px;font-size:11px;font-weight:600;letter-spacing:.02em;color:#595959;text-transform:uppercase;">{{ item.label }}</div>
         </sc-if>
+        <sc-if value="{{ item.isParent }}" hint-placeholder-val="{{ false }}">
+          <div onclick="{{ item.toggle }}" style="margin:2px 12px;padding:10px 12px;border-radius:6px;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;font-weight:{{ item.weight }};color:{{ item.fg }};background:{{ item.bg }};border:1px solid {{ item.border }};transition:all .2s ease;">
+            <span class="ic" style="font-size:19px;color:{{ item.iconFg }};">{{ item.icon }}</span>
+            <span style="flex:1;white-space:nowrap;">{{ item.label }}</span>
+            <span class="ic" style="font-size:20px;color:{{ item.iconFg }};">{{ item.chevron }}</span>
+          </div>
+        </sc-if>
         <sc-if value="{{ item.isMain }}" hint-placeholder-val="{{ true }}">
           <div onclick="{{ item.go }}" style="margin:2px 12px;padding:10px 16px;border-radius:6px;display:flex;align-items:center;gap:12px;cursor:pointer;font-size:13px;font-weight:{{ item.weight }};color:{{ item.fg }};background:{{ item.bg }};transition:all .2s ease;">
             <span class="ic" style="font-size:19px;color:{{ item.iconFg }};">{{ item.icon }}</span>
@@ -1426,10 +1433,6 @@
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:22px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:6px;flex:1;min-width:240px;">
-                <label style="font-size:12px;font-weight:600;color:#42566c;">Tên kế hoạch</label>
-                <div style="height:42px;display:flex;align-items:center;padding:0 14px;border:1.5px solid #e4e9f0;border-radius:10px;background:#f2f4f7;font-size:13.5px;font-weight:600;color:#16314c;box-sizing:border-box;">{{ docKySelTen }}</div>
               </div>
             </div>
             <div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;">
@@ -2778,20 +2781,9 @@
 
       <sc-if value="{{ isLinhVuc }}" hint-placeholder-val="{{ false }}">
         <div style="padding:24px 32px 48px;">
-          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;">
-            <div>
-              <div style="font-size:12px;color:#6b7a8d;font-weight:500;margin-bottom:5px;display:flex;align-items:center;gap:6px;">
-                <span>Quản lý danh mục</span>
-              </div>
-              <h1 style="margin:0;font-size:23px;font-weight:700;color:#10243a;">Danh mục lĩnh vực</h1>
-              <p style="margin:6px 0 0;font-size:13.5px;color:#5a6b7e;">Quản lý lĩnh vực theo đơn vị: tên, mã và mô tả. Lĩnh vực chỉ áp dụng cho đơn vị tạo ra nó.</p>
-            </div>
-            <sc-if value="{{ !showLvForm }}" hint-placeholder-val="{{ true }}">
-            <button onclick="{{ openLvForm }}" style="flex:0 0 auto;border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;background:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;">
-              <span class="ic" style="font-size:20px;">add</span>Thêm mới lĩnh vực</button>
-            </sc-if>
+          <div style="margin-bottom:16px;">
+            <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh mục lĩnh vực</h1>
           </div>
-
           <div style="display:flex;align-items:center;gap:10px;background:#eef3f9;border:1px solid #cfe0f2;border-radius:12px;padding:11px 16px;margin-bottom:16px;">
             <span class="ic" style="font-size:20px;color:#0e4c8f;">apartment</span>
             <div style="font-size:12.5px;color:#2c4a6e;line-height:1.5;">Đơn vị đang áp dụng: <b>{{ lvDonVi }}</b>. Chỉ hiển thị và quản lý các lĩnh vực của đơn vị này; lĩnh vực của đơn vị khác không hiển thị.</div>
@@ -2805,8 +2797,9 @@
               </div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;">
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mã lĩnh vực <span style="color:#c0392b;">*</span></label>
-                  <input value="{{ lvDraftMa }}" oninput="{{ setLvDraftMa }}" placeholder="Ví dụ: LV-TP" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mã lĩnh vực</label>
+                  <input value="{{ lvDraftMa }}" readonly disabled style="width:100%;height:42px;font-family:ui-monospace,monospace;font-size:13.5px;padding:0 12px;border:1px solid #e4e9f0;border-radius:9px;outline:none;box-sizing:border-box;background:#f2f4f7;color:#667085;cursor:not-allowed;">
+                  <div style="font-size:12px;color:#8094a8;">Tự động tạo theo đơn vị, tăng dần (LV_&lt;Mã đơn vị&gt;_STT).</div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tên lĩnh vực <span style="color:#c0392b;">*</span></label>
@@ -2830,79 +2823,84 @@
           </sc-if>
 
           <sc-if value="{{ !showLvForm }}" hint-placeholder-val="{{ true }}">
-          <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:end;">
-              <div style="display:flex;flex-direction:column;gap:6px;">
-                <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mã / Tên lĩnh vực</label>
-                <input value="{{ lvKw }}" oninput="{{ setLvKw }}" placeholder="Nhập mã hoặc tên lĩnh vực..." style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #d8e0ea;border-radius:9px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+          <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Từ khóa</label>
+                <input value="{{ lvKw }}" oninput="{{ setLvKw }}" placeholder="Nhập tên lĩnh vực..." style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
               </div>
               <div style="display:flex;gap:10px;">
-                <button onclick="{{ applyLvSearch }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;height:42px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
-                <button onclick="{{ resetLvSearch }}" style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;height:42px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+                <button onclick="{{ applyLvSearch }}" style="height:38px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ resetLvSearch }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
               </div>
             </div>
-          </div>
-          <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;">
+
+            <div style="border-top:1px solid #eef1f6;margin:20px 0 14px;"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+              <div style="font-size:13px;font-weight:600;color:#1e2939;">Tổng cộng: <span style="color:#e8590c;">{{ lvCount }}</span> mục</div>
+              <div style="display:flex;gap:10px;">
+                <button onclick="{{ exportLv }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">table_view</span>Xuất Excel</button>
+                <button onclick="{{ openLvForm }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">add</span>Thêm mới</button>
+              </div>
+            </div>
+
+            <div style="overflow-x:auto;">
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
               <sc-raw-thead>
-                <sc-raw-tr style="background:#f4f7fb;text-align:left;color:#42566c;">
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:56px;">STT</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:140px;">Mã lĩnh vực</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:240px;">Tên lĩnh vực</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;">Mô tả</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:180px;">Đơn vị áp dụng</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:110px;text-align:center;">Thao tác</sc-raw-th>
+                <sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:64px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Mã lĩnh vực</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:240px;text-align:center;border:1px solid #d9dee6;">Tên lĩnh vực</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Mô tả</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:180px;text-align:center;border:1px solid #d9dee6;">Đơn vị áp dụng</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:120px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
                 </sc-raw-tr>
               </sc-raw-thead>
               <sc-raw-tbody>
                 <sc-if value="{{ lvEmpty }}" hint-placeholder-val="{{ false }}">
                   <sc-raw-tr>
-                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;">Đơn vị chưa có lĩnh vực. Nhấn <b style="color:#0e4c8f;">Thêm mới lĩnh vực</b> để tạo.</sc-raw-td>
+                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Đơn vị chưa có lĩnh vực. Nhấn <b style="color:#2f2fd0;">Thêm mới</b> để tạo.</sc-raw-td>
                   </sc-raw-tr>
                 </sc-if>
                 <sc-if value="{{ lvSearchEmpty }}" hint-placeholder-val="{{ false }}">
                   <sc-raw-tr>
-                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;">Không tìm thấy lĩnh vực phù hợp. Nhấn <b style="color:#0e4c8f;">Nhập lại</b> để xóa điều kiện.</sc-raw-td>
+                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Không tìm thấy lĩnh vực phù hợp. Nhấn <b style="color:#2f2fd0;">Nhập lại</b> để xóa điều kiện.</sc-raw-td>
                   </sc-raw-tr>
                 </sc-if>
                 <sc-for list="{{ lvRows }}" as="lv" hint-placeholder-count="4">
-                  <sc-raw-tr style="border-top:1px solid #eaecf0;vertical-align:top;" style-hover="background:#f9fafb;">
-                    <sc-raw-td style="padding:12px 14px;color:#98a2b3;font-weight:600;">{{ lv.idx }}</sc-raw-td>
-                    <sc-raw-td style="padding:12px 14px;font-family:ui-monospace,monospace;font-weight:600;color:#2f54eb;">{{ lv.ma }}</sc-raw-td>
-                    <sc-raw-td style="padding:12px 14px;color:#1e2939;font-weight:600;">{{ lv.ten }}</sc-raw-td>
-                    <sc-raw-td style="padding:12px 14px;color:#475467;line-height:1.45;">{{ lv.moTa }}</sc-raw-td>
-                    <sc-raw-td style="padding:12px 14px;color:#475467;">{{ lv.donVi }}</sc-raw-td>
-                    <sc-raw-td style="padding:12px 14px;text-align:center;">
-                      <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
-                        <span onclick="{{ lv.edit }}" title="Sửa" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;">edit</span>
-                        <span onclick="{{ lv.remove }}" title="Xóa" class="ic" style="font-size:19px;color:#c0392b;cursor:pointer;">delete</span>
+                  <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
+                    <sc-raw-td style="padding:10px 12px;text-align:center;border:1px solid #d9dee6;">{{ lv.idx }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;color:#2f2fd0;border:1px solid #d9dee6;">{{ lv.ma }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;font-weight:600;border:1px solid #d9dee6;">{{ lv.ten }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;line-height:1.45;border:1px solid #d9dee6;">{{ lv.moTa }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;border:1px solid #d9dee6;">{{ lv.donVi }}</sc-raw-td>
+                    <sc-raw-td style="padding:8px 12px;border:1px solid #d9dee6;">
+                      <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                        <span onclick="{{ lv.edit }}" title="Sửa" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span>
+                        <span onclick="{{ lv.remove }}" title="Xóa" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff0ee;border:1px solid #f5c2bd;border-radius:6px;cursor:pointer;">delete</span>
                       </div>
                     </sc-raw-td>
                   </sc-raw-tr>
                 </sc-for>
               </sc-raw-tbody>
             </sc-raw-table>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px;font-size:13px;color:#1e2939;">
+              <span>Hiển thị {{ lvFrom }} đến {{ lvCount }} của {{ lvCount }} mục</span>
+              <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_left</span>
+              <span style="min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2f2fd0;color:#2f2fd0;border-radius:6px;font-weight:600;">1</span>
+              <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_right</span>
+              <span style="height:28px;display:inline-flex;align-items:center;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;color:#475467;">10 / page</span>
+            </div>
           </div>
-          </sc-if>
-        </div>
+          </sc-if>        </div>
       </sc-if>
 
       <sc-if value="{{ isKyHth }}" hint-placeholder-val="{{ false }}">
         <div style="padding:24px 32px 48px;">
-          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;">
-            <div>
-              <div style="font-size:12px;color:#6b7a8d;font-weight:500;margin-bottom:5px;display:flex;align-items:center;gap:6px;">
-                <span>Quy trình hệ thống hóa</span>
-              </div>
-              <h1 style="margin:0;font-size:23px;font-weight:700;color:#10243a;">Danh mục kỳ hệ thống hóa</h1>
-              <p style="margin:6px 0 0;font-size:13.5px;color:#5a6b7e;">Quản lý các kỳ hệ thống hóa văn bản QPPL: khoảng năm, mô tả và tệp đính kèm.</p>
-            </div>
-            <sc-if value="{{ !showKyHthForm }}" hint-placeholder-val="{{ true }}">
-            <button onclick="{{ openKyHthForm }}" style="flex:0 0 auto;border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;background:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;">
-              <span class="ic" style="font-size:20px;">add</span>Thêm mới kỳ HTH</button>
-            </sc-if>
+          <div style="margin-bottom:16px;">
+            <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh mục kỳ hệ thống hóa</h1>
           </div>
-
           <sc-if value="{{ showKyHthForm }}" hint-placeholder-val="{{ false }}">
             <div style="background:#fff;border:1px solid #d6e2f0;border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:0 6px 24px rgba(14,76,143,.1);">
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;">
@@ -2968,88 +2966,103 @@
           </sc-if>
 
           <sc-if value="{{ !showKyHthForm }}" hint-placeholder-val="{{ true }}">
-          <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;align-items:end;">
-              <div style="display:flex;flex-direction:column;gap:6px;">
-                <label style="font-size:12.5px;font-weight:600;color:#42566c;">Từ năm</label>
+          <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Từ khóa</label>
+                <input value="{{ kyHthKwSel }}" oninput="{{ setKyHthKw }}" placeholder="Tìm kiếm..." style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Từ năm</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ kyHthSearchTuSel }}" onchange="{{ setKyHthSearchTu }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 40px 0 12px;border:1px solid #d8e0ea;border-radius:9px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value="">-- Tất cả --</option>
+                  <sc-raw-select value="{{ kyHthSearchTuSel }}" onchange="{{ setKyHthSearchTu }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="">Từ năm</option>
                     <sc-for list="{{ kyHthYearOpts }}" as="y" hint-placeholder-count="5"><option value="{{ y }}">{{ y }}</option></sc-for>
                   </sc-raw-select>
-                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#667085;pointer-events:none;">calendar_today</span>
+                  <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
                 </div>
               </div>
-              <div style="display:flex;flex-direction:column;gap:6px;">
-                <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đến năm</label>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Đến năm</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ kyHthSearchDenSel }}" onchange="{{ setKyHthSearchDen }}" disabled="{{ !kyHthSearchHasTu }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 40px 0 12px;border:1px solid #d8e0ea;border-radius:9px;outline:none;background:{{ kyHthSearchDenBg }};appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:{{ kyHthSearchDenCursor }};" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                  <sc-raw-select value="{{ kyHthSearchDenSel }}" onchange="{{ setKyHthSearchDen }}" disabled="{{ !kyHthSearchHasTu }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:{{ kyHthSearchDenBg }};appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:{{ kyHthSearchDenCursor }};" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                     <option value="">{{ kyHthSearchDenPlaceholder }}</option>
                     <sc-for list="{{ kyHthSearchDenOpts }}" as="y" hint-placeholder-count="5"><option value="{{ y }}">{{ y }}</option></sc-for>
                   </sc-raw-select>
-                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#667085;pointer-events:none;">calendar_today</span>
+                  <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
                 </div>
               </div>
+              <div style="display:flex;gap:10px;">
+                <button onclick="{{ applyKyHthSearch }}" style="height:38px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ resetKyHthSearch }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+              </div>
             </div>
-            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:14px;">
-              <button onclick="{{ applyKyHthSearch }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
-              <button onclick="{{ resetKyHthSearch }}" style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+
+            <div style="border-top:1px solid #eef1f6;margin:20px 0 14px;"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+              <div style="font-size:13px;font-weight:600;color:#1e2939;">Tổng cộng: <span style="color:#e8590c;">{{ kyHthCount }}</span> mục</div>
+              <div style="display:flex;gap:10px;">
+                <button onclick="{{ exportKyHth }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">table_view</span>Xuất Excel</button>
+                <button onclick="{{ openKyHthForm }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">add</span>Thêm mới</button>
+              </div>
             </div>
-          </div>
-          <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;">
+
+            <div style="overflow-x:auto;">
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
               <sc-raw-thead>
-                <sc-raw-tr style="background:#f4f7fb;text-align:left;color:#42566c;">
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:56px;">STT</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:160px;">Từ năm – Đến năm</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;">Mô tả</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:220px;">Đính kèm</sc-raw-th>
-                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:120px;text-align:center;">Thao tác</sc-raw-th>
+                <sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:64px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:190px;text-align:center;border:1px solid #d9dee6;">Từ năm – Đến năm</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Mô tả</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:230px;text-align:center;border:1px solid #d9dee6;">Đính kèm</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
                 </sc-raw-tr>
               </sc-raw-thead>
               <sc-raw-tbody>
                 <sc-if value="{{ kyHthEmpty }}" hint-placeholder-val="{{ false }}">
                   <sc-raw-tr>
-                    <sc-raw-td colspan="5" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;">
-                      Chưa có kỳ hệ thống hóa. Nhấn <b style="color:#0e4c8f;">Thêm mới kỳ HTH</b> để tạo.
-                    </sc-raw-td>
+                    <sc-raw-td colspan="5" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Chưa có kỳ hệ thống hóa. Nhấn <b style="color:#2f2fd0;">Thêm mới</b> để tạo.</sc-raw-td>
                   </sc-raw-tr>
                 </sc-if>
                 <sc-if value="{{ kyHthSearchEmpty }}" hint-placeholder-val="{{ true }}">
                   <sc-raw-tr>
-                    <sc-raw-td colspan="5" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;">
-                      Không tìm thấy kỳ phù hợp. Thử điều chỉnh điều kiện tìm kiếm hoặc nhấn <b style="color:#0e4c8f;">Nhập lại</b>.
-                    </sc-raw-td>
+                    <sc-raw-td colspan="5" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Không tìm thấy kỳ phù hợp. Thử điều chỉnh điều kiện tìm kiếm hoặc nhấn <b style="color:#2f2fd0;">Nhập lại</b>.</sc-raw-td>
                   </sc-raw-tr>
                 </sc-if>
                 <sc-for list="{{ kyHthRows }}" as="ky" hint-placeholder-count="2">
-                  <sc-raw-tr style="border-top:1px solid #eef1f6;" style-hover="background:#f8fbff;">
-                    <sc-raw-td style="padding:13px 14px;color:#94a3b8;">{{ ky.idx }}</sc-raw-td>
-                    <sc-raw-td style="padding:13px 14px;font-weight:600;color:#16314c;white-space:nowrap;">{{ ky.kyLabel }}</sc-raw-td>
-                    <sc-raw-td style="padding:13px 14px;color:#42566c;line-height:1.45;">{{ ky.moTa }}</sc-raw-td>
-                    <sc-raw-td style="padding:13px 14px;">
+                  <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
+                    <sc-raw-td style="padding:10px 12px;text-align:center;border:1px solid #d9dee6;">{{ ky.idx }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;text-align:center;white-space:nowrap;border:1px solid #d9dee6;">{{ ky.kyLabel }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;line-height:1.45;border:1px solid #d9dee6;">{{ ky.moTa }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;border:1px solid #d9dee6;">
                       <sc-if value="{{ ky.hasFile }}" hint-placeholder-val="{{ true }}">
-                        <span style="display:inline-flex;align-items:center;gap:5px;color:#0e4c8f;font-size:12.5px;cursor:pointer;"><span class="ic" style="font-size:17px;">attach_file</span>{{ ky.file }}</span>
+                        <span style="display:inline-flex;align-items:center;gap:5px;color:#2f2fd0;font-size:12.5px;cursor:pointer;"><span class="ic" style="font-size:17px;">attach_file</span>{{ ky.file }}</span>
                       </sc-if>
                       <sc-if value="{{ !ky.hasFile }}" hint-placeholder-val="{{ false }}">
                         <span style="color:#94a3b8;font-size:12.5px;">—</span>
                       </sc-if>
                     </sc-raw-td>
-                    <sc-raw-td style="padding:13px 14px;">
-                      <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
-                        <span onclick="{{ ky.view }}" title="Xem chi tiết" class="ic" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">visibility</span>
-                        <span onclick="{{ ky.edit }}" title="Cập nhật" class="ic" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#eef3f9;color:#0e4c8f;">edit</span>
-                        <span onclick="{{ ky.remove }}" class="ic" title="Xóa" style="font-size:19px;color:#5a6b7e;cursor:pointer;padding:5px;border-radius:7px;" style-hover="background:#fbe6e3;color:#c0392b;">delete</span>
+                    <sc-raw-td style="padding:8px 12px;border:1px solid #d9dee6;">
+                      <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                        <span onclick="{{ ky.view }}" title="Xem chi tiết" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
+                        <span onclick="{{ ky.edit }}" title="Cập nhật" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span>
+                        <span onclick="{{ ky.remove }}" title="Xóa" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff0ee;border:1px solid #f5c2bd;border-radius:6px;cursor:pointer;">delete</span>
                       </div>
                     </sc-raw-td>
                   </sc-raw-tr>
                 </sc-for>
               </sc-raw-tbody>
             </sc-raw-table>
-            <div style="padding:13px 16px;border-top:1px solid #eef1f6;font-size:12.5px;color:#6b7a8d;">Hiển thị {{ kyHthCount }} / {{ kyHthTotal }} kỳ hệ thống hóa</div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px;font-size:13px;color:#1e2939;">
+              <span>Hiển thị {{ kyHthFrom }} đến {{ kyHthCount }} của {{ kyHthCount }} mục</span>
+              <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_left</span>
+              <span style="min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2f2fd0;color:#2f2fd0;border-radius:6px;font-weight:600;">1</span>
+              <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_right</span>
+              <span style="height:28px;display:inline-flex;align-items:center;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;color:#475467;">10 / page</span>
+            </div>
           </div>
-          </sc-if>
-        </div>
+          </sc-if>        </div>
       </sc-if>
 
       <div style="display:{{ planDisp }};padding:24px 32px 48px;">
@@ -3382,11 +3395,11 @@ class Component extends DCLogic {
   lvSeed(){
     const dv = 'Bộ tư pháp';
     return [
-      { id:'LV-001', ma:'LV-TP', ten:'Tư pháp', moTa:'Các văn bản về tổ chức, hoạt động tư pháp chung.', donVi:dv },
-      { id:'LV-002', ma:'LV-HT', ten:'Hộ tịch', moTa:'Đăng ký và quản lý hộ tịch, quốc tịch, chứng thực.', donVi:dv },
-      { id:'LV-003', ma:'LV-BTTP', ten:'Bổ trợ tư pháp', moTa:'Luật sư, công chứng, giám định, đấu giá tài sản.', donVi:dv },
-      { id:'LV-004', ma:'LV-TGPL', ten:'Trợ giúp pháp lý', moTa:'Trợ giúp pháp lý cho người nghèo và đối tượng chính sách.', donVi:dv },
-      { id:'LV-005', ma:'LV-SO01', ten:'Hộ tịch (Sở)', moTa:'Lĩnh vực riêng của Sở Tư pháp.', donVi:'Sở Tư pháp' },
+      { id:'LV-001', ma:'LV_BTP_01', ten:'Tư pháp', moTa:'Các văn bản về tổ chức, hoạt động tư pháp chung.', donVi:dv },
+      { id:'LV-002', ma:'LV_BTP_02', ten:'Hộ tịch', moTa:'Đăng ký và quản lý hộ tịch, quốc tịch, chứng thực.', donVi:dv },
+      { id:'LV-003', ma:'LV_BTP_03', ten:'Bổ trợ tư pháp', moTa:'Luật sư, công chứng, giám định, đấu giá tài sản.', donVi:dv },
+      { id:'LV-004', ma:'LV_BTP_04', ten:'Trợ giúp pháp lý', moTa:'Trợ giúp pháp lý cho người nghèo và đối tượng chính sách.', donVi:dv },
+      { id:'LV-005', ma:'LV_STP_01', ten:'Hộ tịch (Sở)', moTa:'Lĩnh vực riêng của Sở Tư pháp.', donVi:'Sở Tư pháp' },
     ];
   }
   seedDinhChinh(){
@@ -3844,8 +3857,10 @@ class Component extends DCLogic {
     const kyHthFilteredList = (()=>{
       const tu = String(s.kyHthSearchTu||'').trim();
       const den = String(s.kyHthSearchDen||'').trim();
-      if(!tu && !den) return kyHthBaseList;
+      const kw = String(s.kyHthKw||'').trim().toLowerCase();
+      if(!tu && !den && !kw) return kyHthBaseList;
       return kyHthBaseList.filter(k=>{
+        if(kw && !((k.kyLabel||'')+' '+(k.moTa||'')+' '+(k.file||'')).toLowerCase().includes(kw)) return false;
         if(tu && String(k.tuNam||'')!==tu) return false;
         if(den && String(k.denNam||'')!==den) return false;
         return true;
@@ -3867,20 +3882,33 @@ class Component extends DCLogic {
     };
     const grp = (label) => ({ isGroup:true, isItem:false, isMain:false, isSub:false, label });
 
+    // Nhóm menu cuộn ra / cuộn vào. items: [screenKey, icon, label, goOverride?]
+    const folder = (stateKey, icon, label, items) => {
+      const open = s[stateKey] !== false;
+      const inGroup = items.some(it=>it[0]===s.screen);
+      const parent = { isItem:true, isParent:true, isMain:false, isGroup:false, isSub:false,
+        icon, label, chevron: open ? 'expand_less' : 'expand_more',
+        toggle: ()=>this.setState(st=>({ [stateKey]: st[stateKey] === false })),
+        bg:'transparent', fg: inGroup ? '#ffffff' : '#a6c1e1', iconFg: inGroup ? '#ffffff' : '#8198b5',
+        weight: inGroup ? 600 : 500, border: 'transparent' };
+      if(!open) return [parent];
+      return [ parent, ...items.map(it=>mkSub(it[2], it[1], '', s.screen===it[0], it[3] || this.go(it[0]))) ];
+    };
     const nav = [
       grp('TỔNG QUAN'),
       mk('home','dashboard','Trang chủ'),
-      grp('QUẢN LÝ DANH MỤC'),
-      mk('kyhth','date_range','Danh mục kỳ HTH'),
-      mk('linhvuc','category','Danh mục lĩnh vực'),
-      grp('QUY TRÌNH HỆ THỐNG HÓA'),
-      mk('plan','event_note','Kế hoạch hệ thống hóa'),
-      mk('doclist','list_alt','Danh sách văn bản HTH'),
-      mk('review','fact_check','Kết quả Hệ thống hóa'),
-      { ...mk('dinhchinh','edit_document','Đính chính'), go: ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); } },
-      mk('set','menu_book','Tập hệ thống hóa'),
-      mk('tracuu','manage_search','Tra cứu dữ liệu HTH'),
-      mk('catalog','tune','Cấu hình tiêu chí sắp xếp'),
+      ...folder('navMgmtOpen','grid_view','Quản lý danh mục',[
+        ['kyhth','date_range','Danh mục kỳ HTH'],
+        ['linhvuc','category','Danh mục lĩnh vực'],
+      ]),
+      ...folder('navQtOpen','account_tree','Hệ thống hóa VBQPPL',[
+        ['doclist','list_alt','Danh sách văn bản HTH'],
+        ['review','fact_check','Kết quả Hệ thống hóa'],
+        ['dinhchinh','edit_document','Đính chính', ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); }],
+        ['set','menu_book','Tập hệ thống hóa'],
+        ['tracuu','manage_search','Tra cứu dữ liệu HTH'],
+        ['catalog','tune','Cấu hình tiêu chí sắp xếp'],
+      ]),
       grp('RÀ SOÁT THƯỜNG XUYÊN'),
       mk('rstx','rule','Kết quả rà soát'),
       grp('BÁO CÁO'),
@@ -4315,15 +4343,21 @@ class Component extends DCLogic {
         const all = s.lvList || this.lvSeed();
         const kw = (s.lvKwA||'').trim().toLowerCase();
         const own = all.filter(x=>x.donVi===dv);
-        const shown = own.filter(x=>!kw || x.ma.toLowerCase().includes(kw) || x.ten.toLowerCase().includes(kw));
+        const shown = own.filter(x=>!kw || x.ten.toLowerCase().includes(kw));
         const dr = s.lvDraft || { ma:'', ten:'', moTa:'' };
+        const dvCode = dv.split(/\s+/).filter(Boolean).map(w=>w.charAt(0)).join('').toUpperCase();
+        const nextCode = (list)=>{
+          const pre = 'LV_' + dvCode + '_';
+          const max = list.filter(x=>x.donVi===dv && x.ma.indexOf(pre)===0).reduce((m,x)=>Math.max(m, parseInt(x.ma.slice(pre.length),10)||0), 0);
+          return pre + String(max+1).padStart(2,'0');
+        };
         const setDr = (k)=>(e)=>{ const v=e.target.value; this.setState(st=>({ lvDraft:{ ...(st.lvDraft||{ ma:'', ten:'', moTa:'' }), [k]:v } })); };
         return {
           isLinhVuc: s.screen==='linhvuc',
           lvDonVi: dv,
           showLvForm: !!s.showLvForm,
           lvFormTitle: s.lvEditId ? 'Sửa lĩnh vực' : 'Thêm mới lĩnh vực',
-          lvDraftMa: dr.ma, lvDraftTen: dr.ten, lvDraftMoTa: dr.moTa,
+          lvDraftMa: s.lvEditId ? dr.ma : nextCode(all), lvDraftTen: dr.ten, lvDraftMoTa: dr.moTa,
           setLvDraftMa: setDr('ma'), setLvDraftTen: setDr('ten'), setLvDraftMoTa: setDr('moTa'),
           lvKw: s.lvKw||'',
           setLvKw: (e)=>this.setState({ lvKw:e.target.value }),
@@ -4334,18 +4368,17 @@ class Component extends DCLogic {
           saveLv: ()=>{
             const st = this.state;
             const d = st.lvDraft || {};
-            const ma = String(d.ma||'').trim(), ten = String(d.ten||'').trim();
-            if(!ma){ alert('Vui lòng nhập Mã lĩnh vực.'); return; }
+            const ten = String(d.ten||'').trim();
             if(!ten){ alert('Vui lòng nhập Tên lĩnh vực.'); return; }
             const list = (st.lvList || this.lvSeed()).slice();
-            const dup = list.some(x=>x.donVi===dv && x.id!==st.lvEditId && (x.ma.toLowerCase()===ma.toLowerCase() || x.ten.toLowerCase()===ten.toLowerCase()));
-            if(dup){ alert('Mã hoặc Tên lĩnh vực đã tồn tại trong đơn vị.'); return; }
-            const item = { ma, ten, moTa:String(d.moTa||'').trim() || '—', donVi:dv };
+            const dup = list.some(x=>x.donVi===dv && x.id!==st.lvEditId && x.ten.toLowerCase()===ten.toLowerCase());
+            if(dup){ alert('Tên lĩnh vực đã tồn tại trong đơn vị.'); return; }
+            const item = { ten, moTa:String(d.moTa||'').trim() || '—', donVi:dv };
             if(st.lvEditId){
               const i = list.findIndex(x=>x.id===st.lvEditId);
               if(i>=0) list[i] = { ...list[i], ...item };
             } else {
-              list.push({ id:'LV-'+String(list.length+1).padStart(3,'0'), ...item });
+              list.push({ id:'LV-'+String(list.length+1).padStart(3,'0'), ma:nextCode(list), ...item });
             }
             this.setState({ lvList:list, showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'' } });
           },
@@ -4355,6 +4388,18 @@ class Component extends DCLogic {
             remove: ()=>{ if(confirm('Xóa lĩnh vực "'+x.ten+'"?')) this.setState(st=>({ lvList:(st.lvList||this.lvSeed()).filter(y=>y.id!==x.id) })); },
           })),
           lvEmpty: !own.length,
+          lvCount: shown.length,
+          lvFrom: shown.length ? 1 : 0,
+          exportLv: ()=>{
+            const esc = (v)=>'"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+            const lines = [ ['STT','Mã lĩnh vực','Tên lĩnh vực','Mô tả','Đơn vị áp dụng'].map(esc).join(',') ];
+            shown.forEach((x,i)=>lines.push([i+1,x.ma,x.ten,x.moTa,x.donVi].map(esc).join(',')));
+            try {
+              const blob = new Blob(['\ufeff'+lines.join('\r\n')], { type:'text/csv;charset=utf-8' });
+              const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'danh_muc_linh_vuc.csv';
+              document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            } catch(err){ alert('Không xuất được tệp trên trình duyệt này.'); }
+          },
           lvSearchEmpty: !!own.length && !shown.length,
         };
       })(),
@@ -4370,6 +4415,19 @@ class Component extends DCLogic {
       kyHthFieldColor: s.kyHthFormMode==='view' ? '#475467' : '#1e2939',
       kyHthFieldCursor: s.kyHthFormMode==='view' ? 'default' : 'text',
       kyHthSearchTuSel: s.kyHthSearchTuSel || '',
+      kyHthKwSel: s.kyHthKwSel || '',
+      setKyHthKw: (e)=>this.setState({ kyHthKwSel:e.target.value }),
+      kyHthFrom: kyHthFilteredList.length ? 1 : 0,
+      exportKyHth: ()=>{
+        const esc = (v)=>'"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+        const lines = [ ['STT','Từ năm','Đến năm','Mô tả','Đính kèm'].map(esc).join(',') ];
+        kyHthFilteredList.forEach((k,i)=>lines.push([i+1,k.tuNam,k.denNam,k.moTa,k.file].map(esc).join(',')));
+        try {
+          const blob = new Blob(['\ufeff'+lines.join('\r\n')], { type:'text/csv;charset=utf-8' });
+          const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'danh_muc_ky_hth.csv';
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        } catch(err){ alert('Không xuất được tệp trên trình duyệt này.'); }
+      },
       kyHthSearchDenSel: s.kyHthSearchDenSel || '',
       kyHthSearchHasTu: !!String(s.kyHthSearchTuSel||'').trim(),
       kyHthSearchDenOpts: (()=>{
@@ -4399,11 +4457,12 @@ class Component extends DCLogic {
       },
       applyKyHthSearch: ()=>this.setState(st=>({
         kyHthSearchTu: String(st.kyHthSearchTuSel||'').trim(),
-        kyHthSearchDen: String(st.kyHthSearchDenSel||'').trim()
+        kyHthSearchDen: String(st.kyHthSearchDenSel||'').trim(),
+        kyHthKw: String(st.kyHthKwSel||'').trim()
       })),
       resetKyHthSearch: ()=>this.setState({
         kyHthSearchTuSel:'', kyHthSearchDenSel:'',
-        kyHthSearchTu:'', kyHthSearchDen:''
+        kyHthSearchTu:'', kyHthSearchDen:'', kyHthKwSel:'', kyHthKw:''
       }),
       kyHthDraftTuNam: (s.kyHthDraft&&s.kyHthDraft.tuNam)||'',
       kyHthDraftDenNam: (s.kyHthDraft&&s.kyHthDraft.denNam)||'',
