@@ -2776,6 +2776,117 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isLinhVuc }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:24px 32px 48px;">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;">
+            <div>
+              <div style="font-size:12px;color:#6b7a8d;font-weight:500;margin-bottom:5px;display:flex;align-items:center;gap:6px;">
+                <span>Quản lý danh mục</span>
+              </div>
+              <h1 style="margin:0;font-size:23px;font-weight:700;color:#10243a;">Danh mục lĩnh vực</h1>
+              <p style="margin:6px 0 0;font-size:13.5px;color:#5a6b7e;">Quản lý lĩnh vực theo đơn vị: tên, mã và mô tả. Lĩnh vực chỉ áp dụng cho đơn vị tạo ra nó.</p>
+            </div>
+            <sc-if value="{{ !showLvForm }}" hint-placeholder-val="{{ true }}">
+            <button onclick="{{ openLvForm }}" style="flex:0 0 auto;border:0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;background:#0e4c8f;padding:11px 18px;border-radius:9px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(14,76,143,.28);" style-hover="background:#0c4280;">
+              <span class="ic" style="font-size:20px;">add</span>Thêm mới lĩnh vực</button>
+            </sc-if>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;background:#eef3f9;border:1px solid #cfe0f2;border-radius:12px;padding:11px 16px;margin-bottom:16px;">
+            <span class="ic" style="font-size:20px;color:#0e4c8f;">apartment</span>
+            <div style="font-size:12.5px;color:#2c4a6e;line-height:1.5;">Đơn vị đang áp dụng: <b>{{ lvDonVi }}</b>. Chỉ hiển thị và quản lý các lĩnh vực của đơn vị này; lĩnh vực của đơn vị khác không hiển thị.</div>
+          </div>
+
+          <sc-if value="{{ showLvForm }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border:1px solid #d6e2f0;border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:0 6px 24px rgba(14,76,143,.1);">
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;">
+                <span class="ic" style="font-size:22px;color:#0e4c8f;">category</span>
+                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">{{ lvFormTitle }}</h3>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;">
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mã lĩnh vực <span style="color:#c0392b;">*</span></label>
+                  <input value="{{ lvDraftMa }}" oninput="{{ setLvDraftMa }}" placeholder="Ví dụ: LV-TP" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tên lĩnh vực <span style="color:#c0392b;">*</span></label>
+                  <input value="{{ lvDraftTen }}" oninput="{{ setLvDraftTen }}" placeholder="Nhập tên lĩnh vực" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                </div>
+                <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đơn vị áp dụng</label>
+                  <input value="{{ lvDonVi }}" readonly disabled style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #e4e9f0;border-radius:9px;outline:none;box-sizing:border-box;background:#f2f4f7;color:#667085;cursor:not-allowed;">
+                  <div style="font-size:12px;color:#8094a8;">Tự động lấy theo đơn vị của người dùng đang đăng nhập, không chỉnh sửa.</div>
+                </div>
+                <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mô tả</label>
+                  <textarea value="{{ lvDraftMoTa }}" oninput="{{ setLvDraftMoTa }}" rows="3" placeholder="Nhập mô tả lĩnh vực..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;"></textarea>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
+                <button onclick="{{ closeLvForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Hủy</button>
+                <button onclick="{{ saveLv }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ !showLvForm }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:end;">
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mã / Tên lĩnh vực</label>
+                <input value="{{ lvKw }}" oninput="{{ setLvKw }}" placeholder="Nhập mã hoặc tên lĩnh vực..." style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #d8e0ea;border-radius:9px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+              </div>
+              <div style="display:flex;gap:10px;">
+                <button onclick="{{ applyLvSearch }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;height:42px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ resetLvSearch }}" style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:10px 16px;border-radius:9px;display:flex;align-items:center;gap:6px;height:42px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+              </div>
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <sc-raw-thead>
+                <sc-raw-tr style="background:#f4f7fb;text-align:left;color:#42566c;">
+                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:56px;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:140px;">Mã lĩnh vực</sc-raw-th>
+                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:240px;">Tên lĩnh vực</sc-raw-th>
+                  <sc-raw-th style="padding:13px 14px;font-weight:600;">Mô tả</sc-raw-th>
+                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:180px;">Đơn vị áp dụng</sc-raw-th>
+                  <sc-raw-th style="padding:13px 14px;font-weight:600;width:110px;text-align:center;">Thao tác</sc-raw-th>
+                </sc-raw-tr>
+              </sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-if value="{{ lvEmpty }}" hint-placeholder-val="{{ false }}">
+                  <sc-raw-tr>
+                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;">Đơn vị chưa có lĩnh vực. Nhấn <b style="color:#0e4c8f;">Thêm mới lĩnh vực</b> để tạo.</sc-raw-td>
+                  </sc-raw-tr>
+                </sc-if>
+                <sc-if value="{{ lvSearchEmpty }}" hint-placeholder-val="{{ false }}">
+                  <sc-raw-tr>
+                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;">Không tìm thấy lĩnh vực phù hợp. Nhấn <b style="color:#0e4c8f;">Nhập lại</b> để xóa điều kiện.</sc-raw-td>
+                  </sc-raw-tr>
+                </sc-if>
+                <sc-for list="{{ lvRows }}" as="lv" hint-placeholder-count="4">
+                  <sc-raw-tr style="border-top:1px solid #eaecf0;vertical-align:top;" style-hover="background:#f9fafb;">
+                    <sc-raw-td style="padding:12px 14px;color:#98a2b3;font-weight:600;">{{ lv.idx }}</sc-raw-td>
+                    <sc-raw-td style="padding:12px 14px;font-family:ui-monospace,monospace;font-weight:600;color:#2f54eb;">{{ lv.ma }}</sc-raw-td>
+                    <sc-raw-td style="padding:12px 14px;color:#1e2939;font-weight:600;">{{ lv.ten }}</sc-raw-td>
+                    <sc-raw-td style="padding:12px 14px;color:#475467;line-height:1.45;">{{ lv.moTa }}</sc-raw-td>
+                    <sc-raw-td style="padding:12px 14px;color:#475467;">{{ lv.donVi }}</sc-raw-td>
+                    <sc-raw-td style="padding:12px 14px;text-align:center;">
+                      <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
+                        <span onclick="{{ lv.edit }}" title="Sửa" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;">edit</span>
+                        <span onclick="{{ lv.remove }}" title="Xóa" class="ic" style="font-size:19px;color:#c0392b;cursor:pointer;">delete</span>
+                      </div>
+                    </sc-raw-td>
+                  </sc-raw-tr>
+                </sc-for>
+              </sc-raw-tbody>
+            </sc-raw-table>
+          </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isKyHth }}" hint-placeholder-val="{{ false }}">
         <div style="padding:24px 32px 48px;">
           <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;">
@@ -3268,6 +3379,16 @@ class Component extends DCLogic {
     } else if (moi) p.ty = moi;
     return p;
   }
+  lvSeed(){
+    const dv = 'Bộ tư pháp';
+    return [
+      { id:'LV-001', ma:'LV-TP', ten:'Tư pháp', moTa:'Các văn bản về tổ chức, hoạt động tư pháp chung.', donVi:dv },
+      { id:'LV-002', ma:'LV-HT', ten:'Hộ tịch', moTa:'Đăng ký và quản lý hộ tịch, quốc tịch, chứng thực.', donVi:dv },
+      { id:'LV-003', ma:'LV-BTTP', ten:'Bổ trợ tư pháp', moTa:'Luật sư, công chứng, giám định, đấu giá tài sản.', donVi:dv },
+      { id:'LV-004', ma:'LV-TGPL', ten:'Trợ giúp pháp lý', moTa:'Trợ giúp pháp lý cho người nghèo và đối tượng chính sách.', donVi:dv },
+      { id:'LV-005', ma:'LV-SO01', ten:'Hộ tịch (Sở)', moTa:'Lĩnh vực riêng của Sở Tư pháp.', donVi:'Sở Tư pháp' },
+    ];
+  }
   seedDinhChinh(){
     return [
       { id:'DC-001', so:'52/2015/QĐ-UBND', loai:'Quyết định', ty:'Quy định về quản lý hoạt động công chứng trên địa bàn tỉnh', lv:'Bổ trợ tư pháp', truong:'Tình trạng hiệu lực', giaTriCu:'Còn hiệu lực', giaTriMoi:'Hết hiệu lực', lyDo:'Đã được thay thế bởi Quyết định 18/2023/QĐ-UBND, cập nhật lại tình trạng hiệu lực trong tập.', nguoi:'Trần Văn B', ngay:'12/05/2025', tt:'cho', lyDoTuChoi:'' },
@@ -3467,7 +3588,7 @@ class Component extends DCLogic {
       }
     });
   }
-  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false }); }
+  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showLvForm:false, lvEditId:null, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false }); }
 
   reorderByRank(order, label, newRank){
     const list = (order||[]).slice();
@@ -3749,8 +3870,10 @@ class Component extends DCLogic {
     const nav = [
       grp('TỔNG QUAN'),
       mk('home','dashboard','Trang chủ'),
+      grp('QUẢN LÝ DANH MỤC'),
+      mk('kyhth','date_range','Danh mục kỳ HTH'),
+      mk('linhvuc','category','Danh mục lĩnh vực'),
       grp('QUY TRÌNH HỆ THỐNG HÓA'),
-      mk('kyhth','date_range','Danh mục kỳ hệ thống hóa'),
       mk('plan','event_note','Kế hoạch hệ thống hóa'),
       mk('doclist','list_alt','Danh sách văn bản HTH'),
       mk('review','fact_check','Kết quả Hệ thống hóa'),
@@ -4186,6 +4309,55 @@ class Component extends DCLogic {
       setPlanDraftNgayBH: (e)=>this.setState(st=>({ planDraft:{ ...(st.planDraft||{}), ngayBH:e.target.value } })),
       planKyHthOpts: s.kyHthList || [],
       currentDonVi: s.currentDonVi || 'Bộ tư pháp',
+      // ── Danh mục lĩnh vực theo đơn vị ──
+      ...(()=>{
+        const dv = s.currentDonVi || 'Bộ tư pháp';
+        const all = s.lvList || this.lvSeed();
+        const kw = (s.lvKwA||'').trim().toLowerCase();
+        const own = all.filter(x=>x.donVi===dv);
+        const shown = own.filter(x=>!kw || x.ma.toLowerCase().includes(kw) || x.ten.toLowerCase().includes(kw));
+        const dr = s.lvDraft || { ma:'', ten:'', moTa:'' };
+        const setDr = (k)=>(e)=>{ const v=e.target.value; this.setState(st=>({ lvDraft:{ ...(st.lvDraft||{ ma:'', ten:'', moTa:'' }), [k]:v } })); };
+        return {
+          isLinhVuc: s.screen==='linhvuc',
+          lvDonVi: dv,
+          showLvForm: !!s.showLvForm,
+          lvFormTitle: s.lvEditId ? 'Sửa lĩnh vực' : 'Thêm mới lĩnh vực',
+          lvDraftMa: dr.ma, lvDraftTen: dr.ten, lvDraftMoTa: dr.moTa,
+          setLvDraftMa: setDr('ma'), setLvDraftTen: setDr('ten'), setLvDraftMoTa: setDr('moTa'),
+          lvKw: s.lvKw||'',
+          setLvKw: (e)=>this.setState({ lvKw:e.target.value }),
+          applyLvSearch: ()=>this.setState(st=>({ lvKwA:st.lvKw||'' })),
+          resetLvSearch: ()=>this.setState({ lvKw:'', lvKwA:'' }),
+          openLvForm: ()=>this.setState({ showLvForm:true, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'' } }),
+          closeLvForm: ()=>this.setState({ showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'' } }),
+          saveLv: ()=>{
+            const st = this.state;
+            const d = st.lvDraft || {};
+            const ma = String(d.ma||'').trim(), ten = String(d.ten||'').trim();
+            if(!ma){ alert('Vui lòng nhập Mã lĩnh vực.'); return; }
+            if(!ten){ alert('Vui lòng nhập Tên lĩnh vực.'); return; }
+            const list = (st.lvList || this.lvSeed()).slice();
+            const dup = list.some(x=>x.donVi===dv && x.id!==st.lvEditId && (x.ma.toLowerCase()===ma.toLowerCase() || x.ten.toLowerCase()===ten.toLowerCase()));
+            if(dup){ alert('Mã hoặc Tên lĩnh vực đã tồn tại trong đơn vị.'); return; }
+            const item = { ma, ten, moTa:String(d.moTa||'').trim() || '—', donVi:dv };
+            if(st.lvEditId){
+              const i = list.findIndex(x=>x.id===st.lvEditId);
+              if(i>=0) list[i] = { ...list[i], ...item };
+            } else {
+              list.push({ id:'LV-'+String(list.length+1).padStart(3,'0'), ...item });
+            }
+            this.setState({ lvList:list, showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'' } });
+          },
+          lvRows: shown.map((x,i)=>({
+            ...x, idx:i+1,
+            edit: ()=>this.setState({ showLvForm:true, lvEditId:x.id, lvDraft:{ ma:x.ma, ten:x.ten, moTa:x.moTa==='—'?'':x.moTa } }),
+            remove: ()=>{ if(confirm('Xóa lĩnh vực "'+x.ten+'"?')) this.setState(st=>({ lvList:(st.lvList||this.lvSeed()).filter(y=>y.id!==x.id) })); },
+          })),
+          lvEmpty: !own.length,
+          lvSearchEmpty: !!own.length && !shown.length,
+        };
+      })(),
       isKyHth: s.screen==='kyhth',
       showKyHthForm: !!s.showKyHthForm,
       kyHthFormMode: s.kyHthFormMode || 'add',
