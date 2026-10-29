@@ -355,7 +355,7 @@
       <button onclick="{{ setChuyenVien }}" style="border:0;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;background:{{ roleCvBg }};color:{{ roleCvFg }};display:flex;align-items:center;gap:4px;transition:.15s;">
         <span class="ic" style="font-size:15px;">badge</span>Chuyên viên</button>
       <button onclick="{{ setLanhDao }}" style="border:0;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;background:{{ roleLdBg }};color:{{ roleLdFg }};display:flex;align-items:center;gap:4px;transition:.15s;">
-        <span class="ic" style="font-size:15px;">verified_user</span>Lãnh đạo</button>
+        <span class="ic" style="font-size:15px;">verified_user</span>Cán bộ Tổng hợp</button>
     </div>
     <div style="width:1px;height:24px;background:rgba(255,255,255,.15);"></div>
     <div style="position:relative;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);cursor:pointer;" style-hover="background:rgba(255,255,255,.15);">
@@ -687,7 +687,7 @@
             <div style="flex:0 0 320px;display:flex;flex-direction:column;gap:16px;">
               <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
                 <div style="background:linear-gradient(180deg,#fdf8ec,#fbf2dc);border:1px solid #ecdcb4;border-radius:14px;padding:18px;">
-                  <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#7a5a08;margin-bottom:6px;"><span class="ic" style="font-size:20px;">gavel</span>Thẩm quyền Lãnh đạo</div>
+                  <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#7a5a08;margin-bottom:6px;"><span class="ic" style="font-size:20px;">gavel</span>Thẩm quyền Cán bộ Tổng hợp</div>
                   <div style="font-size:12.5px;color:#7a6a3a;line-height:1.5;">Việc công bố lại tập hệ thống hóa (sau khi có đính chính) được thực hiện tại màn <span onclick="{{ goToRsPlans }}" style="color:#0e4c8f;font-weight:700;cursor:pointer;text-decoration:underline;">"Kết quả Hệ thống hóa"</span>.</div>
                 </div>
               </sc-if>
@@ -720,13 +720,12 @@
         <sc-if value="{{ showSendDinh }}" hint-placeholder-val="{{ false }}">
           <div onclick="{{ cancelSendDinh }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:90;padding:24px;">
             <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:460px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-              <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#0e4c8f;">send</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận gửi phê duyệt</h3></div>
+              <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#0e4c8f;">send</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận công bố lại</h3></div>
               <div style="padding:18px 20px;font-size:13.5px;color:#42566c;line-height:1.55;">
-                Gửi <b style="color:#1e2939;">{{ dinhSendableCount }}</b> bản ghi đính chính đến lãnh đạo phê duyệt? Sau khi gửi, các bản ghi chuyển sang trạng thái <b style="color:#9a5b08;">Chờ duyệt</b> và không thể chỉnh sửa.
-              </div>
+                Công bố lại <b style="color:#1e2939;">{{ dinhSendableCount }}</b> bản ghi đính chính? Sau khi công bố lại, thay đổi được áp dụng vào tập hệ thống hóa và không thể chỉnh sửa.</div>
               <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
                 <button onclick="{{ cancelSendDinh }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
-                <button onclick="{{ confirmSendDinh }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">send</span>Gửi phê duyệt</button>
+                <button onclick="{{ confirmSendDinh }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">published_with_changes</span>Công bố lại</button>
               </div>
             </div>
           </div>
@@ -773,20 +772,15 @@
               </div>
 
               <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:14px;">
-                  <button onclick="{{ openBulkRejectDinh }}" style="height:34px;border:1px solid #f5c2bd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#d92d20;padding:0 16px;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#fdf0f0;"><span class="ic" style="font-size:19px;">close</span>Từ chối</button>
-                  <button onclick="{{ bulkApproveDinh }}" style="height:34px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:19px;">check</span>Phê duyệt</button>
-                </div>
-              </sc-if>
-              <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
-                <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
+                <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:14px;">
+                  <sc-if value="{{ dinhHasToPublish }}" hint-placeholder-val="{{ false }}"><button onclick="{{ sendDinhList }}" style="height:34px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">published_with_changes</span>Công bố lại</button></sc-if>
                   <button onclick="{{ openDinhAdd }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:20px;">add</span>Thêm mới</button>
                 </div>
                 <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
                   <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:8px;">
                     <span class="ic" style="font-size:20px;color:#b8860b;">edit_note</span>
-                    <span style="font-size:14px;font-weight:700;color:#1e2939;">Danh sách đính chính đã tạo</span>
-                    <span style="font-size:12px;font-weight:600;color:#9a5b08;background:#fbf2dc;border-radius:20px;padding:2px 10px;">{{ dinhPendingCount }} chờ duyệt</span>
+                    <span style="font-size:14px;font-weight:700;color:#1e2939;">Danh sách đính chính</span>
+                    <span style="font-size:12px;font-weight:600;color:#9a5b08;background:#fbf2dc;border-radius:20px;padding:2px 10px;">{{ dinhSendableCount }} chờ công bố lại</span>
                   </div>
                   <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
                     <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:center;color:#1e2939;">
@@ -871,54 +865,6 @@
                 </div>
               </sc-if>
 
-              <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
-                <sc-if value="{{ hasApprovedDinh }}" hint-placeholder-val="{{ false }}">
-                  <div style="display:flex;align-items:center;gap:10px;background:#eef3f9;border:1px solid #cfe0f2;border-radius:12px;padding:12px 16px;margin-bottom:14px;">
-                    <span class="ic" style="font-size:21px;color:#0e4c8f;">info</span>
-                    <div style="font-size:12.5px;color:#2c4a6e;line-height:1.5;flex:1;">Có bản ghi đính chính đã được duyệt. Lãnh đạo truy cập tab <span onclick="{{ goToSetTab }}" style="color:#0e4c8f;font-weight:700;cursor:pointer;text-decoration:underline;">"Hệ thống hóa"</span> để thực hiện công bố lại tập HTH. Sau khi công bố lại thành công, dữ liệu của tập HTH sẽ được đồng bộ lên Cơ sở dữ liệu quốc gia về VBQPPL.</div>
-                  </div>
-                </sc-if>
-                <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-                  <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:8px;">
-                    <span class="ic" style="font-size:20px;color:#b8860b;">gavel</span>
-                    <span style="font-size:14px;font-weight:700;color:#1e2939;">Danh sách đính chính chờ duyệt</span>
-                    <span style="font-size:12px;font-weight:600;color:#9a5b08;background:#fbf2dc;border-radius:20px;padding:2px 10px;">{{ dinhPendingCount }} chờ duyệt</span>
-                    <div style="flex:1;"></div>
-                    <span style="font-size:12px;color:#98a2b3;">Tổng: {{ dinhTotalCount }} bản ghi</span>
-                  </div>
-                  <div style="overflow-x:auto;">
-                    <sc-raw-table style="border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;min-width:1120px;width:100%;">
-                      <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:center;color:#1e2939;">
-                        <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:44px;text-align:center;"><input type="checkbox" checked="{{ dinhSelAllPendingChecked }}" onchange="{{ toggleDinhSelAll }}" style="width:15px;height:15px;cursor:pointer;accent-color:#2f54eb;"></sc-raw-th>
-                        <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:150px;">Số, ký hiệu</sc-raw-th>
-                        <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;">Tên gọi / Trường đính chính</sc-raw-th>
-                        <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;">Giá trị cũ → mới</sc-raw-th>
-                        <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:130px;">Người / Ngày</sc-raw-th>
-                        <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:160px;">Trạng thái</sc-raw-th>
-                      </sc-raw-tr></sc-raw-thead>
-                      <sc-raw-tbody>
-                        <sc-for list="{{ dinhChinhList }}" as="rec" hint-placeholder-count="3">
-                          <sc-raw-tr style="vertical-align:top;">
-                            <sc-raw-td style="border:1px solid #d9dee6;padding:10px;text-align:center;"><sc-if value="{{ rec.isPending }}" hint-placeholder-val="{{ true }}"><input type="checkbox" checked="{{ rec.checked }}" onchange="{{ rec.toggleCheck }}" style="width:15px;height:15px;cursor:pointer;accent-color:#2f54eb;"></sc-if></sc-raw-td>
-                            <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#1e2939;">{{ rec.so }}</sc-raw-td>
-                            <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#1e2939;">{{ rec.ty }}<div style="font-size:11.5px;color:#8094a8;margin-top:2px;">Trường: <b style="color:#475467;">{{ rec.truong }}</b></div></sc-raw-td>
-                            <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#475467;"><span style="text-decoration:line-through;color:#98a2b3;">{{ rec.giaTriCu }}</span> → <b style="color:#1e2939;">{{ rec.giaTriMoi }}</b><div style="font-size:11.5px;color:#8094a8;margin-top:3px;">{{ rec.lyDo }}</div></sc-raw-td>
-                            <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#475467;">{{ rec.nguoi }}<div style="font-size:11px;color:#98a2b3;margin-top:2px;">{{ rec.ngay }}</div></sc-raw-td>
-                            <sc-raw-td style="border:1px solid #d9dee6;padding:10px;"><span style="font-size:11.5px;font-weight:600;color:{{ rec.ttColor }};background:{{ rec.ttBg }};padding:3px 10px;border-radius:4px;white-space:nowrap;">{{ rec.ttLabel }}</span><sc-if value="{{ rec.isRejected }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#c0392b;margin-top:4px;">Lý do: {{ rec.lyDoTuChoi }}</div></sc-if></sc-raw-td>
-                          </sc-raw-tr>
-                        </sc-for>
-                      </sc-raw-tbody>
-                    </sc-raw-table>
-                  <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:14px 18px;font-size:13px;color:#1e2939;">
-                    <span>Hiển thị 1 - {{ dinhTotalCount }} của {{ dinhTotalCount }} mục</span>
-                    <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_left</span>
-                    <span style="min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2f2fd0;color:#2f2fd0;border-radius:6px;font-weight:600;">1</span>
-                    <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_right</span>
-                    <span style="height:28px;display:inline-flex;align-items:center;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;color:#475467;">10 / page</span>
-                  </div>
-                  </div>
-                </div>
-              </sc-if>
             </sc-if>
 
             <sc-if value="{{ dinhIsAddStep1 }}" hint-placeholder-val="{{ false }}">
@@ -1081,7 +1027,6 @@
                 </div>
                 <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:16px;">
                   <button onclick="{{ saveDinhList }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
-                  <button onclick="{{ sendDinhList }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">send</span>Gửi</button>
                 </div>
               </sc-if>
             </sc-if>
@@ -1099,12 +1044,6 @@
                     <span style="font-size:14px;font-weight:700;color:#1e2939;">4 mẫu biểu — chọn phụ lục cần bổ sung</span>
                     <span style="font-size:12px;font-weight:600;color:#5a6b7e;background:#eef3f9;border-radius:20px;padding:2px 10px;">{{ boSungTotalCount }} văn bản</span>
                     <div style="flex:1;"></div>
-                    <sc-if value="{{ boSungHasDraft }}" hint-placeholder-val="{{ false }}">
-                      <button onclick="{{ sendBoSungToLd }}" style="height:38px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:8px;display:flex;align-items:center;gap:7px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">send</span>Gửi lên lãnh đạo duyệt</button>
-                    </sc-if>
-                    <sc-if value="{{ boSungSent }}" hint-placeholder-val="{{ false }}">
-                      <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#15603f;background:#e3f4ec;padding:6px 12px;border-radius:8px;"><span class="ic" style="font-size:18px;">check_circle</span>Đã gửi lãnh đạo duyệt</span>
-                    </sc-if>
                   </div>
                   <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13.5px;">
                     <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:left;color:#475467;">
@@ -1415,6 +1354,46 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isKtList }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 24px 48px;">
+          <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ closeKt }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Danh sách văn bản HTH</span><span>/</span><span style="color:#1e2939;">Văn bản kỳ trước chưa công bố</span></div>
+          <h1 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#10243a;">Văn bản hết hiệu lực kỳ {{ ktPrev }} chưa được công bố</h1>
+          <div style="background:#fff;border-radius:10px;padding:20px 22px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+              <div style="font-size:13px;font-weight:700;color:#1e2939;">Danh sách văn bản ({{ ktCount }})</div>
+              <button onclick="{{ ktAddAll }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;" style-hover="background:#2323b0;">Bổ sung tất cả</button>
+            </div>
+                <div style="overflow-x:auto;">
+                <sc-raw-table style="width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid #d9dee6;">
+                  <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
+                    <sc-raw-th style="padding:8px;font-weight:700;width:46px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                    <sc-raw-th style="padding:8px;font-weight:700;width:140px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
+                    <sc-raw-th style="padding:8px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
+                    <sc-raw-th style="padding:8px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Ngày hết HL</sc-raw-th>
+                    <sc-raw-th style="padding:8px;font-weight:700;width:170px;text-align:center;border:1px solid #d9dee6;">Tình trạng hiệu lực</sc-raw-th>
+                    <sc-raw-th style="padding:8px;font-weight:700;width:260px;text-align:center;border:1px solid #d9dee6;">Lý do</sc-raw-th>
+                    <sc-raw-th style="padding:8px;font-weight:700;width:240px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+                  </sc-raw-tr></sc-raw-thead>
+                  <sc-raw-tbody>
+                    <sc-for list="{{ ktRows }}" as="k" hint-placeholder-count="3">
+                      <sc-raw-tr style="color:#1e2939;">
+                        <sc-raw-td style="padding:8px;text-align:center;border:1px solid #d9dee6;">{{ k.stt }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px;border:1px solid #d9dee6;">{{ k.so }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px;line-height:1.45;border:1px solid #d9dee6;">{{ k.ty }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px;text-align:center;border:1px solid #d9dee6;">{{ k.hetHl }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px;border:1px solid #d9dee6;">{{ k.tt }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px;line-height:1.45;border:1px solid #d9dee6;">{{ k.lyDo }}</sc-raw-td>
+                        <sc-raw-td style="padding:6px 8px;border:1px solid #d9dee6;"><div style="display:flex;gap:6px;justify-content:center;"><button onclick="{{ k.add }}" style="height:28px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:#fff;padding:0 10px;border-radius:6px;white-space:nowrap;">Bổ sung vào kỳ này</button><button onclick="{{ k.skip }}" style="height:28px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:#1e2939;padding:0 10px;border-radius:6px;white-space:nowrap;">Bỏ qua</button></div></sc-raw-td>
+                      </sc-raw-tr>
+                    </sc-for>
+                  </sc-raw-tbody>
+                </sc-raw-table>
+                </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;margin-top:16px;"><button onclick="{{ closeKt }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">arrow_back</span>Quay lại</button></div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isDocList }}" hint-placeholder-val="{{ false }}">
         <div style="padding:20px 24px 48px;">
           <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
@@ -1469,17 +1448,25 @@
               <button onclick="{{ openAddCurrent }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">add</span>Thêm mới văn bản</button>
             </div>
 
+            <sc-if value="{{ ktShow }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fffaeb;border:1px solid #fedf89;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#93370d;"><span class="ic" style="font-size:19px;color:#dc6803;">warning</span>Phát hiện {{ ktCount }} văn bản hết hiệu lực trong kỳ {{ ktPrev }} nhưng chưa có trong kết quả đã công bố của kỳ đó.</div>
+                <span onclick="{{ openKt }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
+              </div>
+            
+            </sc-if>
+
             <div style="overflow-x:auto;">
             <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;min-width:1100px;">
               <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:54px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Loại VBQPPL</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Loại VB HTH</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:120px;text-align:center;border:1px solid #d9dee6;">Ngày ban hành</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Thời điểm có hiệu lực</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:170px;text-align:center;border:1px solid #d9dee6;">Tình trạng hiệu lực hiện tại</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;width:240px;text-align:center;border:1px solid #d9dee6;">Ghi chú</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:96px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
               </sc-raw-tr></sc-raw-thead>
               <sc-raw-tbody>
@@ -1487,12 +1474,12 @@
                     <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ doc.stt }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;line-height:1.4;border:1px solid #d9dee6;">{{ doc.loai }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;"><span style="display:inline-flex;font-size:11.5px;font-weight:600;color:{{ doc.loaiVbFg }};background:{{ doc.loaiVbBg }};padding:3px 10px;border-radius:4px;white-space:nowrap;">{{ doc.loaiVb }}</span></sc-raw-td>
                       <sc-raw-td style="padding:10px;font-weight:400;text-align:left;white-space:nowrap;border:1px solid #d9dee6;">{{ doc.so }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:center;white-space:nowrap;border:1px solid #d9dee6;">{{ doc.ngay }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;border:1px solid #d9dee6;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="{{ doc.ty }}">{{ doc.ty }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ doc.hieuLucNgay }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:left;border:1px solid #d9dee6;">{{ doc.hlHienTai }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:left;line-height:1.4;border:1px solid #d9dee6;">{{ doc.ghiChuHt }}</sc-raw-td>
                       <sc-raw-td style="padding:8px 10px;border:1px solid #d9dee6;">
                         <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
                           <span onclick="{{ doc.view }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
@@ -1622,9 +1609,8 @@
                         <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;width:120px;">NGÀY BAN HÀNH <span style="color:#d92d20;">*</span><br>(6)</sc-raw-th>
                         <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;">TÊN GỌI CỦA VĂN BẢN/TRÍCH YẾU NỘI DUNG CỦA VĂN BẢN <span style="color:#d92d20;">*</span><br>(7)</sc-raw-th>
                         <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;width:120px;">THỜI ĐIỂM CÓ HIỆU LỰC <span style="color:#d92d20;">*</span><br>(8)</sc-raw-th>
-                        <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;width:140px;">TÌNH TRẠNG HIỆU LỰC<br>(9)</sc-raw-th>
-                        <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;width:170px;">TÌNH TRẠNG HIỆU LỰC HIỆN TẠI<br>(10)</sc-raw-th>
-                        <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;width:190px;">GHI CHÚ<br>(11)</sc-raw-th>
+                        <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;width:150px;">TÌNH TRẠNG HIỆU LỰC<br>(9)</sc-raw-th>
+                        <sc-raw-th style="padding:10px 8px;font-weight:700;font-size:12px;text-align:center;vertical-align:middle;background:#f2f4f7;color:#1e2939;border:1px solid #d9dee6;width:190px;">GHI CHÚ<br>(10)</sc-raw-th>
                         <sc-raw-th style="padding:10px 8px;background:#f2f4f7;border:1px solid #d9dee6;width:72px;"></sc-raw-th>
                       </sc-raw-tr></sc-if>
                       <sc-if value="{{ isFormLoaiCu }}" hint-placeholder-val="{{ false }}"><sc-raw-tr>
@@ -1801,6 +1787,293 @@
         </sc-if>
       </sc-if>
 
+      <sc-if value="{{ isM04Cv }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 24px 48px;">
+          <div style="font-size:12.5px;color:#1e2939;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+            <span style="color:#667085;text-decoration:underline;">Hệ thống hóa VBQPPL</span><span>/</span>
+            <sc-if value="{{ m04InList }}" hint-placeholder-val="{{ true }}"><span>Kết quả hệ thống hóa</span></sc-if>
+            <sc-if value="{{ m04InEdit }}" hint-placeholder-val="{{ false }}"><span onclick="{{ backM04 }}" style="color:#667085;cursor:pointer;text-decoration:underline;">Kết quả hệ thống hóa</span><span>/</span><span>{{ m04Crumb }}</span></sc-if><sc-if value="{{ m04InUnits }}" hint-placeholder-val="{{ false }}"><span onclick="{{ backM04Units }}" style="color:#667085;cursor:pointer;text-decoration:underline;">{{ m04UnitsPrev }}</span><span>/</span><span>{{ m04Crumb }}</span></sc-if>
+          </div>
+          <h1 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#10243a;">Kết quả hệ thống hóa</h1>
+
+          <sc-if value="{{ m04InList }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#fff;border-radius:10px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 22px;align-items:end;">
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
+                  <div style="position:relative;">
+                    <sc-raw-select value="{{ m04Ky }}" onchange="{{ setM04Ky }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                      <option value="">-- Tất cả --</option>
+                      <sc-for list="{{ m04KyOpts }}" as="k" hint-placeholder-count="3"><option value="{{ k }}">{{ k }}</option></sc-for>
+                    </sc-raw-select>
+                    <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
+                  <div style="position:relative;">
+                    <sc-raw-select value="{{ m04Tt }}" onchange="{{ setM04Tt }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                      <option value="">Tất cả trạng thái</option>
+                      <option value="Đã lưu">Đã lưu</option><option value="Đã gửi">Đã gửi</option><option value="Bị trả lại">Bị trả lại</option>
+                    </sc-raw-select>
+                    <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px;">
+                <button onclick="{{ applyM04 }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ resetM04 }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+              </div>
+              <div style="border-top:1px solid #eef1f6;margin:18px 0 14px;"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+                <div style="font-size:13px;font-weight:600;color:#1e2939;">Tổng cộng: <span style="color:#e8590c;">{{ m04Count }}</span> mục</div>
+                <button onclick="{{ openM04Add }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">add</span>Thêm mới</button>
+              </div>
+              <div style="overflow-x:auto;">
+              <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+                <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:56px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên mẫu biểu</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Kỳ hệ thống hóa</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Số văn bản</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:120px;text-align:center;border:1px solid #d9dee6;">Ngày lưu</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Trạng thái</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+                </sc-raw-tr></sc-raw-thead>
+                <sc-raw-tbody>
+                  <sc-if value="{{ m04Empty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="7" style="padding:36px 16px;text-align:center;color:#94a3b8;border:1px solid #d9dee6;">Chưa có Mẫu 04. Nhấn <b style="color:#2f2fd0;">Thêm mới</b> để tạo.</sc-raw-td></sc-raw-tr></sc-if>
+                  <sc-for list="{{ m04Rows }}" as="x" hint-placeholder-count="2">
+                    <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ x.stt }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #d9dee6;line-height:1.45;">{{ x.ten }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;white-space:nowrap;border:1px solid #d9dee6;">{{ x.ky }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ x.count }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ x.savedAt }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;"><span style="display:inline-flex;font-size:12px;font-weight:500;color:{{ x.stFg }};background:{{ x.stBg }};padding:2px 10px;border-radius:4px;white-space:nowrap;">{{ x.st }}</span></sc-raw-td>
+                      <sc-raw-td style="padding:8px 10px;border:1px solid #d9dee6;">
+                        <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                          <span onclick="{{ x.view }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
+                          <sc-if value="{{ x.canEdit }}" hint-placeholder-val="{{ true }}">
+                            <span onclick="{{ x.edit }}" title="Cập nhật" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span>
+                            <span onclick="{{ x.remove }}" title="Xóa" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff0ee;border:1px solid #f5c2bd;border-radius:6px;cursor:pointer;">delete</span>
+                          </sc-if>
+                        </div>
+                      </sc-raw-td>
+                    </sc-raw-tr>
+                  </sc-for>
+                </sc-raw-tbody>
+              </sc-raw-table>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px;font-size:13px;color:#1e2939;">
+                <span>Hiển thị {{ m04From }} - {{ m04Count }} của {{ m04Count }} mục</span>
+                <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_left</span>
+                <span style="min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2f2fd0;color:#2f2fd0;border-radius:6px;font-weight:600;">1</span>
+                <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_right</span>
+                <span style="height:28px;display:inline-flex;align-items:center;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;color:#475467;">10 / page</span>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ m04InEdit }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border-radius:10px;padding:18px 22px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px;">
+                <div style="font-size:14px;font-weight:700;color:#1e2939;">{{ m04Title }}</div>
+                <div style="font-size:13px;color:#475467;">Kỳ hệ thống hóa: <b style="color:#1e2939;">{{ m04DraftKy }}</b></div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:9px 12px;margin:10px 0 14px;font-size:12.5px;color:#1d4ed8;"><span class="ic" style="font-size:17px;margin-top:1px;">info</span><div><span>{{ m04Note }}</span><sc-if value="{{ m04ShowUnitsLink }}" hint-placeholder-val="{{ false }}"><div style="margin-top:4px;"><span onclick="{{ openM04Units }}" style="font-style:italic;text-decoration:underline;color:#1d4ed8;cursor:pointer;">DL mẫu 04 các đơn vị cấp dưới</span></div></sc-if></div></div>
+              <sc-if value="{{ m04Rw }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:12px;">
+                  <button onclick="{{ openM04Sync }}" style="height:34px;border:1px solid #1456d8;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1456d8;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#f2f7ff;"><span class="ic" style="font-size:18px;">sync</span>Đồng bộ kết quả RSTX</button>
+                  <button onclick="{{ addM04Row }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">add</span>Thêm mới</button>
+                </div>
+              </sc-if>
+              <div style="overflow-x:auto;">
+              <sc-raw-table style="width:100%;border-collapse:collapse;font-size:12.5px;border:1px solid #d9dee6;min-width:1500px;">
+                <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:50px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:120px;text-align:center;border:1px solid #d9dee6;">Loại văn bản</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:140px;text-align:center;border:1px solid #d9dee6;">Cơ quan ban hành</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Ngày ban hành</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:230px;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản/Trích yếu</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:140px;text-align:center;border:1px solid #d9dee6;">Hình thức kiến nghị</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:240px;text-align:center;border:1px solid #d9dee6;">Nội dung / Lý do kiến nghị</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:170px;text-align:center;border:1px solid #d9dee6;">Cơ quan/đơn vị chủ trì soạn thảo</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Thời hạn phải xử lý</sc-raw-th>
+                  <sc-raw-th style="padding:10px 8px;font-weight:700;width:60px;text-align:center;border:1px solid #d9dee6;"></sc-raw-th>
+                </sc-raw-tr></sc-raw-thead>
+                <sc-raw-tbody>
+                  <sc-if value="{{ m04DraftEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="11" style="padding:30px 16px;text-align:center;color:#94a3b8;border:1px solid #d9dee6;">Chưa có dòng nào. Nhấn <b style="color:#1456d8;">Đồng bộ kết quả RSTX</b> hoặc <b style="color:#2f2fd0;">Thêm mới</b>.</sc-raw-td></sc-raw-tr></sc-if>
+                  <sc-for list="{{ m04DraftRows }}" as="r" hint-placeholder-count="3">
+                    <sc-raw-tr style="vertical-align:top;color:#1e2939;">
+                      <sc-raw-td style="padding:8px;text-align:center;border:1px solid #d9dee6;">{{ r.stt }}</sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><input value="{{ r.loai }}" oninput="{{ r.onLoai }}" disabled="{{ m04Ro }}" style="width:100%;height:32px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><input value="{{ r.cq }}" oninput="{{ r.onCq }}" disabled="{{ m04Ro }}" style="width:100%;height:32px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><input value="{{ r.so }}" oninput="{{ r.onSo }}" disabled="{{ m04Ro }}" style="width:100%;height:32px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><input value="{{ r.ngay }}" oninput="{{ r.onNgay }}" disabled="{{ m04Ro }}" placeholder="dd/mm/yyyy" style="width:100%;height:32px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><textarea value="{{ r.ty }}" oninput="{{ r.onTy }}" disabled="{{ m04Ro }}" rows="2" style="width:100%;font-family:inherit;font-size:12.5px;padding:6px 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;resize:vertical;box-sizing:border-box;"></textarea></sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;">
+                        <sc-raw-select value="{{ r.kienNghi }}" onchange="{{ r.onKn }}" disabled="{{ m04Ro }}" style="width:100%;height:32px;font-family:inherit;font-size:12.5px;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;box-sizing:border-box;"><option>Sửa đổi, bổ sung</option><option>Sửa đổi</option><option>Thay thế</option><option>Bãi bỏ</option><option>Tạm ngưng hiệu lực</option><option>Ban hành mới</option></sc-raw-select>
+                      </sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><textarea value="{{ r.lyDo }}" oninput="{{ r.onLyDo }}" disabled="{{ m04Ro }}" rows="2" style="width:100%;font-family:inherit;font-size:12.5px;padding:6px 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;resize:vertical;box-sizing:border-box;"></textarea></sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><input value="{{ r.cqChuTri }}" oninput="{{ r.onCqCt }}" disabled="{{ m04Ro }}" style="width:100%;height:32px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                      <sc-raw-td style="padding:6px;border:1px solid #d9dee6;"><input value="{{ r.thoiHan }}" oninput="{{ r.onTh }}" disabled="{{ m04Ro }}" placeholder="Nhập thời hạn" style="width:100%;height:32px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                      <sc-raw-td style="padding:6px;text-align:center;border:1px solid #d9dee6;"><sc-if value="{{ m04Rw }}" hint-placeholder-val="{{ false }}"><span onclick="{{ r.del }}" title="Xóa dòng" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff0ee;border:1px solid #f5c2bd;border-radius:6px;cursor:pointer;">delete</span></sc-if></sc-raw-td>
+                    </sc-raw-tr>
+                  </sc-for>
+                </sc-raw-tbody>
+              </sc-raw-table>
+              </div>
+              <div style="font-size:13px;font-weight:600;color:#1e2939;margin-top:12px;">Tổng số dòng: {{ m04DraftCount }}</div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:16px;">
+              <button onclick="{{ backM04 }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">arrow_back</span>Quay lại</button>
+              <sc-if value="{{ m04Rw }}" hint-placeholder-val="{{ false }}">
+                <button onclick="{{ saveM04 }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+                <sc-if value="{{ m04CanSend }}" hint-placeholder-val="{{ true }}"><button onclick="{{ openM04Send }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">send</span>Gửi</button></sc-if>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ m04InUnits }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border-radius:10px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 22px;align-items:end;">
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị</label>
+                  <div style="position:relative;">
+                    <sc-raw-select value="{{ m04UvDv }}" onchange="{{ setM04UvDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                      <option value="">Tất cả đơn vị cấp dưới</option>
+                      <sc-for list="{{ m04DvOpts }}" as="d" hint-placeholder-count="3"><option value="{{ d }}">{{ d }}</option></sc-for>
+                    </sc-raw-select>
+                    <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
+                  <input value="{{ m04UvKy }}" readonly disabled style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #e4e9f0;border-radius:6px;background:#f2f4f7;color:#475467;box-sizing:border-box;cursor:not-allowed;">
+                </div>
+              </div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px;">
+                <button onclick="{{ applyM04Uv }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ resetM04Uv }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
+              </div>
+              <div style="border-top:1px solid #eef1f6;margin:18px 0 14px;"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
+                <div style="font-size:13px;font-weight:700;color:#1e2939;">Danh sách Mẫu 04 của các đơn vị cấp dưới ({{ m04UvCount }})</div>
+                <button style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">table_view</span>Xuất Excel</button>
+              </div>
+              <div style="overflow-x:auto;">
+              <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+                <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:56px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Kỳ HTH</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên mẫu biểu</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:200px;text-align:center;border:1px solid #d9dee6;">Đơn vị gửi</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:140px;text-align:center;border:1px solid #d9dee6;">Đơn vị nhận</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Thời gian gửi</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:90px;text-align:center;border:1px solid #d9dee6;">Số dòng</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Trạng thái</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;font-weight:700;width:90px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+                </sc-raw-tr></sc-raw-thead>
+                <sc-raw-tbody>
+                  <sc-if value="{{ m04UvEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="9" style="padding:30px 16px;text-align:center;color:#94a3b8;border:1px solid #d9dee6;">Chưa có đơn vị cấp dưới gửi Mẫu 04.</sc-raw-td></sc-raw-tr></sc-if>
+                  <sc-for list="{{ m04UvRows }}" as="x" hint-placeholder-count="3">
+                    <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ x.stt }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;white-space:nowrap;border:1px solid #d9dee6;">{{ x.ky }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;line-height:1.45;border:1px solid #d9dee6;">{{ x.ten }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #d9dee6;">{{ x.dvGui }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #d9dee6;">{{ x.dvNhan }}</sc-raw-td>
+                      <sc-raw-td style="padding:8px 10px;border:1px solid #d9dee6;"><div>{{ x.ngay }}</div><div style="font-size:11.5px;color:#8094a8;margin-top:2px;">{{ x.gio }}</div></sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ x.count }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;"><span style="display:inline-flex;font-size:12px;font-weight:500;color:#1f8a5b;background:#e3f4ec;padding:2px 10px;border-radius:4px;white-space:nowrap;">Đã gửi</span></sc-raw-td>
+                      <sc-raw-td style="padding:8px 10px;border:1px solid #d9dee6;"><div style="display:flex;align-items:center;justify-content:center;"><span onclick="{{ x.view }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span></div></sc-raw-td>
+                    </sc-raw-tr>
+                  </sc-for>
+                </sc-raw-tbody>
+              </sc-raw-table>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px;font-size:13px;color:#1e2939;">
+                <span>Hiển thị {{ m04UvFrom }} đến {{ m04UvCount }} trong tổng số {{ m04UvCount }} báo cáo</span>
+                <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_left</span>
+                <span style="min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2f2fd0;color:#2f2fd0;border-radius:6px;font-weight:600;">1</span>
+                <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_right</span>
+                <span style="height:28px;display:inline-flex;align-items:center;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;color:#475467;">10 / page</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:16px;">
+              <button onclick="{{ backM04Units }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">arrow_back</span>Quay lại</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ m04ShowAdd }}" hint-placeholder-val="{{ false }}">
+            <div onclick="{{ closeM04Add }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:24px;">
+              <div onclick="{{ stop }}" style="background:#fff;border-radius:10px;width:560px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+                <div style="padding:18px 24px 6px;display:flex;align-items:center;justify-content:space-between;"><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Thêm mới Mẫu 04</h3><span onclick="{{ closeM04Add }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">close</span></div>
+                <div style="padding:12px 24px 6px;display:flex;flex-direction:column;gap:14px;">
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:13px;color:#1e2939;">Kỳ hệ thống hóa<span style="color:#d92d20;">*</span></label>
+                    <div style="position:relative;">
+                      <sc-raw-select value="{{ m04AddKy }}" onchange="{{ setM04AddKy }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 30px 0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                        <sc-for list="{{ m04AddOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.ma }}">{{ o.ky }}</option></sc-for>
+                      </sc-raw-select>
+                      <span class="ic" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:13px;color:#1e2939;">Mẫu biểu</label>
+                    <input value="{{ m04AddMau }}" readonly disabled style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #e4e9f0;border-radius:6px;background:#f2f4f7;color:#475467;box-sizing:border-box;cursor:not-allowed;">
+                    <div style="font-size:12px;color:#8094a8;">Chuyên viên chỉ thực hiện Mẫu 04.</div>
+                  </div>
+                  <sc-if value="{{ m04AddNoOpts }}" hint-placeholder-val="{{ false }}"><div style="padding:9px 12px;background:#fffbe6;border:1px solid #fde68a;border-radius:6px;font-size:13px;color:#7a6a3a;">Tất cả các kỳ đã có Mẫu 04.</div></sc-if>
+                </div>
+                <div style="padding:14px 24px 18px;display:flex;justify-content:flex-end;gap:10px;">
+                  <button onclick="{{ closeM04Add }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:6px;">Hủy</button>
+                  <button onclick="{{ confirmM04Add }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;">Tiếp tục</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ m04ShowSync }}" hint-placeholder-val="{{ false }}">
+            <div onclick="{{ closeM04Sync }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:24px;">
+              <div onclick="{{ stop }}" style="background:#fff;border-radius:10px;width:560px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+                <div style="padding:18px 24px 6px;display:flex;align-items:center;justify-content:space-between;"><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Đồng bộ kết quả rà soát thường xuyên</h3><span onclick="{{ closeM04Sync }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">close</span></div>
+                <div style="padding:12px 24px 6px;display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;">
+                  <div style="display:flex;flex-direction:column;gap:6px;"><label style="font-size:13px;color:#1e2939;">Từ ngày</label><input type="date" value="{{ m04SyncTu }}" onchange="{{ setM04SyncTu }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></div>
+                  <div style="display:flex;flex-direction:column;gap:6px;"><label style="font-size:13px;color:#1e2939;">Đến ngày</label><input type="date" value="{{ m04SyncDen }}" onchange="{{ setM04SyncDen }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></div>
+                  <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:13px;color:#1e2939;">Đơn vị rà soát</label>
+                    <div style="position:relative;">
+                      <sc-raw-select value="{{ m04SyncDv }}" onchange="{{ setM04SyncDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 30px 0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                        <option value="">-- Tất cả đơn vị --</option>
+                        <sc-for list="{{ m04DvOpts }}" as="d" hint-placeholder-count="3"><option value="{{ d }}">{{ d }}</option></sc-for>
+                      </sc-raw-select>
+                      <span class="ic" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding:14px 24px 18px;display:flex;justify-content:flex-end;gap:10px;">
+                  <button onclick="{{ closeM04Sync }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:6px;">Hủy</button>
+                  <button onclick="{{ doM04Sync }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">sync</span>Đồng bộ</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ m04ShowSend }}" hint-placeholder-val="{{ false }}">
+            <div onclick="{{ closeM04Send }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:24px;">
+              <div onclick="{{ stop }}" style="background:#fff;border-radius:10px;width:480px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
+                <div style="padding:18px 24px 6px;"><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận gửi Mẫu 04</h3></div>
+                <div style="padding:10px 24px 6px;font-size:13.5px;color:#475467;line-height:1.55;">Gửi Mẫu 04 kỳ <b style="color:#0e4c8f;">{{ m04DraftKy }}</b> ({{ m04DraftCount }} dòng) cho Cán bộ Tổng hợp? Sau khi gửi bạn không sửa được cho đến khi Cán bộ Tổng hợp trả lại.</div>
+                <div style="padding:14px 24px 18px;display:flex;justify-content:flex-end;gap:10px;">
+                  <button onclick="{{ closeM04Send }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:6px;">Hủy</button>
+                  <button onclick="{{ confirmM04Send }}" style="height:34px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">send</span>Gửi</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
       <sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
         <div style="padding:24px 32px 48px;">
           <div style="margin-bottom:16px;">
@@ -2000,9 +2273,8 @@
                         <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                           <option value="Đã tạo">Đã tạo</option>
                         </sc-if>
-                        <option value="Chờ duyệt">Chờ duyệt</option>
-                        <option value="Bị từ chối">Bị từ chối</option>
-                        <option value="Đã duyệt">Đã duyệt</option>
+                        <option value="Đã gửi">Đã gửi</option>
+                        <option value="Bị trả lại">Bị trả lại</option>
                         <option value="Đã công bố">Đã công bố</option>
                       </sc-raw-select>
                       <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -2016,7 +2288,7 @@
                 <div style="border-top:1px solid #eef1f6;margin:18px 0 14px;"></div>
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
                   <div style="font-size:13px;font-weight:600;color:#1e2939;">Tổng cộng: <span style="color:#e8590c;">{{ rsPlanCount }}</span> kế hoạch</div>
-                  <button onclick="{{ openRsCreateForm }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:17px;">auto_awesome</span>Tạo kết quả hệ thống hóa</button>
+                  <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}"><button onclick="{{ openRsCreateForm }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:17px;">auto_awesome</span>Tạo kết quả hệ thống hóa</button></sc-if>
                 </div>
               <sc-if value="{{ showRsCreateForm }}" hint-placeholder-val="{{ false }}">
                 <div onclick="{{ closeRsCreateForm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
@@ -2121,7 +2393,7 @@
                   <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                     <sc-if value="{{ rsHthCreated }}" hint-placeholder-val="{{ false }}">
                       <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
-                        <button onclick="{{ openAgg }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">sync</span>Tổng hợp lại</button>
+                        <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}"><button onclick="{{ openAgg }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:18px;">sync</span>Tổng hợp lại</button></sc-if>
                       </sc-if>
                       <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
                         <button onclick="{{ goToDinhChinh }}" style="height:40px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
@@ -2180,21 +2452,14 @@
                   <div style="font-size:13.5px;font-weight:700;color:#10243a;">{{ reviewUnitName }}</div>
                 </div>
               </sc-if>
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12.5px;color:#1d4ed8;"><span class="ic" style="font-size:17px;">info</span><span>{{ rsRoleNote }}</span></div>              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
                 <div style="font-size:13px;color:#1e2939;font-weight:600;">Tổng cộng: <span style="color:#e8590c;">{{ rsTotal }}</span> mục</div>
                 <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
-                  <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                      <button onclick="{{ openRsReturnConfirm }}" style="height:40px;border:1px solid #f3c1c3;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#e5484d;padding:0 16px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#fdf0f0;"><span class="ic" style="font-size:20px;">undo</span>Từ chối</button>
-                      <sc-if value="{{ !rsPlanIsApproved }}" hint-placeholder-val="{{ true }}">
-                        <button onclick="{{ openRsApproveConfirm }}" style="height:40px;border:0;background:rgb(47,84,235);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 16px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 8px rgba(47,84,235,.28);" style-hover="background:#1d39c4;"><span class="ic" style="font-size:20px;">verified</span>Duyệt</button>
-                      </sc-if>
-                      <sc-if value="{{ rsPlanIsApproved }}" hint-placeholder-val="{{ false }}">
-                        <button disabled="disabled" style="height:40px;border:0;background:#e8eefd;cursor:default;font-family:inherit;font-size:13.5px;font-weight:600;color:rgb(47,84,235);padding:0 16px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;"><span class="ic" style="font-size:20px;">verified</span>Đã duyệt</button>
-                      </sc-if>
-                    </div>
-                  </sc-if>
-                </sc-if>
+                  <sc-if value="{{ rsM04Sent }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
+                      <button onclick="{{ openRsReturnConfirm }}" style="height:34px;border:1px solid #f5c2bd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#d92d20;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#fdf0f0;"><span class="ic" style="font-size:18px;">undo</span>Trả lại Mẫu 04</button>
+                    </sc-if>
+                  </sc-if>                </sc-if>
               </div>
 
               <div style="background:#fff;border-radius:10px;padding:18px 22px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
@@ -2212,21 +2477,15 @@
                         <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ rec.stt }}</sc-raw-td>
                         <sc-raw-td style="padding:10px;color:#1e2939;border:1px solid #d9dee6;">
                           <div style="display:flex;align-items:center;gap:8px;"><span>{{ rec.ten }}</span>
-                            <sc-if value="{{ rec.isM04 }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.toggleNote }}" title="Lưu ý: Dữ liệu Mẫu 04 được đồng bộ từ kết quả rà soát thường xuyên (RSTX), theo đơn vị thực hiện rà soát." class="ic" style="font-size:19px;color:#f5a623;cursor:pointer;flex:0 0 auto;">error</span></sc-if>
+                            <sc-if value="{{ rec.isM04 }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.toggleNote }}" title="{{ rec.noteText }}" class="ic" style="font-size:19px;color:#f5a623;cursor:pointer;flex:0 0 auto;">error</span></sc-if>
                           </div>
-                          <sc-if value="{{ rec.showNote }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:flex-start;gap:8px;background:#fffbe6;border:1px solid #fde68a;border-radius:6px;padding:8px 12px;font-size:12.5px;font-weight:400;color:#7a5b00;line-height:1.5;"><span><b>Lưu ý:</b> Dữ liệu Mẫu 04 được đồng bộ từ kết quả rà soát thường xuyên (RSTX), theo đơn vị thực hiện rà soát.</span></div></sc-if>
+                          <sc-if value="{{ rec.showUnitsLink }}" hint-placeholder-val="{{ false }}"><div style="margin-top:4px;"><span onclick="{{ rec.openUnits }}" style="font-size:12.5px;font-weight:400;font-style:italic;text-decoration:underline;color:#1d4ed8;cursor:pointer;">DL mẫu 04 các đơn vị cấp dưới</span></div></sc-if>
+                          <sc-if value="{{ rec.showNote }}" hint-placeholder-val="{{ false }}"><div style="margin-top:8px;display:flex;align-items:flex-start;gap:8px;background:#fffbe6;border:1px solid #fde68a;border-radius:6px;padding:8px 12px;font-size:12.5px;font-weight:400;color:#7a5b00;line-height:1.5;"><span>{{ rec.noteText }}</span></div></sc-if>
                         </sc-raw-td>
                         <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ rec.count }}</sc-raw-td>
                         <sc-raw-td style="padding:8px 10px;border:1px solid #d9dee6;"><div style="display:flex;align-items:center;justify-content:center;gap:8px;">
                           <span onclick="{{ rec.open }}" title="Xem chi tiết" class="ic" style="font-size:16px;color:#2f2fd0;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #c9ccf5;background:#eef0ff;" style-hover="background:#e6ecfd;">visibility</span>
-                          <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
-                            <sc-if value="{{ rec.canEdit }}" hint-placeholder-val="{{ true }}"><sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}"><span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:16px;color:#e8a317;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #f3d98b;background:#fff7e0;" style-hover="background:#fbf1d6;">edit</span></sc-if></sc-if>
-                            <span title="Xoá" class="ic" style="font-size:16px;color:#d92d20;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #f5c2bd;background:#fff0ee;" style-hover="background:#fbe0e1;">delete</span>
-                          </sc-if>
-                          <sc-if value="{{ rsLdCanEditRows }}" hint-placeholder-val="{{ false }}">
-                            <sc-if value="{{ rec.canEdit }}" hint-placeholder-val="{{ true }}"><span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:16px;color:#e8a317;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #f3d98b;background:#fff7e0;" style-hover="background:#fbf1d6;">edit</span></sc-if>
-                          </sc-if>
-                        </div></sc-raw-td>
+                          <sc-if value="{{ rec.canEditRole }}" hint-placeholder-val="{{ true }}"><span onclick="{{ rec.editType }}" title="Sửa" class="ic" style="font-size:16px;color:#e8a317;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #f3d98b;background:#fff7e0;" style-hover="background:#fbf1d6;">edit</span></sc-if>                        </div></sc-raw-td>
                       </sc-raw-tr>
                     </sc-for>
                   </sc-raw-tbody>
@@ -2246,27 +2505,19 @@
                     <button onclick="{{ rsSave }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
                     <button onclick="{{ openRsSubmitConfirm }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">send</span>Gửi</button>
                   </sc-if>
-                  <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
-                    <button onclick="{{ goToDinhChinh }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
-                  </sc-if>
                 </div>
               </sc-if>
               <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:16px;">
-                  <sc-if value="{{ rsLdEditMode }}" hint-placeholder-val="{{ false }}">
-                    <button onclick="{{ rsSaveLd }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+                  <sc-if value="{{ !rsPlanIsPublished }}" hint-placeholder-val="{{ true }}">
+                    <button onclick="{{ rsSaveLd }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+                    <button onclick="{{ openRsPublishConfirm }}" style="height:40px;min-width:120px;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:20px;">campaign</span>Ban hành</button>
                   </sc-if>
                   <sc-if value="{{ rsPlanIsPublished }}" hint-placeholder-val="{{ false }}">
-                    <button disabled="disabled" style="height:40px;border:0;background:#fbf2dc;cursor:default;font-family:inherit;font-size:13.5px;font-weight:600;color:#b8860b;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;"><span class="ic" style="font-size:20px;">campaign</span>Đã công bố</button>
+                    <button disabled="disabled" style="height:40px;border:0;background:#fbf2dc;cursor:default;font-family:inherit;font-size:13.5px;font-weight:600;color:#b8860b;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;"><span class="ic" style="font-size:20px;">campaign</span>Đã ban hành</button>
+                    <button onclick="{{ goToDinhChinh }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:19px;">edit_document</span>Đính chính</button>
                   </sc-if>
-                  <sc-if value="{{ canRsPublish }}" hint-placeholder-val="{{ false }}">
-                    <button onclick="{{ openRsPublishConfirm }}" style="height:40px;min-width:120px;border:0;background:#b8860b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 2px 8px rgba(184,134,11,.28);" style-hover="background:#9a6f09;"><span class="ic" style="font-size:20px;">campaign</span>Công bố</button>
-                  </sc-if>
-                  <sc-if value="{{ rsPublishLocked }}" hint-placeholder-val="{{ true }}">
-                    <button disabled="disabled" title="Cần duyệt trước khi công bố" style="height:40px;min-width:120px;border:0;background:#e8e0c8;cursor:not-allowed;font-family:inherit;font-size:13.5px;font-weight:600;color:#a89060;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;opacity:.75;"><span class="ic" style="font-size:20px;">campaign</span>Công bố</button>
-                  </sc-if>
-                </div>
-              </sc-if>
+                </div>              </sc-if>
             </sc-if>
           </sc-if>
 
@@ -2478,8 +2729,8 @@
               <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:500px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
                 <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#1f8a5b;">send</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận gửi kết quả hệ thống hóa</h3></div>
                 <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
-                  Bạn có chắc chắn muốn gửi toàn bộ kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> lên lãnh đạo duyệt không?
-                  <div style="margin-top:10px;padding:10px 12px;background:#eef3f9;border:1px solid #d6e2f0;border-radius:8px;font-size:12.5px;color:#42566c;line-height:1.5;">Sau khi gửi, trạng thái sẽ chuyển thành <b>Chờ duyệt</b>.</div>
+                  Bạn có chắc chắn muốn gửi toàn bộ kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> cho Cán bộ Tổng hợp không?
+                  <div style="margin-top:10px;padding:10px 12px;background:#eef3f9;border:1px solid #d6e2f0;border-radius:8px;font-size:12.5px;color:#42566c;line-height:1.5;">Sau khi gửi, Cán bộ Tổng hợp sẽ nhận Mẫu 04 để tổng hợp.</div>
                 </div>
                 <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
                   <button onclick="{{ cancelRsSubmitConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
@@ -2508,14 +2759,14 @@
           <sc-if value="{{ showRsReturnConfirm }}" hint-placeholder-val="{{ false }}">
             <div onclick="{{ cancelRsReturnConfirm }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
               <div onclick="{{ stop }}" style="background:#fff;border-radius:14px;width:500px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
-                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#e5484d;">undo</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận từ chối</h3></div>
+                <div style="padding:16px 20px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:9px;"><span class="ic" style="font-size:21px;color:#e5484d;">undo</span><h3 style="margin:0;font-size:15.5px;font-weight:700;color:#1e2939;">Xác nhận trả lại</h3></div>
                 <div style="padding:18px 20px;font-size:13.5px;color:#475467;line-height:1.55;">
-                  Bạn có chắc chắn muốn từ chối kết quả hệ thống hóa kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> cho chuyên viên chỉnh sửa không?
-                  <div style="margin-top:10px;padding:10px 12px;background:#fdf0f0;border:1px solid #f3c1c3;border-radius:8px;font-size:12.5px;color:#9b2c2c;line-height:1.5;">Sau khi từ chối, trạng thái sẽ chuyển sang <b>Bị từ chối</b>.</div>
+                  Bạn có chắc chắn muốn trả lại Mẫu 04 kỳ <b style="color:#0e4c8f;">{{ reviewPlanKy }}</b> của đơn vị <b style="color:#0e4c8f;">{{ currentDonVi }}</b> cho Chuyên viên chỉnh sửa không?
+                  <div style="margin-top:10px;padding:10px 12px;background:#fdf0f0;border:1px solid #f3c1c3;border-radius:8px;font-size:12.5px;color:#9b2c2c;line-height:1.5;">Sau khi trả lại, Chuyên viên chỉnh sửa Mẫu 04 và gửi lại.</div>
                 </div>
                 <div style="padding:0 20px 18px;display:flex;justify-content:flex-end;gap:10px;">
                   <button onclick="{{ cancelRsReturnConfirm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:0 16px;border-radius:8px;">Hủy</button>
-                  <button onclick="{{ confirmRsReturn }}" style="height:38px;border:0;background:#e5484d;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">undo</span>Xác nhận từ chối</button>
+                  <button onclick="{{ confirmRsReturn }}" style="height:38px;border:0;background:#e5484d;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:8px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">undo</span>Xác nhận trả lại</button>
                 </div>
               </div>
             </div>
@@ -2852,6 +3103,24 @@
                   <div style="font-size:12px;color:#8094a8;">Chọn đơn vị cha để chọn tất cả đơn vị con. Danh sách đơn vị là dữ liệu mẫu.</div>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Lĩnh vực cha</label>
+                  <sc-if value="{{ lvChaEditable }}" hint-placeholder-val="{{ true }}">
+                    <div style="border:1px solid #cfd9e6;border-radius:9px;padding:10px 14px;max-height:220px;overflow-y:auto;background:#fff;">
+                      <sc-for list="{{ lvChaRows }}" as="c" hint-placeholder-count="4">
+                        <label style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:{{ c.opacity }};cursor:pointer;">
+                          <sc-if value="{{ c.isChild }}" hint-placeholder-val="{{ false }}"><span style="width:28px;display:inline-block;"></span></sc-if>
+                          <input type="radio" name="lvCha" checked="{{ c.checked }}" disabled="{{ c.disabled }}" onchange="{{ c.pick }}" style="width:16px;height:16px;accent-color:#2f2fd0;">
+                          <span style="font-size:13.5px;color:#1e2939;">{{ c.name }}</span>
+                        </label>
+                      </sc-for>
+                    </div>
+                    <div style="font-size:12px;color:#8094a8;">Cây lĩnh vực của đơn vị. Chỉ chọn được lĩnh vực cấp cha có đơn vị áp dụng bao gồm các đơn vị đã chọn ở trên. Tối đa 2 cấp.</div>
+                  </sc-if>
+                  <sc-if value="{{ lvChaLocked }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:12.5px;color:#8094a8;border:1px solid #e4e9f0;border-radius:9px;padding:10px 14px;background:#f2f4f7;">Lĩnh vực này đang có lĩnh vực con nên giữ ở cấp cha.</div>
+                  </sc-if>
+                </div>
+                <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mô tả</label>
                   <textarea value="{{ lvDraftMoTa }}" oninput="{{ setLvDraftMoTa }}" rows="3" placeholder="Nhập mô tả lĩnh vực..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;"></textarea>
                 </div>
@@ -2912,7 +3181,7 @@
                   <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
                     <sc-raw-td style="padding:10px 12px;text-align:center;border:1px solid #d9dee6;">{{ lv.idx }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;color:#2f2fd0;border:1px solid #d9dee6;">{{ lv.ma }}</sc-raw-td>
-                    <sc-raw-td style="padding:10px 12px;font-weight:600;border:1px solid #d9dee6;">{{ lv.ten }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;font-weight:{{ lv.fw }};border:1px solid #d9dee6;"><sc-if value="{{ lv.isChildRow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block;width:24px;margin-left:14px;color:#98a2b3;font-weight:400;">└</span></sc-if>{{ lv.ten }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;line-height:1.45;border:1px solid #d9dee6;">{{ lv.moTa }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;border:1px solid #d9dee6;">{{ lv.donViText }}</sc-raw-td>
                     <sc-raw-td style="padding:8px 12px;border:1px solid #d9dee6;">
@@ -3296,7 +3565,7 @@
               <div style="flex:1;"></div>
               <div style="display:flex;align-items:center;gap:16px;font-size:12px;color:#5a6b7e;">
                 <span style="display:flex;align-items:center;gap:6px;"><span style="width:11px;height:11px;border-radius:3px;background:#0e4c8f;"></span>Chuyên viên / đơn vị</span>
-                <span style="display:flex;align-items:center;gap:6px;"><span style="width:11px;height:11px;border-radius:3px;background:#b8860b;"></span>Lãnh đạo</span>
+                <span style="display:flex;align-items:center;gap:6px;"><span style="width:11px;height:11px;border-radius:3px;background:#b8860b;"></span>Cán bộ Tổng hợp</span>
               </div>
             </div>
 
@@ -3426,6 +3695,39 @@ class Component extends DCLogic {
     } else if (moi) p.ty = moi;
     return p;
   }
+  m04Seed(){
+    const r = (loai,cq,so,ngay,ty,kn,lyDo,cqct,hh)=>({ loai,cq,so,ngay,ty,kienNghi:kn,lyDo,cqChuTri:cqct,thoiHan:hh });
+    return {
+      'KH-HTH/2024-2028-01': { rows: Array.from({length:30},(_,i)=>{ const rx=this.m04RxData(); const x=rx[i%rx.length]; const k=Math.floor(i/rx.length); return { loai:x.loai, cq:x.cq, so:x.so ? x.so.replace(/^\d+/, n=>String(Number(n)+k*100)) : '', ngay:x.ngay, ty:x.ty, kienNghi:x.kienNghi, lyDo:x.lyDo, cqChuTri:x.dv, thoiHan:'Năm 2026' }; }), savedAt:'20/06/2026' },
+      'KH-HTH/2019-2023-01': { rows:[
+        r('Luật','Quốc hội','65/2006/QH11','29/06/2006','Luật Luật sư','Thay thế','Các nội dung được rà soát theo Báo cáo số 334/BC-TCT ngày 19/10/2023 của Tổ công tác','Cục Bổ trợ tư pháp','Giai đoạn 2025-2026'),
+        r('Luật','Quốc hội','53/2014/QH13','20/06/2014','Công chứng','Thay thế','Các nội dung được rà soát theo Báo cáo số 229/BC-BTP ngày 15/10/2021','Cục Bổ trợ tư pháp','Kỳ họp tháng 10/2024'),
+        r('Nghị định','Chính phủ','85/2013/NĐ-CP','29/07/2013','Quy định chi tiết và biện pháp thi hành Luật Giám định tư pháp','Sửa đổi','Các nội dung đã được rà soát theo Báo cáo số 20/BC-TCT ngày 28/01/2022','Cục Bổ trợ tư pháp','Năm 2024'),
+        r('Thông tư','Bộ Tư pháp','01/2010/TT-BTP','09/02/2010','Quy định chi tiết và hướng dẫn thi hành Nghị định 77/2008/NĐ-CP về tư vấn pháp luật','Sửa đổi','Các nội dung được rà soát theo Báo cáo số 334/BC-TCT','Cục Bổ trợ tư pháp','Năm 2024'),
+        r('','','','','','Ban hành mới','Cần ban hành văn bản về chuyển đổi số trong công tác hệ thống hóa','Cục Kiểm tra VBQPPL','Năm 2025'),
+      ], savedAt:'15/03/2024' },
+      'KH-HTH/2014-2018-01': { rows:[
+        r('Nghị định','Chính phủ','20/2011/NĐ-CP','15/03/2011','Quy định chính sách trợ giúp xã hội đối với đối tượng bảo trợ xã hội','Sửa đổi, bổ sung','Bổ sung đối tượng thụ hưởng theo quy định mới','Vụ Pháp chế','Năm 2018'),
+        r('Thông tư','Bộ Tư pháp','04/2012/TT-BTP','28/05/2012','Hướng dẫn một số nội dung về đăng ký và quản lý hộ tịch','Sửa đổi, bổ sung','Cập nhật quy trình đăng ký hộ tịch trực tuyến','Cục Hộ tịch, quốc tịch, chứng thực','Quý III/2018'),
+        r('Quyết định','UBND tỉnh','18/2013/QĐ-UBND','05/06/2013','Quy định về trợ giúp pháp lý trên địa bàn tỉnh','Bãi bỏ','Văn bản căn cứ đã hết hiệu lực','Cục Bổ trợ tư pháp','Quý IV/2018'),
+      ], savedAt:'20/06/2019' },
+    };
+  }
+  m04RxData(){
+    const r = (loai,cq,so,ngay,ty,kn,lyDo,dv,ngayRs)=>({ loai,cq,so,ngay,ty,kienNghi:kn,lyDo,dv,ngayRs });
+    return [
+      r('Nghị định','Chính phủ','34/2016/NĐ-CP','14/05/2016','Quy định chi tiết một số điều và biện pháp thi hành Luật Ban hành VBQPPL','Sửa đổi, bổ sung','Cần sửa đổi khoản 2 Điều 12 cho phù hợp Luật năm 2025','Cục Kiểm tra VBQPPL','12/03/2026'),
+      r('Thông tư','Bộ Tư pháp','07/2017/TT-BTP','28/07/2017','Hướng dẫn công tác kiểm tra, xử lý văn bản quy phạm pháp luật','Sửa đổi, bổ sung','Cần cập nhật theo Nghị định 79/2025/NĐ-CP','Cục Kiểm tra VBQPPL','20/03/2026'),
+      r('Luật','Quốc hội','80/2015/QH13','22/06/2015','Luật Ban hành văn bản quy phạm pháp luật','Thay thế','Đã có Luật Ban hành VBQPPL năm 2025','Vụ Pháp chế','05/04/2026'),
+      r('Nghị định','Chính phủ','43/2014/NĐ-CP','15/05/2014','Quy định chi tiết thi hành một số điều của Luật Đất đai','Bãi bỏ','Đã được thay thế bởi Nghị định 19/2024/NĐ-CP','Vụ Pháp chế','18/04/2026'),
+      r('Quyết định','UBND tỉnh','52/2015/QĐ-UBND','18/12/2015','Quy định về quản lý hoạt động công chứng trên địa bàn tỉnh','Tạm ngưng hiệu lực','Chờ ban hành văn bản thay thế theo Luật Công chứng sửa đổi','Cục Bổ trợ tư pháp','02/05/2026'),
+      r('Nghị quyết','HĐND tỉnh','27/2021/NQ-HĐND','10/12/2021','Quy định mức thu lệ phí hộ tịch trên địa bàn tỉnh','Sửa đổi, bổ sung','Điều chỉnh mức thu theo quy định mới của Bộ Tài chính','Cục Hộ tịch, quốc tịch, chứng thực','15/05/2026'),
+      r('Thông tư','Bộ Tư pháp','12/2017/TT-BTP','07/12/2017','Hướng dẫn nghiệp vụ rà soát, hệ thống hóa văn bản quy phạm pháp luật','Thay thế','Cần ban hành thông tư mới hướng dẫn NĐ 79/2025/NĐ-CP','Cục Kiểm tra VBQPPL','01/06/2026'),
+      r('','','','','','Ban hành mới','Cần ban hành quy chế kết nối, chia sẻ dữ liệu hệ thống hóa với CSDLQG','Cục Kiểm tra VBQPPL','10/06/2026'),
+      r('Nghị định','Chính phủ','01/2017/NĐ-CP','06/01/2017','Sửa đổi, bổ sung một số nghị định hướng dẫn Luật Đất đai','Bãi bỏ','Nội dung đã được quy định tại Nghị định 19/2024/NĐ-CP','Vụ Pháp chế','22/06/2026'),
+      r('Thông tư','Bộ Tư pháp','03/2019/TT-BTP','20/03/2019','Một số nội dung về hoạt động thống kê của ngành Tư pháp','Thay thế','Không còn phù hợp với Thông tư 17/2025/TT-BTP','Cục Bổ trợ tư pháp','08/07/2026'),
+    ];
+  }
   lvTree(){
     // Cây đơn vị mẫu (ví dụ) dùng chọn "Đơn vị áp dụng" của lĩnh vực
     return [
@@ -3443,11 +3745,13 @@ class Component extends DCLogic {
       { id:'LV-003', ma:'LV_BTP_03', ten:'Bổ trợ tư pháp', moTa:'Luật sư, công chứng, giám định, đấu giá tài sản.', donVi:dv, donVis:all },
       { id:'LV-004', ma:'LV_BTP_04', ten:'Trợ giúp pháp lý', moTa:'Trợ giúp pháp lý cho người nghèo và đối tượng chính sách.', donVi:dv, donVis:all },
       { id:'LV-005', ma:'LV_STP_01', ten:'Hộ tịch (Sở)', moTa:'Lĩnh vực riêng của Sở Tư pháp.', donVi:'Sở Tư pháp', donVis:all },
+      { id:'LV-006', ma:'LV_BTP_05', ten:'Luật sư', moTa:'Tổ chức và hoạt động luật sư.', donVi:dv, donVis:['Cục Bổ trợ tư pháp'], cha:'LV-003' },
+      { id:'LV-007', ma:'LV_BTP_06', ten:'Công chứng', moTa:'Tổ chức và hoạt động công chứng.', donVi:dv, donVis:['Cục Bổ trợ tư pháp','Vụ Pháp chế'], cha:'LV-003' },
     ];
   }
   seedDinhChinh(){
     return [
-      { id:'DC-001', so:'52/2015/QĐ-UBND', loai:'Quyết định', ty:'Quy định về quản lý hoạt động công chứng trên địa bàn tỉnh', lv:'Bổ trợ tư pháp', truong:'Tình trạng hiệu lực', giaTriCu:'Còn hiệu lực', giaTriMoi:'Hết hiệu lực', lyDo:'Đã được thay thế bởi Quyết định 18/2023/QĐ-UBND, cập nhật lại tình trạng hiệu lực trong tập.', nguoi:'Trần Văn B', ngay:'12/05/2025', tt:'cho', lyDoTuChoi:'' },
+      { id:'DC-001', so:'52/2015/QĐ-UBND', loai:'Quyết định', ty:'Quy định về quản lý hoạt động công chứng trên địa bàn tỉnh', lv:'Bổ trợ tư pháp', truong:'Tình trạng hiệu lực', giaTriCu:'Còn hiệu lực', giaTriMoi:'Hết hiệu lực', lyDo:'Đã được thay thế bởi Quyết định 18/2023/QĐ-UBND, cập nhật lại tình trạng hiệu lực trong tập.', nguoi:'Trần Văn B', ngay:'12/05/2025', tt:'luu', lyDoTuChoi:'' },
       { id:'DC-002', so:'12/2017/TT-BTP', loai:'Thông tư', ty:'Hướng dẫn nghiệp vụ rà soát, hệ thống hóa VBQPPL', lv:'Tư pháp', truong:'Ngày ban hành', giaTriCu:'07/12/2017', giaTriMoi:'07/11/2017', lyDo:'Sai sót số liệu ngày ban hành khi nhập tập hệ thống hóa.', nguoi:'Lê Thị C', ngay:'15/05/2025', tt:'duyet', lyDoTuChoi:'' },
       { id:'DC-003', so:'27/2021/NQ-HĐND', loai:'Nghị quyết', ty:'Quy định mức thu lệ phí hộ tịch trên địa bàn tỉnh', lv:'Hộ tịch', truong:'Tên gọi/trích yếu', giaTriCu:'Quy định mức thu lệ phí hộ tịch', giaTriMoi:'Quy định mức thu lệ phí hộ tịch trên địa bàn tỉnh', lyDo:'Bổ sung đầy đủ tên gọi văn bản.', nguoi:'Trần Văn B', ngay:'02/04/2025', tt:'duyet', lyDoTuChoi:'' },
     ];
@@ -3502,7 +3806,22 @@ class Component extends DCLogic {
     return { lv:'', loai:'', cq:'', so:'', ngay:'', ty:'', hieuLucNgay:'', hl:'Còn hiệu lực', kienNghi:'Không cần xử lý', ghiChu:'' };
   }
 
+  sampleDocRows(kind){
+    const r=(lv,loai,cq,so,ngay,ty,hieuLucNgay,hl,ghiChu)=>({ lv,loai,cq,so,ngay,ty,hieuLucNgay,hl,kienNghi:'Không cần xử lý',ghiChu });
+    if(kind==='prev') return [
+      r('Tư pháp','Nghị định','Chính phủ','34/2016/NĐ-CP','14/05/2016','Quy định chi tiết một số điều và biện pháp thi hành Luật Ban hành văn bản quy phạm pháp luật','01/07/2016','Hết hiệu lực một phần','Văn bản sửa đổi, bổ sung: Nghị định 154/2020/NĐ-CP'),
+      r('Tư pháp','Thông tư LT','Bộ Công an; Bộ Quốc phòng','09/2013/TTLT-BCA-BQP','28/08/2013','Hướng dẫn việc cung cấp, trao đổi thông tin','15/10/2013','Tạm ngưng hiệu lực một phần','Tạm ngưng thi hành khoản 2 Điều 5'),
+      r('Tư pháp','Quyết định','Bộ Tư pháp','09/2018/QĐ-BTP','20/09/2018','Ban hành Quy chế phối hợp công tác kiểm tra văn bản','05/10/2018','Hết hiệu lực toàn bộ','Bị bãi bỏ bởi Quyết định 21/2022/QĐ-BTP ngày 15/11/2022'),
+    ];
+    return [
+      r('Tư pháp','Luật','Quốc hội','64/2025/QH15','19/02/2025','Luật Ban hành văn bản quy phạm pháp luật','01/04/2025','Còn hiệu lực',''),
+      r('Tư pháp','Nghị định','Chính phủ','79/2025/NĐ-CP','01/04/2025','Quy định chi tiết một số điều và biện pháp tổ chức thi hành Luật Ban hành văn bản quy phạm pháp luật','01/04/2025','Còn hiệu lực',''),
+      r('Hộ tịch','Thông tư','Bộ Tư pháp','12/2026/TT-BTP','01/06/2026','Hướng dẫn thi hành một số điều của Luật Hộ tịch','01/01/2027','Chưa có hiệu lực',''),
+    ];
+  }
+
   docFormRowFromEdit(d){
+
     return { lv:d.lv||'', loai:d.loai||'', cq:d.cq||'', so:d.so||'', ngay:d.ngay||'', ty:d.ty||'', hieuLucNgay:d.hieuLucNgay||d.ngay||'', hl:this.normalizeTthl(d.hl), kienNghi:d.kienNghi||'Không cần xử lý', ghiChu:d.ghiChu||'' };
   }
 
@@ -3644,7 +3963,7 @@ class Component extends DCLogic {
       }
     });
   }
-  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showLvForm:false, lvEditId:null, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false }); }
+  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showLvForm:false, lvEditId:null, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false, ktView:false, ktSearched:false, m04View:'list', m04Draft:null, m04ShowAdd:false, m04ShowSync:false, m04ShowSend:false }); }
 
   reorderByRank(order, label, newRank){
     const list = (order||[]).slice();
@@ -3945,9 +4264,9 @@ class Component extends DCLogic {
         ['linhvuc','category','Danh mục lĩnh vực'],
       ]),
       ...folder('navQtOpen','account_tree','Hệ thống hóa VBQPPL',[
-        ['doclist','list_alt','Danh sách văn bản HTH'],
+        ...(s.role==='ld' ? [['doclist','list_alt','Danh sách văn bản HTH']] : []),
         ['review','fact_check','Kết quả Hệ thống hóa'],
-        ['dinhchinh','edit_document','Đính chính', ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); }],
+        ...(s.role==='ld' ? [['dinhchinh','edit_document','Đính chính', ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); }]] : []),
         ['set','menu_book','Tập hệ thống hóa'],
         ['tracuu','manage_search','Tra cứu dữ liệu HTH'],
         ['catalog','tune','Cấu hình tiêu chí sắp xếp'],
@@ -3970,10 +4289,10 @@ class Component extends DCLogic {
       ['2','Lập danh sách văn bản thuộc đối tượng hệ thống hóa','Chuyên viên / đơn vị','list_alt','doclist',false],
       ['3','Xem chi tiết kết quả rà soát văn bản','Chuyên viên / đơn vị','fact_check','review',false],
       ['4','Lập danh mục văn bản và Tập hệ thống hóa','Chuyên viên / đơn vị','folder_open','catalog',false],
-      ['5','Công bố danh mục văn bản và Tập hệ thống hóa','Lãnh đạo','verified','set',true],
+      ['5','Công bố danh mục văn bản và Tập hệ thống hóa','Cán bộ Tổng hợp','verified','set',true],
       ['6','Tìm kiếm danh mục, tập cần đính chính','Chuyên viên / đơn vị','search','set',false],
       ['7','Đính chính danh mục, tập hệ thống hóa','Chuyên viên / đơn vị','edit_document','set',false],
-      ['8','Công bố lại danh mục và tập đính chính','Lãnh đạo','published_with_changes','set',true],
+      ['8','Công bố lại danh mục và tập đính chính','Cán bộ Tổng hợp','published_with_changes','set',true],
     ];
     const flow = flowDefs.map(d => ({
       n:d[0], title:d[1], actor:d[2], icon:d[3], go:this.go(d[4]),
@@ -4225,7 +4544,7 @@ class Component extends DCLogic {
     const syncedForKy = (syncMap[syncKey] || syncMap[docKyApplied] || []).map(d=>({ ...d, srcCsdl: d.nguon==='csdl', srcManual: d.nguon==='manual' }));
     let _docSeq = 0;
     const docBase = docGroups.flatMap(g=>g.items).filter(d=> !appliedKyLabel || d.ky===appliedKyLabel);
-    const docList = [ ...syncedForKy, ...docBase ].map((d,i)=>{
+    const docList = [ ...syncedForKy ].map((d,i)=>{
       const loaiVb = d.loaiVb || ((d.ky === '2019 – 2023' || i % 3 === 0) ? 'VB HTH kỳ trước' : 'VB HTH kỳ hiện tại');
       const isKyTruoc = loaiVb === 'VB HTH kỳ trước';
       const isKyHienTai = loaiVb === 'VB HTH kỳ hiện tại';
@@ -4241,7 +4560,7 @@ class Component extends DCLogic {
         hl: hlCol,
         hlC: hlColStl.c,
         hlB: hlColStl.b,
-        hlHienTai,
+        hlHienTai, ghiChuHt: (d.ghiChu||''),
         hlHienTaiC: hlHienTaiStl.c,
         hlHienTaiB: hlHienTaiStl.b,
         kienNghi: d.kienNghi || 'Không cần xử lý',
@@ -4341,7 +4660,7 @@ class Component extends DCLogic {
     const tcCurCode = s.tcType ? 'Mẫu số '+String(mauBieuDefs.findIndex(t=>t[0]===s.tcType)+1).padStart(2,'0') : '';
 
     return {
-      role, roleLabel: role==='ld' ? 'Lãnh đạo' : 'Chuyên viên',
+      role, roleLabel: role==='ld' ? 'Cán bộ Tổng hợp' : 'Chuyên viên',
       roleCvBg: role==='cv' ? '#ffffff' : 'transparent', roleCvFg: role==='cv' ? '#0e4c8f' : '#d6e6fb',
       roleLdBg: role==='ld' ? '#ffffff' : 'transparent', roleLdFg: role==='ld' ? '#0e4c8f' : '#d6e6fb',
       setChuyenVien: () => this.setState({ role:'cv', reviewAgg:false, reviewUnit:null }),
@@ -4396,16 +4715,30 @@ class Component extends DCLogic {
         const all = s.lvList || this.lvSeed();
         const kw = (s.lvKwA||'').trim().toLowerCase();
         const own = all.filter(x=>x.donVi===dv);
-        const shown = own.filter(x=>!kw || x.ten.toLowerCase().includes(kw));
-        const dr = s.lvDraft || { ma:'', ten:'', moTa:'', donVis:[] };
+        const byCha = {};
+        own.forEach(x=>{ if(x.cha && own.some(y=>y.id===x.cha)) (byCha[x.cha] = byCha[x.cha] || []).push(x); });
+        const rootsAll = own.filter(x=>!x.cha || !own.some(y=>y.id===x.cha));
+        const lvMatch = (x)=>!kw || x.ten.toLowerCase().includes(kw);
+        const ordered = [];
+        let rootNo = 0;
+        rootsAll.forEach(r=>{
+          const rm = lvMatch(r);
+          const kids = (byCha[r.id]||[]).filter(k=>rm || lvMatch(k));
+          if(!rm && !kids.length) return;
+          rootNo++;
+          ordered.push({ x:r, level:0, stt:String(rootNo) });
+          kids.forEach((k,ki)=>ordered.push({ x:k, level:1, stt:rootNo+'.'+(ki+1) }));
+        });
+        const shown = ordered.map(o=>o.x);
+        const dr = s.lvDraft || { ma:'', ten:'', moTa:'', donVis:[], cha:'' };
         const dvCode = dv.split(/\s+/).filter(Boolean).map(w=>w.charAt(0)).join('').toUpperCase();
-        const tree = this.lvTree();
+        const tree = s.role==='cv' ? this.lvTree().filter(r=>r.name===dv) : this.lvTree();
         const unitText = (list)=>{
           const set = new Set(list||[]); const parts = [];
           tree.forEach(r=>{ const picked = r.children.filter(c=>set.has(c)); if(!picked.length) return; parts.push(picked.length===r.children.length ? r.name : picked.join(', ')); });
           return parts.join('; ') || '—';
         };
-        const setDonVis = (fn)=>this.setState(st=>{ const d = st.lvDraft || { ma:'', ten:'', moTa:'', donVis:[] }; return { lvDraft:{ ...d, donVis: fn(d.donVis||[]) } }; });
+        const setDonVis = (fn)=>this.setState(st=>{ const d = st.lvDraft || { ma:'', ten:'', moTa:'', donVis:[], cha:'' }; return { lvDraft:{ ...d, donVis: fn(d.donVis||[]) } }; });
         const openMap = s.lvOpen || {};
         const selSet = new Set(dr.donVis||[]);
         const lvTreeRows = [];
@@ -4424,7 +4757,16 @@ class Component extends DCLogic {
           const max = list.filter(x=>x.donVi===dv && x.ma.indexOf(pre)===0).reduce((m,x)=>Math.max(m, parseInt(x.ma.slice(pre.length),10)||0), 0);
           return pre + String(max+1).padStart(2,'0');
         };
-        const setDr = (k)=>(e)=>{ const v=e.target.value; this.setState(st=>({ lvDraft:{ ...(st.lvDraft||{ ma:'', ten:'', moTa:'', donVis:[] }), [k]:v } })); };
+        const selDv = dr.donVis||[];
+        const editHasKids = !!s.lvEditId && (byCha[s.lvEditId]||[]).length>0;
+        const setCha = (id)=>this.setState(st=>({ lvDraft:{ ...(st.lvDraft||{ ma:'', ten:'', moTa:'', donVis:[], cha:'' }), cha:id } }));
+        const lvChaRows = [{ isChild:false, name:'— Không có (tạo lĩnh vực cấp cha) —', checked:!dr.cha, disabled:false, opacity:1, pick:()=>setCha('') }];
+        rootsAll.filter(r=>r.id!==s.lvEditId).forEach(r=>{
+          const covers = selDv.every(d=>(r.donVis||[]).includes(d));
+          lvChaRows.push({ isChild:false, name:r.ma+' – '+r.ten, checked:dr.cha===r.id, disabled:!covers, opacity:covers?1:0.45, pick:()=>setCha(r.id) });
+          (byCha[r.id]||[]).forEach(k=>lvChaRows.push({ isChild:true, name:k.ma+' – '+k.ten, checked:false, disabled:true, opacity:0.55, pick:()=>{} }));
+        });
+        const setDr = (k)=>(e)=>{ const v=e.target.value; this.setState(st=>({ lvDraft:{ ...(st.lvDraft||{ ma:'', ten:'', moTa:'', donVis:[], cha:'' }), [k]:v } })); };
         return {
           isLinhVuc: s.screen==='linhvuc',
           lvDonVi: dv,
@@ -4436,8 +4778,8 @@ class Component extends DCLogic {
           setLvKw: (e)=>this.setState({ lvKw:e.target.value }),
           applyLvSearch: ()=>this.setState(st=>({ lvKwA:st.lvKw||'' })),
           resetLvSearch: ()=>this.setState({ lvKw:'', lvKwA:'' }),
-          openLvForm: ()=>this.setState({ showLvForm:true, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'', donVis:[] } }),
-          closeLvForm: ()=>this.setState({ showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'', donVis:[] } }),
+          openLvForm: ()=>this.setState({ showLvForm:true, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'', donVis:[], cha:'' } }),
+          closeLvForm: ()=>this.setState({ showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'', donVis:[], cha:'' } }),
           saveLv: ()=>{
             const st = this.state;
             const d = st.lvDraft || {};
@@ -4448,28 +4790,44 @@ class Component extends DCLogic {
             const list = (st.lvList || this.lvSeed()).slice();
             const dup = list.some(x=>x.donVi===dv && x.id!==st.lvEditId && x.ten.toLowerCase()===ten.toLowerCase());
             if(dup){ alert('Tên lĩnh vực đã tồn tại trong đơn vị.'); return; }
-            const item = { donVis, ten, moTa:String(d.moTa||'').trim() || '—', donVi:dv };
+            const cha = d.cha || '';
+            if(cha){
+              const p = list.find(x=>x.id===cha);
+              if(!p || p.cha || p.donVi!==dv){ alert('Lĩnh vực cha không hợp lệ (chỉ hỗ trợ 2 cấp).'); return; }
+              if(donVis.some(u=>!(p.donVis||[]).includes(u))){ alert('Đơn vị áp dụng của lĩnh vực con phải nằm trong đơn vị áp dụng của lĩnh vực cha.'); return; }
+              if(st.lvEditId && list.some(x=>x.cha===st.lvEditId)){ alert('Lĩnh vực đang có lĩnh vực con nên không thể chuyển thành lĩnh vực con.'); return; }
+            }
+            if(st.lvEditId){
+              const kidBad = list.filter(x=>x.cha===st.lvEditId && (x.donVis||[]).some(u=>!donVis.includes(u)));
+              if(kidBad.length){ alert('Không thể bỏ đơn vị đang được lĩnh vực con sử dụng: '+kidBad.map(x=>x.ten).join(', ')+'.'); return; }
+            }
+            const item = { donVis, ten, moTa:String(d.moTa||'').trim() || '—', donVi:dv, cha };
             if(st.lvEditId){
               const i = list.findIndex(x=>x.id===st.lvEditId);
               if(i>=0) list[i] = { ...list[i], ...item };
             } else {
               list.push({ id:'LV-'+String(list.length+1).padStart(3,'0'), ma:nextCode(list), ...item });
             }
-            this.setState({ lvList:list, showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'', donVis:[] } });
+            this.setState({ lvList:list, showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'', donVis:[], cha:'' } });
           },
-          lvRows: shown.map((x,i)=>({
-            ...x, idx:i+1, donViText: unitText(x.donVis),
-            edit: ()=>this.setState({ showLvForm:true, lvEditId:x.id, lvDraft:{ ma:x.ma, ten:x.ten, moTa:x.moTa==='—'?'':x.moTa, donVis:(x.donVis||[]).slice() } }),
-            remove: ()=>{ if(confirm('Xóa lĩnh vực "'+x.ten+'"?')) this.setState(st=>({ lvList:(st.lvList||this.lvSeed()).filter(y=>y.id!==x.id) })); },
-          })),
+          lvRows: ordered.map(o=>{ const x = o.x; return {
+            ...x, idx:o.stt, donViText: unitText(x.donVis),
+            isChildRow: o.level>0, padLeft: o.level>0 ? '36px' : '12px', fw: o.level>0 ? '500' : '700',
+            edit: ()=>this.setState({ showLvForm:true, lvEditId:x.id, lvDraft:{ ma:x.ma, ten:x.ten, moTa:x.moTa==='—'?'':x.moTa, donVis:(x.donVis||[]).slice(), cha:x.cha||'' } }),
+            remove: ()=>{
+              if((byCha[x.id]||[]).length){ alert('Lĩnh vực "'+x.ten+'" đang có lĩnh vực con. Vui lòng xóa các lĩnh vực con trước.'); return; }
+              if(confirm('Xóa lĩnh vực "'+x.ten+'"?')) this.setState(st=>({ lvList:(st.lvList||this.lvSeed()).filter(y=>y.id!==x.id) }));
+            },
+          }; }),
+          lvChaRows, lvChaEditable: !editHasKids, lvChaLocked: editHasKids,
           lvTreeRows,
           lvEmpty: !own.length,
           lvCount: shown.length,
           lvFrom: shown.length ? 1 : 0,
           exportLv: ()=>{
             const esc = (v)=>'"' + String(v==null?'':v).replace(/"/g,'""') + '"';
-            const lines = [ ['STT','Mã lĩnh vực','Tên lĩnh vực','Mô tả','Đơn vị áp dụng'].map(esc).join(',') ];
-            shown.forEach((x,i)=>lines.push([i+1,x.ma,x.ten,x.moTa,unitText(x.donVis)].map(esc).join(',')));
+            const lines = [ ['STT','Mã lĩnh vực','Tên lĩnh vực','Lĩnh vực cha','Mô tả','Đơn vị áp dụng'].map(esc).join(',') ];
+            ordered.forEach(o=>{ const x = o.x; const p = x.cha ? own.find(y=>y.id===x.cha) : null; lines.push([o.stt,x.ma,x.ten,p?p.ten:'',x.moTa,unitText(x.donVis)].map(esc).join(',')); });
             try {
               const blob = new Blob(['\ufeff'+lines.join('\r\n')], { type:'text/csv;charset=utf-8' });
               const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'danh_muc_linh_vuc.csv';
@@ -4636,11 +4994,11 @@ class Component extends DCLogic {
       detail: s.selectedDoc ? docs.find(d=>d.so===s.selectedDoc) : null,
       hasDetail: !!s.selectedDoc,
       rsRows: mauBieuDefs.map((t,i)=>{
-        return { ma:t[0], ten:t[1], isM04: t[0]==='can-xu-ly', showNote: t[0]==='can-xu-ly' && !!s.rsM04NoteOpen, toggleNote: ()=>this.setState(st=>({ rsM04NoteOpen: !st.rsM04NoteOpen })), stt:i+1, nam:'2026', dot:'Kỳ HTH 2024-2028', canEdit: t[0]!=='tap-hth',
-          count: (t[0]==='can-xu-ly' && (s.rsM04State||{})[s.reviewPlanMa]) ? ((s.rsMauRows||{})['04']||[]).filter(r=>r.so||r.ten||r.ndKienNghi).length : docs.filter(t[2]).length,
+        return { ma:t[0], ten:t[1], isM04: t[0]==='can-xu-ly', showUnitsLink: (t[0]==='can-xu-ly' && role==='ld'), openUnits: ()=>{ const stt=this.state; const sv=(stt.m04Saved||this.m04Seed())[stt.reviewPlanMa]; const pl=(stt.plans||[]).find(x=>x.ma===stt.reviewPlanMa)||{}; this.setState({ m04View:'units', m04Draft:{ ma:stt.reviewPlanMa, ky:pl.ky||'', rows:(sv?sv.rows:[]).map(r=>({...r})), readOnly:true, fromUnits:true, fromPlan:true } }); }, showNote: t[0]==='can-xu-ly' && (role==='ld' || !!s.rsM04NoteOpen), noteText: role==='ld' ? 'Lưu ý: Dữ liệu Mẫu 04 được tự động lấy từ các đơn vị cấp dưới.' : 'Lưu ý: Dữ liệu Mẫu 04 được đồng bộ từ kết quả rà soát thường xuyên (RSTX), theo đơn vị thực hiện rà soát.', toggleNote: ()=>this.setState(st=>({ rsM04NoteOpen: !st.rsM04NoteOpen })), stt:i+1, nam:'2026', dot:'Kỳ HTH 2024-2028', canEdit: t[0]!=='tap-hth', canEditRole: role==='cv' ? (t[0]==='can-xu-ly' && !(s.rsPlanPublished||{})[s.reviewPlanMa]) : (role==='ld' && t[0]!=='tap-hth' && !(s.rsPlanPublished||{})[s.reviewPlanMa]),
+          count: (t[0]==='can-xu-ly' && (s.m04Saved||this.m04Seed())[s.reviewPlanMa]) ? (s.m04Saved||this.m04Seed())[s.reviewPlanMa].rows.length : ((t[0]==='can-xu-ly' && (s.rsM04State||{})[s.reviewPlanMa]) ? ((s.rsMauRows||{})['04']||[]).filter(r=>r.so||r.ten||r.ndKienNghi).length : docs.filter(t[2]).length),
           published: !!(s.rsPublished||{})[t[0]],
-          open: ()=>this.setState({ reviewType:t[0] }),
-          editType: ()=>{
+          open: (t[0]==='can-xu-ly' && role==='ld') ? ()=>{ const stt=this.state; const sv=(stt.m04Saved||this.m04Seed())[stt.reviewPlanMa]; const pl=(stt.plans||[]).find(x=>x.ma===stt.reviewPlanMa)||{}; this.setState({ m04View:'edit', m04Draft:{ ma:stt.reviewPlanMa, ky:pl.ky||'', rows:(sv?sv.rows:[]).map(r=>({...r})), readOnly:true, fromUnits:true } }); } : ()=>this.setState({ reviewType:t[0] }),
+          editType: (t[0]==='can-xu-ly' && role==='ld') ? ()=>{ const stt=this.state; const sv=(stt.m04Saved||this.m04Seed())[stt.reviewPlanMa]; const pl=(stt.plans||[]).find(x=>x.ma===stt.reviewPlanMa)||{}; this.setState({ m04View:'edit', m04Draft:{ ma:stt.reviewPlanMa, ky:pl.ky||'', rows:(sv?sv.rows:[]).map(r=>({...r})), readOnly:false, fromUnits:true } }); } : ()=>{
             const code = ({'het-toan-bo':'01','het-mot-phan':'02','con-hieu-luc':'03','can-xu-ly':'04','tap-hth':'05'})[t[0]]||'';
             this.setState(st=>{
               const stored = (st.rsMauRows||{})[code];
@@ -4662,14 +5020,10 @@ class Component extends DCLogic {
               };
             });
           } };
-      }),
+      }).filter(r=> role==='cv' ? r.ma==='can-xu-ly' : true).map((r,i)=>({ ...r, stt:i+1 })),
       showRsPublishConfirm: !!s.showRsPublishConfirm,
       openRsPublishConfirm: ()=>{
         const st = this.state;
-        if(!(st.rsPlanApproved||{})[st.reviewPlanMa]){
-          alert('Bạn cần duyệt kết quả hệ thống hóa trước khi công bố.');
-          return;
-        }
         this.setState({ showRsPublishConfirm:true });
       },
       cancelRsPublishConfirm: ()=>this.setState({ showRsPublishConfirm:false }),
@@ -4747,10 +5101,6 @@ class Component extends DCLogic {
       showRsTypePublishConfirm: !!s.showRsTypePublishConfirm,
       openRsTypePublishConfirm: ()=>{
         const st = this.state;
-        if(!(st.rsPlanApproved||{})[st.reviewPlanMa]){
-          alert('Bạn cần duyệt kết quả hệ thống hóa trước khi công bố.');
-          return;
-        }
         if(!st.reviewType) return;
         this.setState({ showRsTypePublishConfirm:true });
       },
@@ -4763,7 +5113,7 @@ class Component extends DCLogic {
         if(allTypes.every(t=> np[t[0]]) && st.reviewPlanMa) planPub[st.reviewPlanMa]=true;
         return { showRsTypePublishConfirm:false, rsPublished:np, rsPlanPublished:planPub };
       }),
-      rsTotal: mauBieuDefs.length,
+      rsTotal: role==='cv' ? 1 : mauBieuDefs.length,
       rsAggUnitCount: 4,
       openAgg: ()=>this.setState({ showAggConfirm:true }),
       closeAgg: ()=>this.setState({ reviewAgg:false, showAggConfirm:false }),
@@ -4846,8 +5196,8 @@ class Component extends DCLogic {
         const ma = p.ma;
         if((s.rsPlanPublished||{})[ma]) return 'Đã công bố';
         if((s.rsPlanApproved||{})[ma]) return 'Đã duyệt';
-        if((s.rsPlanSent||{})[ma]) return 'Chờ duyệt';
-        if((s.rsPlanRejected||{})[ma]) return 'Bị từ chối';
+        if((s.rsPlanSent||{})[ma]) return 'Đã gửi';
+        if((s.rsPlanRejected||{})[ma]) return 'Bị trả lại';
         if((s.rsHthCreated||{})[ma]) return 'Đã tạo';
         return '';
       },
@@ -4858,8 +5208,8 @@ class Component extends DCLogic {
       rsPlanStatusStyle: (label)=>{
         const map = {
           'Đã tạo': ['#52c41a','#f6ffed'],
-          'Bị từ chối': ['#ff4d4f','#fff1f0'],
-          'Chờ duyệt': ['#fa8c16','#fffbe6'],
+          'Bị trả lại': ['#ff4d4f','#fff1f0'],
+          'Đã gửi': ['#fa8c16','#fffbe6'],
           'Đã duyệt': ['#1890ff','#e6f7ff'],
           'Đã công bố': ['#b8860b','#fbf2dc']
         };
@@ -4876,8 +5226,8 @@ class Component extends DCLogic {
           const ma = p.ma;
           if((s.rsPlanPublished||{})[ma]) return 'Đã công bố';
           if((s.rsPlanApproved||{})[ma]) return 'Đã duyệt';
-          if((s.rsPlanSent||{})[ma]) return 'Chờ duyệt';
-          if((s.rsPlanRejected||{})[ma]) return 'Bị từ chối';
+          if((s.rsPlanSent||{})[ma]) return 'Đã gửi';
+          if((s.rsPlanRejected||{})[ma]) return 'Bị trả lại';
           if((s.rsHthCreated||{})[ma]) return 'Đã tạo';
           return '';
         };
@@ -4887,9 +5237,9 @@ class Component extends DCLogic {
         };
         const styleOf = (label)=>{
           const map = {
-            'Bị từ chối': ['#ff4d4f','#fff1f0'],
+            'Bị trả lại': ['#ff4d4f','#fff1f0'],
             'Đã tạo': ['#52c41a','#f6ffed'],
-            'Chờ duyệt': ['#fa8c16','#fffbe6'],
+            'Đã gửi': ['#fa8c16','#fffbe6'],
             'Đã duyệt': ['#1890ff','#e6f7ff'],
             'Đã công bố': ['#b8860b','#fbf2dc']
           };
@@ -4900,17 +5250,17 @@ class Component extends DCLogic {
           const ttLabel = statusOf(p);
           const st = styleOf(ttLabel);
           const published = !!(s.rsPlanPublished||{})[p.ma];
-          const ldVisible = ttLabel==='Chờ duyệt' || ttLabel==='Bị từ chối' || ttLabel==='Đã duyệt' || ttLabel==='Đã công bố';
+          const ldVisible = true;
           const approvedCount = dinhListForChange.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===p.ky).length;
           const hasChange = published && approvedCount > ((s.rsRepublishedCount||{})[p.ma]||0);
           return {
             ...p, ttLabel, ttColor:st[0], ttBg:st[1], ldVisible, hasChange,
-            canLdEdit: role==='ld' && ldVisible && !published && ttLabel!=='Bị từ chối',
+            canLdEdit: role==='ld' && ldVisible && !published && ttLabel!=='Bị trả lại',
             open: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:false }),
             edit: ()=>this.setState({ reviewPlanMa:p.ma, reviewType:null, reviewAdd:false, reviewAgg:false, reviewUnit:null, rsLdEditMode:true })
           };
         }).filter(p=>{
-          if(role==='ld' && !p.ldVisible) return false;
+          
           return !ttF || p.ttLabel===ttF;
         }).map((p,i)=>({ ...p, idx:i+1 }));
       })(),
@@ -4926,10 +5276,10 @@ class Component extends DCLogic {
           if(!(s.rsHthCreated||{})[ma] && !(s.rsPlanSent||{})[ma] && !(s.rsPlanApproved||{})[ma] && !(s.rsPlanPublished||{})[ma] && !(s.rsPlanRejected||{})[ma]) return false;
           const ttLabel = (s.rsPlanPublished||{})[ma] ? 'Đã công bố'
             : (s.rsPlanApproved||{})[ma] ? 'Đã duyệt'
-            : (s.rsPlanSent||{})[ma] ? 'Chờ duyệt'
-            : (s.rsPlanRejected||{})[ma] ? 'Bị từ chối'
+            : (s.rsPlanSent||{})[ma] ? 'Đã gửi'
+            : (s.rsPlanRejected||{})[ma] ? 'Bị trả lại'
             : 'Đã tạo';
-          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Bị từ chối' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
+          
           return !ttF || ttLabel===ttF;
         });
         return list.length;
@@ -4946,10 +5296,10 @@ class Component extends DCLogic {
           if(!(s.rsHthCreated||{})[ma] && !(s.rsPlanSent||{})[ma] && !(s.rsPlanApproved||{})[ma] && !(s.rsPlanPublished||{})[ma] && !(s.rsPlanRejected||{})[ma]) return false;
           const ttLabel = (s.rsPlanPublished||{})[ma] ? 'Đã công bố'
             : (s.rsPlanApproved||{})[ma] ? 'Đã duyệt'
-            : (s.rsPlanSent||{})[ma] ? 'Chờ duyệt'
-            : (s.rsPlanRejected||{})[ma] ? 'Bị từ chối'
+            : (s.rsPlanSent||{})[ma] ? 'Đã gửi'
+            : (s.rsPlanRejected||{})[ma] ? 'Bị trả lại'
             : 'Đã tạo';
-          if(role==='ld' && ttLabel!=='Chờ duyệt' && ttLabel!=='Bị từ chối' && ttLabel!=='Đã duyệt' && ttLabel!=='Đã công bố') return false;
+          
           return !ttF || ttLabel===ttF;
         });
         return list.length===0;
@@ -4957,9 +5307,9 @@ class Component extends DCLogic {
       rsPlanEmptyMsg: (()=>{
         const hasFilter = !!(s.rsPlanKy || s.rsPlanTen || s.rsPlanTt);
         if(hasFilter) return 'Không tìm thấy kế hoạch phù hợp với điều kiện tìm kiếm.';
-        if(role==='ld') return 'Chưa có kết quả hệ thống hóa chờ duyệt / công bố.';
+        if(role==='ld') return 'Chưa có kết quả hệ thống hóa. Nhấn Tạo kết quả hệ thống hóa để thêm mới.';
         if(!(s.plans||[]).length) return 'Chưa có kế hoạch. Vui lòng thêm tại menu Kế hoạch hệ thống hóa.';
-        return 'Chưa có kết quả hệ thống hóa. Nhấn Tạo kết quả HTH để thêm mới.';
+        return 'Chưa có kết quả hệ thống hóa. Cán bộ Tổng hợp tạo kết quả trước, sau đó bạn thực hiện Mẫu 04.';
       })(),
       backToRsPlans: ()=>this.setState(st=>{
         const ma = st.reviewPlanMa;
@@ -4969,6 +5319,10 @@ class Component extends DCLogic {
       }),
       rsLdEditMode: !!s.rsLdEditMode && role==='ld',
       rsLdCanEditRows: !!s.rsLdEditMode && role==='ld',
+      rsM04Sent: !!(s.reviewPlanMa && (s.rsPlanSent||{})[s.reviewPlanMa]),
+      rsRoleNote: role==='cv'
+        ? 'Mẫu 04 chỉ dành cho Chuyên viên thực hiện. Mẫu 01, 02, 03, 05 do Cán bộ Tổng hợp thực hiện.'
+        : 'Mẫu 01, 02, 03, 05 do Cán bộ Tổng hợp thực hiện. Mẫu 04 tự động lấy dữ liệu từ các đơn vị cấp dưới (Chuyên viên thực hiện), Cán bộ Tổng hợp xem, tổng hợp và có thể trả lại.',
       rsSaveLd: ()=>this.setState(st=>{
         const ns={ ...(st.rsSaved||{}) };
         mauBieuDefs.forEach(t=>ns[t[0]]=true);
@@ -4999,7 +5353,7 @@ class Component extends DCLogic {
         const codeMap = { 'het-toan-bo':'01','het-mot-phan':'02','con-hieu-luc':'03','can-xu-ly':'04','tap-hth':'05' };
         mauBieuDefs.forEach(t=>{
           const code = codeMap[t[0]];
-          if(t[0]==='can-xu-ly'){ mauRows['04'] = []; return; } // Mẫu 04: không chia VB khi tạo, chỉ lấy khi đồng bộ RSTX
+          if(t[0]==='can-xu-ly'){ const unitM04 = (st.m04Saved||this.m04Seed())[ma]; mauRows['04'] = unitM04 ? unitM04.rows.map(r=>({...r})) : []; return; } // Mẫu 04: tự động lấy dữ liệu từ các đơn vị cấp dưới
           const filtered = planDocs.filter(t[2]);
           const rows = this.rowsFromTypeDocs(t[0], filtered, detailExtraFor);
           if(code) mauRows[code] = rows;
@@ -5017,7 +5371,7 @@ class Component extends DCLogic {
         });
         const c01 = (mauRows['01']||[]).length, c02 = (mauRows['02']||[]).length;
         const c03 = (mauRows['03']||[]).length, c04 = (mauRows['04']||[]).length, c05 = (mauRows['05']||[]).length;
-        alert('Đã phân loại tự động theo tình trạng hiệu lực và kiến nghị:\n• Mẫu 01: '+c01+' VB\n• Mẫu 02: '+c02+' VB\n• Mẫu 03: '+c03+' VB\n• Mẫu 04: '+c04+' VB\n• Mẫu 05: '+c05+' VB');
+        alert('Đã phân loại tự động theo tình trạng hiệu lực và kiến nghị:\n• Mẫu 01: '+c01+' VB\n• Mẫu 02: '+c02+' VB\n• Mẫu 03: '+c03+' VB\n• Mẫu 04: '+c04+' VB (tự động lấy từ các đơn vị cấp dưới)\n• Mẫu 05: '+c05+' VB');
         return {
           showRsCreateForm:false,
           rsCreatePlanMa:'',
@@ -5328,8 +5682,7 @@ class Component extends DCLogic {
         return defs.map((pl,i)=>{
           const count = (rowsMap[pl.code]||[]).length;
           let ttLabel='Chưa bổ sung', ttColor='#8c8c8c', ttBg='#fafafa';
-          if(sent && count){ ttLabel='Chờ duyệt'; ttColor='#fa8c16'; ttBg='#fffbe6'; }
-          else if(count){ ttLabel='Đã lưu'; ttColor='#52c41a'; ttBg='#f6ffed'; }
+          if(count){ ttLabel='Đã lưu'; ttColor='#52c41a'; ttBg='#f6ffed'; }
           return {
             ...pl, stt:i+1, count, ttLabel, ttColor, ttBg,
             openAdd: ()=>this.setState({ boSungPlSel:pl.code, boSungAdd:true, addMau:pl.code, addRows:[], addSearch:false })
@@ -5359,7 +5712,7 @@ class Component extends DCLogic {
             id:'BS-'+String(list.length+i+1).padStart(3,'0'),
             so:r.so||'(Chưa có số)', loai:r.loai||'', ty:r.ten||'', lv:r.lv||'',
             truong:'Bổ sung văn bản', giaTriCu:'—', giaTriMoi: plLabel + (r.so?(' · '+r.so):''),
-            lyDo:'Bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', tt:'nhap', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code
+            lyDo:'Bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', tt:'luu', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code
           });
         });
         this.setState({ setPlRows:prev, dinhChinh:list, boSungAdd:false, boSungSent:false, addMau:'', addRows:[], addSearch:false });
@@ -5571,10 +5924,10 @@ class Component extends DCLogic {
       }).map((r,ri)=>{
         r = { ...r, stt: ri+1 };
         const map = {
-          nhap: ['Đã tạo','#0e4c8f','#eef3f9'],
-          luu: ['Đã tạo','#0e4c8f','#eef3f9'],
-          cho: ['Chờ duyệt đính chính','#fa8c16','#fffbe6'],
-          duyet: ['Đã duyệt','#52c41a','#f6ffed'],
+          nhap: ['Đã lưu','#0e4c8f','#eef3f9'],
+          luu: ['Đã lưu','#0e4c8f','#eef3f9'],
+          cho: ['Đã lưu','#0e4c8f','#eef3f9'],
+          duyet: ['Đã công bố lại','#52c41a','#f6ffed'],
           tuchoi: ['Từ chối','#ff4d4f','#fff1f0']
         };
         const m = map[r.tt] || map.cho;
@@ -5641,13 +5994,13 @@ class Component extends DCLogic {
         if(!ids.length){ alert('Vui lòng chọn ít nhất 1 bản ghi chờ duyệt.'); return st; }
         return { rejectIds:ids, rejectReason:'' };
       }),
-      saveDinhList: ()=>this.setState(st=>({ dinhChinh: (st.dinhChinh||this.seedDinhChinh()).map(x=>(x.tt==='nhap')?{...x,tt:'luu'}:x) })),
+      saveDinhList: ()=>this.setState(st=>({ dinhChinh: (st.dinhChinh||this.seedDinhChinh()).map(x=>(x.tt==='nhap')?{...x,tt:'luu'}:x), dinhStep:'list', dinhAddConfirmed:false, dinhShowResults:false })),
       showDinhVe: !!s.dinhVeId,
       dinhVeIsEdit: s.dinhVeMode==='edit',
       dinhVeRec: (()=>{
         const r = (s.dinhChinh||this.seedDinhChinh()).find(x=>x.id===s.dinhVeId);
         if(!r) return null;
-        const map = { nhap:['Đã tạo','#0e4c8f','#eef3f9'], luu:['Đã tạo','#0e4c8f','#eef3f9'], cho:['Chờ duyệt đính chính','#fa8c16','#fffbe6'], duyet:['Đã duyệt','#52c41a','#f6ffed'], tuchoi:['Từ chối','#ff4d4f','#fff1f0'] };
+        const map = { nhap:['Đã lưu','#0e4c8f','#eef3f9'], luu:['Đã lưu','#0e4c8f','#eef3f9'], cho:['Đã lưu','#0e4c8f','#eef3f9'], duyet:['Đã công bố lại','#52c41a','#f6ffed'], tuchoi:['Đã lưu','#0e4c8f','#eef3f9'] };
         const m = map[r.tt] || map.cho;
         return { ...r, ttLabel:m[0], ttColor:m[1], ttBg:m[2] };
       })(),
@@ -5664,7 +6017,17 @@ class Component extends DCLogic {
       showSendDinh: !!s.showSendDinh,
       cancelSendDinh: ()=>this.setState({ showSendDinh:false }),
       dinhSendableCount: (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='nhap'||r.tt==='luu').length,
-      confirmSendDinh: ()=>this.setState(st=>({ showSendDinh:false, dinhChinh: (st.dinhChinh||this.seedDinhChinh()).map(x=>(x.tt==='nhap'||x.tt==='luu')?{...x,tt:'cho'}:x) })),
+      dinhHasToPublish: (s.dinhChinh||this.seedDinhChinh()).some(r=>r.tt==='nhap'||r.tt==='luu'),
+      confirmSendDinh: ()=>this.setState(st=>{
+        const base = st.dinhChinh||this.seedDinhChinh();
+        const toPub = base.filter(x=>x.tt==='nhap'||x.tt==='luu');
+        const list = base.map(x=>(x.tt==='nhap'||x.tt==='luu')?{...x,tt:'duyet'}:x);
+        const patches = { ...(st.setDocPatches||{}) };
+        toPub.forEach(r=>{ const prev = patches[r.so]||{}; patches[r.so] = { ...prev, ...this.patchFromDinhRec(r) }; });
+        const counts = { ...(st.rsRepublishedCount||{}) };
+        (st.plans||[]).forEach(pl=>{ counts[pl.ma] = list.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===pl.ky).length; });
+        return { showSendDinh:false, dinhChinh:list, setDocPatches:patches, rsRepublishedCount:counts, setRepublished:true };
+      }),
       dinhPendingCount: (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='cho').length,
       dinhTotalCount: (s.dinhChinh||this.seedDinhChinh()).length,
       hasApprovedDinh: (s.dinhChinh||this.seedDinhChinh()).some(r=>r.tt==='duyet'),
@@ -5825,17 +6188,17 @@ class Component extends DCLogic {
         });
         return { showPlanForm:false, planFormMode:'add', planViewMa:'', plans:list, planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' } };
       }),
-      docGroups, docList,
-      docKyOptions, docKySel, docKyApplied, docKyAppliedLabel, docKyAppliedKy, docKyAppliedTen, docKySelLabel, docKySelKy, docKySelTen, docListCount: docList.length,
+      docGroups, docList: (s.ktSearched ? docList : []),
+      docKyOptions, docKySel, docKyApplied, docKyAppliedLabel, docKyAppliedKy, docKyAppliedTen, docKySelLabel, docKySelKy, docKySelTen, docListCount: (s.ktSearched ? docList.length : 0),
       docSyncTime: s.docSyncTime || '28/06/2025 · 08:15',
       setDocKy: (e)=>this.setState({ docKySel: e.target.value }),
       applyDocKy: ()=>this.setState(st=>{
         const plans2 = st.plans || [];
         const sel = st.docKySel || (plans2[0] && plans2[0].ma) || '';
         if(!sel){ alert('Vui lòng chọn Kỳ HTH từ danh sách kế hoạch đã thêm.'); return st; }
-        return { docKyApplied: sel };
+        return { docKyApplied: sel, ktSearched:true };
       }),
-      resetDocKy: ()=>this.setState(st=>{ const first = ((st.plans||[])[0]||{}).ma || ''; return { docKySel:first, docKyApplied:first }; }),
+      resetDocKy: ()=>this.setState(st=>{ const first = ((st.plans||[])[0]||{}).ma || ''; return { docKySel:first, docKyApplied:first, ktSearched:false }; }),
       syncCsdl: ()=>this.setState(st=>{
         const plans2 = st.plans || [];
         const plan = plans2.find(p=>p.ma===(st.docKySel||st.docKyApplied)) || plans2[0];
@@ -5864,15 +6227,53 @@ class Component extends DCLogic {
         const hlMap = Object.fromEntries(this.tthlValues().map(v=>[v, this.hlColors(v)]));
         const rows = (this.state.docFormRows||[]).filter(r=> (r.so&&String(r.so).trim()) || (r.ty&&String(r.ty).trim()) || (r.loai&&String(r.loai).trim()) );
         if(!rows.length){ alert('Vui lòng nhập ít nhất một văn bản.'); return; }
+        const isPrev = loaiVb==='VB HTH kỳ trước';
+        const kyKey = isPrev ? (appliedKyLabel||ky) : ky;
         const recs = rows.map(r=>{
-          const hlV = this.normalizeTthl((r.hl||'').trim());
+          const hlIn = this.normalizeTthl((r.hl||'').trim());
+          const hlV = hlIn;
+          const gcIn = (r.ghiChu||'').trim();
+          const gcOut = gcIn;
           const kn = (r.kienNghi||'').trim() || 'Không cần xử lý';
           const c = hlMap[hlV] || this.hlColors(hlV);
           return { so:(r.so||'').trim()||'(Chưa có số)', loai:(r.loai||'').trim()||'Văn bản', ty:(r.ty||'').trim()||'(Chưa nhập tên gọi)', cq:r.cq||'', lv:(r.lv||'').trim()||'Tư pháp',
-            ngay:r.ngay||'', hieuLucNgay:(r.hieuLucNgay||'').trim()||r.ngay||'', hl:hlV, hlC:c[0], hlB:c[1], kienNghi:kn, nhom:'con-hieu-luc', ghiChu:r.ghiChu||'', ky, nguon:'manual', loaiVb };
+            ngay:r.ngay||'', hieuLucNgay:(r.hieuLucNgay||'').trim()||r.ngay||'', hl:hlV, hlC:c[0], hlB:c[1], kienNghi:kn, nhom:'con-hieu-luc', ghiChu:gcOut, ky:kyKey, kyNguon:ky, nguon:'manual', loaiVb };
         });
-        this.setState(st=>{ const map={ ...(st.syncedDocs||{}) }; map[ky]=[ ...recs, ...(map[ky]||[]) ]; return { syncedDocs:map, docPanel:'', editDoc:null, formLoaiVb:'', formKyId:'', docFormRows:[] }; });
+        this.setState(st=>{ const map={ ...(st.syncedDocs||{}) }; map[kyKey]=[ ...recs, ...(map[kyKey]||[]) ]; return { syncedDocs:map, docPanel:'', editDoc:null, formLoaiVb:'', formKyId:'', docFormRows:[] }; });
       },
+      ...(()=>{
+        const list = s.kyHthList || [];
+        const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
+        const lab = k => k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''));
+        const prevLabel = idx>0 ? lab(list[idx-1]) : '';
+        const done = s.kyTruocDone || {};
+        const pool = prevLabel ? [
+          { so:'112/2017/TT-BTP', loai:'Thông tư', ty:'Hướng dẫn một số điều của Nghị định về đăng ký biện pháp bảo đảm', cq:'Bộ Tư pháp', lv:'Tư pháp', ngay:'12/05/2017', hetHl:'30/06/2023', tt:'Hết hiệu lực toàn bộ', lyDo:'Hết hiệu lực theo quy định tại Thông tư 08/2023/TT-BTP' },
+          { so:'45/2016/NĐ-CP', loai:'Nghị định', ty:'Quy định chi tiết thi hành một số điều của Luật Hộ tịch', cq:'Chính phủ', lv:'Hộ tịch', ngay:'03/06/2016', hetHl:'01/01/2023', tt:'Hết hiệu lực một phần', lyDo:'Được thay thế bởi Nghị định 87/2022/NĐ-CP' },
+          { so:'09/2018/QĐ-BTP', loai:'Quyết định', ty:'Ban hành Quy chế phối hợp công tác kiểm tra văn bản', cq:'Bộ Tư pháp', lv:'Tư pháp', ngay:'20/09/2018', hetHl:'15/11/2022', tt:'Hết hiệu lực toàn bộ', lyDo:'Bị bãi bỏ bởi Quyết định 21/2022/QĐ-BTP' },
+        ] : [];
+        const open = pool.filter(x=>!done[appliedKyLabel+'|'+x.so]);
+        const key = x => appliedKyLabel+'|'+x.so;
+        return {
+          ktShow: open.length>0 && !!s.ktSearched && !s.ktView, ktCount: open.length, ktPrev: prevLabel,
+          ktRows: open.map((x,i)=>({ ...x, stt:i+1,
+            add: ()=>this.setState(st=>{
+              const hl = x.tt; const c = this.hlColors(hl);
+              const rec = { so:x.so, loai:x.loai, ty:x.ty, cq:x.cq, lv:x.lv, ngay:x.ngay, hieuLucNgay:x.ngay, hl, hlC:c[0], hlB:c[1], kienNghi:'Không cần xử lý', nhom:'con-hieu-luc', ghiChu:x.tt+' ngày '+x.hetHl+'. '+x.lyDo, ky:appliedKyLabel, nguon:'kytruoc', loaiVb:'VB HTH kỳ trước' };
+              const map = { ...(st.syncedDocs||{}) }; map[appliedKyLabel] = [ rec, ...(map[appliedKyLabel]||[]) ];
+              return { syncedDocs:map, kyTruocDone:{ ...(st.kyTruocDone||{}), [key(x)]:'added' } };
+            }),
+            skip: ()=>this.setState(st=>({ kyTruocDone:{ ...(st.kyTruocDone||{}), [key(x)]:'skip' } }))
+          })),
+          ktAddAll: ()=>this.setState(st=>{
+            const map = { ...(st.syncedDocs||{}) }; const dn = { ...(st.kyTruocDone||{}) };
+            const recs = open.map(x=>{ const hl=x.tt; const c=this.hlColors(hl); dn[key(x)]='added';
+              return { so:x.so, loai:x.loai, ty:x.ty, cq:x.cq, lv:x.lv, ngay:x.ngay, hieuLucNgay:x.ngay, hl, hlC:c[0], hlB:c[1], kienNghi:'Không cần xử lý', nhom:'con-hieu-luc', ghiChu:x.tt+' ngày '+x.hetHl+'. '+x.lyDo, ky:appliedKyLabel, nguon:'kytruoc', loaiVb:'VB HTH kỳ trước' }; });
+            map[appliedKyLabel] = [ ...recs, ...(map[appliedKyLabel]||[]) ];
+            return { syncedDocs:map, kyTruocDone:dn };
+          })
+        };
+      })(),
       docPanel: s.docPanel || '',
       showForm: s.docPanel==='form',
       docKyTruocLabel: (()=>{
@@ -5911,7 +6312,7 @@ class Component extends DCLogic {
       ef: s.editDoc || {},
       formLoaiVb: s.formLoaiVb || '',
       setFormLoaiVb: (e)=>this.setState({ formLoaiVb: e.target.value }),
-      showFormCol10: (s.formLoaiVb || '') !== 'VB HTH kỳ hiện tại',
+      showFormCol10: !((s.formLoaiVb || '') === 'VB HTH kỳ hiện tại' || (s.formLoaiVb || '') === 'VB HTH kỳ trước'),
       isFormKyTruoc: (s.formLoaiVb || '') === 'VB HTH kỳ trước',
       isFormKyHienTai: (s.formLoaiVb || '') === 'VB HTH kỳ hiện tại',
       isFormLoaiCu: !((s.formLoaiVb || '') === 'VB HTH kỳ trước' || (s.formLoaiVb || '') === 'VB HTH kỳ hiện tại'),
@@ -5939,13 +6340,13 @@ class Component extends DCLogic {
         const list = s.kyHthList || [];
         const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
         const cur = idx>=0 ? list[idx] : (list[list.length-1]||null);
-        this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ hiện tại', formKyId: cur?cur.id:'', docFormRows:[this.blankDocFormRow()] });
+        this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ hiện tại', formKyId: cur?cur.id:'', docFormRows:this.sampleDocRows('cur') });
       },
       openAddBoSungKyTruoc: () => {
         const list = s.kyHthList || [];
         const idx = list.findIndex(k => (k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||''))) === appliedKyLabel);
         const prev = idx>0 ? list[idx-1] : null;
-        this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ trước', formKyId: prev?prev.id:'', docFormRows:[this.blankDocFormRow()] });
+        this.setState({ docPanel:'form', formMode:'add', editDoc:null, formLoaiVb:'VB HTH kỳ trước', formKyId: prev?prev.id:'', docFormRows:this.sampleDocRows('prev') });
       },
       chooseImport: () => this.setState({ docPanel:'import' }),
       setFormKyId: (e)=>this.setState({ formKyId: e.target.value }),
@@ -5976,8 +6377,124 @@ class Component extends DCLogic {
       stop: (e) => e.stopPropagation(),
       isHome: s.screen==='home',
       isPlan: s.screen==='plan',
-      isDocList: s.screen==='doclist',
-      isReview: s.screen==='review',
+      isDocList: s.screen==='doclist' && !s.ktView,
+      isKtList: s.screen==='doclist' && !!s.ktView,
+      openKt: ()=>this.setState({ ktView:true }),
+      closeKt: ()=>this.setState({ ktView:false }),
+      isReview: s.screen==='review' && !(role==='cv' || (role==='ld' && (s.m04View==='edit' || s.m04View==='units') && !!s.m04Draft)),
+      isM04Cv: s.screen==='review' && (role==='cv' || (role==='ld' && (s.m04View==='edit' || s.m04View==='units') && !!s.m04Draft)),
+      ...(()=>{
+        const MAU04 = 'Mẫu 04 - Danh mục văn bản quy phạm pháp luật cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới';
+        const saved = s.m04Saved || this.m04Seed();
+        const plans = s.plans || [];
+        const planBy = (ma)=>plans.find(x=>x.ma===ma) || {};
+        const statusOf = (ma)=> (s.rsPlanSent||{})[ma] ? 'Đã gửi' : ((s.rsPlanRejected||{})[ma] ? 'Bị trả lại' : 'Đã lưu');
+        const stColor = { 'Đã lưu':['#0e4c8f','#eef3f9'], 'Đã gửi':['#9a5b08','#fff7e0'], 'Bị trả lại':['#d92d20','#fff0ee'] };
+        const editable = (ma)=> statusOf(ma)!=='Đã gửi' && !(s.rsPlanPublished||{})[ma];
+        const view = s.m04View || 'list';
+        const draft = s.m04Draft || null;
+        const inEdit = view==='edit' && !!draft;
+        const inUnits = view==='units' && !!draft;
+        const ro = inEdit && !!draft.readOnly;
+        const kyF = s.m04KyA || '', ttF = s.m04TtA || '';
+        const rows = Object.keys(saved).map(ma=>({ ma, ...saved[ma], ky: planBy(ma).ky || ma, st: statusOf(ma) }))
+          .filter(x=>(!kyF || x.ky===kyF) && (!ttF || x.st===ttF))
+          .sort((a,b)=>b.ky.localeCompare(a.ky))
+          .map((x,i)=>({
+            stt:i+1, ten:MAU04, ky:x.ky, count:x.rows.length, savedAt:x.savedAt, st:x.st, stFg:stColor[x.st][0], stBg:stColor[x.st][1], canEdit:editable(x.ma),
+            view: ()=>this.setState({ m04View:'edit', m04Draft:{ ma:x.ma, ky:x.ky, rows:x.rows.map(r=>({...r})), readOnly:true } }),
+            edit: ()=>this.setState({ m04View:'edit', m04Draft:{ ma:x.ma, ky:x.ky, rows:x.rows.map(r=>({...r})), readOnly:false } }),
+            remove: ()=>this.setState(st=>{ const m={ ...(st.m04Saved||this.m04Seed()) }; delete m[x.ma]; return { m04Saved:m }; })
+          }));
+        const addOpts = plans.filter(p=>!saved[p.ma]).map(p=>({ ma:p.ma, ky:p.ky }));
+        const upd = (i,k)=>(e)=>{ const v=e.target.value; this.setState(st=>{ const d=st.m04Draft; if(!d) return st; const a=d.rows.slice(); a[i]={ ...a[i], [k]:v }; return { m04Draft:{ ...d, rows:a } }; }); };
+        const dRows = (draft ? draft.rows : []).map((r,i)=>({ ...r, stt:i+1,
+          onLoai:upd(i,'loai'), onCq:upd(i,'cq'), onSo:upd(i,'so'), onNgay:upd(i,'ngay'), onTy:upd(i,'ty'), onKn:upd(i,'kienNghi'), onLyDo:upd(i,'lyDo'), onCqCt:upd(i,'cqChuTri'), onTh:upd(i,'thoiHan'),
+          del: ()=>this.setState(st=>{ const d=st.m04Draft; if(!d) return st; return { m04Draft:{ ...d, rows:d.rows.filter((_,j)=>j!==i) } }; }) }));
+        const dvOpts = ['Cục Kiểm tra VBQPPL','Vụ Pháp chế','Cục Hộ tịch, quốc tịch, chứng thực','Cục Bổ trợ tư pháp'];
+        const persist = (st, send)=>{
+          const d = st.m04Draft; const m = { ...(st.m04Saved||this.m04Seed()) };
+          const dd=new Date(); const p2=n=>String(n).padStart(2,'0');
+          m[d.ma] = { rows:d.rows.map(r=>({...r})), savedAt:p2(dd.getDate())+'/'+p2(dd.getMonth()+1)+'/'+dd.getFullYear() };
+          const out = { m04Saved:m, m04View:'list', m04Draft:null, m04ShowSend:false };
+          if(send){
+            const sent = { ...(st.rsPlanSent||{}) }; sent[d.ma]=true;
+            const rej = { ...(st.rsPlanRejected||{}) }; delete rej[d.ma];
+            out.rsPlanSent = sent; out.rsPlanRejected = rej;
+          }
+          return out;
+        };
+        return {
+          m04InList: !inEdit && !inUnits, m04InUnits: inUnits, m04ShowUnitsLink: !!(draft && draft.fromUnits && !draft.backToUnits), m04InEdit: inEdit, m04Ro: ro, m04Rw: inEdit && !ro, m04CanSend: role==='cv',
+          m04Title: MAU04,
+          m04Note: (draft && draft.fromUnits) ? (draft.readOnly ? 'Dữ liệu Mẫu 04 được tự động lấy từ các đơn vị cấp dưới.' : 'Dữ liệu Mẫu 04 được tự động lấy từ các đơn vị cấp dưới. Có thể đồng bộ kết quả RSTX hoặc thêm mới nhập tay.') : 'Dữ liệu Mẫu 04 được đồng bộ từ kết quả rà soát thường xuyên (RSTX), theo đơn vị thực hiện rà soát. Có thể thêm dòng nhập tay.',
+          m04Crumb: inUnits ? 'DL mẫu 04 các đơn vị cấp dưới' : ro ? 'Xem chi tiết' : (draft && draft.isNew ? 'Thêm mới' : 'Cập nhật'),
+          m04DraftKy: draft ? draft.ky : '',
+          m04Rows: rows, m04Count: rows.length, m04Empty: !rows.length, m04From: rows.length ? 1 : 0,
+          m04KyOpts: [...new Set(plans.map(p=>p.ky).filter(Boolean))],
+          m04Ky: s.m04Ky||'', m04Tt: s.m04Tt||'',
+          setM04Ky: (e)=>this.setState({ m04Ky:e.target.value }), setM04Tt: (e)=>this.setState({ m04Tt:e.target.value }),
+          applyM04: ()=>this.setState(st=>({ m04KyA:st.m04Ky||'', m04TtA:st.m04Tt||'' })),
+          resetM04: ()=>this.setState({ m04Ky:'', m04Tt:'', m04KyA:'', m04TtA:'' }),
+          m04ShowAdd: !!s.m04ShowAdd, m04AddOpts: addOpts, m04AddNoOpts: !addOpts.length, m04AddKy: s.m04AddKy || '', m04AddMau: MAU04,
+          openM04Add: ()=>this.setState({ m04ShowAdd:true, m04AddKy: (addOpts[0]||{}).ma || '' }),
+          closeM04Add: ()=>this.setState({ m04ShowAdd:false }),
+          setM04AddKy: (e)=>this.setState({ m04AddKy:e.target.value }),
+          confirmM04Add: ()=>this.setState(st=>{
+            const ma = st.m04AddKy; if(!ma){ alert('Vui lòng chọn Kỳ HTH.'); return st; }
+            const pl = (st.plans||[]).find(x=>x.ma===ma) || {};
+            return { m04ShowAdd:false, m04View:'edit', m04Draft:{ ma, ky:pl.ky||ma, rows:[], isNew:true, readOnly:false } };
+          }),
+          m04DraftRows: dRows, m04DraftCount: dRows.length, m04DraftEmpty: !dRows.length,
+          addM04Row: ()=>this.setState(st=>{ const d=st.m04Draft; if(!d) return st; return { m04Draft:{ ...d, rows:[ ...d.rows, { loai:'', cq:'', so:'', ngay:'', ty:'', kienNghi:'Sửa đổi, bổ sung', lyDo:'', cqChuTri:'', thoiHan:'' } ] } }; }),
+          m04ShowSync: !!s.m04ShowSync, m04DvOpts: dvOpts,
+          m04SyncTu: s.m04SyncTu||'', m04SyncDen: s.m04SyncDen||'', m04SyncDv: s.m04SyncDv||'',
+          setM04SyncTu: (e)=>this.setState({ m04SyncTu:e.target.value }), setM04SyncDen: (e)=>this.setState({ m04SyncDen:e.target.value }), setM04SyncDv: (e)=>this.setState({ m04SyncDv:e.target.value }),
+          openM04Sync: ()=>this.setState({ m04ShowSync:true, m04SyncTu:'', m04SyncDen:'', m04SyncDv:'' }),
+          closeM04Sync: ()=>this.setState({ m04ShowSync:false }),
+          doM04Sync: ()=>this.setState(st=>{
+            if(st.m04SyncTu && st.m04SyncDen && st.m04SyncTu > st.m04SyncDen){ alert('Từ ngày không được lớn hơn Đến ngày.'); return st; }
+            const iso = (d)=>{ const q=String(d).split('/'); return q[2]+'-'+q[1]+'-'+q[0]; };
+            const found = this.m04RxData().filter(r=> (!st.m04SyncTu || iso(r.ngayRs)>=st.m04SyncTu) && (!st.m04SyncDen || iso(r.ngayRs)<=st.m04SyncDen) && (!st.m04SyncDv || r.dv===st.m04SyncDv));
+            const d = st.m04Draft; if(!d) return st;
+            const have = new Set(d.rows.map(r=>r.so+'|'+r.kienNghi+'|'+r.lyDo));
+            const add = found.filter(r=>!have.has(r.so+'|'+r.kienNghi+'|'+r.lyDo)).map(r=>({ loai:r.loai, cq:r.cq, so:r.so, ngay:r.ngay, ty:r.ty, kienNghi:r.kienNghi, lyDo:r.lyDo, cqChuTri:r.dv, thoiHan:'' }));
+            if(!add.length){ alert('Không có kết quả rà soát thường xuyên phù hợp để đồng bộ.'); return st; }
+            return { m04ShowSync:false, m04Draft:{ ...d, rows:[ ...d.rows, ...add ] } };
+          }),
+          saveM04: ()=>this.setState(st=>st.m04Draft ? persist(st,false) : st),
+          m04ShowSend: !!s.m04ShowSend,
+          openM04Send: ()=>this.setState(st=>{ if(!st.m04Draft || !st.m04Draft.rows.length){ alert('Chưa có dòng nào để gửi.'); return st; } return { m04ShowSend:true }; }),
+          closeM04Send: ()=>this.setState({ m04ShowSend:false }),
+          confirmM04Send: ()=>this.setState(st=>st.m04Draft ? persist(st,true) : st),
+          m04UvKy: draft ? draft.ky : '',
+          m04UvDv: s.m04UvDv||'', setM04UvDv: (e)=>this.setState({ m04UvDv:e.target.value }),
+          applyM04Uv: ()=>this.setState(st=>({ m04UvDvA: st.m04UvDv||'' })),
+          resetM04Uv: ()=>this.setState({ m04UvDv:'', m04UvDvA:'' }),
+          openM04Units: ()=>this.setState({ m04View:'units' }),
+          backM04Units: ()=>this.setState(st=> (st.m04Draft && st.m04Draft.fromPlan) ? { m04View:'list', m04Draft:null } : { m04View:'edit' }),
+          m04UnitsPrev: (draft && draft.fromPlan) ? 'Kết quả hệ thống hóa' : 'Cập nhật Mẫu 04',
+          ...(()=>{
+            const sub = [
+              { ky:'2019 – 2023', dv:'Cục Bổ trợ tư pháp', ngay:'26/10/2026', gio:'15:38' },
+              { ky:'2019 – 2023', dv:'Cục Kiểm tra VBQPPL', ngay:'22/10/2026', gio:'10:43' },
+              { ky:'2024 – 2028', dv:'Cục Kiểm tra VBQPPL', ngay:'20/10/2026', gio:'14:05' },
+              { ky:'2024 – 2028', dv:'Vụ Pháp chế', ngay:'19/10/2026', gio:'16:20' },
+              { ky:'2024 – 2028', dv:'Cục Bổ trợ tư pháp', ngay:'18/10/2026', gio:'09:48' },
+              { ky:'2024 – 2028', dv:'Cục Hộ tịch, quốc tịch, chứng thực', ngay:'17/10/2026', gio:'11:15' },
+            ];
+            const dvF = s.m04UvDvA || '';
+            const srcRows = ((s.m04Saved||this.m04Seed())[(draft||{}).ma]||{}).rows || [];
+            const list = sub.filter(x=> (!draft || x.ky===draft.ky) && (!dvF || x.dv===dvF)).map((x,i)=>{
+              const rowsOf = srcRows.filter(r=>r.cqChuTri===x.dv).map(r=>({ ...r }));
+              return { stt:i+1, ky:x.ky, ten:MAU04, dvGui:x.dv, dvNhan:(s.currentDonVi||'Bộ tư pháp'), ngay:x.ngay, gio:x.gio, count:rowsOf.length,
+                view: ()=>this.setState(st=>({ m04View:'edit', m04PrevDraft:st.m04Draft, m04Draft:{ ma:(st.m04Draft||{}).ma, ky:x.ky, rows:rowsOf, readOnly:true, fromUnits:true, backToUnits:true } })) };
+            });
+            return { m04UvRows:list, m04UvCount:list.length, m04UvEmpty:!list.length, m04UvFrom: list.length?1:0 };
+          })(),
+          backM04: ()=>this.setState(st=>{ if(st.m04Draft && st.m04Draft.backToUnits) return { m04View:'units', m04Draft:st.m04PrevDraft, m04PrevDraft:null }; return { m04View:'list', m04Draft:null }; }),
+        };
+      })(),
       isCatalog: s.screen==='catalog',
       // ── Cấu hình tiêu chí sắp xếp ──
       sxInList: s.screen==='catalog' && !s.sxForm,
