@@ -1466,7 +1466,6 @@
                 <sc-raw-th style="padding:11px 10px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Thời điểm có hiệu lực</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:170px;text-align:center;border:1px solid #d9dee6;">Tình trạng hiệu lực hiện tại</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:240px;text-align:center;border:1px solid #d9dee6;">Ghi chú</sc-raw-th>
                 <sc-raw-th style="padding:11px 10px;font-weight:700;width:96px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
               </sc-raw-tr></sc-raw-thead>
               <sc-raw-tbody>
@@ -1479,7 +1478,6 @@
                       <sc-raw-td style="padding:10px;border:1px solid #d9dee6;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="{{ doc.ty }}">{{ doc.ty }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ doc.hieuLucNgay }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:left;border:1px solid #d9dee6;">{{ doc.hlHienTai }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;text-align:left;line-height:1.4;border:1px solid #d9dee6;">{{ doc.ghiChuHt }}</sc-raw-td>
                       <sc-raw-td style="padding:8px 10px;border:1px solid #d9dee6;">
                         <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
                           <span onclick="{{ doc.view }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
@@ -2250,7 +2248,7 @@
           <sc-if value="{{ inTypeList }}" hint-placeholder-val="{{ true }}">
             <sc-if value="{{ rsPlanListView }}" hint-placeholder-val="{{ true }}">
               <div style="background:#fff;border-radius:10px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-                <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr);gap:14px 22px;align-items:end;">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 22px;align-items:end;">
                   <div style="display:flex;flex-direction:column;gap:7px;">
                     <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
                     <div style="position:relative;">
@@ -2260,10 +2258,6 @@
                       </sc-raw-select>
                       <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
                     </div>
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:7px;">
-                    <label style="font-size:13px;font-weight:700;color:#1e2939;">Tên kế hoạch</label>
-                    <input value="{{ rsPlanTenSel }}" oninput="{{ setRsPlanTenSel }}" placeholder="Nhập tên kế hoạch..." style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;">
                   </div>
                   <div style="display:flex;flex-direction:column;gap:7px;">
                     <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
@@ -2287,7 +2281,7 @@
                 </div>
                 <div style="border-top:1px solid #eef1f6;margin:18px 0 14px;"></div>
                 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;">
-                  <div style="font-size:13px;font-weight:600;color:#1e2939;">Tổng cộng: <span style="color:#e8590c;">{{ rsPlanCount }}</span> kế hoạch</div>
+                  <div style="font-size:13px;font-weight:600;color:#1e2939;">Tổng cộng: <span style="color:#e8590c;">{{ rsPlanCount }}</span> mục</div>
                   <sc-if value="{{ isLanhDao }}" hint-placeholder-val="{{ false }}"><button onclick="{{ openRsCreateForm }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:17px;">auto_awesome</span>Tạo kết quả hệ thống hóa</button></sc-if>
                 </div>
               <sc-if value="{{ showRsCreateForm }}" hint-placeholder-val="{{ false }}">
@@ -2315,13 +2309,9 @@
                           <label style="font-size:13px;color:#1e2939;">Tên đơn vị</label>
                           <input value="{{ rsCreateDonVi }}" readonly="readonly" style="width:100%;height:34px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;color:#1e2939;box-sizing:border-box;">
                         </div>
-                        <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;margin-top:6px;">
-                          <label style="font-size:13px;color:#1e2939;">Tên kế hoạch</label>
-                          <input value="{{ rsCreateTenKH }}" readonly="readonly" placeholder="Chọn kỳ để hiển thị tên kế hoạch" style="width:100%;height:34px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;color:#1e2939;box-sizing:border-box;">
-                        </div>
                       </div>
                       <sc-if value="{{ rsCreateNoOpts }}" hint-placeholder-val="{{ false }}">
-                        <div style="margin-top:16px;padding:9px 12px;background:#fffbe6;border:1px solid #fde68a;border-radius:6px;font-size:13px;color:#7a6a3a;display:flex;align-items:center;gap:8px;"><span class="ic" style="font-size:17px;color:#f5a623;">error</span>Không còn kế hoạch nào chưa tạo kết quả HTH.</div>
+                        <div style="margin-top:16px;padding:9px 12px;background:#fffbe6;border:1px solid #fde68a;border-radius:6px;font-size:13px;color:#7a6a3a;display:flex;align-items:center;gap:8px;"><span class="ic" style="font-size:17px;color:#f5a623;">error</span>Tất cả các kỳ đã được tạo kết quả HTH.</div>
                       </sc-if>
                     </div>
                     <div style="padding:14px 24px 18px;display:flex;justify-content:flex-end;gap:10px;">
@@ -2337,20 +2327,18 @@
                   <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
                     <sc-raw-th style="padding:11px 10px;font-weight:700;width:56px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
                     <sc-raw-th style="padding:11px 10px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Kỳ hệ thống hóa</sc-raw-th>
-                    <sc-raw-th style="padding:11px 10px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên kế hoạch</sc-raw-th>
-                    <sc-raw-th style="padding:11px 10px;font-weight:700;width:190px;text-align:center;border:1px solid #d9dee6;">Tên đơn vị</sc-raw-th>
+                    <sc-raw-th style="padding:11px 10px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên đơn vị</sc-raw-th>
                     <sc-raw-th style="padding:11px 10px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Trạng thái</sc-raw-th>
                     <sc-raw-th style="padding:11px 10px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
                   </sc-raw-tr></sc-raw-thead>
                   <sc-raw-tbody>
                     <sc-if value="{{ rsPlanEmpty }}" hint-placeholder-val="{{ false }}">
-                      <sc-raw-tr><sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;border:1px solid #d9dee6;">{{ rsPlanEmptyMsg }}</sc-raw-td></sc-raw-tr>
+                      <sc-raw-tr><sc-raw-td colspan="5" style="padding:36px 16px;text-align:center;color:#94a3b8;border:1px solid #d9dee6;">{{ rsPlanEmptyMsg }}</sc-raw-td></sc-raw-tr>
                     </sc-if>
                     <sc-for list="{{ rsPlanRows }}" as="p" hint-placeholder-count="4">
                       <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
                         <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ p.idx }}</sc-raw-td>
                         <sc-raw-td style="padding:10px;text-align:center;white-space:nowrap;border:1px solid #d9dee6;">{{ p.ky }}</sc-raw-td>
-                        <sc-raw-td style="padding:10px;line-height:1.4;border:1px solid #d9dee6;">{{ p.ten }}</sc-raw-td>
                         <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ p.donVi }}</sc-raw-td>
                         <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">
                           <span style="display:inline-flex;font-size:12px;font-weight:500;color:{{ p.ttColor }};background:{{ p.ttBg }};padding:2px 10px;border-radius:4px;white-space:nowrap;">{{ p.ttLabel }}</span>
@@ -2372,7 +2360,7 @@
                 </sc-raw-table>
                 </div>
                 <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px;font-size:13px;color:#1e2939;">
-                  <span>Hiển thị từ 1 đến {{ rsPlanCount }} trong tổng số {{ rsPlanCount }} kế hoạch</span>
+                  <span>Hiển thị từ 1 đến {{ rsPlanCount }} trong tổng số {{ rsPlanCount }} mục</span>
                   <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_left</span>
                   <span style="min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2f2fd0;color:#2f2fd0;border-radius:6px;font-weight:600;">1</span>
                   <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_right</span>
@@ -3060,30 +3048,23 @@
           <div style="margin-bottom:16px;">
             <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh mục lĩnh vực</h1>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;background:#eef3f9;border:1px solid #cfe0f2;border-radius:12px;padding:11px 16px;margin-bottom:16px;">
-            <span class="ic" style="font-size:20px;color:#0e4c8f;">apartment</span>
-            <div style="font-size:12.5px;color:#2c4a6e;line-height:1.5;">Đơn vị đang áp dụng: <b>{{ lvDonVi }}</b>. Chỉ hiển thị và quản lý các lĩnh vực của đơn vị này; lĩnh vực của đơn vị khác không hiển thị.</div>
-          </div>
 
           <sc-if value="{{ showLvForm }}" hint-placeholder-val="{{ false }}">
-            <div style="background:#fff;border:1px solid #d6e2f0;border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:0 6px 24px rgba(14,76,143,.1);">
-              <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;">
-                <span class="ic" style="font-size:22px;color:#0e4c8f;">category</span>
-                <h3 style="margin:0;font-size:16px;font-weight:700;color:#10243a;">{{ lvFormTitle }}</h3>
-              </div>
+            <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);margin-bottom:18px;">
+              <div style="font-size:15px;font-weight:700;color:#1e2939;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid #eef1f6;">{{ lvFormTitle }}</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;">
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mã lĩnh vực</label>
-                  <input value="{{ lvDraftMa }}" readonly disabled style="width:100%;height:42px;font-family:ui-monospace,monospace;font-size:13.5px;padding:0 12px;border:1px solid #e4e9f0;border-radius:9px;outline:none;box-sizing:border-box;background:#f2f4f7;color:#667085;cursor:not-allowed;">
+                  <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Mã lĩnh vực</label>
+                  <input value="{{ lvDraftMa }}" readonly disabled style="width:100%;height:38px;font-family:ui-monospace,monospace;font-size:13px;padding:0 12px;border:1px solid #e4e9f0;border-radius:6px;outline:none;box-sizing:border-box;background:#f2f4f7;color:#667085;cursor:not-allowed;">
                   <div style="font-size:12px;color:#8094a8;">Tự động tạo theo đơn vị, tăng dần (LV_&lt;Mã đơn vị&gt;_STT).</div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Tên lĩnh vực <span style="color:#c0392b;">*</span></label>
-                  <input value="{{ lvDraftTen }}" oninput="{{ setLvDraftTen }}" placeholder="Nhập tên lĩnh vực" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                  <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Tên lĩnh vực <span style="color:#c0392b;">*</span></label>
+                  <input value="{{ lvDraftTen }}" oninput="{{ setLvDraftTen }}" placeholder="Nhập tên lĩnh vực" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đơn vị áp dụng <span style="color:#c0392b;">*</span></label>
-                  <div style="border:1px solid #cfd9e6;border-radius:9px;padding:10px 14px;max-height:280px;overflow-y:auto;background:#fff;">
+                  <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Đơn vị áp dụng <span style="color:#c0392b;">*</span></label>
+                  <div style="border:1px solid #d0d5dd;border-radius:6px;padding:10px 14px;max-height:280px;overflow-y:auto;background:#fff;">
                     <sc-for list="{{ lvTreeRows }}" as="n" hint-placeholder-count="6">
                       <sc-if value="{{ n.isRoot }}" hint-placeholder-val="{{ true }}">
                         <div style="display:flex;align-items:center;gap:6px;padding:6px 0;">
@@ -3103,31 +3084,32 @@
                   <div style="font-size:12px;color:#8094a8;">Chọn đơn vị cha để chọn tất cả đơn vị con. Danh sách đơn vị là dữ liệu mẫu.</div>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Lĩnh vực cha</label>
+                  <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Lĩnh vực cha</label>
                   <sc-if value="{{ lvChaEditable }}" hint-placeholder-val="{{ true }}">
-                    <div style="border:1px solid #cfd9e6;border-radius:9px;padding:10px 14px;max-height:220px;overflow-y:auto;background:#fff;">
+                    <div style="border:1px solid #d0d5dd;border-radius:6px;padding:10px 14px;max-height:220px;overflow-y:auto;background:#fff;">
                       <sc-for list="{{ lvChaRows }}" as="c" hint-placeholder-count="4">
                         <label style="display:flex;align-items:center;gap:8px;padding:6px 0;opacity:{{ c.opacity }};cursor:pointer;">
                           <sc-if value="{{ c.isChild }}" hint-placeholder-val="{{ false }}"><span style="width:28px;display:inline-block;"></span></sc-if>
                           <input type="radio" name="lvCha" checked="{{ c.checked }}" disabled="{{ c.disabled }}" onchange="{{ c.pick }}" style="width:16px;height:16px;accent-color:#2f2fd0;">
                           <span style="font-size:13.5px;color:#1e2939;">{{ c.name }}</span>
+                          <span style="font-size:12px;color:#b54708;">{{ c.reason }}</span>
                         </label>
                       </sc-for>
                     </div>
-                    <div style="font-size:12px;color:#8094a8;">Cây lĩnh vực của đơn vị. Chỉ chọn được lĩnh vực cấp cha có đơn vị áp dụng bao gồm các đơn vị đã chọn ở trên. Tối đa 2 cấp.</div>
+                    <div style="font-size:12px;color:#8094a8;">Chọn Đơn vị áp dụng ở trên trước. Cây lĩnh vực của đơn vị. Chỉ chọn được lĩnh vực cấp cha có đơn vị áp dụng bao gồm các đơn vị đã chọn ở trên. Tối đa 2 cấp.</div>
                   </sc-if>
                   <sc-if value="{{ lvChaLocked }}" hint-placeholder-val="{{ false }}">
-                    <div style="font-size:12.5px;color:#8094a8;border:1px solid #e4e9f0;border-radius:9px;padding:10px 14px;background:#f2f4f7;">Lĩnh vực này đang có lĩnh vực con nên giữ ở cấp cha.</div>
+                    <div style="font-size:12.5px;color:#8094a8;border:1px solid #e4e9f0;border-radius:6px;padding:10px 14px;background:#f2f4f7;">Lĩnh vực này đang có lĩnh vực con nên giữ ở cấp cha.</div>
                   </sc-if>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mô tả</label>
-                  <textarea value="{{ lvDraftMoTa }}" oninput="{{ setLvDraftMoTa }}" rows="3" placeholder="Nhập mô tả lĩnh vực..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;"></textarea>
+                  <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Mô tả</label>
+                  <textarea value="{{ lvDraftMoTa }}" oninput="{{ setLvDraftMoTa }}" rows="3" placeholder="Nhập mô tả lĩnh vực..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;"></textarea>
                 </div>
               </div>
               <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
-                <button onclick="{{ closeLvForm }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Hủy</button>
-                <button onclick="{{ saveLv }}" style="border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+                <button onclick="{{ closeLvForm }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#f5f7fb;">Hủy</button>
+                <button onclick="{{ saveLv }}" style="height:38px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
               </div>
             </div>
           </sc-if>
@@ -3136,7 +3118,7 @@
           <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
             <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
               <div style="display:flex;flex-direction:column;gap:7px;">
-                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Từ khóa</label>
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Tên lĩnh vực</label>
                 <input value="{{ lvKw }}" oninput="{{ setLvKw }}" placeholder="Nhập tên lĩnh vực..." style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
               </div>
               <div style="display:flex;gap:10px;">
@@ -3161,7 +3143,9 @@
                   <sc-raw-th style="padding:11px 12px;font-weight:700;width:64px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
                   <sc-raw-th style="padding:11px 12px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Mã lĩnh vực</sc-raw-th>
                   <sc-raw-th style="padding:11px 12px;font-weight:700;width:240px;text-align:center;border:1px solid #d9dee6;">Tên lĩnh vực</sc-raw-th>
-                  <sc-raw-th style="padding:11px 12px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Mô tả</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:90px;text-align:center;border:1px solid #d9dee6;">Cấp LV</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:160px;text-align:center;border:1px solid #d9dee6;">Lĩnh vực cha</sc-raw-th>
+                  <sc-raw-th style="padding:11px 12px;font-weight:700;min-width:240px;text-align:center;border:1px solid #d9dee6;">Mô tả</sc-raw-th>
                   <sc-raw-th style="padding:11px 12px;font-weight:700;width:180px;text-align:center;border:1px solid #d9dee6;">Đơn vị áp dụng</sc-raw-th>
                   <sc-raw-th style="padding:11px 12px;font-weight:700;width:120px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
                 </sc-raw-tr>
@@ -3169,19 +3153,21 @@
               <sc-raw-tbody>
                 <sc-if value="{{ lvEmpty }}" hint-placeholder-val="{{ false }}">
                   <sc-raw-tr>
-                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Đơn vị chưa có lĩnh vực. Nhấn <b style="color:#2f2fd0;">Thêm mới</b> để tạo.</sc-raw-td>
+                    <sc-raw-td colspan="8" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Đơn vị chưa có lĩnh vực. Nhấn <b style="color:#2f2fd0;">Thêm mới</b> để tạo.</sc-raw-td>
                   </sc-raw-tr>
                 </sc-if>
                 <sc-if value="{{ lvSearchEmpty }}" hint-placeholder-val="{{ false }}">
                   <sc-raw-tr>
-                    <sc-raw-td colspan="6" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Không tìm thấy lĩnh vực phù hợp. Nhấn <b style="color:#2f2fd0;">Nhập lại</b> để xóa điều kiện.</sc-raw-td>
+                    <sc-raw-td colspan="8" style="padding:36px 16px;text-align:center;color:#94a3b8;font-size:13.5px;border:1px solid #d9dee6;">Không tìm thấy lĩnh vực phù hợp. Nhấn <b style="color:#2f2fd0;">Nhập lại</b> để xóa điều kiện.</sc-raw-td>
                   </sc-raw-tr>
                 </sc-if>
                 <sc-for list="{{ lvRows }}" as="lv" hint-placeholder-count="4">
                   <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
                     <sc-raw-td style="padding:10px 12px;text-align:center;border:1px solid #d9dee6;">{{ lv.idx }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;color:#2f2fd0;border:1px solid #d9dee6;">{{ lv.ma }}</sc-raw-td>
-                    <sc-raw-td style="padding:10px 12px;font-weight:{{ lv.fw }};border:1px solid #d9dee6;"><sc-if value="{{ lv.isChildRow }}" hint-placeholder-val="{{ false }}"><span style="display:inline-block;width:24px;margin-left:14px;color:#98a2b3;font-weight:400;">└</span></sc-if>{{ lv.ten }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;font-weight:{{ lv.fw }};border:1px solid #d9dee6;">{{ lv.ten }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;text-align:center;border:1px solid #d9dee6;">{{ lv.cap }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;border:1px solid #d9dee6;">{{ lv.chaTen }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;line-height:1.45;border:1px solid #d9dee6;">{{ lv.moTa }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;border:1px solid #d9dee6;">{{ lv.donViText }}</sc-raw-td>
                     <sc-raw-td style="padding:8px 12px;border:1px solid #d9dee6;">
@@ -4720,14 +4706,12 @@ class Component extends DCLogic {
         const rootsAll = own.filter(x=>!x.cha || !own.some(y=>y.id===x.cha));
         const lvMatch = (x)=>!kw || x.ten.toLowerCase().includes(kw);
         const ordered = [];
-        let rootNo = 0;
         rootsAll.forEach(r=>{
           const rm = lvMatch(r);
           const kids = (byCha[r.id]||[]).filter(k=>rm || lvMatch(k));
           if(!rm && !kids.length) return;
-          rootNo++;
-          ordered.push({ x:r, level:0, stt:String(rootNo) });
-          kids.forEach((k,ki)=>ordered.push({ x:k, level:1, stt:rootNo+'.'+(ki+1) }));
+          ordered.push({ x:r, level:0, stt:String(ordered.length+1) });
+          kids.forEach(k=>ordered.push({ x:k, level:1, stt:String(ordered.length+1) }));
         });
         const shown = ordered.map(o=>o.x);
         const dr = s.lvDraft || { ma:'', ten:'', moTa:'', donVis:[], cha:'' };
@@ -4760,11 +4744,13 @@ class Component extends DCLogic {
         const selDv = dr.donVis||[];
         const editHasKids = !!s.lvEditId && (byCha[s.lvEditId]||[]).length>0;
         const setCha = (id)=>this.setState(st=>({ lvDraft:{ ...(st.lvDraft||{ ma:'', ten:'', moTa:'', donVis:[], cha:'' }), cha:id } }));
-        const lvChaRows = [{ isChild:false, name:'— Không có (tạo lĩnh vực cấp cha) —', checked:!dr.cha, disabled:false, opacity:1, pick:()=>setCha('') }];
+        const lvChaRows = [{ isChild:false, name:'— Không có (tạo lĩnh vực cấp cha) —', checked:!dr.cha, disabled:false, opacity:1, pick:()=>setCha(''), reason:'' }];
         rootsAll.filter(r=>r.id!==s.lvEditId).forEach(r=>{
-          const covers = selDv.every(d=>(r.donVis||[]).includes(d));
-          lvChaRows.push({ isChild:false, name:r.ma+' – '+r.ten, checked:dr.cha===r.id, disabled:!covers, opacity:covers?1:0.45, pick:()=>setCha(r.id) });
-          (byCha[r.id]||[]).forEach(k=>lvChaRows.push({ isChild:true, name:k.ma+' – '+k.ten, checked:false, disabled:true, opacity:0.55, pick:()=>{} }));
+          const missing = selDv.filter(d=>!(r.donVis||[]).includes(d));
+          const covers = !missing.length;
+          lvChaRows.push({ isChild:false, name:r.ma+' – '+r.ten, checked:dr.cha===r.id, disabled:!covers, opacity:covers?1:0.45, pick:()=>setCha(r.id),
+            reason: covers ? '' : '(không chọn được: chưa áp dụng cho ' + missing.join(', ') + ')' });
+          (byCha[r.id]||[]).forEach(k=>lvChaRows.push({ isChild:true, name:k.ma+' – '+k.ten, checked:false, disabled:true, opacity:0.55, pick:()=>{}, reason:'' }));
         });
         const setDr = (k)=>(e)=>{ const v=e.target.value; this.setState(st=>({ lvDraft:{ ...(st.lvDraft||{ ma:'', ten:'', moTa:'', donVis:[], cha:'' }), [k]:v } })); };
         return {
@@ -4812,7 +4798,7 @@ class Component extends DCLogic {
           },
           lvRows: ordered.map(o=>{ const x = o.x; return {
             ...x, idx:o.stt, donViText: unitText(x.donVis),
-            isChildRow: o.level>0, padLeft: o.level>0 ? '36px' : '12px', fw: o.level>0 ? '500' : '700',
+            cap: o.level, chaTen: (x.cha && own.find(y=>y.id===x.cha)) ? own.find(y=>y.id===x.cha).ten : '—', isChildRow: o.level>0, padLeft: o.level>0 ? '36px' : '12px', fw: o.level>0 ? '500' : '700',
             edit: ()=>this.setState({ showLvForm:true, lvEditId:x.id, lvDraft:{ ma:x.ma, ten:x.ten, moTa:x.moTa==='—'?'':x.moTa, donVis:(x.donVis||[]).slice(), cha:x.cha||'' } }),
             remove: ()=>{
               if((byCha[x.id]||[]).length){ alert('Lĩnh vực "'+x.ten+'" đang có lĩnh vực con. Vui lòng xóa các lĩnh vực con trước.'); return; }
@@ -5306,9 +5292,8 @@ class Component extends DCLogic {
       })(),
       rsPlanEmptyMsg: (()=>{
         const hasFilter = !!(s.rsPlanKy || s.rsPlanTen || s.rsPlanTt);
-        if(hasFilter) return 'Không tìm thấy kế hoạch phù hợp với điều kiện tìm kiếm.';
+        if(hasFilter) return 'Không tìm thấy kết quả phù hợp với điều kiện tìm kiếm.';
         if(role==='ld') return 'Chưa có kết quả hệ thống hóa. Nhấn Tạo kết quả hệ thống hóa để thêm mới.';
-        if(!(s.plans||[]).length) return 'Chưa có kế hoạch. Vui lòng thêm tại menu Kế hoạch hệ thống hóa.';
         return 'Chưa có kết quả hệ thống hóa. Cán bộ Tổng hợp tạo kết quả trước, sau đó bạn thực hiện Mẫu 04.';
       })(),
       backToRsPlans: ()=>this.setState(st=>{
@@ -5343,7 +5328,7 @@ class Component extends DCLogic {
       confirmRsCreate: ()=>this.setState(st=>{
         const ma = st.rsCreatePlanMa || '';
         if(!ma){ alert('Vui lòng chọn Kỳ hệ thống hóa.'); return st; }
-        if((st.rsHthCreated||{})[ma]){ alert('Kế hoạch này đã được tạo kết quả HTH.'); return st; }
+        if((st.rsHthCreated||{})[ma]){ alert('Kỳ này đã được tạo kết quả HTH.'); return st; }
         const plan = (st.plans||[]).find(p=>p.ma===ma);
         const kyLabel = plan ? (plan.ky || '') : '';
         const allDocs = docs.slice();
@@ -5387,7 +5372,7 @@ class Component extends DCLogic {
       }),
       rsSave: ()=>this.setState(st=>{
         const ma = st.reviewPlanMa;
-        if(!ma){ alert('Không xác định được kế hoạch.'); return st; }
+        if(!ma){ alert('Không xác định được kỳ hệ thống hóa.'); return st; }
         const ns={ ...st.rsSaved };
         mauBieuDefs.forEach(t=>ns[t[0]]=true);
         const draft = { ...(st.rsHthDraft||{}) };
@@ -5400,7 +5385,7 @@ class Component extends DCLogic {
         };
       }),
       recreateRsHth: ()=>{
-        if(!window.confirm('Tạo lại sẽ xóa dữ liệu kết quả cũ của kế hoạch này và gen lại 4 phụ lục từ dữ liệu mới nhất. Tiếp tục?')) return;
+        if(!window.confirm('Tạo lại sẽ xóa dữ liệu kết quả cũ của kỳ này và gen lại 4 phụ lục từ dữ liệu mới nhất. Tiếp tục?')) return;
         this.setState(st=>{
           if(!st.reviewPlanMa) return st;
           const ma = st.reviewPlanMa;
