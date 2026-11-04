@@ -353,9 +353,9 @@
     <div style="flex:1 1 auto;"></div>
     <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:3px;">
       <button onclick="{{ setChuyenVien }}" style="border:0;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;background:{{ roleCvBg }};color:{{ roleCvFg }};display:flex;align-items:center;gap:4px;transition:.15s;">
-        <span class="ic" style="font-size:15px;">badge</span>Chuyên viên</button>
+        <span class="ic" style="font-size:15px;">apartment</span>Đơn vị</button>
       <button onclick="{{ setLanhDao }}" style="border:0;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;background:{{ roleLdBg }};color:{{ roleLdFg }};display:flex;align-items:center;gap:4px;transition:.15s;">
-        <span class="ic" style="font-size:15px;">verified_user</span>Cán bộ Tổng hợp</button>
+        <span class="ic" style="font-size:15px;">verified_user</span>Đầu mối</button>
     </div>
     <div style="width:1px;height:24px;background:rgba(255,255,255,.15);"></div>
     <div style="position:relative;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);cursor:pointer;" style-hover="background:rgba(255,255,255,.15);">
@@ -1394,58 +1394,614 @@
         </div>
       </sc-if>
 
+      <!-- KẾT QUẢ HTH (mới) -->
+      <sc-if value="{{ isKq }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 24px 48px;">
+
+          <!-- 1. DANH SÁCH KẾT QUẢ -->
+          <sc-if value="{{ kqInList }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span style="color:#1e2939;">Kết quả Hệ thống hóa</span></div>
+            <h1 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#10243a;">Kết quả hệ thống hóa văn bản QPPL</h1>
+            <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:1 1 240px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
+                  <sc-raw-select value="{{ kqLKy }}" onchange="{{ setKqLKy }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value="">Tất cả kỳ</option><sc-for list="{{ kqKyLabelOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
+                  <sc-raw-select value="{{ kqLSt }}" onchange="{{ setKqLSt }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value="">Tất cả trạng thái</option><option value="nhap">Đã lưu</option><option value="gui">Đã gửi</option><option value="tralai">Bị trả lại</option><option value="dm">Đang tổng hợp</option><option value="pub">Đã công bố</option></sc-raw-select>
+                </div>
+                <sc-if value="{{ kqIsDV }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 300px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị</label>
+                  <sc-raw-select value="{{ khoDonVi }}" onchange="{{ khoSetDonVi }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><sc-for list="{{ khoDvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                </div>
+                </sc-if>
+                <button onclick="{{ kqLReset }}" title="Nhập lại" style="height:36px;width:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#475467;"><span class="ic" style="font-size:18px;">refresh</span></button>
+              </div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                <div style="font-size:15px;font-weight:700;color:#1e2939;display:flex;align-items:center;gap:8px;">Danh sách kết quả<span style="font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;border-radius:12px;padding:2px 9px;">{{ kqListN }}</span></div>
+                <button onclick="{{ kqOpenAdd }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">add</span>Thêm mới</button>
+              </div>
+              <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+                <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;">
+                  <sc-raw-th style="padding:11px 10px;width:56px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:150px;text-align:center;border:1px solid #d9dee6;">Kỳ hệ thống hóa</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;text-align:center;border:1px solid #d9dee6;">{{ kqWhoLbl }}</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:100px;text-align:center;border:1px solid #d9dee6;">Số VB</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:160px;text-align:center;border:1px solid #d9dee6;">Trạng thái</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:130px;text-align:center;border:1px solid #d9dee6;">Ngày cập nhật</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:170px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+                </sc-raw-tr></sc-raw-thead>
+                <sc-raw-tbody>
+                  <sc-for list="{{ kqListRows }}" as="r" hint-placeholder-count="3">
+                    <sc-raw-tr>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.stt }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.ky }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;">{{ r.who }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.n }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;"><span style="border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;color:{{ r.stC }};background:{{ r.stB }};">{{ r.stT }}</span></sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.at }}</sc-raw-td>
+                      <sc-raw-td style="padding:8px 10px;border:1px solid #e4e8ee;">
+                        <div style="display:flex;justify-content:center;gap:6px;">
+                          <span onclick="{{ r.xem }}" title="Xem" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
+                          <sc-if value="{{ r.canSua }}" hint-placeholder-val="{{ false }}"><span onclick="{{ r.sua }}" title="Sửa" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span></sc-if>
+                          <sc-if value="{{ r.canTL }}" hint-placeholder-val="{{ false }}"><span onclick="{{ r.traLai }}" title="Trả lại" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff;border:1px solid #fda29b;border-radius:6px;cursor:pointer;">undo</span></sc-if>
+                        </div>
+                      </sc-raw-td>
+                    </sc-raw-tr>
+                  </sc-for>
+                  <sc-if value="{{ kqListEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="7" style="padding:34px 16px;text-align:center;color:#94a3b8;border:1px solid #e4e8ee;">{{ kqListEmptyT }}</sc-raw-td></sc-raw-tr></sc-if>
+                </sc-raw-tbody>
+              </sc-raw-table>
+            </div>
+          </sc-if>
+
+          <!-- 2. THÊM MỚI -->
+          <sc-if value="{{ kqInAdd }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ kqBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Kết quả Hệ thống hóa</span><span>/</span><span style="color:#1e2939;">Thêm mới</span></div>
+            <h1 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ kqBack }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>Thêm mới kết quả hệ thống hóa</h1>
+            <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 420px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa <span style="color:#d92d20;">*</span></label>
+                  <sc-raw-select value="{{ kqAddMa }}" onchange="{{ setKqAddMa }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value="">-- Chọn kỳ hệ thống hóa --</option><sc-for list="{{ kqAddOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                </div>
+                <sc-if value="{{ kqIsDV }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px;"><label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị</label><div style="height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #eef1f6;border-radius:6px;background:#f9fafb;font-size:13px;">{{ kqDvName }}</div></div></sc-if>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;background:#eaf3ff;border:1px solid #cfe2fb;color:#1d4ed8;border-radius:8px;padding:10px 14px;font-size:12.5px;margin-top:14px;"><span class="ic" style="font-size:17px;">info</span><span>{{ kqAddNote }}</span></div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #eef1f6;margin-top:16px;padding-top:14px;">
+                <button onclick="{{ kqBack }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:6px;">Hủy</button>
+                <button onclick="{{ kqCreate }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">playlist_add_check</span>Tạo kết quả</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- 3. CHI TIẾT -->
+          <sc-if value="{{ kqInDetail }}" hint-placeholder-val="{{ false }}">
+           <sc-if value="{{ kqNoMau }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ kqBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Kết quả Hệ thống hóa</span><span>/</span><span style="color:#1e2939;">Kỳ {{ kqDKy }}</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+              <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ kqBack }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>Kết quả hệ thống hóa kỳ {{ kqDKy }}</h1>
+              <span style="border-radius:14px;padding:5px 12px;font-size:12.5px;font-weight:600;color:{{ kqStC }};background:{{ kqStB }};">{{ kqStT }}</span>
+            </div>
+            <sc-if value="{{ kqHasTraLai }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:center;background:#fef3f2;border:1px solid #fecdca;color:#b42318;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:16px;"><span class="ic" style="font-size:18px;">undo</span><span>{{ kqTraLaiNote }}</span></div></sc-if>
+            <sc-if value="{{ kqLocked }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:center;background:#f9fafb;border:1px solid #eef1f6;color:#475467;border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:16px;"><span class="ic" style="font-size:17px;">lock</span><span>{{ kqLockT }}</span></div></sc-if>
+
+            <!-- Đầu mối: link thông tin đơn vị cấp dưới gửi lên -->
+            <sc-if value="{{ kqDmAgg }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff;border-radius:10px;padding:14px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span class="ic" style="font-size:20px;color:#2f2fd0;">apartment</span>
+                  <span onclick="{{ kqOpenUnits }}" style="font-size:14px;font-weight:600;color:#2f2fd0;text-decoration:underline;cursor:pointer;">Thông tin đơn vị cấp dưới gửi lên</span>
+                  <span style="border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;">{{ kqSentN }}/{{ kqUnitN }} đơn vị đã gửi</span>
+                  <sc-if value="{{ kqHasNewSent }}" hint-placeholder-val="{{ false }}"><span style="border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;">{{ kqNewSentN }} đơn vị chưa tổng hợp</span></sc-if>
+                </div>
+                <span onclick="{{ kqOpenUnits }}" class="ic" style="font-size:20px;color:#667085;cursor:pointer;">chevron_right</span>
+              </div>
+            </sc-if>
+
+            <!-- Bảng 5 mẫu -->
+            <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+                <div><div style="font-size:14px;font-weight:700;color:#1e2939;">{{ kqDWho }}</div><div style="font-size:12px;color:#667085;margin-top:2px;">{{ kqTotal }} văn bản · chia vào các danh mục theo công thức · Kiến nghị RSTX: {{ kqRstxAt }}</div></div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <sc-if value="{{ kqDmCanTL }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqDmTL }}" style="height:34px;border:1px solid #fda29b;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#d92d20;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">undo</span>Trả lại đơn vị</button></sc-if>
+                  <sc-if value="{{ kqCanEdit }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqSave }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button></sc-if>
+                  <sc-if value="{{ kqDvCanSend }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqSend }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">send</span>Gửi đầu mối</button></sc-if>
+                  <sc-if value="{{ kqDmCanPub }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqPublish }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">campaign</span>Công bố</button></sc-if>
+                  <sc-if value="{{ kqPub }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqGoSet }}" style="height:34px;border:1px solid #c9ccf5;background:#eef0ff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#2f2fd0;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">menu_book</span>Xem Tập hệ thống hóa</button></sc-if>
+                </div>
+              </div>
+              <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+                <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;">
+                  <sc-raw-th style="padding:11px 10px;width:56px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;text-align:center;border:1px solid #d9dee6;">Danh mục</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:240px;text-align:center;border:1px solid #d9dee6;">Nguồn dữ liệu</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:100px;text-align:center;border:1px solid #d9dee6;">Số VB</sc-raw-th>
+                  <sc-raw-th style="padding:11px 10px;width:130px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+                </sc-raw-tr></sc-raw-thead>
+                <sc-raw-tbody>
+                  <sc-for list="{{ kqMauRows }}" as="m" hint-placeholder-count="5">
+                    <sc-raw-tr style="background:{{ m.bg }};">
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ m.stt }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;font-weight:600;color:#10243a;">{{ m.t }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;font-size:12px;color:#667085;">{{ m.note }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;font-weight:700;">{{ m.n }}</sc-raw-td>
+                      <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;"><div style="display:flex;gap:6px;justify-content:center;">
+                        <span onclick="{{ m.xem }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
+                        <sc-if value="{{ kqCanEdit }}" hint-placeholder-val="{{ true }}"><span onclick="{{ m.sua }}" title="Sửa" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span></sc-if>
+                      </div></sc-raw-td>
+                    </sc-raw-tr>
+                  </sc-for>
+                </sc-raw-tbody>
+              </sc-raw-table>
+            </div>
+           </sc-if>
+
+
+            <!-- Màn thông tin đơn vị cấp dưới gửi lên -->
+            <sc-if value="{{ kqUnitsOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ kqBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Kết quả Hệ thống hóa</span><span>/</span><span onclick="{{ kqCloseUnits }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Kỳ {{ kqDKy }}</span><span>/</span><span style="color:#1e2939;">Đơn vị cấp dưới gửi lên</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+                <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ kqCloseUnits }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>Thông tin đơn vị cấp dưới gửi lên · Kỳ {{ kqDKy }}</h1>
+                <sc-if value="{{ kqDmCanPub }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqReAgg }}" style="height:34px;border:1px solid #c9ccf5;background:#eef0ff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#2f2fd0;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">merge</span>Tổng hợp lại</button></sc-if>
+              </div>
+              <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+                <div style="font-size:12.5px;color:#667085;margin-bottom:12px;">{{ kqAggInfo }}</div>
+                <div style="overflow-x:auto;">
+                <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+                  <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;">
+                    <sc-raw-th style="padding:9px;width:50px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                    <sc-raw-th style="padding:9px;min-width:240px;text-align:center;border:1px solid #d9dee6;">Đơn vị</sc-raw-th>
+                    <sc-raw-th style="padding:9px;width:80px;text-align:center;border:1px solid #d9dee6;">Số VB</sc-raw-th>
+                    <sc-for list="{{ kqMauHdr }}" as="h" hint-placeholder-count="5"><sc-raw-th style="padding:9px;width:62px;text-align:center;border:1px solid #d9dee6;">{{ h.t }}</sc-raw-th></sc-for>
+                    <sc-raw-th style="padding:9px;width:140px;text-align:center;border:1px solid #d9dee6;">Trạng thái</sc-raw-th>
+                    <sc-raw-th style="padding:9px;width:110px;text-align:center;border:1px solid #d9dee6;">Ngày gửi</sc-raw-th>
+                    <sc-raw-th style="padding:9px;width:110px;text-align:center;border:1px solid #d9dee6;">Người gửi</sc-raw-th>
+                    <sc-raw-th style="padding:9px;width:130px;text-align:center;border:1px solid #d9dee6;">Tổng hợp</sc-raw-th>
+                    <sc-raw-th style="padding:9px;width:120px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+                  </sc-raw-tr></sc-raw-thead>
+                  <sc-raw-tbody>
+                    <sc-for list="{{ kqUnitRows }}" as="u" hint-placeholder-count="4">
+                      <sc-raw-tr>
+                        <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;">{{ u.stt }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px 10px;border:1px solid #e4e8ee;">{{ u.dv }}<sc-if value="{{ u.hasLyDo }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;color:#b42318;margin-top:2px;">Lý do trả lại: {{ u.lyDoTL }}</div></sc-if></sc-raw-td>
+                        <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;font-weight:700;">{{ u.n }}</sc-raw-td>
+                        <sc-for list="{{ u.mc }}" as="c" hint-placeholder-count="5"><sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;color:{{ c.fc }};">{{ c.t }}</sc-raw-td></sc-for>
+                        <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;"><span style="border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;color:{{ u.stC }};background:{{ u.stB }};">{{ u.stT }}</span></sc-raw-td>
+                        <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;">{{ u.at }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;font-size:12.5px;">{{ u.by }}</sc-raw-td>
+                        <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;font-size:12px;font-weight:600;color:{{ u.aggC }};">{{ u.aggT }}</sc-raw-td>
+                        <sc-raw-td style="padding:6px 10px;border:1px solid #e4e8ee;"><div style="display:flex;gap:6px;justify-content:center;">
+                          <sc-if value="{{ u.canXem }}" hint-placeholder-val="{{ false }}"><span onclick="{{ u.xem }}" title="Xem kết quả đơn vị" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span></sc-if>
+                          <sc-if value="{{ u.canTL }}" hint-placeholder-val="{{ false }}"><span onclick="{{ u.traLai }}" title="Trả lại" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff;border:1px solid #fda29b;border-radius:6px;cursor:pointer;">undo</span></sc-if>
+                        </div></sc-raw-td>
+                      </sc-raw-tr>
+                    </sc-for>
+                  </sc-raw-tbody>
+                </sc-raw-table>
+                </div>
+                <div style="padding-top:10px;font-size:12.5px;color:#6b7a8d;">Mẫu 01–05: số văn bản đơn vị chia vào từng danh mục. Bấm 👁 để xem kết quả chi tiết của đơn vị.</div>
+              </div>
+            </sc-if>
+
+            <!-- Màn danh sách VB của mẫu -->
+            <sc-if value="{{ kqHasMau }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ kqBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Kết quả Hệ thống hóa</span><span>/</span><span onclick="{{ kqCloseMau }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Kỳ {{ kqDKy }}</span><span>/</span><span style="color:#1e2939;">Mẫu {{ kqMauCode }}</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+                <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ kqCloseMau }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>{{ kqMauTitle }}</h1>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <span style="border-radius:14px;padding:5px 12px;font-size:12.5px;font-weight:600;color:{{ kqMauModeC }};background:{{ kqMauModeB }};">{{ kqMauModeT }}</span>
+                  <sc-if value="{{ kqMauEd }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqSave }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button></sc-if>
+                </div>
+              </div>
+              <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+                  <div><div style="font-size:14px;font-weight:700;color:#1e2939;">{{ kqDWho }}</div><div style="font-size:12px;color:#667085;margin-top:2px;">Kỳ {{ kqDKy }} · {{ kqMauNote }}</div></div>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    <sc-if value="{{ kqIs04 }}" hint-placeholder-val="{{ false }}"><sc-if value="{{ kqMauEd }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqSyncRstx }}" style="height:32px;border:1px solid #c9ccf5;background:#eef0ff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#2f2fd0;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">sync</span>Đồng bộ kết quả RSTX</button></sc-if></sc-if>
+                    <input value="{{ kqQ }}" oninput="{{ setKqQ }}" placeholder="Tìm số/ký hiệu, tên gọi..." style="height:32px;width:240px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;">
+                  </div>
+                </div>
+                <div style="overflow-x:auto;">
+                <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;min-width:1400px;">
+                  <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;">
+                    <sc-raw-th style="padding:10px;width:46px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                    <sc-raw-th style="padding:10px;width:100px;text-align:center;border:1px solid #d9dee6;">Loại VBQPPL</sc-raw-th>
+                    <sc-raw-th style="padding:10px;width:150px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
+                    <sc-raw-th style="padding:10px;width:100px;text-align:center;border:1px solid #d9dee6;">Ngày ban hành</sc-raw-th>
+                    <sc-raw-th style="padding:10px;min-width:240px;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
+                    <sc-raw-th style="padding:10px;width:200px;text-align:center;border:1px solid #d9dee6;">Tình trạng hiệu lực</sc-raw-th>
+                    <sc-raw-th style="padding:10px;width:200px;text-align:center;border:1px solid #d9dee6;">Kiến nghị xử lý (RSTX)</sc-raw-th>
+                    <sc-raw-th style="padding:10px;width:150px;text-align:center;border:1px solid #d9dee6;">Thuộc mẫu</sc-raw-th>
+                    <sc-raw-th style="padding:10px;width:160px;text-align:center;border:1px solid #d9dee6;">Lĩnh vực · Đơn vị</sc-raw-th>
+                    <sc-if value="{{ kqDmAgg }}" hint-placeholder-val="{{ false }}"><sc-raw-th style="padding:10px;width:150px;text-align:center;border:1px solid #d9dee6;">Nguồn kết quả</sc-raw-th></sc-if>
+                    <sc-raw-th style="padding:10px;width:180px;text-align:center;border:1px solid #d9dee6;">Ghi chú</sc-raw-th>
+                  </sc-raw-tr></sc-raw-thead>
+                  <sc-raw-tbody>
+                    <sc-for list="{{ kqRows }}" as="r" hint-placeholder-count="5">
+                      <sc-raw-tr>
+                        <sc-raw-td style="padding:9px 10px;text-align:center;border:1px solid #e4e8ee;">{{ r.stt }}</sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;">{{ r.loai }}</sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;font-weight:700;color:#10243a;white-space:nowrap;">{{ r.so }}</sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;text-align:center;border:1px solid #e4e8ee;white-space:nowrap;">{{ r.ngay }}</sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;line-height:1.45;">{{ r.ty }}</sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;">
+                          <sc-if value="{{ r.ed }}" hint-placeholder-val="{{ true }}"><sc-raw-select value="{{ r.hl }}" onchange="{{ r.setHl }}" style="width:100%;height:30px;font-family:inherit;font-size:12.5px;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:{{ r.hlC }};font-weight:600;"><sc-for list="{{ kqHlOpts }}" as="o" hint-placeholder-count="6"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select></sc-if>
+                          <sc-if value="{{ r.ro }}" hint-placeholder-val="{{ false }}"><span style="border-radius:12px;padding:2px 9px;font-size:11.5px;font-weight:600;color:{{ r.hlC }};background:{{ r.hlB }};">{{ r.hl }}</span></sc-if>
+                        </sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;"><div style="font-weight:600;color:{{ r.knC }};font-size:12.5px;">{{ r.kn }}</div><div style="font-size:11.5px;color:#667085;margin-top:2px;">{{ r.lyDo }}</div></sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;text-align:center;"><sc-for list="{{ r.mauChips }}" as="c" hint-placeholder-count="5"><span style="display:inline-block;min-width:22px;border-radius:5px;padding:2px 3px;margin:1px;font-size:11px;font-weight:700;color:{{ c.fc }};background:{{ c.bc }};">{{ c.t }}</span></sc-for></sc-raw-td>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;line-height:1.3;"><div style="font-size:12px;font-weight:600;color:#2f2fd0;">{{ r.lvT }}</div><div style="font-size:11px;color:#98a2b3;">{{ r.dvT }}</div></sc-raw-td>
+                        <sc-if value="{{ kqDmAgg }}" hint-placeholder-val="{{ false }}"><sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;font-size:12px;font-weight:600;color:{{ r.srcC }};">{{ r.srcT }}</sc-raw-td></sc-if>
+                        <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;">
+                          <sc-if value="{{ r.ed }}" hint-placeholder-val="{{ true }}"><input value="{{ r.ghiChu }}" onchange="{{ r.setGhiChu }}" placeholder="Ghi chú..." style="width:100%;height:30px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-if>
+                          <sc-if value="{{ r.ro }}" hint-placeholder-val="{{ false }}"><span style="font-size:12.5px;color:#475467;">{{ r.ghiChu }}</span></sc-if>
+                        </sc-raw-td>
+                      </sc-raw-tr>
+                    </sc-for>
+                    <sc-if value="{{ kqVbEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="11" style="padding:24px 16px;text-align:center;color:#94a3b8;border:1px solid #e4e8ee;">Danh mục này chưa có văn bản.</sc-raw-td></sc-raw-tr></sc-if>
+                  </sc-raw-tbody>
+                </sc-raw-table>
+                </div>
+                <div style="padding-top:10px;font-size:12.5px;color:#6b7a8d;">Hiển thị <b>{{ kqN }}</b> văn bản<sc-if value="{{ kqMauEd }}" hint-placeholder-val="{{ false }}"> · Đổi tình trạng hiệu lực thì văn bản tự chuyển danh mục theo công thức.</sc-if></div>
+              </div>
+            </sc-if>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ===== VĂN BẢN ĐƠN VỊ ĐÃ NHẬN ===== -->
+      <sc-if value="{{ isDvNhan }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 24px 48px;">
+          <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+            <span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span style="color:#1e2939;">Danh sách VBHTH đơn vị</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;">
+            <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh sách VBHTH đơn vị</h1>
+            <span title="Do đầu mối phân quyền theo kỳ" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border-radius:14px;padding:4px 10px;"><span class="ic" style="font-size:15px;">{{ khoSeeIc }}</span>{{ khoLuongText }}</span>
+          </div>
+
+          <!-- Thanh tìm kiếm -->
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 160px;min-width:140px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
+                <sc-raw-select value="{{ docKySel }}" onchange="{{ setDocKy }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;cursor:pointer;"><option value="">-- Chọn kỳ --</option><sc-for list="{{ docKyOptions }}" as="k" hint-placeholder-count="2"><option value="{{ k.value }}">{{ k.label }}</option></sc-for></sc-raw-select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;min-width:180px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị</label>
+                <sc-raw-select value="{{ khoDonVi }}" onchange="{{ khoSetDonVi }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;cursor:pointer;"><sc-for list="{{ khoDvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1 1 200px;min-width:180px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Số/ký hiệu</label>
+                <div style="position:relative;"><span class="ic" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;">search</span><input value="{{ dvnQ }}" oninput="{{ setDvnQ }}" placeholder="Nhập số/ký hiệu..." style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 12px 0 34px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Lĩnh vực</label>
+                <sc-raw-select value="{{ dvnLv }}" onchange="{{ setDvnLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ dvnLvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button onclick="{{ applyDocKy }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:6px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ dvnReset }}" title="Nhập lại" style="height:36px;width:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#475467;"><span class="ic" style="font-size:18px;">refresh</span></button>
+                <button onclick="{{ dvnToggleMore }}" style="height:36px;border:1px solid {{ dvnMoreBd }};background:{{ dvnMoreBg }};cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:{{ dvnMoreC }};padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">tune</span>{{ dvnMoreT }}</button>
+              </div>
+            </div>
+            <sc-if value="{{ dvnMoreF }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:12px;padding-top:12px;border-top:1px dashed #e4e8ee;">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 190px;min-width:150px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Cách nhận</label>
+                  <sc-raw-select value="{{ dvnSrc }}" onchange="{{ setDvnSrc }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="daumoi">Đầu mối gán</option><option value="donvi">Đơn vị tự chọn</option><option value="kethua">Kế thừa kỳ trước</option></sc-raw-select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VB HTH</label>
+                  <sc-raw-select value="{{ dvnHth }}" onchange="{{ setDvnHth }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="nay">Kỳ này</option><option value="truoc">Kỳ trước</option></sc-raw-select>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+
+          <!-- Kết quả -->
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                <div style="font-size:15px;font-weight:700;color:#1e2939;display:flex;align-items:center;gap:8px;">Danh sách văn bản<span style="font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;border-radius:12px;padding:2px 9px;">{{ dvnN }}</span></div>
+              </div>
+            </div>
+            <div style="overflow-x:auto;">
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;min-width:1080px;">
+              <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;">
+                <sc-raw-th style="padding:10px;width:46px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:100px;text-align:center;border:1px solid #d9dee6;">Loại VBQPPL</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:150px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:100px;text-align:center;border:1px solid #d9dee6;">Ngày ban hành</sc-raw-th>
+                <sc-raw-th style="padding:10px;min-width:240px;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:150px;text-align:center;border:1px solid #d9dee6;">Tình trạng hiệu lực</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:150px;text-align:center;border:1px solid #d9dee6;">Lĩnh vực của đơn vị</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:160px;text-align:center;border:1px solid #d9dee6;">Cách nhận</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:96px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+              </sc-raw-tr></sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-for list="{{ dvnRows }}" as="r" hint-placeholder-count="4">
+                  <sc-raw-tr>
+                    <sc-raw-td style="padding:9px 10px;text-align:center;border:1px solid #e4e8ee;">{{ r.stt }}</sc-raw-td>
+                    <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;">{{ r.loai }}</sc-raw-td>
+                    <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;"><div style="font-weight:700;color:#10243a;white-space:nowrap;">{{ r.so }}<sc-if value="{{ r.moi }}" hint-placeholder-val="{{ false }}"> <span style="font-size:10px;font-weight:700;color:#344054;background:#f2f4f7;border-radius:4px;padding:1px 5px;">MỚI</span></sc-if></div><span style="display:inline-block;margin-top:4px;border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;color:{{ r.hthC }};background:{{ r.hthB }};">{{ r.hthT }}</span></sc-raw-td>
+                    <sc-raw-td style="padding:9px 10px;text-align:center;border:1px solid #e4e8ee;white-space:nowrap;">{{ r.ngay }}</sc-raw-td>
+                    <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;line-height:1.45;">{{ r.ty }}<sc-if value="{{ r.hasOthers }}" hint-placeholder-val="{{ false }}"><div style="font-size:11.5px;color:#98a2b3;margin-top:3px;">Cùng thuộc: {{ r.others }}</div></sc-if></sc-raw-td>
+                    <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;text-align:center;"><span style="border-radius:12px;padding:2px 9px;font-size:11.5px;font-weight:600;color:{{ r.hlC }};background:{{ r.hlB }};">{{ r.hl }}</span></sc-raw-td>
+                    <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;"><div style="display:flex;flex-wrap:wrap;gap:4px;"><sc-for list="{{ r.lvs }}" as="l" hint-placeholder-count="1"><span style="border-radius:10px;padding:2px 8px;font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;">{{ l.t }}</span></sc-for></div></sc-raw-td>
+                    <sc-raw-td style="padding:9px 10px;border:1px solid #e4e8ee;"><div style="font-size:12.5px;font-weight:600;color:{{ r.srcC }};">{{ r.srcT }}</div><div style="font-size:11.5px;color:#98a2b3;">{{ r.srcAt }}</div></sc-raw-td>
+                    <sc-raw-td style="padding:6px 10px;border:1px solid #e4e8ee;"><div style="display:flex;gap:6px;justify-content:center;">
+                      <span onclick="{{ r.view }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
+                    </div></sc-raw-td>
+                  </sc-raw-tr>
+                </sc-for>
+                <sc-if value="{{ dvnEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="9" style="padding:24px 16px;text-align:center;color:#94a3b8;border:1px solid #e4e8ee;">{{ dvnEmptyT }}</sc-raw-td></sc-raw-tr></sc-if>
+              </sc-raw-tbody>
+            </sc-raw-table>
+            </div>
+            <div style="padding-top:10px;font-size:12.5px;color:#6b7a8d;">Hiển thị <b>{{ dvnN }}</b> / {{ dvnTotal }} văn bản của <b>{{ dvnDv }}</b> · Kỳ <b>{{ dvnKy }}</b></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- KHO: màn hình Gán lĩnh vực (thay popup) -->
+      <sc-if value="{{ isKhoGan }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 24px 48px;">
+          <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+            <span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ khoBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Danh sách văn bản HTH</span><span>/</span><span style="color:#1e2939;">Gán lĩnh vực</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ khoBack }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>Gán lĩnh vực cho văn bản</h1>
+            <span style="background:#f2f4f7;color:#344054;border-radius:14px;padding:5px 12px;font-size:12.5px;font-weight:600;">Đầu mối gán lĩnh vực</span>
+          </div>
+
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="font-size:14px;font-weight:700;color:#1e2939;margin-bottom:12px;">1. Văn bản đã chọn ({{ khoGanN }})</div>
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+              <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;">
+                <sc-raw-th style="padding:10px;width:50px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:200px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
+                <sc-raw-th style="padding:10px;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:110px;text-align:center;border:1px solid #d9dee6;">Loại VB HTH</sc-raw-th>
+                <sc-raw-th style="padding:10px;width:70px;text-align:center;border:1px solid #d9dee6;">Bỏ</sc-raw-th>
+              </sc-raw-tr></sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-for list="{{ khoGanDocs }}" as="d" hint-placeholder-count="2">
+                  <sc-raw-tr>
+                    <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ d.stt }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;"><div style="font-weight:700;color:#10243a;">{{ d.so }}</div><div style="font-size:11.5px;color:#667085;">{{ d.sub }}</div></sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;">{{ d.ty }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;"><span style="border-radius:12px;padding:2px 9px;font-size:11.5px;font-weight:600;color:{{ d.hthC }};background:{{ d.hthB }};">{{ d.hthT }}</span></sc-raw-td>
+                    <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;"><span onclick="{{ d.bo }}" class="ic" title="Bỏ khỏi danh sách gán" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;border:1px solid #fda29b;border-radius:6px;cursor:pointer;">close</span></sc-raw-td>
+                  </sc-raw-tr>
+                </sc-for>
+              </sc-raw-tbody>
+            </sc-raw-table>
+          </div>
+
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="font-size:14px;font-weight:700;color:#1e2939;margin-bottom:6px;">2. Chọn lĩnh vực <span style="color:#d92d20;">*</span></div>
+            <div style="font-size:12px;color:#667085;margin-bottom:10px;">Gõ để tìm · chọn được nhiều lĩnh vực · danh sách gồm toàn bộ Danh mục lĩnh vực HTH</div>
+            <div style="position:relative;max-width:640px;">
+              <div onclick="{{ khoGanOpenDd }}" style="min-height:40px;border:1px solid {{ khoGanDdBd }};border-radius:6px;background:#fff;padding:4px 36px 4px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:4px;cursor:text;box-sizing:border-box;">
+                <sc-for list="{{ khoGanSelChips }}" as="c" hint-placeholder-count="2">
+                  <span style="display:inline-flex;align-items:center;gap:2px;border-radius:12px;padding:2px 4px 2px 10px;font-size:12.5px;font-weight:600;color:#344054;background:#f2f4f7;">{{ c.t }}<span onclick="{{ c.x }}" class="ic" title="Bỏ chọn" style="font-size:15px;cursor:pointer;">close</span></span>
+                </sc-for>
+                <input value="{{ khoGanQ }}" oninput="{{ setKhoGanQ }}" onfocus="{{ khoGanOpenDd }}" placeholder="{{ khoGanPh }}" style="flex:1;min-width:160px;height:30px;border:0;outline:none;font-family:inherit;font-size:13px;background:transparent;">
+                <span onclick="{{ khoGanToggleDd }}" class="ic" style="position:absolute;right:10px;top:11px;font-size:18px;color:#98a2b3;cursor:pointer;">{{ khoGanDdIc }}</span>
+              </div>
+              <sc-if value="{{ khoGanDdOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;left:0;right:0;top:44px;background:#fff;border:1px solid #d0d5dd;border-radius:8px;box-shadow:0 10px 28px rgba(16,36,58,.16);padding:6px;z-index:20;max-height:260px;overflow:auto;">
+                  <sc-for list="{{ khoGanLvOpts }}" as="o" hint-placeholder-count="5">
+                    <div onclick="{{ o.go }}" style="display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:5px;cursor:pointer;font-size:13px;background:{{ o.rowBg }};" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;color:{{ o.cbC }};">{{ o.cbIc }}</span><span style="flex:1;">{{ o.t }}</span><span style="font-size:11.5px;color:#667085;">{{ o.dvN }}</span></div>
+                  </sc-for>
+                  <sc-if value="{{ khoGanNoMatch }}" hint-placeholder-val="{{ false }}"><div style="padding:10px;text-align:center;color:#98a2b3;font-size:12.5px;">Không tìm thấy lĩnh vực phù hợp</div></sc-if>
+                  <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #eef1f6;margin-top:4px;padding:8px 4px 2px;font-size:12px;color:#667085;"><span>Đã chọn {{ khoGanLvN }} lĩnh vực</span><span onclick="{{ khoGanCloseDd }}" style="color:#2f2fd0;font-weight:600;cursor:pointer;">Xong</span></div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="font-size:14px;font-weight:700;color:#1e2939;margin-bottom:12px;">3. Đơn vị nhận văn bản <span style="font-weight:500;color:#667085;font-size:12.5px;">(theo Danh mục lĩnh vực)</span></div>
+            <sc-if value="{{ khoGanNoLv }}" hint-placeholder-val="{{ false }}"><div style="padding:18px;text-align:center;color:#94a3b8;border:1px dashed #d0d5dd;border-radius:8px;">Chọn lĩnh vực ở bước 2 để xác định đơn vị nhận.</div></sc-if>
+            <sc-if value="{{ khoGanHasLv }}" hint-placeholder-val="{{ true }}">
+              <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+                <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;">
+                  <sc-raw-th style="padding:10px;width:200px;text-align:center;border:1px solid #d9dee6;">Lĩnh vực</sc-raw-th>
+                  <sc-raw-th style="padding:10px;text-align:center;border:1px solid #d9dee6;">Đơn vị phụ trách</sc-raw-th>
+                  <sc-raw-th style="padding:10px;width:240px;text-align:center;border:1px solid #d9dee6;">Trạng thái</sc-raw-th>
+                </sc-raw-tr></sc-raw-thead>
+                <sc-raw-tbody>
+                  <sc-for list="{{ khoGanMap }}" as="m" hint-placeholder-count="2">
+                    <sc-raw-tr>
+                      <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;"><span style="border-radius:12px;padding:2px 9px;font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;">{{ m.lv }}</span></sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;">
+                        <sc-if value="{{ m.auto }}" hint-placeholder-val="{{ false }}"><span style="border-radius:12px;padding:2px 9px;font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;">{{ m.autoDv }}</span></sc-if>
+                        <sc-if value="{{ m.none }}" hint-placeholder-val="{{ false }}"><span style="color:#b42318;font-size:12.5px;">Lĩnh vực chưa cấu hình đơn vị áp dụng — cập nhật tại Danh mục lĩnh vực.</span></sc-if>
+                        <sc-if value="{{ m.many }}" hint-placeholder-val="{{ false }}">
+                          <div style="display:flex;flex-wrap:wrap;gap:6px 18px;">
+                            <sc-for list="{{ m.units }}" as="u" hint-placeholder-count="2"><span onclick="{{ u.go }}" style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-size:12.5px;"><span class="ic" style="font-size:18px;color:{{ u.fc }};">{{ u.ic }}</span>{{ u.t }}</span></sc-for>
+                          </div>
+                        </sc-if>
+                      </sc-raw-td>
+                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;"><span style="border-radius:12px;padding:3px 10px;font-size:11.5px;font-weight:600;color:{{ m.stC }};background:{{ m.stB }};">{{ m.stT }}</span></sc-raw-td>
+                    </sc-raw-tr>
+                  </sc-for>
+                </sc-raw-tbody>
+              </sc-raw-table>
+            </sc-if>
+            <div style="display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;color:#1d4ed8;border-radius:8px;padding:9px 14px;font-size:12.5px;margin-top:14px;"><span class="ic" style="font-size:17px;">info</span>Đơn vị chọn cho mỗi lĩnh vực áp dụng cho tất cả văn bản ở bước 1. Sau khi lưu, văn bản về ngay đơn vị, đơn vị không cần xác nhận.</div>
+            <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #eef1f6;margin-top:16px;padding-top:14px;">
+              <button onclick="{{ khoBack }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:6px;">Hủy</button>
+              <button onclick="{{ khoLuuGan }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">save</span>Lưu và gán</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- KHO: màn hình Lấy dữ liệu (thay popup) -->
+      <sc-if value="{{ isKhoSync }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:20px 24px 48px;">
+          <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+            <span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ khoBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Danh sách văn bản HTH</span><span>/</span><span style="color:#1e2939;">{{ khoYTitle }}</span>
+          </div>
+          <h1 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ khoBack }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>{{ khoYTitle }} · Kỳ {{ khoYKy }}</h1>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+            <div style="font-size:13px;color:#667085;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;color:#2f2fd0;">{{ khoYBtnIc }}</span>{{ khoYDesc }}</div>
+            <button onclick="{{ khoManual }}" style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">edit_note</span>Nhập tay / Nhập từ Excel</button>
+          </div>
+
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="font-size:14px;font-weight:700;color:#1e2939;margin-bottom:12px;">Tiêu chí lấy dữ liệu</div>
+            <sc-if value="{{ khoYNay }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:1 1 260px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Cơ quan ban hành <span style="color:#d92d20;">*</span></label>
+                  <sc-raw-select value="{{ khoYCq }}" onchange="{{ setKhoYCq }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="Bộ Tư pháp">Bộ Tư pháp</option><option value="Bộ Công an">Bộ Công an</option><option value="Bộ Tài chính">Bộ Tài chính</option></sc-raw-select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Từ ngày ban hành <span style="color:#d92d20;">*</span></label>
+                  <input value="{{ khoYTu }}" oninput="{{ setKhoYTu }}" placeholder="dd/mm/yyyy" style="height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Đến ngày ban hành <span style="color:#d92d20;">*</span></label>
+                  <input value="{{ khoYDen }}" oninput="{{ setKhoYDen }}" placeholder="dd/mm/yyyy" style="height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
+                  <div style="height:36px;display:flex;align-items:center;padding:0 10px;border:1px solid #eef1f6;border-radius:6px;background:#f9fafb;font-size:13px;">{{ khoYKy }}</div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ khoYTruoc }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 260px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Chọn kỳ trước <span style="color:#d92d20;">*</span></label>
+                  <sc-raw-select value="{{ khoYKyTruoc }}" onchange="{{ setKhoYKyTruoc }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><sc-for list="{{ khoYKyTruocOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                </div>
+                <div style="flex:1 1 300px;display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;color:#1d4ed8;border-radius:8px;padding:9px 14px;font-size:12.5px;"><span class="ic" style="font-size:17px;">info</span>Văn bản có lĩnh vực không còn trong danh mục hoặc đơn vị không còn phụ trách sẽ vào trạng thái "Chưa gán lĩnh vực".</div>
+              </div>
+              <sc-if value="{{ khoYNoPrev }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;color:#b42318;font-size:12.5px;">Không có kỳ hệ thống hóa nào trước kỳ {{ khoYKy }}.</div></sc-if>
+            </sc-if>
+            <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #eef1f6;margin-top:16px;padding-top:14px;">
+              <button onclick="{{ khoBack }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:6px;">Hủy</button>
+              <button onclick="{{ khoDoSync }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">{{ khoYBtnIc }}</span>{{ khoYBtn }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isDocList }}" hint-placeholder-val="{{ false }}">
         <div style="padding:20px 24px 48px;">
           <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
             <span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span style="color:#1e2939;">Danh sách văn bản HTH</span>
           </div>
-          <h1 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#10243a;">Danh sách văn bản thuộc đối tượng hệ thống hóa</h1>
-
-          <div style="background:#fff;border-radius:10px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
-              <div style="display:flex;flex-direction:column;gap:7px;">
-                <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
-                <div style="position:relative;">
-                  <sc-raw-select value="{{ docKySel }}" onchange="{{ setDocKy }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;cursor:pointer;">
-                    <option value="">-- Chọn kỳ hệ thống hóa --</option>
-                    <sc-for list="{{ docKyOptions }}" as="k" hint-placeholder-count="2"><option value="{{ k.value }}">{{ k.label }}</option></sc-for>
-                  </sc-raw-select>
-                  <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
-                </div>
-              </div>
-              <div style="display:flex;gap:10px;">
-                <button onclick="{{ applyDocKy }}" style="height:38px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
-                <button onclick="{{ resetDocKy }}" style="height:38px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
-              </div>
-            </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;">
+            <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh sách văn bản thuộc đối tượng hệ thống hóa</h1>
+            <sc-if value="{{ khoIsDV }}" hint-placeholder-val="{{ false }}"><span title="Do đầu mối phân quyền theo kỳ" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border-radius:14px;padding:4px 10px;"><span class="ic" style="font-size:15px;">{{ khoSeeIc }}</span>{{ khoLuongText }}</span></sc-if>
           </div>
-          <div style="background:#fff;border-radius:10px;padding:20px 22px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;">
-              <div style="display:flex;flex-direction:column;gap:7px;flex:1 1 360px;min-width:240px;">
-                <label style="font-size:13px;font-weight:700;color:#1e2939;">Số/Ký hiệu văn bản</label>
+
+          <!-- Thanh tìm kiếm -->
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 160px;min-width:140px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
+                <sc-raw-select value="{{ docKySel }}" onchange="{{ setDocKy }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;box-sizing:border-box;cursor:pointer;">
+                  <option value="">-- Chọn kỳ --</option>
+                  <sc-for list="{{ docKyOptions }}" as="k" hint-placeholder-count="2"><option value="{{ k.value }}">{{ k.label }}</option></sc-for>
+                </sc-raw-select>
+              </div>
+              <sc-if value="{{ khoIsDV }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;min-width:180px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị</label>
+                <sc-raw-select value="{{ khoDonVi }}" onchange="{{ khoSetDonVi }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;box-sizing:border-box;cursor:pointer;">
+                  <sc-for list="{{ khoDvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for>
+                </sc-raw-select>
+              </div>
+              </sc-if>
+              <sc-if value="{{ khoCanSee }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1 1 200px;min-width:180px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Số/ký hiệu</label>
                 <div style="position:relative;">
-                  <span class="ic" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#1e2939;">search</span>
-                  <input placeholder="Tra cứu số/ký hiệu văn bản..." style="width:100%;height:34px;font-family:inherit;font-size:13px;padding:0 12px 0 34px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;">
+                  <span class="ic" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;">search</span>
+                  <input value="{{ khoQ }}" oninput="{{ setKhoQ }}" placeholder="Nhập số/ký hiệu..." style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 12px 0 34px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;">
                 </div>
               </div>
-              <div style="display:flex;flex-direction:column;gap:7px;flex:0 1 250px;min-width:180px;">
-                <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VBQPPL</label>
-                <sc-raw-select style="width:100%;height:34px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#667085;box-sizing:border-box;"><option>Tất cả loại VB</option><option>Luật</option><option>Nghị định</option><option>Thông tư</option><option>Quyết định</option><option>Nghị quyết</option></sc-raw-select>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:7px;flex:0 1 250px;min-width:180px;">
+              </sc-if>
+              <sc-if value="{{ khoCanSee }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
                 <label style="font-size:13px;font-weight:700;color:#1e2939;">Lĩnh vực</label>
-                <sc-raw-select style="width:100%;height:34px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#667085;box-sizing:border-box;"><option>Tất cả lĩnh vực</option><option>Tư pháp</option><option>Hộ tịch</option><option>Lao động</option></sc-raw-select>
+                <sc-raw-select value="{{ khoLv }}" onchange="{{ setKhoLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+              </div>
+              </sc-if>
+              <div style="display:flex;gap:8px;">
+                <button onclick="{{ applyDocKy }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:6px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                <button onclick="{{ khoResetF }}" title="Nhập lại" style="height:36px;width:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#475467;"><span class="ic" style="font-size:18px;">refresh</span></button>
+                <sc-if value="{{ khoCanSee }}" hint-placeholder-val="{{ true }}">
+                <button onclick="{{ khoToggleMore }}" style="height:36px;border:1px solid {{ khoMoreBd }};background:{{ khoMoreBg }};cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:{{ khoMoreC }};padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">tune</span>{{ khoMoreT }}</button>
+                </sc-if>
               </div>
             </div>
-            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px;">
-              <button onclick="{{ applyDocKy }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
-              <button style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">refresh</span>Nhập lại</button>
-              <button style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:17px;">ios_share</span>Xuất</button>
+            <sc-if value="{{ khoMoreF }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:12px;padding-top:12px;border-top:1px dashed #e4e8ee;">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;min-width:150px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VBQPPL</label>
+                  <sc-raw-select value="{{ khoLoai }}" onchange="{{ setKhoLoai }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="Luật">Luật</option><option value="Nghị định">Nghị định</option><option value="Thông tư">Thông tư</option><option value="Quyết định">Quyết định</option><option value="Nghị quyết">Nghị quyết</option></sc-raw-select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;min-width:150px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VB HTH</label>
+                  <sc-raw-select value="{{ khoHth }}" onchange="{{ setKhoHth }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="nay">VB HTH kỳ này</option><option value="truoc">VB HTH kỳ trước</option></sc-raw-select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
+                  <sc-raw-select value="{{ khoTT }}" onchange="{{ setKhoTT }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;">
+                    <sc-for list="{{ khoTTOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+                  </sc-raw-select>
+                </div>
+                <sc-if value="{{ khoIsDM }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 240px;min-width:180px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị phụ trách</label>
+                  <sc-raw-select value="{{ khoDv }}" onchange="{{ setKhoDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ khoDvAllOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                </div>
+                </sc-if>
+                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;min-width:150px;">
+                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Nguồn</label>
+                  <sc-raw-select value="{{ khoNguon }}" onchange="{{ setKhoNguon }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="csdl">CSDLQG</option><option value="hethong">Hệ thống (kỳ trước)</option><option value="manual">Nhập tay</option><option value="excel">Excel</option></sc-raw-select>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ khoNoSee }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border-radius:10px;padding:40px 22px;box-shadow:0 1px 2px rgba(16,36,58,.04);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;">
+              <span class="ic" style="font-size:44px;color:#98a2b3;">visibility_off</span>
+              <div style="font-size:15px;font-weight:700;color:#1e2939;">Đơn vị chưa được phép xem dữ liệu tổng</div>
+              <div style="font-size:13px;color:#667085;max-width:560px;">Văn bản của đơn vị do đầu mối gán lĩnh vực. Liên hệ đầu mối để được phân quyền nếu đơn vị cần tự chọn lĩnh vực.</div>
+              <button onclick="{{ goDvNhan }}" style="margin-top:6px;height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">inventory_2</span>Xem Danh sách VBHTH đơn vị</button>
             </div>
-            <div style="border-top:1px solid #eef1f6;margin:16px 0;"></div>
-            <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:14px;">
-              <button onclick="{{ openAddBoSungKyTruoc }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">history</span>Bổ sung VB HTH Kỳ trước</button>
-              <button onclick="{{ openAddCurrent }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">add</span>Thêm mới văn bản</button>
+          </sc-if>
+          <sc-if value="{{ khoCanSee }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+              <div style="font-size:15px;font-weight:700;color:#1e2939;display:flex;align-items:center;gap:8px;">Danh sách văn bản<span style="font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;border-radius:12px;padding:2px 9px;">{{ khoCount }}</span></div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <sc-if value="{{ khoIsDM }}" hint-placeholder-val="{{ true }}">
+                <div onclick="{{ khoPermTog }}" title="{{ khoPermTitle }}" style="height:34px;display:flex;align-items:center;gap:6px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;cursor:{{ khoPermCur }};font-size:13px;font-weight:600;color:#1e2939;"><span class="ic" style="font-size:20px;color:{{ khoPermC }};">{{ khoPermIc }}</span>Phân quyền cho đơn vị được xem<sc-if value="{{ khoPermOn }}" hint-placeholder-val="{{ false }}"><span class="ic" style="font-size:14px;color:#98a2b3;">lock</span></sc-if></div>
+                <button onclick="{{ khoOpenSyncTruoc }}" title="Lấy dữ liệu VB HTH kỳ trước có sẵn trên hệ thống" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">history</span>Bổ sung VB HTH kỳ trước</button>
+                </sc-if>
+                <button style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">ios_share</span>Xuất</button>
+                <sc-if value="{{ khoIsDM }}" hint-placeholder-val="{{ true }}">
+                <button onclick="{{ khoOpenSyncNay }}" title="Đồng bộ VB HTH kỳ này từ CSDL quốc gia" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">add</span>Thêm mới văn bản</button>
+                </sc-if>
+              </div>
             </div>
 
             <sc-if value="{{ ktShow }}" hint-placeholder-val="{{ false }}">
@@ -1453,46 +2009,108 @@
                 <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#93370d;"><span class="ic" style="font-size:19px;color:#dc6803;">warning</span>Phát hiện {{ ktCount }} văn bản hết hiệu lực trong kỳ {{ ktPrev }} nhưng chưa có trong kết quả đã công bố của kỳ đó.</div>
                 <span onclick="{{ openKt }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
               </div>
-            
+            </sc-if>
+            <sc-if value="{{ khoDvNoLv }}" hint-placeholder-val="{{ false }}">
+              <sc-if value="{{ khoIsDV }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#fef3f2;border:1px solid #fecdca;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#b42318;"><span class="ic" style="font-size:18px;">lock</span>Đơn vị chưa được cấu hình lĩnh vực (Danh mục lĩnh vực) — chỉ xem, không nhận được văn bản.</div>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{ khoHasSel }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;background:#eef0ff;border:1px solid #c9ccf5;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-weight:600;color:#2f2fd0;font-size:13px;">
+                <span style="display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:19px;">check_box</span>Đã chọn {{ khoSelCount }} văn bản</span>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <button onclick="{{ khoClearSel }}" style="height:30px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;">Bỏ chọn</button>
+                  <sc-if value="{{ khoDmL1 }}" hint-placeholder-val="{{ true }}">
+                    <sc-raw-select value="{{ khoBGLv }}" onchange="{{ setKhoBGLv }}" style="height:30px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #c9ccf5;border-radius:6px;background:#fff;color:#1e2939;"><option value="">-- Chọn lĩnh vực --</option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                    <sc-if value="{{ khoBGNeedDv }}" hint-placeholder-val="{{ false }}"><sc-raw-select value="{{ khoBGDv }}" onchange="{{ setKhoBGDv }}" style="height:30px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #f79009;border-radius:6px;background:#fff;color:#1e2939;"><option value="">-- Chọn đơn vị --</option><sc-for list="{{ khoBGDvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select></sc-if>
+                    <button onclick="{{ khoBGApply }}" style="height:30px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">sell</span>Gán cho {{ khoSelCount }} VB</button>
+                  </sc-if>
+                  <sc-if value="{{ khoDvL2 }}" hint-placeholder-val="{{ false }}">
+                    <sc-raw-select value="{{ khoBulkLv }}" onchange="{{ setKhoBulkLv }}" style="height:30px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #c9ccf5;border-radius:6px;background:#fff;color:#1e2939;"><option value="">-- Lĩnh vực của đơn vị --</option><sc-for list="{{ khoLvOfDv }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                    <button onclick="{{ khoNhanSel }}" style="height:30px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">download</span>Nhận {{ khoSelCount }} VB</button>
+                  </sc-if>
+                </div>
+              </div>
             </sc-if>
 
             <div style="overflow-x:auto;">
-            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;min-width:1100px;">
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;min-width:1400px;">
               <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:54px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Loại VBQPPL</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:120px;text-align:center;border:1px solid #d9dee6;">Ngày ban hành</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:130px;text-align:center;border:1px solid #d9dee6;">Thời điểm có hiệu lực</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:170px;text-align:center;border:1px solid #d9dee6;">Tình trạng hiệu lực hiện tại</sc-raw-th>
-                <sc-raw-th style="padding:11px 10px;font-weight:700;width:96px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
+                <sc-raw-th style="padding:11px 8px;width:40px;text-align:center;border:1px solid #d9dee6;"><span onclick="{{ khoToggleAll }}" class="ic" style="font-size:19px;cursor:pointer;color:{{ khoAllC }};">{{ khoAllIcon }}</span></sc-raw-th>
+                <sc-raw-th style="padding:11px 8px;font-weight:700;width:50px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Loại VBQPPL</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;width:160px;text-align:center;border:1px solid #d9dee6;">Số, ký hiệu</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Ngày ban hành</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;min-width:260px;text-align:center;border:1px solid #d9dee6;">Tên gọi của văn bản</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;width:110px;text-align:center;border:1px solid #d9dee6;">Thời điểm có hiệu lực</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Tình trạng hiệu lực hiện tại</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;width:300px;text-align:center;border:1px solid #d9dee6;">Lĩnh vực · Đơn vị phụ trách</sc-raw-th>
+                <sc-raw-th style="padding:11px 10px;font-weight:700;min-width:96px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
               </sc-raw-tr></sc-raw-thead>
               <sc-raw-tbody>
-                <sc-for list="{{ docList }}" as="doc" hint-placeholder-count="8">
-                    <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
-                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ doc.stt }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;line-height:1.4;border:1px solid #d9dee6;">{{ doc.loai }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;font-weight:400;text-align:left;white-space:nowrap;border:1px solid #d9dee6;">{{ doc.so }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;text-align:center;white-space:nowrap;border:1px solid #d9dee6;">{{ doc.ngay }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;border:1px solid #d9dee6;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="{{ doc.ty }}">{{ doc.ty }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ doc.hieuLucNgay }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;text-align:left;border:1px solid #d9dee6;">{{ doc.hlHienTai }}</sc-raw-td>
-                      <sc-raw-td style="padding:8px 10px;border:1px solid #d9dee6;">
-                        <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
-                          <span onclick="{{ doc.view }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
-                          <sc-if value="{{ doc.srcManual }}" hint-placeholder-val="{{ false }}"><span onclick="{{ doc.edit }}" title="Cập nhật" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span></sc-if>
+                <sc-for list="{{ khoRows }}" as="r" hint-placeholder-count="6">
+                  <sc-raw-tr style="color:#1e2939;background:{{ r.rowBg }};">
+                    <sc-raw-td style="padding:10px 8px;text-align:center;border:1px solid #e4e8ee;"><span onclick="{{ r.toggle }}" class="ic" style="font-size:19px;cursor:pointer;color:{{ r.chkC }};">{{ r.chkIcon }}</span></sc-raw-td>
+                    <sc-raw-td style="padding:10px 8px;text-align:center;border:1px solid #e4e8ee;">{{ r.stt }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;">{{ r.loai }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;"><div style="font-weight:700;color:#10243a;white-space:nowrap;">{{ r.so }}<sc-if value="{{ r.moi }}" hint-placeholder-val="{{ false }}"> <span style="background:#f2f4f7;color:#344054;border-radius:10px;padding:1px 7px;font-size:10.5px;font-weight:700;">MỚI</span></sc-if></div></sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;text-align:center;white-space:nowrap;">{{ r.ngay }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;line-height:1.45;min-width:260px;">{{ r.ty }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;text-align:center;white-space:nowrap;">{{ r.hieuLucNgay }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;"><span style="display:inline-block;border-radius:12px;padding:2px 9px;font-size:11.5px;font-weight:600;color:{{ r.hlC }};background:{{ r.hlB }};">{{ r.hl }}</span></sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;">
+                      <sc-if value="{{ r.isChua }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:3px;border-radius:12px;padding:2px 9px;font-size:11.5px;font-weight:600;white-space:nowrap;color:#344054;background:#f2f4f7;border:1px solid #e4e7ec;"><span class="ic" style="font-size:14px;">warning</span>Chưa gán</span><div style="font-size:11px;color:#667085;margin-top:3px;">{{ r.hint }}</div></sc-if>
+                      <sc-for list="{{ r.lvChips }}" as="c" hint-placeholder-count="1"><div style="display:inline-flex;flex-direction:column;border-radius:8px;padding:3px 9px;margin:2px 4px 2px 0;background:#f2f4f7;line-height:1.3;"><span style="font-size:12px;font-weight:600;color:#344054;">{{ c.t }}</span><span style="font-size:11px;color:#98a2b3;">{{ c.u }}</span></div></sc-for>
+                      <sc-for list="{{ r.xoaChips }}" as="c" hint-placeholder-count="1"><div style="font-size:11px;color:#b42318;margin-top:3px;">{{ c.t }}</div></sc-for>
+                      <sc-if value="{{ r.inlGan }}" hint-placeholder-val="{{ false }}">
+                        <div onclick="{{ r.ddToggle }}" style="min-height:34px;border:1px solid {{ r.ddBd }};background:{{ r.ddBg }};border-radius:6px;padding:4px 28px 4px 6px;display:flex;flex-wrap:wrap;align-items:center;gap:4px;cursor:pointer;position:relative;box-sizing:border-box;">
+                          <sc-for list="{{ r.edLvChips }}" as="c" hint-placeholder-count="1"><div style="display:inline-flex;align-items:center;gap:4px;border-radius:8px;padding:3px 4px 3px 9px;background:#f2f4f7;line-height:1.3;"><div style="display:flex;flex-direction:column;"><span style="font-size:12px;font-weight:600;color:#344054;">{{ c.t }}</span><span style="font-size:11px;color:#98a2b3;">{{ c.u }}</span></div><span onclick="{{ c.x }}" class="ic" title="Bỏ" style="font-size:15px;cursor:pointer;color:#667085;">close</span></div></sc-for>
+                          <sc-if value="{{ r.edEmpty }}" hint-placeholder-val="{{ true }}"><span style="font-size:12.5px;color:#98a2b3;padding-left:2px;">Chọn lĩnh vực...</span></sc-if>
+                          <span class="ic" style="position:absolute;right:6px;top:8px;font-size:18px;color:#98a2b3;">{{ r.ddIc }}</span>
                         </div>
-                      </sc-raw-td>
-                    </sc-raw-tr>
+                        <sc-if value="{{ r.ddOpen }}" hint-placeholder-val="{{ false }}">
+                          <div style="margin-top:4px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;box-shadow:0 8px 20px rgba(16,36,58,.12);padding:6px;">
+                            <input value="{{ khoDdQ }}" oninput="{{ setKhoDdQ }}" placeholder="Tìm lĩnh vực hoặc đơn vị..." style="width:100%;height:30px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:5px;outline:none;box-sizing:border-box;margin-bottom:4px;">
+                            <div style="max-height:240px;overflow:auto;">
+                              <sc-for list="{{ r.ddOpts }}" as="o" hint-placeholder-count="4"><div onclick="{{ o.go }}" style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;cursor:{{ o.cur }};background:{{ o.bg }};"><span class="ic" style="font-size:18px;color:{{ o.c }};">{{ o.ic }}</span><div style="flex:1;line-height:1.3;"><div style="font-size:12.5px;font-weight:600;color:{{ o.tc }};">{{ o.t }}</div><div style="font-size:11px;color:#98a2b3;">{{ o.u }}</div></div></div></sc-for>
+                            </div>
+                            <div style="text-align:right;border-top:1px solid #eef1f6;margin-top:4px;padding-top:5px;"><span onclick="{{ khoDdClose }}" style="color:#2f2fd0;font-weight:600;font-size:12px;cursor:pointer;">Xong</span></div>
+                          </div>
+                        </sc-if>
+                      </sc-if>
+                    </sc-raw-td>
+                    <sc-raw-td style="padding:8px 10px;border:1px solid #e4e8ee;">
+                      <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;">
+                        <span onclick="{{ r.view }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#475467;background:#fff;border:1px solid #d0d5dd;border-radius:6px;cursor:pointer;">visibility</span>
+                        <sc-if value="{{ r.canXoa }}" hint-placeholder-val="{{ false }}"><span onclick="{{ r.xoa }}" title="Xóa khỏi danh sách được phân công" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff;border:1px solid #fda29b;border-radius:6px;cursor:pointer;">delete</span></sc-if>
+                        <sc-if value="{{ r.canNhan }}" hint-placeholder-val="{{ false }}">
+                          <sc-raw-select value="{{ r.rowLv }}" onchange="{{ r.setRowLv }}" style="height:30px;min-width:150px;font-family:inherit;font-size:12.5px;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;"><option value="">-- Chọn lĩnh vực --</option><sc-for list="{{ khoLvOfDv }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                          <button onclick="{{ r.nhan }}" style="height:30px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:0 12px;border-radius:6px;">Nhận</button>
+                        </sc-if>
+                        <sc-if value="{{ r.canSuaDv }}" hint-placeholder-val="{{ false }}">
+                          <sc-raw-select value="{{ r.rowLv }}" onchange="{{ r.setRowLv }}" style="height:30px;min-width:150px;font-family:inherit;font-size:12.5px;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;"><option value="">+ Thêm lĩnh vực</option><sc-for list="{{ khoLvOfDv }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                          <button onclick="{{ r.themLv }}" style="height:30px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:0 12px;border-radius:6px;">Thêm</button>
+                        </sc-if>
+                      </div>
+                      <sc-if value="{{ r.canNhan }}" hint-placeholder-val="{{ false }}">
+                        <sc-if value="{{ r.hasOthers }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#667085;margin-top:6px;text-align:center;">Đã nhận: {{ r.othersT }}</div></sc-if>
+                      </sc-if>
+                      <sc-if value="{{ r.canSuaDv }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:6px;"><sc-for list="{{ r.myLvChips }}" as="c" hint-placeholder-count="1"><span style="display:inline-flex;align-items:center;gap:2px;border-radius:12px;padding:2px 4px 2px 9px;font-size:11.5px;font-weight:600;color:#344054;background:#f2f4f7;">{{ c.t }}<span onclick="{{ c.go }}" class="ic" title="Gỡ lĩnh vực" style="font-size:14px;cursor:pointer;color:#98a2b3;">close</span></span></sc-for></div>
+                      </sc-if>
+                    </sc-raw-td>
+                  </sc-raw-tr>
                 </sc-for>
+                <sc-if value="{{ khoEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="10" style="padding:30px 16px;text-align:center;color:#94a3b8;border:1px solid #e4e8ee;">Không có văn bản phù hợp. Đầu mối bấm <b style="color:#2f2fd0;">Thêm mới văn bản</b> để đồng bộ VB kỳ này từ CSDLQG hoặc <b style="color:#2f2fd0;">Bổ sung VB HTH Kỳ trước</b> để lấy VB kỳ trước từ hệ thống.</sc-raw-td></sc-raw-tr></sc-if>
               </sc-raw-tbody>
             </sc-raw-table>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;font-size:12.5px;color:#6b7a8d;">
-              <span>Hiển thị <b>{{ docListCount }}</b> văn bản · Kỳ <b>{{ docKyAppliedKy }}</b></span>
+              <span>Hiển thị <b>{{ khoCount }}</b> / {{ khoTotal }} văn bản · Kỳ <b>{{ docKyAppliedKy }}</b></span>
             </div>
           </div>
+          </sc-if>
         </div>
         <sc-if value="{{ showImport }}" hint-placeholder-val="{{ false }}">
           <div onclick="{{ closeDocPanel }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
@@ -1543,22 +2161,15 @@
                       </div>
                       <sc-if value="{{ formShowSyncOld }}" hint-placeholder-val="{{ false }}">
                         <div style="flex:1 1 360px;display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:8px 12px;font-size:12.5px;color:#1d4ed8;">
-                          <span class="ic" style="font-size:17px;">info</span><span>Văn bản được lấy về theo lĩnh vực đã cấu hình của đơn vị, là văn bản do đơn vị ban hành.</span>
+                          <span class="ic" style="font-size:17px;">info</span><span>Nhập tay hoặc nhập từ Excel. VB HTH kỳ trước có sẵn trên hệ thống được lấy tại nút <b>Lấy dữ liệu</b> ở màn Danh sách văn bản HTH.</span>
                         </div>
                       </sc-if>
                       <sc-if value="{{ !formShowSyncOld }}" hint-placeholder-val="{{ true }}">
                         <div style="flex:1 1 360px;display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:8px 12px;font-size:12.5px;color:#1d4ed8;">
-                          <span class="ic" style="font-size:17px;">info</span><span>Văn bản được lấy từ CSDL quốc gia theo lĩnh vực đã cấu hình và Cơ quan ban hành của đơn vị đang thao tác.</span>
+                          <span class="ic" style="font-size:17px;">info</span><span>Nhập tay hoặc nhập từ Excel. Văn bản từ CSDL quốc gia được đồng bộ tại nút <b>Lấy dữ liệu</b> ở màn Danh sách văn bản HTH.</span>
                         </div>
                       </sc-if>
                     </div>
-                  </div>
-                </sc-if>
-
-                <sc-if value="{{ formShowSyncOld }}" hint-placeholder-val="{{ false }}">
-                  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:10px 14px;margin-bottom:16px;">
-                    <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#1d4ed8;"><span class="ic" style="font-size:17px;">info</span><span>Nhấn đồng bộ để tự động lấy danh sách văn bản HTH của kỳ đã chọn ở trên để bổ sung, không cần nhập lại thủ công.</span></div>
-                    <button onclick="{{ syncOldDocs }}" style="height:32px;border:1px solid #d0d5dd;background:#f2f4f7;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;white-space:nowrap;"><span class="ic" style="font-size:16px;">sync</span>Đồng bộ DL</button>
                   </div>
                 </sc-if>
 
@@ -1569,9 +2180,7 @@
                     <div style="display:flex;gap:8px;flex-wrap:wrap;">
                       <button onclick="{{ resetDocForm }}" style="height:32px;border:1px solid #1456d8;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#475467;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">refresh</span>Reset dữ liệu</button>
                       <button style="height:32px;border:1px solid #0e9f8e;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#0e9f8e;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">download</span>Xuất file mẫu</button>
-                      <button onclick="{{ chooseImport }}" style="height:32px;border:1px solid #1f8a5b;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1f8a5b;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">upload_file</span>Nhập từ Excel</button>
-                      <button onclick="{{ syncCsdl }}" style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">sync</span>Đồng bộ từ CSDLQG</button>
-                    </div>
+                      <button onclick="{{ chooseImport }}" style="height:32px;border:1px solid #1f8a5b;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1f8a5b;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">upload_file</span>Nhập từ Excel</button>                    </div>
                     </sc-if>
                     <sc-if value="{{ !isFormKyHienTai }}" hint-placeholder-val="{{ false }}">
                     <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1734,6 +2343,7 @@
             </div>
           </div>
         </sc-if>
+      </sc-if>
         <sc-if value="{{ showView }}" hint-placeholder-val="{{ false }}">
           <div onclick="{{ closeDocPanel }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:24px;">
             <div onclick="{{ stop }}" style="background:#fff;border-radius:16px;width:1200px;max-width:95%;max-height:88vh;overflow:auto;box-shadow:0 20px 60px rgba(8,28,52,.35);">
@@ -1777,13 +2387,12 @@
                 </div>
                 <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
                   <button onclick="{{ closeDocPanel }}" style="border:1px solid #cfd9e6;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#42566c;padding:10px 18px;border-radius:9px;">Đóng</button>
-                  <button onclick="{{ ef.edit }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">edit</span>Cập nhật</button>
+                  <sc-if value="{{ notDvNhan }}" hint-placeholder-val="{{ true }}"><button onclick="{{ ef.edit }}" style="border:0;background:#0e4c8f;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:10px 18px;border-radius:9px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">edit</span>Cập nhật</button></sc-if>
                 </div>
               </div>
             </div>
           </div>
         </sc-if>
-      </sc-if>
 
       <sc-if value="{{ isM04Cv }}" hint-placeholder-val="{{ false }}">
         <div style="padding:20px 24px 48px;">
@@ -1974,7 +2583,7 @@
                   <sc-raw-th style="padding:11px 10px;font-weight:700;width:90px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
                 </sc-raw-tr></sc-raw-thead>
                 <sc-raw-tbody>
-                  <sc-if value="{{ m04UvEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="9" style="padding:30px 16px;text-align:center;color:#94a3b8;border:1px solid #d9dee6;">Chưa có đơn vị cấp dưới gửi Mẫu 04.</sc-raw-td></sc-raw-tr></sc-if>
+                  <sc-if value="{{ m04UvEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="10" style="padding:30px 16px;text-align:center;color:#94a3b8;border:1px solid #d9dee6;">Chưa có đơn vị cấp dưới gửi Mẫu 04.</sc-raw-td></sc-raw-tr></sc-if>
                   <sc-for list="{{ m04UvRows }}" as="x" hint-placeholder-count="3">
                     <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #d9dee6;">{{ x.stt }}</sc-raw-td>
@@ -3646,7 +4255,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="">
 class Component extends DCLogic {
-  state = { screen: 'linhvuc', navMgmtOpen: true, role: 'cv', catTab: 'het-toan-bo', showPlanForm: false, planFormMode:'add', planViewMa:'', plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Bộ tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Bộ tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Bộ tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Bộ tư pháp', file:'KeHoach_2024_2028.pdf', soKyHieu:'15/KH-STP', ngayBH:'15/03/2024', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Kế hoạch triển khai hệ thống hóa văn bản QPPL kỳ 2024–2028 của Bộ tư pháp.' }], planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' }, planSearchTenSel:'', planSearchKySel:'', planSearchTen:'', planSearchKy:'', currentDonVi:'Bộ tư pháp', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', kyHthSearchKySel:'', kyHthSearchKy:'', kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsHthDraft:{}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{'KH-HTH/2019-2023-01':true}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhStep:'list', dinhAddConfirmed:false, dinhMauTab:'het-toan-bo', dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'], priorityOrder:['hieuLuc','linhVuc','ngayBanHanh'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxPriorityOrder:[], sxShowHint:true, sxLvSearch:'', sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, rsRepublishedCount:{}, showRsRepublishConfirm:false, showRsRepublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
+  state = { screen: 'doclist', ktSearched: true, navMgmtOpen: true, role: 'ld', catTab: 'het-toan-bo', showPlanForm: false, planFormMode:'add', planViewMa:'', plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Bộ tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Bộ tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Bộ tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Bộ tư pháp', file:'KeHoach_2024_2028.pdf', soKyHieu:'15/KH-STP', ngayBH:'15/03/2024', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Kế hoạch triển khai hệ thống hóa văn bản QPPL kỳ 2024–2028 của Bộ tư pháp.' }], planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' }, planSearchTenSel:'', planSearchKySel:'', planSearchTen:'', planSearchKy:'', currentDonVi:'Bộ tư pháp', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', kyHthSearchKySel:'', kyHthSearchKy:'', kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', tuNam:'2014', denNam:'2018', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', tuNam:'2019', denNam:'2023', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', tuNam:'2024', denNam:'2028', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsHthDraft:{}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{'KH-HTH/2019-2023-01':true}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhStep:'list', dinhAddConfirmed:false, dinhMauTab:'het-toan-bo', dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'], priorityOrder:['hieuLuc','linhVuc','ngayBanHanh'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxPriorityOrder:[], sxShowHint:true, sxLvSearch:'', sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, rsRepublishedCount:{}, showRsRepublishConfirm:false, showRsRepublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
@@ -3935,7 +4544,7 @@ class Component extends DCLogic {
       }
     });
   }
-  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showLvForm:false, lvEditId:null, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false, ktView:false, ktSearched:false, m04View:'list', m04Draft:null, m04ShowAdd:false, m04ShowSync:false, m04ShowSend:false }); }
+  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showLvForm:false, lvEditId:null, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false, ktView:false, ktSearched:true, khoSub:'', khoSel:{}, kqView:'list', khoPermDraft:null, kqSel:{}, kqMau:'', m04View:'list', m04Draft:null, m04ShowAdd:false, m04ShowSync:false, m04ShowSend:false }); }
 
   reorderByRank(order, label, newRank){
     const list = (order||[]).slice();
@@ -4184,6 +4793,629 @@ class Component extends DCLogic {
       weight: active ? 600 : 500
     };
   }
+  /* ===== KHO VB HTH: đồng bộ CSDLQG (kỳ này) + dữ liệu hệ thống (kỳ trước), gán/nhận lĩnh vực ===== */
+  khoSampleNay(cq, seq){
+    const rows = [
+      ['Thông tư','Quy định chi tiết một số điều của Luật Hộ tịch về đăng ký hộ tịch điện tử','12/01/2026','01/03/2026','Còn hiệu lực'],
+      ['Thông tư','Hướng dẫn đăng ký kết hôn có yếu tố nước ngoài','20/01/2026','15/03/2026','Còn hiệu lực'],
+      ['Nghị định','Sửa đổi, bổ sung Nghị định hướng dẫn thi hành Luật Luật sư','03/02/2026','01/04/2026','Còn hiệu lực'],
+      ['Thông tư','Quy định về chứng thực bản sao từ bản chính, chứng thực chữ ký','20/12/2025','01/02/2026','Hết hiệu lực một phần'],
+      ['Thông tư','Quy định chi tiết về tổ chức và hoạt động công chứng','15/03/2026','01/05/2026','Còn hiệu lực'],
+      ['Quyết định','Ban hành Quy chế quản lý cơ sở dữ liệu quốc tịch','02/04/2026','02/04/2026','Còn hiệu lực'],
+      ['Thông tư','Hướng dẫn thực hiện trợ giúp pháp lý trong hoạt động tố tụng','18/04/2026','01/06/2026','Còn hiệu lực'],
+      ['Nghị định','Quy định về cấp phiếu lý lịch tư pháp điện tử','02/05/2026','01/07/2026','Chưa có hiệu lực'],
+      ['Thông tư','Quy định mẫu giấy tờ, sổ hộ tịch','10/06/2026','01/08/2026','Chưa có hiệu lực'],
+      ['Thông tư','Hướng dẫn hoạt động đấu giá tài sản','25/06/2026','15/08/2026','Chưa có hiệu lực'],
+    ];
+    const kh = { 'Thông tư':'TT-BTP', 'Nghị định':'NĐ-CP', 'Quyết định':'QĐ-BTP' };
+    return rows.map((r,i)=>({ id:'CS-'+seq+'-'+i, so:String(i+1).padStart(2,'0')+'/2026/'+kh[r[0]], loai:r[0], ty:r[1], cq: r[0]==='Nghị định' ? 'Chính phủ' : cq, ngay:r[2], hieuLucNgay:r[3], hl:r[4], loaiHth:'nay', nguon:'csdl', gan:[], xoa:[] }));
+  }
+  khoSampleTruoc(prevKy, seq, lvNames, dvOfLv){
+    const rows = [
+      ['45/2016/NĐ-CP','Nghị định','Quy định chi tiết thi hành một số điều của Luật Hộ tịch','Chính phủ','03/06/2016','Hết hiệu lực một phần','Hộ tịch','Cục Hộ tịch, quốc tịch, chứng thực'],
+      ['112/2017/TT-BTP','Thông tư','Hướng dẫn đăng ký biện pháp bảo đảm','Bộ Tư pháp','12/05/2017','Hết hiệu lực toàn bộ','Tư pháp','Cục Kiểm tra VBQPPL'],
+      ['09/2018/QĐ-BTP','Quyết định','Ban hành Quy chế phối hợp công tác kiểm tra văn bản','Bộ Tư pháp','20/09/2018','Còn hiệu lực','Tư pháp','Vụ Pháp chế'],
+      ['01/2020/TT-BTP','Thông tư','Quy định chi tiết thi hành Luật Công chứng','Bộ Tư pháp','03/03/2020','Còn hiệu lực','Công chứng','Cục Bổ trợ tư pháp'],
+      ['05/2021/TT-BTP','Thông tư','Hướng dẫn về tổ chức hoạt động luật sư','Bộ Tư pháp','24/06/2021','Còn hiệu lực','Luật sư','Cục Bổ trợ tư pháp'],
+      ['22/2017/TT-BTP','Thông tư','Hướng dẫn công tác thừa phát lại','Bộ Tư pháp','08/11/2017','Còn hiệu lực','Thừa phát lại','Cục Bổ trợ tư pháp'],
+    ];
+    return rows.map((r,i)=>{
+      const ok = lvNames.includes(r[6]) && dvOfLv(r[6]).includes(r[7]);
+      return { id:'HT-'+seq+'-'+i, so:r[0], loai:r[1], ty:r[2], cq:r[3], ngay:r[4], hieuLucNgay:r[4], hl:r[5], loaiHth:'truoc', nguon:'hethong', kyGoc:prevKy,
+        gan: ok ? [{ lv:r[6], dv:r[7], src:'kethua', by:'Kỳ '+prevKy, at:'' }] : [], xoa:[],
+        hint: ok ? '' : ('LV kỳ trước "'+r[6]+'" không còn trong danh mục hoặc chưa có đơn vị phụ trách') };
+    });
+  }
+  /* Dữ liệu mẫu kỳ 2024 – 2028: đã đồng bộ CSDLQG + lấy kỳ trước, đã gán LV–đơn vị sẵn để đơn vị Thêm mới kết quả HTH ngay */
+  khoDemoStore(prevKy, lvNames, dvOfLv){
+    const HT = 'Cục Hộ tịch, quốc tịch, chứng thực', BT = 'Cục Bổ trợ tư pháp', TG = 'Cục Trợ giúp pháp lý', KT = 'Cục Kiểm tra VBQPPL', PC = 'Vụ Pháp chế';
+    const MAP = [ [['Hộ tịch',HT]], [['Hộ tịch',HT]], [['Luật sư',BT]], [['Hộ tịch',HT],['Công chứng',BT]], [['Công chứng',BT]], [['Hộ tịch',HT]], [['Trợ giúp pháp lý',TG]], [['Tư pháp',KT],['Tư pháp',PC]], [['Hộ tịch',HT]], [['Bổ trợ tư pháp',BT]] ];
+    const csdl = this.khoSampleNay('Bộ Tư pháp', 'DEMO').map((d,i)=>({ ...d, gan:(MAP[i]||[]).map(p=>({ lv:p[0], dv:p[1], src:'daumoi', by:'Đầu mối', at:'01/11/2026' })) }));
+    const heThong = this.khoSampleTruoc(prevKy, 'DEMO', lvNames, dvOfLv).map(d=>(d.gan.length || d.so!=='112/2017/TT-BTP') ? d : { ...d, gan:[{ lv:'Hộ tịch', dv:HT, src:'daumoi', by:'Đầu mối', at:'01/11/2026' }], hint:'' })
+      .concat([{ id:'HT-DEMO-X1', so:'15/2015/TT-BTP', loai:'Thông tư', ty:'Quy định chi tiết thi hành một số điều của Luật Hộ tịch và Nghị định số 123/2015/NĐ-CP', cq:'Bộ Tư pháp', ngay:'16/11/2015', hieuLucNgay:'01/01/2016', hl:'Hết hiệu lực toàn bộ', loaiHth:'truoc', nguon:'hethong', kyGoc:prevKy, gan:[{ lv:'Hộ tịch', dv:HT, src:'kethua', by:'Kỳ '+prevKy, at:'' }], xoa:[] }]);
+    return { csdl, heThong, tCsdl:'01/11/2026 · 08:30 (dữ liệu mẫu)', tHt:'01/11/2026 · 08:35 · kỳ '+prevKy+' (dữ liệu mẫu)', demo:true };
+  }
+  /* ===== KẾT QUẢ HTH (mới): đơn vị lập 5 mẫu từ VB của đơn vị → gửi đầu mối → đầu mối tổng hợp / trả lại / sửa trực tiếp / tự lập → công bố ===== */
+  kqSetMerge(s, base, hlStyleOf){
+    let out = base.slice();
+    const all = s.kq || {};
+    Object.keys(all).forEach(ky=>{
+      const k = all[ky]; if(!k || !k.pub || !k.snap) return;
+      const pubRows = k.snap.filter(r=>this.inMau({ hl:r.hl, kienNghi:r.kn }, 'tap-hth')).map(r=>{ const st = hlStyleOf(r.hl); return { so:r.so, loai:r.loai, ty:r.ty, cq:r.cq, ngay:r.ngay, hieuLucNgay:r.hieuLucNgay, lv:r.lv, hl:r.hl, hlC:st.c, hlB:st.b, kienNghi:r.kn, ky, nhom:'con-hieu-luc' }; });
+      out = out.filter(d=>d.ky!==ky).concat(pubRows);
+    });
+    return out;
+  }
+  kqVals(s, KY, khoAll, luongN){
+    const TODAY = '03/11/2026';
+    const isDM = s.role==='ld';
+    const DV = s.khoDonVi || 'Cục Hộ tịch, quốc tịch, chứng thực';
+    const dvAll = this.lvTree()[0].children;
+    const short = (n)=>String(n||'').replace('Cục Hộ tịch, quốc tịch, chứng thực','Cục Hộ tịch').replace('Cục Kiểm tra VBQPPL','Cục KTVB').replace('Cục Bổ trợ tư pháp','Cục BTTP').replace('Cục Trợ giúp pháp lý','Cục TGPL');
+    const plans = s.plans || [];
+    const kyOfMa = (ma)=>{ const p = plans.find(x=>x.ma===ma); return p ? p.ky : ''; };
+    const maOfKy = (ky)=>{ const p = plans.find(x=>x.ky===ky); return p ? p.ma : ''; };
+    const getK = (st, ky)=>{ const k = ((st.kq||{})[ky])||{}; return { units:{}, pub:false, ...k, dm:{ rows:{}, ...(k.dm||{}) } }; };
+    const setKy = (ky, fn)=>this.setState(st=>{ const all = { ...(st.kq||{}) }; all[ky] = fn(JSON.parse(JSON.stringify(getK(st, ky)))); return { kq:all }; });
+    const MAU = [['01','het-toan-bo','Danh mục VBQPPL hết hiệu lực, tạm ngưng hiệu lực toàn bộ'],['02','het-mot-phan','Danh mục VBQPPL hết hiệu lực, tạm ngưng hiệu lực một phần'],['03','con-hieu-luc','Danh mục VBQPPL còn hiệu lực'],['04','can-xu-ly','Danh mục VBQPPL cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới'],['05','tap-hth','Tập hệ thống hóa VBQPPL']];
+    const mauOf = (v)=>MAU.filter(m=>this.inMau({ hl:v.hl, kienNghi:v.kn }, m[1])).map(m=>m[0]);
+    const rx = this.m04RxData().filter(r=>r.so);
+    const KNS = [['Sửa đổi, bổ sung','Cần cập nhật theo Nghị định 79/2025/NĐ-CP'],['Thay thế','Văn bản căn cứ đã được thay thế'],['Bãi bỏ','Đối tượng điều chỉnh không còn'],['Tạm ngưng hiệu lực','Chờ ban hành văn bản thay thế']];
+    const rstxFor = (d, i)=>{ const m = rx.find(r=>r.so===d.so); if(m) return { kn:m.kienNghi, lyDo:m.lyDo };
+      return (i%3===1) ? { kn:KNS[i%4][0], lyDo:KNS[i%4][1]+' (dữ liệu RSTX mẫu)' } : { kn:'Không cần xử lý', lyDo:'' }; };
+    const HLS = ['Còn hiệu lực','Chưa có hiệu lực','Hết hiệu lực một phần','Tạm ngưng hiệu lực một phần','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực toàn bộ'];
+    const norm = (h)=>this.normalizeTthl(h);
+    const docsOf = (ky)=> ky===KY ? (khoAll||[]) : ((this.khoVals(s, ky, []).khoAllDocs)||[]);
+    const countMau = (rowsObj)=>{ const c = { '01':0,'02':0,'03':0,'04':0,'05':0 }; Object.keys(rowsObj||{}).forEach(id=>{ mauOf(rowsObj[id]).forEach(m=>{ c[m]++; }); }); return c; };
+    const aggregate = (k, ds)=>{ const sent = Object.keys(k.units||{}).filter(dv=>k.units[dv].st==='gui'); const rows = {}; let nDv = 0;
+      ds.forEach((d,i)=>{ const u = (d.units||[]).find(x=>sent.includes(x)); const ur = u && k.units[u].rows ? k.units[u].rows[d.id] : null;
+        if(ur){ rows[d.id] = { ...ur, src:'dv', srcDv:u }; nDv++; } else { const x = rstxFor(d,i); rows[d.id] = { hl:norm(d.hl), kn:x.kn, lyDo:x.lyDo, ghiChu:'', src:'auto' }; } });
+      return { created:true, rows, n:ds.length, at:TODAY, rstxAt:TODAY, aggAt:TODAY, aggN:nDv, aggUnits:sent }; };
+    const view = s.kqView || 'list';
+    const sel = s.kqSel || {};
+    const ST = { nhap:['Đã lưu','#344054','#f2f4f7'], gui:['Đã gửi','#344054','#f2f4f7'], tralai:['Bị trả lại','#344054','#f2f4f7'] };
+    const PUB = ['Đã công bố','#344054','#f2f4f7'];
+    const openDetail = (ky, dv)=>this.setState({ docKyApplied: maOfKy(ky) || s.docKyApplied, docKySel: maOfKy(ky) || s.docKySel, kqView:'detail', kqSel:{ ky, dv: dv||'' }, kqMau:'', kqQ:'', kqUnitsOpen:false });
+    const traLaiFn = (ky, dv)=>()=>{ const ly = prompt('Lý do trả lại kết quả kỳ '+ky+' của '+dv+':', ''); if(ly===null) return; if(!String(ly).trim()){ alert('Vui lòng nhập lý do trả lại.'); return; }
+      setKy(ky, k=>{ const x = k.units[dv] || { rows:{} }; x.st='tralai'; x.lyDoTL=String(ly).trim(); x.tlAt=TODAY; k.units[dv]=x; return k; }); };
+    // ---------- DANH SÁCH KẾT QUẢ ----------
+    const LF = s.kqLF || {};
+    const listRaw = [];
+    Object.keys(s.kq||{}).forEach(ky=>{ const k = getK(s, ky);
+      if(!isDM){ const u = k.units[DV]; if(u && u.created){ const st = k.pub ? PUB : ST[u.st||'nhap']; listRaw.push({ ky, who:DV, n:u.n||0, st, at:u.sentAt||u.at||'', editable: !k.pub && u.st!=='gui', open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : (u.st||'nhap') }); } }
+      else {
+        if(k.dm.created){ listRaw.push({ ky, who:'Đầu mối · Kết quả tổng hợp', n:k.dm.n||0, st: k.pub ? PUB : ['Đang tổng hợp','#344054','#f2f4f7'], at:k.pubAt||k.dm.at||'', editable: !k.pub, open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : 'dm' }); }
+        dvAll.forEach(dv=>{ const u = k.units[dv]; if(u && u.created && (u.st==='gui' || u.st==='tralai')){ listRaw.push({ ky, who:dv, n:u.n||0, st: k.pub ? PUB : ST[u.st], at:u.sentAt||'', editable:false, open: ()=>openDetail(ky, dv), canTL: !k.pub && u.st==='gui', traLai: traLaiFn(ky, dv), stKey: k.pub ? 'pub' : u.st }); } });
+      } });
+    const listShown = listRaw.filter(r=>(!LF.ky || r.ky===LF.ky) && (!LF.st || r.stKey===LF.st));
+    const kqListRows = listShown.map((r,i)=>({ stt:i+1, ky:r.ky, who:r.who, n:r.n, stT:r.st[0], stC:r.st[1], stB:r.st[2], at:r.at||'—', xem:r.open, canSua:r.editable, sua:r.open, canTL:r.canTL, traLai:r.traLai||(()=>{}) }));
+    // ---------- THÊM MỚI ----------
+    const addMa = s.kqAddMa || '';
+    const createKq = ()=>{
+      const ky = kyOfMa(addMa); if(!ky){ alert('Vui lòng chọn kỳ hệ thống hóa.'); return; }
+      const ds = docsOf(ky);
+      if(!isDM){
+        const mine = ds.filter(d=>(d.units||[]).includes(DV));
+        if(!mine.length){ alert('Đơn vị chưa có văn bản trong kỳ '+ky+'. Văn bản về đơn vị khi được gán/nhận lĩnh vực tại Danh sách văn bản HTH.'); return; }
+        const ex = getK(s, ky).units[DV]; if(ex && ex.created){ alert('Đơn vị đã có kết quả kỳ '+ky+'. Mở kết quả trong danh sách để sửa.'); return; }
+        const rows = {}; mine.forEach((d,i)=>{ const x = rstxFor(d,i); rows[d.id] = { hl:norm(d.hl), kn:x.kn, lyDo:x.lyDo, ghiChu:'' }; });
+        setKy(ky, k=>{ k.units[DV] = { created:true, st:'nhap', rows, n:mine.length, at:TODAY, rstxAt:TODAY }; return k; });
+        const c = countMau(rows);
+        alert('Đã chia '+mine.length+' văn bản vào các danh mục: Mẫu 01: '+c['01']+' · Mẫu 02: '+c['02']+' · Mẫu 03: '+c['03']+' · Mẫu 04 (kế thừa RSTX): '+c['04']+' · Mẫu 05: '+c['05']+'.');
+      } else {
+        if(!ds.length){ alert('Chưa có văn bản trong kỳ '+ky+'. Vào Danh sách văn bản HTH để lấy dữ liệu.'); return; }
+        const k0 = getK(s, ky); if(k0.dm.created){ alert('Đã có kết quả tổng hợp kỳ '+ky+'. Mở kết quả trong danh sách để sửa.'); return; }
+        const agg = aggregate(k0, ds);
+        setKy(ky, k=>{ k.dm = agg; return k; });
+        const c = countMau(agg.rows);
+        alert('Đã tổng hợp kết quả '+agg.aggUnits.length+' đơn vị đã gửi ('+agg.aggN+' VB); '+(agg.n-agg.aggN)+' VB còn lại hệ thống tự chia theo công thức.\nMẫu 01: '+c['01']+' · Mẫu 02: '+c['02']+' · Mẫu 03: '+c['03']+' · Mẫu 04 (kế thừa RSTX): '+c['04']+' · Mẫu 05: '+c['05']+'.');
+      }
+      this.setState({ docKyApplied:addMa, docKySel:addMa, kqView:'detail', kqSel:{ ky, dv:'' }, kqMau:'', kqAddMa:'' });
+    };
+    // ---------- CHI TIẾT ----------
+    const dKY = sel.ky || KY;
+    const K = getK(s, dKY);
+    const forUnit = !isDM || !!sel.dv;
+    const tDv = isDM ? (sel.dv||'') : DV;
+    const U = (dv)=>({ st:'nhap', rows:{}, ...(K.units[dv]||{}) });
+    const tU = U(tDv);
+    const rowsObj = forUnit ? (tU.rows||{}) : (K.dm.rows||{});
+    const docsD = view==='detail' ? docsOf(dKY) : [];
+    const docMap = {}; docsD.forEach(d=>{ docMap[d.id] = d; });
+    const ids = Object.keys(rowsObj).filter(id=>docMap[id]);
+    const canEdit = !K.pub && (isDM ? !sel.dv : tU.st!=='gui');
+    const writeRow = (id, patch)=>setKy(dKY, k=>{
+      if(forUnit){ const u = k.units[tDv]; u.rows[id] = { ...(u.rows[id]||{}), ...patch }; }
+      else { k.dm.rows[id] = { ...(k.dm.rows[id]||{}), ...patch, src:'dm', by:'Đầu mối', at:TODAY }; }
+      return k; });
+    const allRows = ids.map((id,i)=>{ const d = docMap[id]; const v = rowsObj[id]; return { d, v, mau: mauOf(v), i }; });
+    const cnt = {}; MAU.forEach(m=>{ cnt[m[0]] = allRows.filter(r=>r.mau.includes(m[0])).length; });
+    const curMau = s.kqMau || '';
+    const q = String(s.kqQ||'').trim().toLowerCase();
+    const vbShown = allRows.filter(r=>(!curMau || r.mau.includes(curMau)) && (!q || String(r.d.so).toLowerCase().includes(q) || String(r.d.ty).toLowerCase().includes(q)));
+    const mauEd = canEdit && s.kqMauMode==='sua';
+    const kqRows = vbShown.map((r,idx)=>{ const d = r.d, v = r.v; const c = this.hlColors(v.hl);
+      const srcT = v.src==='dm' ? 'Đầu mối sửa' : (v.src==='dv' ? short(v.srcDv)+' gửi' : (v.src==='auto' ? 'Hệ thống chia (ĐV chưa gửi)' : ''));
+      const srcC = '#475467';
+      return { stt:idx+1, so:d.so, loai:d.loai, ngay:d.ngay, ty:d.ty, dvT:(d.units||[]).map(short).join(', ')||'—', lvT:(d.lvs||[]).join(', ')||'—',
+        hl:v.hl, hlC:'#344054', hlB:'#f2f4f7', kn:v.kn||'Không cần xử lý', knC:(v.kn && v.kn!=='Không cần xử lý') ? '#1e2939' : '#98a2b3', lyDo:v.lyDo||'', ghiChu:v.ghiChu||'',
+        mauChips: MAU.map(m=>({ t:m[0], fc: r.mau.includes(m[0]) ? '#fff' : '#c0c6d0', bc: r.mau.includes(m[0]) ? '#667085' : '#f2f4f7' })),
+        srcT, srcC, ed:mauEd, ro:!mauEd,
+        setHl:(e)=>writeRow(d.id, { hl:e.target.value }), setGhiChu:(e)=>writeRow(d.id, { ghiChu:e.target.value }) }; });
+    const mauRows = MAU.map((m,i)=>({ stt:i+1, code:m[0], t:'Mẫu '+m[0]+' – '+m[2], n:cnt[m[0]], note: m[0]==='04' ? 'Kế thừa kết quả rà soát thường xuyên (RSTX)' : 'Chia theo tình trạng hiệu lực', bg: curMau===m[0] ? '#f7f7ff' : '#fff',
+      xem: ()=>this.setState({ kqMau: m[0], kqMauMode:'xem', kqQ:'' }), sua: ()=>this.setState({ kqMau: m[0], kqMauMode:'sua', kqQ:'' }) }));
+    const unitRows = dvAll.map((dv,i)=>{ const u = U(dv); const st = K.pub ? PUB : (u.created ? ST[u.st||'nhap'] : ['Chưa lập','#98a2b3','#f9fafb']);
+      const inAgg = (K.dm.aggUnits||[]).includes(dv);
+      const uc = countMau(u.rows||{});
+      return { stt:i+1, dv, n:u.n||0, stT:st[0], stC:st[1], stB:st[2], at:u.sentAt||'—', by: (u.created && u.st!=='nhap') ? 'Cán bộ '+short(dv).replace(/^(Cục|Vụ) /,'') : '—',
+        mc: ['01','02','03','04','05'].map(m=>({ t: u.created ? uc[m] : '—', fc: (u.created && uc[m]) ? '#10243a' : '#c0c6d0' })), aggT: inAgg ? 'Đã tổng hợp' : (u.st==='gui' ? 'Chưa tổng hợp' : '—'), aggC: inAgg ? '#067647' : '#b54708',
+        canXem: !!u.created && (u.st==='gui' || u.st==='tralai'), xem: ()=>openDetail(dKY, dv), canTL: !K.pub && u.st==='gui', traLai: traLaiFn(dKY, dv), hasLyDo: u.st==='tralai' && !!u.lyDoTL, lyDoTL:u.lyDoTL||'' }; });
+    const sentNow = Object.keys(K.units||{}).filter(dv=>K.units[dv].st==='gui');
+    const stD = K.pub ? PUB : (forUnit ? (tU.created ? ST[tU.st||'nhap'] : ['—','#98a2b3','#f9fafb']) : ['Đang tổng hợp','#344054','#f2f4f7']);
+    // ---------- VĂN BẢN ĐƠN VỊ ĐÃ NHẬN (menu mới) ----------
+    const nL = luongN || 1;
+    const nK = getK(s, KY); const nU = nK.units[DV] || {};
+    const nHasKq = !!nU.created; const nLocked = !!nK.pub || nU.st==='gui';
+    const nRows = nU.rows || {};
+    const nMine = (khoAll||[]).filter(d=>(d.units||[]).includes(DV));
+    const nMineIds = nMine.map(d=>d.id);
+    const nGone = Object.keys(nRows).filter(id=>!nMineIds.includes(id));
+    const nNew = nMine.filter(d=>!nRows[d.id]);
+    const SRC = { daumoi:['Đầu mối gán','#344054'], donvi:['Đơn vị tự chọn','#344054'], kethua:['Kế thừa kỳ trước','#344054'], nhap:['Nhập tay','#475467'] };
+    const NF = s.dvnF || {};
+    const nQ = String(NF.q||'').trim().toLowerCase();
+    const myG = (d)=>(d.gan||[]).filter(g=>g.dv===DV && !(d.xoa||[]).includes(DV));
+    const nKqSt = (d)=> !nHasKq ? 'chualap' : (nRows[d.id] ? 'davao' : 'chuavao');
+    const nShown = nMine.filter(d=>{ const gs = myG(d);
+      if(nQ && !String(d.so).toLowerCase().includes(nQ)) return false;
+      if(NF.lv && !gs.some(g=>g.lv===NF.lv)) return false;
+      if(NF.src && !gs.some(g=>g.src===NF.src)) return false;
+      if(NF.hth && d.loaiHth!==NF.hth) return false;
+      if(NF.kq && nKqSt(d)!==NF.kq) return false;
+      return true; });
+    const setOvN = (id, gan, xoa)=>this.setState(st=>({ khoOv:{ ...(st.khoOv||{}), [id]:{ gan, xoa } } }));
+    const lockMsg = nK.pub ? 'Kết quả kỳ '+KY+' đã công bố.' : 'Kết quả của đơn vị đã gửi đầu mối ngày '+(nU.sentAt||'')+'. Chỉ thay đổi được khi đầu mối trả lại.';
+    const dvnRows = nShown.map((d,i)=>{ const gs = myG(d); const g0 = gs[0] || {}; const sc = SRC[g0.src] || SRC.nhap; const c = this.hlColors(norm(d.hl)); const st = nKqSt(d);
+      const mau = nRows[d.id] ? mauOf(nRows[d.id]) : [];
+      return { stt:i+1, so:d.so, loai:d.loai||'', ngay:d.ngay||'', ty:d.ty, hl:norm(d.hl), hlC:'#344054', hlB:'#f2f4f7',
+        hthT: d.loaiHth==='truoc' ? 'Kỳ trước' : 'Kỳ này', hthC:'#475467', hthB:'#f2f4f7',
+        lvs: [...new Set(gs.map(g=>g.lv))].map(t=>({ t })), srcT: sc[0], srcC:'#344054', srcAt: [g0.by, g0.at].filter(Boolean).join(' · '),
+        moi: gs.some(g=>g.src==='daumoi' && g.moi),
+        others: (d.units||[]).filter(u=>u!==DV).map(short).join(', '), hasOthers: (d.units||[]).some(u=>u!==DV),
+        inKq: st==='davao', notInKq: st==='chuavao', noKq: st==='chualap',
+        mauChips: MAU.map(m=>({ t:m[0], fc: mau.includes(m[0]) ? '#fff' : '#c0c6d0', bc: mau.includes(m[0]) ? '#667085' : '#f2f4f7' })),
+        canXoa: !isDM && gs.some(g=>g.src!=='donvi'), canBo: !isDM && gs.some(g=>g.src==='donvi'),
+        actC: nLocked ? '#d0d5dd' : '#d92d20', actBd: nLocked ? '#eaecf0' : '#fda29b', actCur: nLocked ? 'not-allowed' : 'pointer',
+        xoa: ()=>{ if(nLocked){ alert(lockMsg); return; } if(!confirm('Xóa văn bản '+d.so+' khỏi danh sách được phân công của đơn vị?')) return; setOvN(d.id, d.gan||[], [ ...(d.xoa||[]), DV ]); },
+        bo: ()=>{ if(nLocked){ alert(lockMsg); return; } if(!confirm('Bỏ nhận văn bản '+d.so+' (gỡ lĩnh vực đơn vị đã tự chọn trên văn bản)?')) return; setOvN(d.id, (d.gan||[]).filter(g=>!(g.dv===DV && g.src==='donvi')), d.xoa||[]); },
+        view: ()=>this.setState({ docPanel:'view', editDoc:{ ...d, lv:gs.map(g=>g.lv).join(', '), hl:norm(d.hl), hlC:'#344054', hlB:'#f2f4f7', kienNghi: nRows[d.id] ? (nRows[d.id].kn||'Không cần xử lý') : 'Không cần xử lý', ghiChu: sc[0], loaiVb: d.loaiHth==='truoc' ? 'VB HTH kỳ trước' : 'VB HTH kỳ hiện tại' } }) }; });
+    const dvnSync = ()=>{
+      if(!nHasKq){ alert('Đơn vị chưa có kết quả kỳ '+KY+'. Vào Kết quả Hệ thống hóa › Thêm mới để lập kết quả.'); return; }
+      if(nLocked){ alert(lockMsg); return; }
+      if(!nNew.length && !nGone.length){ alert('Kết quả đã khớp với danh sách văn bản đơn vị đã nhận.'); return; }
+      if(!confirm('Cập nhật kết quả kỳ '+KY+':\n• Thêm '+nNew.length+' văn bản mới nhận (chia mẫu theo công thức, Mẫu 04 lấy kiến nghị RSTX)\n• Gỡ '+nGone.length+' văn bản đơn vị không còn nhận\nPhần đã sửa của các văn bản khác được giữ nguyên.')) return;
+      setKy(KY, k=>{ const u = k.units[DV]; nNew.forEach(d=>{ const x = rstxFor(d, nMineIds.indexOf(d.id)); u.rows[d.id] = { hl:norm(d.hl), kn:x.kn, lyDo:x.lyDo, ghiChu:'' }; });
+        nGone.forEach(id=>{ delete u.rows[id]; }); u.n = Object.keys(u.rows).length; u.at = TODAY; return k; });
+    };
+    const nLvOpts = [...new Set(nMine.flatMap(d=>myG(d).map(g=>g.lv)))];
+    return {
+      // ---- menu Văn bản đơn vị đã nhận
+      isDvNhan: s.screen==='dvnhan', notDvNhan: s.screen!=='dvnhan',
+      dvnIsDM: isDM, dvnRows, dvnEmpty: !dvnRows.length, dvnN: dvnRows.length, dvnTotal: nMine.length,
+      dvnEmptyT: nMine.length ? 'Không có văn bản phù hợp bộ lọc.' : (nL===2 ? 'Đơn vị chưa nhận văn bản nào trong kỳ này. Vào Danh sách văn bản HTH để nhận văn bản theo lĩnh vực của đơn vị.' : 'Đầu mối chưa gán văn bản nào cho đơn vị trong kỳ này.'),
+      dvnDv: DV, dvnKy: KY || '—',
+      dvnSum: [ ['Đã nhận', nMine.length, '#1e2939'], ['Đã vào kết quả', nHasKq ? nMine.length - nNew.length : 0, '#067647'], ['Chưa vào kết quả', nHasKq ? nNew.length : nMine.length, '#b54708'] ].map(x=>({ t:x[0], n:x[1], c:x[2] })),
+      dvnKqT: !nHasKq ? 'Chưa lập kết quả HTH kỳ này' : (nK.pub ? 'Kết quả đã công bố' : (nU.st==='gui' ? 'Kết quả đã gửi đầu mối ngày '+(nU.sentAt||'') : (nU.st==='tralai' ? 'Kết quả bị trả lại — đang sửa' : 'Kết quả đang lập (Đã lưu)'))),
+      dvnKqC: !nHasKq ? '#98a2b3' : (nLocked ? '#067647' : '#b54708'),
+      dvnNeedSync: nHasKq && !nLocked && (nNew.length>0 || nGone.length>0),
+      dvnSyncNote: (nNew.length ? nNew.length+' văn bản mới nhận chưa có trong kết quả' : '') + (nNew.length && nGone.length ? ' · ' : '') + (nGone.length ? nGone.length+' văn bản đơn vị không còn nhận nhưng vẫn nằm trong kết quả' : ''),
+      dvnLockedDiff: nHasKq && nLocked && !nK.pub && (nNew.length>0 || nGone.length>0),
+      dvnLockedNote: 'Có '+nNew.length+' văn bản mới nhận sau khi gửi kết quả. Chỉ cập nhật được khi đầu mối trả lại.',
+      dvnSync, dvnCanSync: !isDM,
+      dvnGoKq: ()=>{ this.go('review')(); if(nHasKq) this.setState({ kqView:'detail', kqSel:{ ky:KY, dv: isDM ? DV : '' }, kqMau:'' }); else if(!isDM) this.setState({ kqView:'add', kqAddMa: maOfKy(KY) }); },
+      dvnGoKqT: nHasKq ? 'Mở kết quả HTH' : (isDM ? 'Kết quả HTH' : 'Lập kết quả HTH'),
+      dvnGoDs: ()=>this.go('doclist')(),
+      dvnQ: NF.q||'', dvnLv: NF.lv||'', dvnSrc: NF.src||'', dvnHth: NF.hth||'', dvnKq: NF.kq||'',
+      ...(()=>{ const n = ['src','hth'].filter(k=>NF[k]).length; const on = !!s.dvnMoreF;
+        return { dvnMoreF:on, dvnToggleMore:()=>this.setState(st=>({ dvnMoreF:!st.dvnMoreF })), dvnMoreT:'Lọc thêm'+(n ? ' ('+n+')' : ''), dvnMoreBd: on||n ? '#c9ccf5' : '#d0d5dd', dvnMoreBg: on||n ? '#eef0ff' : '#fff', dvnMoreC: on||n ? '#2f2fd0' : '#1e2939' }; })(),
+      setDvnQ: (e)=>this.setState(st=>({ dvnF:{ ...(st.dvnF||{}), q:e.target.value } })),
+      setDvnLv: (e)=>this.setState(st=>({ dvnF:{ ...(st.dvnF||{}), lv:e.target.value } })),
+      setDvnSrc: (e)=>this.setState(st=>({ dvnF:{ ...(st.dvnF||{}), src:e.target.value } })),
+      setDvnHth: (e)=>this.setState(st=>({ dvnF:{ ...(st.dvnF||{}), hth:e.target.value } })),
+      setDvnKq: (e)=>this.setState(st=>({ dvnF:{ ...(st.dvnF||{}), kq:e.target.value } })),
+      dvnReset: ()=>this.setState({ dvnF:{} }),
+      dvnLvOpts: nLvOpts.map(t=>({ t })),
+      dvnActT: nL===1 ? 'Xóa khỏi danh sách được phân công' : 'Bỏ nhận',
+      isKq: s.screen==='review',
+      kqIsDM: isDM, kqIsDV: !isDM,
+      kqInList: view==='list', kqInAdd: view==='add', kqInDetail: view==='detail',
+      // list
+      kqListRows, kqListEmpty: !kqListRows.length, kqListN: kqListRows.length,
+      kqListEmptyT: listRaw.length ? 'Không có kết quả phù hợp bộ lọc.' : (isDM ? 'Chưa có kết quả hệ thống hóa. Bấm Thêm mới để tổng hợp kết quả các đơn vị đã gửi.' : 'Chưa có kết quả hệ thống hóa. Bấm Thêm mới để lập kết quả từ văn bản của đơn vị.'),
+      kqLKy: LF.ky||'', setKqLKy:(e)=>this.setState(st=>({ kqLF:{ ...(st.kqLF||{}), ky:e.target.value } })),
+      kqLSt: LF.st||'', setKqLSt:(e)=>this.setState(st=>({ kqLF:{ ...(st.kqLF||{}), st:e.target.value } })),
+      kqLReset: ()=>this.setState({ kqLF:{} }),
+      kqKyLabelOpts: plans.map(p=>({ t:p.ky })),
+      kqOpenAdd: ()=>this.setState({ kqView:'add', kqAddMa:'' }),
+      kqDvName: DV, kqWhoLbl: isDM ? 'Kết quả của' : 'Đơn vị',
+      // add
+      kqAddMa: addMa, setKqAddMa:(e)=>this.setState({ kqAddMa:e.target.value }), kqAddOpts: plans.map(p=>({ v:p.ma, t:p.ky+' · '+(p.ten||'') })),
+      kqAddNote: isDM ? 'Hệ thống tổng hợp kết quả các đơn vị đã gửi. Văn bản của đơn vị chưa gửi được hệ thống tự chia theo công thức. Sau đó đầu mối chỉnh sửa danh sách cuối và công bố.' : 'Hệ thống lấy văn bản của đơn vị tại Danh sách văn bản HTH và chia vào Mẫu 01, 02, 03, 05 theo tình trạng hiệu lực; Mẫu 04 kế thừa kết quả rà soát thường xuyên (RSTX).',
+      kqCreate: createKq,
+      kqBack: ()=>this.setState({ kqView:'list', kqSel:{}, kqMau:'', kqUnitsOpen:false }),
+      // detail
+      kqDKy: dKY || '—', kqDWho: forUnit ? (tDv || '—') : 'Đầu mối · Kết quả tổng hợp', kqDForUnit: forUnit, kqDAgg: !forUnit,
+      kqStT: stD[0], kqStC: stD[1], kqStB: stD[2],
+      kqMauRows: mauRows, kqTotal: allRows.length,
+      kqHasMau: !!curMau, kqNoMau: !curMau && !(s.kqUnitsOpen && isDM && !sel.dv), kqMauTitle: curMau ? ('Mẫu '+curMau+' – '+(MAU.find(m=>m[0]===curMau)||['','',''])[2]) : '',
+      kqIs04: curMau==='04', kqMauCode: curMau, kqMauEd: mauEd,
+      kqMauNote: curMau==='04' ? 'Kế thừa kết quả rà soát thường xuyên (RSTX)' : 'Chia theo tình trạng hiệu lực',
+      kqMauModeT: mauEd ? 'Đang sửa' : 'Chỉ xem', kqMauModeC:'#344054', kqMauModeB:'#f2f4f7',
+      kqRows, kqN: kqRows.length, kqVbEmpty: !!curMau && !kqRows.length,
+      kqQ: s.kqQ||'', setKqQ:(e)=>this.setState({ kqQ:e.target.value }),
+      kqCloseMau: ()=>this.setState({ kqMau:'' }),
+      kqHlOpts: HLS.map(t=>({ t })),
+      kqCanEdit: canEdit, kqLocked: !canEdit,
+      kqLockT: K.pub ? 'Kết quả đã công bố ngày '+(K.pubAt||'')+' — chỉ xem.' : (isDM && sel.dv ? 'Kết quả đơn vị gửi lên — chỉ xem. Đầu mối trả lại cho đơn vị, hoặc sửa trực tiếp trên danh sách tổng hợp.' : (tU.st==='gui' ? 'Đã gửi đầu mối ngày '+(tU.sentAt||'')+' — chờ đầu mối tổng hợp. Sửa được khi bị trả lại.' : '')),
+      kqHasTraLai: forUnit && tU.st==='tralai' && !!tU.lyDoTL, kqTraLaiNote: 'Đầu mối trả lại ngày '+(tU.tlAt||'')+': '+(tU.lyDoTL||''),
+      kqRstxAt: (forUnit ? tU.rstxAt : K.dm.rstxAt) || '—',
+      kqAggInfo: 'Tổng hợp ngày '+(K.dm.aggAt||'—')+' từ '+((K.dm.aggUnits||[]).length)+' đơn vị đã gửi ('+(K.dm.aggN||0)+' VB). Hiện có '+sentNow.length+' đơn vị đã gửi.',
+      kqUnitRows: unitRows,
+      kqUnitsOpen: !!s.kqUnitsOpen && isDM && !sel.dv && !curMau,
+      kqOpenUnits: ()=>this.setState({ kqUnitsOpen:true }), kqCloseUnits: ()=>this.setState({ kqUnitsOpen:false }),
+      kqSentN: sentNow.length, kqUnitN: dvAll.length,
+      kqNewSentN: sentNow.filter(dv=>!(K.dm.aggUnits||[]).includes(dv)).length, kqHasNewSent: sentNow.some(dv=>!(K.dm.aggUnits||[]).includes(dv)),
+      kqMauHdr: ['01','02','03','04','05'].map(m=>({ t:'Mẫu '+m })),
+      kqDvCanSend: !isDM && canEdit,
+      kqDmCanTL: isDM && !!sel.dv && !K.pub && tU.st==='gui', kqDmTL: traLaiFn(dKY, tDv),
+      kqDmAgg: isDM && !sel.dv, kqDmCanPub: isDM && !sel.dv && !K.pub, kqPub: !!K.pub,
+      kqSyncRstx: ()=>{ setKy(dKY, k=>{ const tgt = forUnit ? k.units[tDv].rows : k.dm.rows; Object.keys(tgt).forEach((id,i)=>{ const d = docMap[id]; if(!d) return; const x = rstxFor(d, ids.indexOf(id)); tgt[id] = { ...tgt[id], kn:x.kn, lyDo:x.lyDo }; }); if(forUnit) k.units[tDv].rstxAt = TODAY; else k.dm.rstxAt = TODAY; return k; }); },
+      kqReAgg: ()=>{ if(!confirm('Tổng hợp lại từ kết quả các đơn vị đã gửi? Các chỉnh sửa của đầu mối trên văn bản thuộc đơn vị đã gửi sẽ được thay bằng dữ liệu đơn vị.')) return;
+        setKy(dKY, k=>{ const keep = k.dm.rows || {}; const agg = aggregate(k, docsD); Object.keys(agg.rows).forEach(id=>{ if(agg.rows[id].src!=='dv' && keep[id]) agg.rows[id] = keep[id]; }); k.dm = agg; return k; }); },
+      kqSave: ()=>{ setKy(dKY, k=>{ if(forUnit && k.units[tDv]) k.units[tDv].at = TODAY; else k.dm.at = TODAY; return k; }); alert('Đã lưu kết quả.'); },
+      kqSend: ()=>{ if(!confirm('Gửi kết quả hệ thống hóa kỳ '+dKY+' ('+allRows.length+' VB) cho đầu mối? Sau khi gửi, đơn vị không sửa được cho đến khi đầu mối trả lại.')) return;
+        setKy(dKY, k=>{ const u = k.units[DV]; u.st='gui'; u.sentAt=TODAY; delete u.lyDoTL; return k; }); },
+      kqPublish: ()=>{
+        const notIn = dvAll.filter(dv=>docsD.some(d=>(d.units||[]).includes(dv)) && !(K.dm.aggUnits||[]).includes(dv));
+        if(!confirm('Công bố kết quả hệ thống hóa kỳ '+dKY+' ('+allRows.length+' VB)?'+(notIn.length ? '\n\n'+notIn.length+' đơn vị chưa có kết quả trong tổng hợp ('+notIn.map(short).join(', ')+'): dùng dữ liệu hệ thống chia/đầu mối sửa.' : '')+'\n\nSau khi công bố, VB thuộc Mẫu 05 được đưa vào Tập hệ thống hóa theo cấu hình tiêu chí sắp xếp và đồng bộ lên CSDL quốc gia.')) return;
+        const snap = ids.map(id=>{ const d = docMap[id], v = rowsObj[id]; return { so:d.so, loai:d.loai, ty:d.ty, cq:d.cq, ngay:d.ngay, hieuLucNgay:d.hieuLucNgay, lv:(d.lvs||[])[0]||'Chưa gán lĩnh vực', hl:v.hl, kn:v.kn }; });
+        setKy(dKY, k=>{ k.pub = true; k.pubAt = TODAY; k.snap = snap; return k; }); },
+      kqGoSet: ()=>{ const ky = (s.kyHthList||[]).find(k=>(k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||'')))===dKY); this.go('set')(); if(ky) this.setState({ setKyId: ky.id, setKyIdSel: ky.id }); },
+      kqGoDoc: ()=>this.go('doclist')(),
+    };
+  }
+  khoPermOf(s, KY){
+    const all = (s.dvXemAll||{})[KY]; if(!all) return {};
+    const m = {}; this.lvTree()[0].children.forEach(d=>{ m[d] = all; }); return m;
+  }
+  khoVals(s, KY, legacyList){
+    const TODAY = '03/11/2026';
+    const plansArr = s.plans || [];
+    const pIdx = plansArr.findIndex(p=>p.ky===KY);
+    const prevKys = pIdx>0 ? plansArr.slice(0,pIdx).map(p=>p.ky) : [];
+    const prevKy = prevKys.length ? prevKys[prevKys.length-1] : '';
+    const lvs = s.lvList || this.lvSeed();
+    const lvNames = [...new Set(lvs.map(x=>x.ten))];
+    const dvOfLv = (lv)=>{ const x = lvs.find(y=>y.ten===lv); return x ? (x.donVis||[]) : []; };
+    const vaiTro = s.role==='ld' ? 'daumoi' : 'donvi';
+    const BO = s.currentDonVi || 'Bộ tư pháp';
+    const dvAll = this.lvTree()[0].children;
+    const DV = s.khoDonVi || 'Cục Hộ tịch, quốc tịch, chứng thực';
+    // ---- Phân quyền đơn vị được xem DS VB HTH (thay cho cấu hình luồng)
+    const PERM = this.khoPermOf(s, KY);   // quyền xem DL tổng theo kỳ
+    const canSee = !!PERM[DV];
+    // luong: 1 = văn bản do đầu mối gán (đơn vị không được xem DS); 2 = đơn vị được xem DS và tự chọn lĩnh vực
+    const luong = s.role==='ld' ? 1 : (canSee ? 2 : 1);
+    const lvOfDv = lvs.filter(x=>(x.donVis||[]).includes(DV)).map(x=>x.ten);
+    const isDM = vaiTro==='daumoi';
+    const store = (s.khoData||{})[KY] || (KY==='2024 – 2028' ? this.khoDemoStore(prevKy, lvNames, dvOfLv) : { csdl:[], heThong:[], tCsdl:'', tHt:'' });
+    const ov = s.khoOv || {};
+    const legacy = (legacyList||[]).map(d=>({ id:'LG-'+d.so+'-'+d.stt, so:d.so, loai:d.loai, ty:d.ty, cq:d.cq, ngay:d.ngay, hieuLucNgay:d.hieuLucNgay, hl:d.hlHienTai||d.hl,
+      loaiHth: d.loaiVb==='VB HTH kỳ trước' ? 'truoc' : 'nay', nguon: d.nguon==='csdl' ? 'csdl' : (d.nguon==='kytruoc' ? 'hethong' : (d.nguon==='excel' ? 'excel' : 'manual')),
+      gan: d.lv ? [{ lv:d.lv, dv:'', src:'nhap', by:'', at:'' }] : [], xoa:[] }));
+    const all = [ ...store.csdl, ...store.heThong, ...legacy ].map(d=>{ const o = ov[d.id]; return o ? { ...d, gan:o.gan, xoa:o.xoa||[] } : d; });
+    const findDoc = (id)=>all.find(d=>d.id===id);
+    const setOv = (id, gan, xoa)=>this.setState(st=>({ khoOv:{ ...(st.khoOv||{}), [id]:{ gan, xoa:xoa||[] } } }));
+    const actGan = (d)=>(d.gan||[]).filter(g=>(g.dv || g.src==='nhap') && !(d.xoa||[]).includes(g.dv));
+    const pendLv = (d)=>(d.gan||[]).filter(g=>!g.dv && g.src!=='nhap').map(g=>g.lv);
+    const isMine = (d)=>actGan(d).some(g=>g.dv===DV);
+    const status = (d)=> (d.xoa||[]).length ? 'xoa' : ((actGan(d).length && !pendLv(d).length) ? 'da' : 'chua');
+    // ---- gán trực tiếp trên dòng (combobox)
+    const DD = s.khoDd || '';
+    const ddQ = String(s.khoDdQ||'').trim().toLowerCase();
+    const ganRow = (d, gan)=>setOv(d.id, gan, []);
+    const toggleLvRow = (d, lv)=>{
+      const cur = (d.gan||[]).filter(g=>!(d.xoa||[]).includes(g.dv));
+      if(cur.some(g=>g.lv===lv)){ ganRow(d, cur.filter(g=>g.lv!==lv)); return; }
+      const units = dvOfLv(lv);
+      if(!units.length){ alert('Lĩnh vực "'+lv+'" chưa được cấu hình đơn vị phụ trách (Danh mục lĩnh vực).'); return; }
+      ganRow(d, [ ...cur, { lv, dv: units.length===1 ? units[0] : '', src:'daumoi', by:'Đầu mối', at:TODAY, moi:true } ]);
+    };
+    const togPair = (d, lv, dv)=>{
+      const cur = (d.gan||[]).filter(g=>!(d.xoa||[]).includes(g.dv));
+      if(cur.some(g=>g.lv===lv && g.dv===dv)){ ganRow(d, cur.filter(g=>!(g.lv===lv && g.dv===dv))); return; }
+      ganRow(d, [ ...cur.filter(g=>!(g.lv===lv && !g.dv)), { lv, dv, src:'daumoi', by:'Đầu mối', at:TODAY, moi:true } ]);
+    };
+    const setDvRow = (d, lv, dv)=>{
+      const cur = (d.gan||[]).filter(g=>!(d.xoa||[]).includes(g.dv) && g.lv!==lv);
+      ganRow(d, [ ...cur, { lv, dv, src:'daumoi', by:'Đầu mối', at:TODAY, moi:true } ]);
+    };
+    const isMoi = (d)=>actGan(d).some(g=>g.dv===DV && g.src==='daumoi' && g.moi);
+    // ---- bộ lọc
+    const F = s.khoF || {};
+    const ttDefault = '';   // mặc định Tất cả: VB vừa gán/nhận vẫn ở lại danh sách
+    const tt = (F.tt===undefined) ? ttDefault : F.tt;
+    const q = String(F.q||'').trim().toLowerCase();
+    const setF = (k)=>(e)=>{ const v = e && e.target ? e.target.value : e; this.setState(st=>({ khoF:{ ...(st.khoF||{}), [k]:v }, khoSel:{} })); };
+    const pass = (d)=>{
+      if(s.khoDd && d.id===s.khoDd) return true;
+      if(q && !String(d.so).toLowerCase().includes(q)) return false;
+      if(F.loai && d.loai!==F.loai) return false;
+      if(F.hth && d.loaiHth!==F.hth) return false;
+      if(F.lv && !actGan(d).some(g=>g.lv===F.lv)) return false;
+      if(F.dv && !actGan(d).some(g=>g.dv===F.dv)) return false;
+      if(F.nguon && d.nguon!==F.nguon) return false;
+      if(tt==='chua' && status(d)!=='chua') return false;
+      if(tt==='da' && status(d)!=='da') return false;
+      if(tt==='xoa' && status(d)!=='xoa') return false;
+      if(tt==='conhan' && isMine(d)) return false;
+      if(tt==='cuadv' && !isMine(d)) return false;
+      if(tt==='moi' && !isMoi(d)) return false;
+      return true;
+    };
+    const shown = all.filter(pass);
+    // ---- thẻ thống kê (bấm để lọc)
+    const statOf = (key, label, icon, color, tint, value, apply, on)=>({ key, label, icon, color, tint, value:String(value), go:apply,
+      bd: on ? '#2f2fd0' : 'transparent', bg: on ? '#f7f7ff' : '#fff', fc: on ? '#2f2fd0' : '#98a2b3' });
+    const setTT = (v, extra)=>()=>this.setState(st=>({ khoF:{ ...(st.khoF||{}), tt:v, ...(extra||{}) }, khoSel:{} }));
+    const khoStats = isDM ? [
+      statOf('all','Tổng văn bản HTH','description','#2f2fd0','#eef0ff', all.length, setTT('', { hth:'' }), tt==='' && !F.hth),
+      statOf('chua','Chưa gán lĩnh vực','label_off','#dc6803','#fffaeb', all.filter(d=>status(d)==='chua').length, setTT('chua'), tt==='chua'),
+      statOf('da','Đã gán lĩnh vực','sell','#067647','#ecfdf3', all.filter(d=>status(d)==='da').length, setTT('da'), tt==='da'),
+      statOf('truoc','VB HTH kỳ trước','history','#6941c6','#f4ebff', all.filter(d=>d.loaiHth==='truoc').length, setTT('', { hth:'truoc' }), tt==='' && F.hth==='truoc'),
+    ] : [
+      ...(luong===2 ? [statOf('conhan','Có thể nhận','inbox','#2f2fd0','#eef0ff', all.filter(d=>!isMine(d)).length, setTT('conhan'), tt==='conhan')] : []),
+      statOf('cuadv','VB của đơn vị','folder_shared','#067647','#ecfdf3', all.filter(isMine).length, setTT('cuadv', { hth:'' }), tt==='cuadv' && !F.hth),
+      ...(luong===1 ? [statOf('moi','Mới được gán','notifications','#f79009','#fff4e5', all.filter(isMoi).length, setTT('moi'), tt==='moi')] : []),
+      statOf('truocdv','VB kỳ trước của đơn vị','history','#6941c6','#f4ebff', all.filter(d=>isMine(d) && d.loaiHth==='truoc').length, setTT('cuadv', { hth:'truoc' }), tt==='cuadv' && F.hth==='truoc'),
+    ];
+    const ttOpts = isDM
+      ? [['','Tất cả'],['chua','Chưa gán lĩnh vực'],['da','Đã gán lĩnh vực'],['xoa','Đơn vị đã xóa']]
+      : [['','Tất cả'], ...(luong===2 ? [['conhan','Có thể nhận']] : []), ['cuadv','VB của đơn vị'], ...(luong===1 ? [['moi','Mới được gán']] : [])];
+    const ttLabel = (ttOpts.find(o=>o[0]===tt)||['',''])[1];
+    const NGUON = { csdl:['CSDLQG','#0e7c6e','#e6f6f4'], hethong:['Hệ thống (kỳ trước)','#6941c6','#f4ebff'], manual:['Nhập tay','#475467','#f2f4f7'], excel:['Excel','#1f8a5b','#e3f4ec'] };
+    const chips = [];
+    const chipOf = (label, k, v)=>chips.push({ t:label, x: ()=>this.setState(st=>({ khoF:{ ...(st.khoF||{}), [k]:v }, khoSel:{} })) });
+    if(tt) chipOf('Trạng thái: '+ttLabel, 'tt', '');
+    if(F.hth) chipOf(F.hth==='truoc' ? 'VB HTH kỳ trước' : 'VB HTH kỳ này', 'hth', '');
+    if(F.loai) chipOf('Loại: '+F.loai, 'loai', '');
+    if(F.lv) chipOf('Lĩnh vực: '+F.lv, 'lv', '');
+    if(F.dv) chipOf('Đơn vị: '+F.dv, 'dv', '');
+    if(F.nguon) chipOf('Nguồn: '+NGUON[F.nguon][0], 'nguon', '');
+    if(q) chipOf('"'+F.q+'"', 'q', '');
+    // ---- chọn nhiều
+    const sel = s.khoSel || {};
+    const selIds = shown.filter(d=>sel[d.id]).map(d=>d.id);
+    const rowSel = s.khoRowSel || {};
+    const shortDv = (n)=>String(n||'').replace('Cục Hộ tịch, quốc tịch, chứng thực','Cục Hộ tịch').replace('Cục Kiểm tra VBQPPL','Cục KTVB').replace('Cục Bổ trợ tư pháp','Cục BTTP').replace('Cục Trợ giúp pháp lý','Cục TGPL');
+    const goGan = (ids)=>{
+      if(!ids.length){ alert('Vui lòng chọn ít nhất một văn bản.'); return; }
+      const one = ids.length===1 ? findDoc(ids[0]) : null;
+      const g0 = one ? actGan(one).filter(g=>g.dv) : [];
+      const lvs0 = [...new Set(g0.map(g=>g.lv))];
+      const dvs0 = {}; lvs0.forEach(l=>{ dvs0[l] = g0.filter(g=>g.lv===l).map(g=>g.dv); });
+      this.setState({ khoSub:'gan', khoGan:{ ids:ids.slice(), lvs:lvs0, dvs:dvs0 }, khoGanDd:false, khoGanQ:'' });
+    };
+    const nhan = (ids, lv)=>{
+      if(!lv){ alert('Vui lòng chọn lĩnh vực của đơn vị.'); return; }
+      this.setState(st=>{
+        const o = { ...(st.khoOv||{}) };
+        ids.forEach(id=>{ const d = findDoc(id); if(!d) return; const cur = o[id] ? o[id] : { gan:d.gan||[], xoa:d.xoa||[] };
+          if(cur.gan.some(g=>g.dv===DV && g.lv===lv)) return;
+          o[id] = { gan:[ ...cur.gan, { lv, dv:DV, src:'donvi', by:shortDv(DV), at:TODAY } ], xoa:(cur.xoa||[]).filter(x=>x!==DV) }; });
+        return { khoOv:o, khoSel:{}, khoRowSel:{} };
+      });
+    };
+    const khoRows = shown.map((d,i)=>{
+      const ag = actGan(d); const st0 = status(d); const mine = isMine(d);
+      const c = this.hlColors(this.normalizeTthl(d.hl));
+      const ng = NGUON[d.nguon] || NGUON.manual;
+      const lvUniq = [...new Set(ag.map(g=>g.lv))];
+      const myLvs = ag.filter(g=>g.dv===DV).map(g=>g.lv);
+      const others = [...new Set(ag.filter(g=>g.dv && g.dv!==DV).map(g=>shortDv(g.dv)))];
+      const srcG = ag.find(g=>g.src==='daumoi') || ag.find(g=>g.src==='donvi') || ag.find(g=>g.src==='kethua');
+      const srcTxt = !srcG ? '' : (srcG.src==='daumoi' ? 'Đầu mối gán' : (srcG.src==='donvi' ? 'Đơn vị tự chọn' : 'Kế thừa kỳ trước'));
+      return {
+        id:d.id, stt:i+1, so:d.so, loai:d.loai||'', ngay:d.ngay||'', sub:(d.loai||'')+' · '+(d.ngay||''), ty:d.ty, hieuLucNgay:d.hieuLucNgay||'',
+        hthT: d.loaiHth==='truoc' ? 'Kỳ trước' : 'Kỳ này', hthC:'#475467', hthB:'#f2f4f7',
+        hl:this.normalizeTthl(d.hl), hlC:'#344054', hlB:'#f2f4f7',
+        isChua: st0==='chua' && !(isDM && luong===1), hasLv: !!lvUniq.length, hint: d.hint && st0==='chua' ? d.hint : '',
+        lvChips: (isDM && luong===1) ? [] : ag.map(g=>({ t:g.lv, u: g.dv ? shortDv(g.dv) : '' })),
+        xoaChips: (d.xoa||[]).map(x=>({ t: shortDv(x)+' · đã xóa khỏi danh sách' })),
+        // combobox gán LV trên dòng (đầu mối – luồng 1)
+        inlGan: isDM && luong===1, notInlGan: !(isDM && luong===1),
+        edLvChips: (d.gan||[]).filter(g=>g.dv && !(d.xoa||[]).includes(g.dv)).map(g=>({ t:g.lv, u:shortDv(g.dv), x: (e)=>{ if(e && e.stopPropagation) e.stopPropagation(); togPair(d, g.lv, g.dv); } })),
+        edEmpty: !(d.gan||[]).filter(g=>!(d.xoa||[]).includes(g.dv)).length,
+        ddOpen: DD===d.id, ddIc: DD===d.id ? 'expand_less' : 'expand_more', ddBd: DD===d.id ? '#2f2fd0' : '#d0d5dd', ddBg:'#fff',
+        ddToggle: ()=>this.setState(st=>({ khoDd: st.khoDd===d.id ? '' : d.id, khoDdQ:'' })),
+        ddOpts: lvNames.flatMap(t=>{ const units = dvOfLv(t);
+          if(!units.length) return (!ddQ || t.toLowerCase().includes(ddQ)) ? [{ t, u:'Chưa cấu hình đơn vị phụ trách', ic:'block', c:'#d0d5dd', bg:'#fafafa', tc:'#98a2b3', cur:'not-allowed', go: ()=>{} }] : [];
+          return units.filter(un=>!ddQ || t.toLowerCase().includes(ddQ) || un.toLowerCase().includes(ddQ)).map(un=>{ const on = (d.gan||[]).some(g=>g.lv===t && g.dv===un && !(d.xoa||[]).includes(g.dv));
+            return { t, u:un, ic: on ? 'check_box' : 'check_box_outline_blank', c: on ? '#2f2fd0' : '#98a2b3', bg: on ? '#f7f7ff' : '#fff', tc:'#1e2939', cur:'pointer', go: ()=>togPair(d, t, un) }; }); }),
+        edDv: [...new Set((d.gan||[]).filter(g=>!(d.xoa||[]).includes(g.dv)).map(g=>g.lv))].filter(lv=>dvOfLv(lv).length>1).map(lv=>{ const g = (d.gan||[]).find(x=>x.lv===lv && !(d.xoa||[]).includes(x.dv)) || {};
+          return { lv, val: g.dv||'', miss: !g.dv, bd: g.dv ? '#d0d5dd' : '#f79009', opts: dvOfLv(lv).map(u=>({ t:u, s:shortDv(u) })), set: (e)=>setDvRow(d, lv, e.target.value) }; }),
+        edDvAuto: [...new Set((d.gan||[]).filter(g=>g.dv && !(d.xoa||[]).includes(g.dv) && dvOfLv(g.lv).length<=1).map(g=>shortDv(g.dv)))].map(t=>({ t })),
+        dvChips: (isDM && luong===1) ? (d.xoa||[]).map(t=>({ t:shortDv(t)+' · đã xóa', fc:'#475467', bc:'#f2f4f7' })) : [...new Set(ag.filter(g=>g.dv).map(g=>g.dv))].map(t=>({ t:shortDv(t), fc:'#475467', bc:'#f2f4f7' })).concat((d.xoa||[]).map(t=>({ t:shortDv(t)+' · đã xóa', fc:'#475467', bc:'#f2f4f7' }))),
+        noDv: !(isDM && luong===1) && !ag.some(g=>g.dv) && !(d.xoa||[]).length,
+        nguonT: ng[0], nguonC:'#475467', nguonB:'#f2f4f7', srcTxt, hasSrc: !!srcTxt, srcBy: srcG ? [srcG.by, srcG.at].filter(Boolean).join(' · ') : '',
+        moi: !isDM && isMoi(d),
+        chkIcon: sel[d.id] ? 'check_box' : 'check_box_outline_blank', chkC: sel[d.id] ? '#2f2fd0' : '#98a2b3', rowBg: sel[d.id] ? '#f7f7ff' : '#fff',
+        toggle: ()=>this.setState(st=>{ const m = { ...(st.khoSel||{}) }; if(m[d.id]) delete m[d.id]; else m[d.id] = true; return { khoSel:m }; }),
+        // đầu mối – luồng 1
+        canGan: isDM && luong===1, ganIcon: st0==='chua' ? 'sell' : 'edit', ganTitle: st0==='chua' ? 'Gán lĩnh vực' : 'Sửa lĩnh vực', gan: ()=>goGan([d.id]),
+        // đơn vị – luồng 2
+        canNhan: !isDM && luong===2 && !mine, othersT: others.join(', '), hasOthers: !!others.length,
+        rowLv: rowSel[d.id] || '', setRowLv: (e)=>{ const v = e.target.value; this.setState(st=>({ khoRowSel:{ ...(st.khoRowSel||{}), [d.id]:v } })); },
+        nhan: ()=>nhan([d.id], rowSel[d.id] || ''),
+        canSuaDv: !isDM && luong===2 && mine,
+        myLvChips: myLvs.map(lv=>({ t:lv, go: ()=>{ const cur = { gan:d.gan||[], xoa:d.xoa||[] }; setOv(d.id, cur.gan.filter(g=>!(g.dv===DV && g.lv===lv)), cur.xoa); } })),
+        themLv: ()=>nhan([d.id], rowSel[d.id] || ''),
+        // đơn vị – luồng 1
+        canXoa: !isDM && luong===1 && mine,
+        xoa: ()=>{ if(!confirm('Văn bản sẽ bị xóa khỏi danh sách được phân công của đơn vị. Tiếp tục?')) return; setOv(d.id, d.gan||[], [ ...(d.xoa||[]), DV ]); },
+        view: ()=>this.setState({ docPanel:'view', editDoc:{ ...d, lv: lvUniq.join(', '), hl:this.normalizeTthl(d.hl), hlC:'#344054', hlB:'#f2f4f7', kienNghi:'Không cần xử lý', ghiChu: ng[0], loaiVb: d.loaiHth==='truoc' ? 'VB HTH kỳ trước' : 'VB HTH kỳ hiện tại' } }),
+      };
+    });
+    const allChecked = shown.length>0 && shown.every(d=>sel[d.id]);
+    // ---- màn gán lĩnh vực
+    const G = s.khoGan || { ids:[], lvs:[], dvs:{} };
+    const setG = (fn)=>this.setState(st=>({ khoGan: fn({ ids:[], lvs:[], dvs:{}, ...(st.khoGan||{}) }) }));
+    const ganDocs = G.ids.map(findDoc).filter(Boolean).map((d,i)=>({ stt:i+1, so:d.so, sub:(d.loai||'')+' · '+(d.ngay||''), ty:d.ty,
+      hthT: d.loaiHth==='truoc' ? 'Kỳ trước' : 'Kỳ này', hthC:'#475467', hthB:'#f2f4f7',
+      bo: ()=>setG(g=>({ ...g, ids:g.ids.filter(x=>x!==d.id) })) }));
+    const ganQ = String(s.khoGanQ||'').trim().toLowerCase();
+    const togLv = (t)=>setG(g=>({ ...g, lvs: g.lvs.includes(t) ? g.lvs.filter(x=>x!==t) : [ ...g.lvs, t ] }));
+    const ganLvOpts = lvNames.filter(t=>!ganQ || t.toLowerCase().includes(ganQ)).map(t=>{ const on = G.lvs.includes(t); const n = dvOfLv(t).length;
+      return { t, on, cbIc: on ? 'check_box' : 'check_box_outline_blank', cbC: on ? '#2f2fd0' : '#98a2b3', rowBg: on ? '#f7f7ff' : '#fff', dvN: n ? (n+' đơn vị') : 'chưa có đơn vị', go: ()=>togLv(t) }; });
+    const ganSelChips = G.lvs.map(t=>({ t, x: (e)=>{ if(e && e.stopPropagation) e.stopPropagation(); togLv(t); } }));
+    const ganMap = G.lvs.map(lv=>{
+      const units = dvOfLv(lv); const chosen = (G.dvs||{})[lv] || [];
+      return { lv, none: !units.length, auto: units.length===1, many: units.length>1, autoDv: units[0]||'',
+        stT: !units.length ? 'Chưa cấu hình đơn vị phụ trách' : (units.length===1 ? 'Tự động · 1 đơn vị' : (chosen.length ? ('Đã chọn '+chosen.length+'/'+units.length+' đơn vị') : (units.length+' đơn vị · bắt buộc chọn'))),
+        stC:'#344054', stB:'#f2f4f7',
+        units: units.map(u=>{ const on = chosen.includes(u); return { t:u, ic: on ? 'check_box' : 'check_box_outline_blank', fc: on ? '#2f2fd0' : '#98a2b3',
+          go: ()=>setG(g=>{ const cur = (g.dvs||{})[lv] || []; return { ...g, dvs:{ ...(g.dvs||{}), [lv]: cur.includes(u) ? cur.filter(x=>x!==u) : [ ...cur, u ] } }; }) }; }) };
+    });
+    const luuGan = ()=>{
+      if(!G.ids.length){ alert('Chưa có văn bản nào được chọn.'); return; }
+      if(!G.lvs.length){ alert('Vui lòng chọn lĩnh vực.'); return; }
+      const bad = ganMap.find(m=>m.none); if(bad){ alert('Lĩnh vực "'+bad.lv+'" chưa được cấu hình đơn vị phụ trách (Danh mục lĩnh vực).'); return; }
+      const miss = ganMap.find(m=>m.many && !((G.dvs||{})[m.lv]||[]).length); if(miss){ alert('Vui lòng chọn đơn vị cho lĩnh vực "'+miss.lv+'".'); return; }
+      const gan = [];
+      G.lvs.forEach(lv=>{ const units = dvOfLv(lv); (units.length===1 ? units : (G.dvs[lv]||[])).forEach(u=>gan.push({ lv, dv:u, src:'daumoi', by:'Đầu mối', at:TODAY, moi:true })); });
+      this.setState(st=>{ const o = { ...(st.khoOv||{}) }; G.ids.forEach(id=>{ o[id] = { gan:gan.slice(), xoa:[] }; });
+        return { khoOv:o, khoSub:'', khoGan:null, khoSel:{} }; });
+      alert('Đã gán lĩnh vực cho '+G.ids.length+' văn bản.');
+    };
+    // ---- màn lấy dữ liệu
+    const Y = { loai:'nay', cq:'Bộ Tư pháp', tu:'01/01/2024', den:'31/12/2026', kyTruoc: prevKy, ok:false, ...(s.khoSync||{}) };
+    const setY = (k)=>(e)=>{ const v = e && e.target ? e.target.value : e; this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), [k]:v } })); };
+    const curList = Y.loai==='nay' ? store.csdl : store.heThong;
+    const curGanCount = curList.filter(d=>{ const o = ov[d.id]; return ((o ? o.gan : d.gan)||[]).length; }).length;
+    const curDvCount = new Set(curList.flatMap(d=>{ const o = ov[d.id]; return ((o ? o.gan : d.gan)||[]).map(g=>g.dv).filter(Boolean); })).size;
+    const doSync = ()=>{
+      if(!KY){ alert('Vui lòng chọn Kỳ hệ thống hóa trước.'); return; }
+      if(Y.loai==='truoc' && !Y.kyTruoc){ alert('Không có kỳ trước để lấy dữ liệu.'); return; }
+      if(curList.length && !confirm('Lấy lại dữ liệu sẽ XÓA toàn bộ '+(Y.loai==='nay' ? 'VB HTH kỳ này' : 'VB HTH kỳ trước')+' hiện có ('+curList.length+' VB), kể cả lĩnh vực đã gán. Tiếp tục?')) return;
+      const seq = Date.now();
+      this.setState(st=>{
+        const kd = { ...(st.khoData||{}) }; const cur = { csdl:[], heThong:[], tCsdl:'', tHt:'', ...(kd[KY]||store) }; delete cur.demo;
+        const time = TODAY+' '+new Date().toTimeString().slice(0,5);
+        if(Y.loai==='nay'){ cur.csdl = this.khoSampleNay(Y.cq, seq); cur.tCsdl = time; }
+        else { cur.heThong = this.khoSampleTruoc(Y.kyTruoc, seq, lvNames, dvOfLv); cur.tHt = time + ' · kỳ ' + Y.kyTruoc; }
+        kd[KY] = cur;
+        return { khoData:kd, khoSub:'', khoSync:null, khoSel:{}, ktSearched:true, khoF:{ hth: Y.loai } };
+      });
+    };
+    return {
+      khoAllDocs: all.map(d=>({ ...d, units:[...new Set(actGan(d).map(g=>g.dv).filter(Boolean))], lvs:[...new Set(actGan(d).map(g=>g.lv))] })),
+      khoSub: s.khoSub || '',
+      isKhoGan: s.screen==='doclist' && !s.ktView && s.khoSub==='gan',
+      khoLuongN: luong, khoLuongText: (isDM ? 'Đầu mối' : (canSee ? 'Được xem DL tổng · tự chọn lĩnh vực' : 'Chưa được xem DL tổng · Đầu mối gán')),
+      goDvNhan: this.go('dvnhan'), khoCanSee: isDM || canSee, khoNoSee: !isDM && !canSee, khoSeeIc: canSee ? 'visibility' : 'visibility_off',
+      // ---- Phân quyền đơn vị được xem
+      // ---- Phân quyền cho đơn vị được xem: 1 checkbox theo kỳ, áp dụng tất cả đơn vị con; đã tick thì không bỏ được
+      ...(()=>{ const on = !!(s.dvXemAll||{})[KY]; const at = on ? (s.dvXemAll[KY].at||'') : '';
+        return { khoPermOn:on, khoPermIc: on ? 'check_box' : 'check_box_outline_blank', khoPermC: on ? '#98a2b3' : '#2f2fd0', khoPermCur: on ? 'not-allowed' : 'pointer',
+          khoPermNote: on ? ('Tất cả đơn vị con được xem · '+at) : 'Tất cả đơn vị con chưa được xem',
+          khoPermTitle: on ? 'Đã phân quyền trong kỳ '+KY+' — không bỏ được' : 'Tick để tất cả đơn vị con được xem dữ liệu tổng kỳ '+KY,
+          khoPermTog: ()=>{
+            if(!KY){ alert('Vui lòng chọn Kỳ hệ thống hóa trước.'); return; }
+            if(on){ alert('Đã phân quyền cho đơn vị được xem trong kỳ '+KY+'. Không bỏ được.'); return; }
+            if(!confirm('Phân quyền cho tất cả '+dvAll.length+' đơn vị con được xem Danh sách văn bản HTH kỳ '+KY+'?\n\nĐơn vị con sẽ có menu Danh sách văn bản HTH và tự chọn lĩnh vực của mình để nhận văn bản.\nLưu ý: đã phân quyền thì KHÔNG bỏ được trong kỳ.')) return;
+            this.setState(st=>({ dvXemAll:{ ...(st.dvXemAll||{}), [KY]:{ at:'04/11/2026', by:'Đầu mối' } } })); } }; })(),
+      isKhoSync: s.screen==='doclist' && !s.ktView && s.khoSub==='sync',
+      khoIsDM: isDM, khoIsDV: !isDM, khoL1: luong===1, khoL2: luong===2,
+      khoDmL1: isDM && luong===1, khoDvL2: !isDM && luong===2,
+      khoRoleDmBg: isDM ? '#fff' : 'transparent', khoRoleDmC: isDM ? '#2f2fd0' : '#667085', khoRoleDvBg: !isDM ? '#fff' : 'transparent', khoRoleDvC: !isDM ? '#2f2fd0' : '#667085',
+      khoL1Bg: luong===1 ? '#fff' : 'transparent', khoL1C: luong===1 ? '#2f2fd0' : '#667085', khoL2Bg: luong===2 ? '#fff' : 'transparent', khoL2C: luong===2 ? '#2f2fd0' : '#667085',
+      khoLuongVal: String(luong), khoSetLuong: (e)=>this.setState({ khoLuong: parseInt(e.target.value,10)||1, khoF:{}, khoSel:{} }),
+      khoSetDM: ()=>this.setState({ khoVaiTro:'daumoi', khoF:{}, khoSel:{} }),
+      khoSetDV: ()=>this.setState({ khoVaiTro:'donvi', khoF:{}, khoSel:{} }),
+      khoSetL1: ()=>this.setState({ khoLuong:1, khoF:{}, khoSel:{} }),
+      khoSetL2: ()=>this.setState({ khoLuong:2, khoF:{}, khoSel:{} }),
+      khoDonVi: DV, khoDvOpts: dvAll.map(t=>({ t })), khoSetDonVi: (e)=>this.setState({ khoDonVi:e.target.value, khoF:{}, khoSel:{} }),
+      khoDvLvText: lvOfDv.length ? lvOfDv.join(' · ') : 'Chưa cấu hình',
+      khoDvNoLv: !lvOfDv.length,
+      khoLvOfDv: lvOfDv.map(t=>({ t })),
+      khoLuongNote: isDM ? 'Đầu mối gán lĩnh vực cho văn bản; đơn vị được phân quyền xem có thể tự chọn lĩnh vực của mình để nhận văn bản.' : (canSee ? 'Đơn vị được phân quyền xem danh sách: tự chọn lĩnh vực của đơn vị để nhận văn bản. Văn bản đã nhận xem tại Danh sách VBHTH đơn vị.' : 'Đơn vị chưa được phân quyền xem danh sách. Văn bản do đầu mối gán xem tại Danh sách VBHTH đơn vị.'),
+      khoStats, khoTT: tt, khoTTOpts: ttOpts.map(o=>({ v:o[0], t:o[1] })),
+      khoQ: F.q||'', khoLoai: F.loai||'', khoHth: F.hth||'', khoLv: F.lv||'', khoDv: F.dv||'', khoNguon: F.nguon||'',
+      setKhoQ: setF('q'), setKhoLoai: setF('loai'), setKhoHth: setF('hth'), setKhoTT: setF('tt'), setKhoLv: setF('lv'), setKhoDv: setF('dv'), setKhoNguon: setF('nguon'),
+      khoLvOpts: lvNames.map(t=>({ t })), khoDvAllOpts: dvAll.map(t=>({ t })),
+      khoResetF: ()=>this.setState({ khoF:{ tt:'' }, khoSel:{} }),
+      khoChips: chips, khoHasChips: !!chips.length && (isDM || canSee),
+      ...(()=>{ const n = ['loai','hth','dv','nguon','tt'].filter(k=>F[k]).length; const on = !!s.khoMoreF && (isDM || canSee);
+        return { khoMoreF:on, khoToggleMore:()=>this.setState(st=>({ khoMoreF:!st.khoMoreF })), khoMoreT:'Lọc thêm'+(n ? ' ('+n+')' : ''), khoMoreBd: on||n ? '#c9ccf5' : '#d0d5dd', khoMoreBg: on||n ? '#eef0ff' : '#fff', khoMoreC: on||n ? '#2f2fd0' : '#1e2939' }; })(),
+      khoRows: s.ktSearched ? khoRows : [], khoCount: s.ktSearched ? khoRows.length : 0, khoTotal: all.length,
+      khoEmpty: !!s.ktSearched && !khoRows.length,
+      khoSelCount: selIds.length, khoHasSel: !!selIds.length,
+      khoAllIcon: allChecked ? 'check_box' : 'check_box_outline_blank', khoAllC: allChecked ? '#2f2fd0' : '#98a2b3',
+      khoToggleAll: ()=>this.setState(st=>{ if(allChecked) return { khoSel:{} }; const m = {}; shown.forEach(d=>{ m[d.id] = true; }); return { khoSel:m }; }),
+      khoClearSel: ()=>this.setState({ khoSel:{} }),
+      khoGanSel: ()=>goGan(selIds),
+      khoDdQ: s.khoDdQ || '', setKhoDdQ: (e)=>this.setState({ khoDdQ:e.target.value }), khoDdClose: ()=>this.setState({ khoDd:'', khoDdQ:'' }),
+      khoBGLv: s.khoBGLv || '', setKhoBGLv: (e)=>this.setState({ khoBGLv:e.target.value, khoBGDv:'' }),
+      khoBGDv: s.khoBGDv || '', setKhoBGDv: (e)=>this.setState({ khoBGDv:e.target.value }),
+      khoBGNeedDv: !!s.khoBGLv && dvOfLv(s.khoBGLv).length>1,
+      khoBGDvOpts: s.khoBGLv ? dvOfLv(s.khoBGLv).map(u=>({ t:u })) : [],
+      khoBGApply: ()=>{
+        const lv = s.khoBGLv || ''; if(!lv){ alert('Vui lòng chọn lĩnh vực.'); return; }
+        const units = dvOfLv(lv); if(!units.length){ alert('Lĩnh vực \u0022'+lv+'\u0022 chưa được cấu hình đơn vị phụ trách.'); return; }
+        const dv = units.length===1 ? units[0] : (s.khoBGDv||''); if(!dv){ alert('Vui lòng chọn đơn vị cho lĩnh vực \u0022'+lv+'\u0022.'); return; }
+        this.setState(st=>{ const o = { ...(st.khoOv||{}) }; selIds.forEach(id=>{ const d = findDoc(id); if(!d) return; const cur = (d.gan||[]).filter(g=>!(d.xoa||[]).includes(g.dv) && g.lv!==lv); o[id] = { gan:[ ...cur, { lv, dv, src:'daumoi', by:'Đầu mối', at:TODAY, moi:true } ], xoa:[] }; });
+          return { khoOv:o, khoSel:{}, khoBGLv:'', khoBGDv:'' }; });
+      },
+      khoBulkLv: s.khoBulkLv || '', setKhoBulkLv: (e)=>this.setState({ khoBulkLv:e.target.value }),
+      khoNhanSel: ()=>{ nhan(selIds, s.khoBulkLv || ''); },
+      khoSyncInfo: [store.tCsdl ? ('CSDLQG: '+store.tCsdl+' ('+store.csdl.length+' VB)') : 'CSDLQG: chưa đồng bộ', store.tHt ? ('Hệ thống: '+store.tHt+' ('+store.heThong.length+' VB)') : 'Kỳ trước: chưa lấy dữ liệu'].join('   ·   '),
+      khoOpenSyncNay: ()=>this.setState({ khoSub:'sync', khoSync:{ loai:'nay', cq:'Bộ Tư pháp', tu:'01/01/2024', den:'31/12/2026', kyTruoc: prevKy, ok:false } }),
+      khoOpenSyncTruoc: ()=>this.setState({ khoSub:'sync', khoSync:{ loai:'truoc', cq:'Bộ Tư pháp', tu:'01/01/2024', den:'31/12/2026', kyTruoc: prevKy, ok:false } }),
+      khoYTitle: Y.loai==='nay' ? 'Thêm mới văn bản' : 'Bổ sung VB HTH kỳ trước',
+      khoYDesc: Y.loai==='nay' ? 'Đồng bộ VB HTH kỳ này từ CSDL quốc gia theo cơ quan ban hành và ngày ban hành. Lĩnh vực về để trống, cần gán.' : 'Lấy VB HTH kỳ trước từ dữ liệu có sẵn trên hệ thống, giữ nguyên lĩnh vực và đơn vị đã có.',
+      khoManual: ()=>{
+        const list = s.kyHthList || [];
+        const idx = list.findIndex(k=>(k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||'')))===KY);
+        const isNay = Y.loai==='nay';
+        const k = isNay ? (idx>=0 ? list[idx] : (list[list.length-1]||null)) : (idx>0 ? list[idx-1] : null);
+        this.setState({ khoSub:'', khoSync:null, docPanel:'form', formMode:'add', editDoc:null, formLoaiVb: isNay ? 'VB HTH kỳ hiện tại' : 'VB HTH kỳ trước', formKyId: k ? k.id : '', docFormRows: this.sampleDocRows(isNay ? 'cur' : 'prev') });
+      },
+      khoBack: ()=>this.setState({ khoSub:'', khoGan:null, khoSync:null, khoGanDd:false, khoGanQ:'' }),
+      // gán
+      khoGanQ: s.khoGanQ || '', setKhoGanQ: (e)=>this.setState({ khoGanQ:e.target.value, khoGanDd:true }),
+      khoGanDdOpen: !!s.khoGanDd, khoGanDdIc: s.khoGanDd ? 'expand_less' : 'expand_more', khoGanDdBd: s.khoGanDd ? '#2f2fd0' : '#d0d5dd',
+      khoGanOpenDd: ()=>{ if(!s.khoGanDd) this.setState({ khoGanDd:true }); },
+      khoGanCloseDd: ()=>this.setState({ khoGanDd:false, khoGanQ:'' }),
+      khoGanToggleDd: (e)=>{ if(e && e.stopPropagation) e.stopPropagation(); this.setState(st=>({ khoGanDd: !st.khoGanDd })); },
+      khoGanSelChips: ganSelChips, khoGanPh: G.lvs.length ? 'Tìm thêm lĩnh vực...' : 'Tìm và chọn lĩnh vực...', khoGanLvN: G.lvs.length, khoGanNoMatch: !ganLvOpts.length,
+      khoGanDocs: ganDocs, khoGanN: ganDocs.length, khoGanLvOpts: ganLvOpts, khoGanMap: ganMap, khoGanHasLv: !!G.lvs.length, khoGanNoLv: !G.lvs.length, khoLuuGan: luuGan,
+      // lấy dữ liệu
+      khoYNay: Y.loai==='nay', khoYTruoc: Y.loai==='truoc',
+      khoYNayBd: Y.loai==='nay' ? '#2f2fd0' : '#d0d5dd', khoYNayBg: Y.loai==='nay' ? '#f7f7ff' : '#fff', khoYNayIc: Y.loai==='nay' ? 'radio_button_checked' : 'radio_button_unchecked',
+      khoYTrBd: Y.loai==='truoc' ? '#2f2fd0' : '#d0d5dd', khoYTrBg: Y.loai==='truoc' ? '#f7f7ff' : '#fff', khoYTrIc: Y.loai==='truoc' ? 'radio_button_checked' : 'radio_button_unchecked',
+      khoYSetNay: ()=>this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), loai:'nay', ok:false } })),
+      khoYSetTruoc: ()=>this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), loai:'truoc', ok:false } })),
+      khoYCq: Y.cq, setKhoYCq: setY('cq'), khoYTu: Y.tu, setKhoYTu: setY('tu'), khoYDen: Y.den, setKhoYDen: setY('den'),
+      khoYKyTruoc: Y.kyTruoc, setKhoYKyTruoc: setY('kyTruoc'), khoYKyTruocOpts: prevKys.slice().reverse().map(t=>({ t })), khoYNoPrev: !prevKys.length,
+      khoYKy: KY || '—',
+      khoYCur: curList.length, khoYCurGan: curGanCount, khoYCurDv: curDvCount, khoYHasData: !!curList.length,
+      khoYLoaiT: Y.loai==='nay' ? 'VB HTH kỳ này' : 'VB HTH kỳ trước', khoYKhacT: Y.loai==='nay' ? 'VB HTH kỳ trước' : 'VB HTH kỳ này',
+      khoYOkIc: Y.ok ? 'check_box' : 'check_box_outline_blank', khoYOkC: Y.ok ? '#2f2fd0' : '#98a2b3',
+      khoYToggleOk: ()=>this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), ok: !Y.ok } })),
+      khoYBtn: Y.loai==='nay' ? 'Đồng bộ từ CSDLQG' : 'Lấy dữ liệu kỳ trước', khoYBtnIc: Y.loai==='nay' ? 'cloud_sync' : 'history',
+      khoDoSync: doSync,
+    };
+  }
   renderVals(){
     const s = this.state;
     const role = s.role;
@@ -4221,6 +5453,8 @@ class Component extends DCLogic {
       if(!open) return [parent];
       return [ parent, ...items.map(it=>mkSub(it[2], it[1], '', s.screen===it[0], it[3] || this.go(it[0]))) ];
     };
+    const navTong = (()=>{ if(s.role==='ld') return true; const ps = Array.isArray(s.plans) ? s.plans : []; const sel = s.docKySel || (ps[0] && ps[0].ma) || ''; const ap = s.docKyApplied || sel;
+      const p = ps.find(x=>x.ma===ap) || ps.find(x=>x.ma===sel); return !!this.khoPermOf(s, p ? (p.ky||'') : '')[s.khoDonVi || 'Cục Hộ tịch, quốc tịch, chứng thực']; })();
     const nav = [
       grp('TỔNG QUAN'),
       mk('home','dashboard','Trang chủ'),
@@ -4229,7 +5463,8 @@ class Component extends DCLogic {
         ['linhvuc','category','Danh mục lĩnh vực'],
       ]),
       ...folder('navQtOpen','account_tree','Hệ thống hóa VBQPPL',[
-        ...(s.role==='ld' ? [['doclist','list_alt','Danh sách văn bản HTH']] : []),
+        ...(navTong ? [['doclist','list_alt','Danh sách văn bản HTH']] : []),
+        ['dvnhan','inventory_2','Danh sách VBHTH đơn vị'],
         ['review','fact_check','Kết quả Hệ thống hóa'],
         ...(s.role==='ld' ? [['dinhchinh','edit_document','Đính chính', ()=>{ this.go('dinhchinh')(); this.setState({ dinhStep:'list' }); }]] : []),
         ['set','menu_book','Tập hệ thống hóa'],
@@ -4436,7 +5671,7 @@ class Component extends DCLogic {
       }
       return next;
     });
-    let docsForSet = docsForSetBase.slice();
+    let docsForSet = this.kqSetMerge(s, docsForSetBase, hlStyleOf);
     if(s.setKyId){
       const kyItem = (s.kyHthList||[]).find(k=>k.id===s.setKyId);
       if(kyItem){
@@ -4625,11 +5860,11 @@ class Component extends DCLogic {
     const tcCurCode = s.tcType ? 'Mẫu số '+String(mauBieuDefs.findIndex(t=>t[0]===s.tcType)+1).padStart(2,'0') : '';
 
     return {
-      role, roleLabel: role==='ld' ? 'Cán bộ Tổng hợp' : 'Chuyên viên',
+      role, roleLabel: role==='ld' ? 'Đầu mối' : 'Đơn vị',
       roleCvBg: role==='cv' ? '#ffffff' : 'transparent', roleCvFg: role==='cv' ? '#0e4c8f' : '#d6e6fb',
       roleLdBg: role==='ld' ? '#ffffff' : 'transparent', roleLdFg: role==='ld' ? '#0e4c8f' : '#d6e6fb',
-      setChuyenVien: () => this.setState({ role:'cv', reviewAgg:false, reviewUnit:null }),
-      setLanhDao: () => this.setState({ role:'ld', reviewAgg:false, reviewUnit:null }),
+      setChuyenVien: () => this.setState({ role:'cv', reviewAgg:false, reviewUnit:null, khoF:{}, khoSel:{}, khoSub:'' }),
+      setLanhDao: () => this.setState({ role:'ld', reviewAgg:false, reviewUnit:null, khoF:{}, khoSel:{}, khoSub:'' }),
       nav, stats, flow, plans: planTableList.map((p,i)=>({ ...p, idx:i+1, view:()=>this.openPlanDetail(p,'view'), edit:()=>this.openPlanDetail(p,'edit'), remove:()=>{
         if(!window.confirm('Bạn có chắc chắn muốn xóa kế hoạch này?')) return;
         this.setState(st=>{
@@ -6313,12 +7548,13 @@ class Component extends DCLogic {
       stop: (e) => e.stopPropagation(),
       isHome: s.screen==='home',
       isPlan: s.screen==='plan',
-      isDocList: s.screen==='doclist' && !s.ktView,
+      isDocList: s.screen==='doclist' && !s.ktView && !s.khoSub,
+      ...(()=>{ const kv = this.khoVals(s, appliedKyLabel, docList); return { ...kv, ...this.kqVals(s, appliedKyLabel, kv.khoAllDocs, kv.khoLuongN) }; })(),
       isKtList: s.screen==='doclist' && !!s.ktView,
       openKt: ()=>this.setState({ ktView:true }),
       closeKt: ()=>this.setState({ ktView:false }),
-      isReview: s.screen==='review' && !(role==='cv' || (role==='ld' && (s.m04View==='edit' || s.m04View==='units') && !!s.m04Draft)),
-      isM04Cv: s.screen==='review' && (role==='cv' || (role==='ld' && (s.m04View==='edit' || s.m04View==='units') && !!s.m04Draft)),
+      isReview: false && s.screen==='review' && !(role==='cv' || (role==='ld' && (s.m04View==='edit' || s.m04View==='units') && !!s.m04Draft)),
+      isM04Cv: false && s.screen==='review' && (role==='cv' || (role==='ld' && (s.m04View==='edit' || s.m04View==='units') && !!s.m04Draft)),
       ...(()=>{
         const MAU04 = 'Mẫu 04 - Danh mục văn bản quy phạm pháp luật cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới';
         const saved = s.m04Saved || this.m04Seed();
