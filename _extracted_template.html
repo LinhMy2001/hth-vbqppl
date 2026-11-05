@@ -1878,41 +1878,94 @@
           <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;">
             <span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ khoBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Danh sách văn bản HTH</span><span>/</span><span style="color:#1e2939;">{{ khoYTitle }}</span>
           </div>
-          <h1 style="margin:0 0 6px;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ khoBack }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>{{ khoYTitle }} · Kỳ {{ khoYKy }}</h1>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
-            <div style="font-size:13px;color:#667085;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;color:#2f2fd0;">{{ khoYBtnIc }}</span>{{ khoYDesc }}</div>
-            <button onclick="{{ khoManual }}" style="height:32px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">edit_note</span>Nhập tay / Nhập từ Excel</button>
+          <h1 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ khoBack }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>{{ khoYTitle }}<span class="ic" title="{{ khoYDesc }}" style="font-size:18px;color:#98a2b3;cursor:help;">info</span></h1>
+
+          <!-- Thanh tiêu chí (temp a: 1 hàng, nút ở cuối hàng) -->
+          <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 190px;min-width:160px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
+                <div style="height:36px;display:flex;align-items:center;padding:0 10px;border:1px solid #e4e7ec;border-radius:6px;background:#f9fafb;font-size:13px;color:#475467;box-sizing:border-box;">{{ khoYKy }}</div>
+              </div>
+              <sc-if value="{{ khoYNay }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 300px;min-width:220px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Cơ quan ban hành <span style="color:#d92d20;">*</span></label>
+                <sc-raw-select value="{{ khoYCq }}" onchange="{{ setKhoYCq }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;cursor:pointer;"><option value="Bộ Tư pháp">Bộ Tư pháp</option><option value="Bộ Công an">Bộ Công an</option><option value="Bộ Tài chính">Bộ Tài chính</option></sc-raw-select>
+              </div>
+              </sc-if>
+              <sc-if value="{{ khoYTruoc }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;min-width:180px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;display:flex;align-items:center;gap:4px;">Chọn kỳ trước <span style="color:#d92d20;">*</span><span class="ic" title="Hệ thống sẽ đồng bộ Mẫu 03 kỳ trước về phần mềm." style="font-size:16px;color:#98a2b3;cursor:help;font-weight:400;">info</span></label>
+                <sc-raw-select value="{{ khoYKyTruoc }}" onchange="{{ setKhoYKyTruoc }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;cursor:pointer;"><sc-for list="{{ khoYKyTruocOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+              </div>
+              </sc-if>
+              <div style="display:flex;gap:8px;">
+                <button onclick="{{ khoDoSync }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:6px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">{{ khoYBtnIc }}</span>{{ khoYBtn }}</button>
+                <button onclick="{{ khoBack }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;">Hủy</button>
+              </div>
+            </div>
+            <sc-if value="{{ khoYTruoc }}" hint-placeholder-val="{{ false }}"><sc-if value="{{ khoYNoPrev }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;color:#475467;font-size:12.5px;">Không có kỳ hệ thống hóa nào trước kỳ {{ khoYKy }}.</div></sc-if></sc-if>
           </div>
 
-          <div style="background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="font-size:14px;font-weight:700;color:#1e2939;margin-bottom:12px;">Tiêu chí lấy dữ liệu</div>
-            <sc-if value="{{ khoYNay }}" hint-placeholder-val="{{ true }}">
-              <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
-                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 320px;">
-                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Cơ quan ban hành <span style="color:#d92d20;">*</span></label>
-                  <sc-raw-select value="{{ khoYCq }}" onchange="{{ setKhoYCq }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="Bộ Tư pháp">Bộ Tư pháp</option><option value="Bộ Công an">Bộ Công an</option><option value="Bộ Tài chính">Bộ Tài chính</option></sc-raw-select>
-                </div>
-                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;">
-                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
-                  <div style="height:36px;display:flex;align-items:center;padding:0 10px;border:1px solid #eef1f6;border-radius:6px;background:#f9fafb;font-size:13px;">{{ khoYKy }}</div>
+          <!-- Thêm mới / Bổ sung kỳ trước: bảng nhập / đồng bộ (có sẵn 1 dòng) -->
+          <sc-if value="{{ khoYAny }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#fff;border-radius:10px;padding:16px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+                <div style="font-size:15px;font-weight:700;color:#1e2939;display:flex;align-items:center;gap:8px;">Danh sách văn bản<span style="font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;border-radius:12px;padding:2px 9px;">{{ khoNayN }}</span></div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button onclick="{{ khoNayReset }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">refresh</span>Reset dữ liệu</button>
+                  <button onclick="{{ khoNayExport }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">download</span>Xuất file mẫu</button>
+                  <button onclick="{{ khoNayImport }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">upload_file</span>Nhập từ Excel</button>
+                  <button onclick="{{ khoLuuMau03 }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:6px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
                 </div>
               </div>
-            </sc-if>
-            <sc-if value="{{ khoYTruoc }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
-                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 260px;">
-                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Chọn kỳ trước <span style="color:#d92d20;">*</span></label>
-                  <sc-raw-select value="{{ khoYKyTruoc }}" onchange="{{ setKhoYKyTruoc }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><sc-for list="{{ khoYKyTruocOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
-                </div>
-                <div style="flex:1 1 300px;height:36px;display:flex;align-items:center;gap:8px;color:#475467;font-size:13px;"><span class="ic" style="font-size:17px;color:#98a2b3;">info</span>Hệ thống sẽ đồng bộ Mẫu 03 kỳ trước về phần mềm.</div>
+              <div style="overflow-x:auto;">
+                <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13.5px;color:#1e2939;border:1px solid #e4e7ec;min-width:1400px;">
+                  <sc-raw-thead><sc-raw-tr style="background:#f5f6f8;color:#1e2939;">
+                    <sc-raw-th style="padding:12px 8px;width:50px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">STT<br><span style="font-weight:600;">(1)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:110px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Lĩnh vực<br><span style="font-weight:600;">(2)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:140px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Loại văn bản<br><span style="font-weight:600;">(3)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:150px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Cơ quan ban hành văn bản<br><span style="font-weight:600;">(4)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:150px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Số, ký hiệu<br><span style="font-weight:600;">(5)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:120px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Ngày ban hành<br><span style="font-weight:600;">(6)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;min-width:260px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Tên gọi của văn bản / Trích yếu nội dung<br><span style="font-weight:600;">(7)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:120px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Thời điểm có hiệu lực<br><span style="font-weight:600;">(8)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:160px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Tình trạng hiệu lực<br><span style="font-weight:600;">(9)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:140px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Ghi chú<br><span style="font-weight:600;">(10)</span></sc-raw-th>
+                  </sc-raw-tr></sc-raw-thead>
+                  <sc-raw-tbody>
+                    <sc-for list="{{ khoNayRows }}" as="r" hint-placeholder-count="10">
+                      <sc-raw-tr>
+                        <sc-raw-td style="padding:8px;text-align:center;border:1px solid #e4e7ec;vertical-align:middle;">{{ r.stt }}</sc-raw-td>
+                        <sc-if value="{{ r.roLv }}" hint-placeholder-val="{{ true }}"><sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;">{{ r.lv }}</sc-raw-td></sc-if><sc-if value="{{ r.edLv }}" hint-placeholder-val="{{ false }}"><sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><sc-raw-select value="{{ r.lv }}" onchange="{{ r.setLv }}" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;"><option value=""></option><sc-for list="{{ khoLvAllOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select></sc-raw-td></sc-if>
+                        <sc-if value="{{ r.ro }}" hint-placeholder-val="{{ false }}">
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;">{{ r.loai }}</sc-raw-td>
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;">{{ r.cq }}</sc-raw-td>
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;white-space:nowrap;">{{ r.so }}</sc-raw-td>
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;text-align:center;white-space:nowrap;">{{ r.ngay }}</sc-raw-td>
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;line-height:1.45;">{{ r.ty }}</sc-raw-td>
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;text-align:center;white-space:nowrap;">{{ r.hieuLucNgay }}</sc-raw-td>
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;text-align:center;">{{ r.hl }}</sc-raw-td>
+                          <sc-raw-td style="padding:8px 10px;border:1px solid #e4e7ec;vertical-align:middle;">{{ r.ghiChu }}</sc-raw-td>
+                        </sc-if>
+                        <sc-if value="{{ r.ed }}" hint-placeholder-val="{{ true }}">
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><sc-raw-select value="{{ r.loai }}" onchange="{{ r.setLoai }}" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;"><option value=""></option><option value="Luật">Luật</option><option value="Nghị quyết">Nghị quyết</option><option value="Nghị định">Nghị định</option><option value="Quyết định">Quyết định</option><option value="Thông tư">Thông tư</option></sc-raw-select></sc-raw-td>
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><input value="{{ r.cq }}" onchange="{{ r.setCq }}" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><input value="{{ r.so }}" onchange="{{ r.setSo }}" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><input value="{{ r.ngay }}" onchange="{{ r.setNgay }}" placeholder="dd/mm/yyyy" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><input value="{{ r.ty }}" onchange="{{ r.setTy }}" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><input value="{{ r.hieuLucNgay }}" onchange="{{ r.setHlNgay }}" placeholder="dd/mm/yyyy" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><sc-raw-select value="{{ r.hl }}" onchange="{{ r.setHl }}" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;"><option value=""></option><option value="Còn hiệu lực">Còn hiệu lực</option><option value="Chưa có hiệu lực">Chưa có hiệu lực</option><option value="Hết hiệu lực một phần">Hết hiệu lực một phần</option><option value="Hết hiệu lực toàn bộ">Hết hiệu lực toàn bộ</option></sc-raw-select></sc-raw-td>
+                          <sc-raw-td style="padding:6px;border:1px solid #e4e7ec;vertical-align:middle;"><input value="{{ r.ghiChu }}" onchange="{{ r.setGhiChu }}" style="width:100%;height:32px;font-family:inherit;font-size:13px;padding:0 8px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></sc-raw-td>
+                        </sc-if>
+                      </sc-raw-tr>
+                    </sc-for>
+                  </sc-raw-tbody>
+                </sc-raw-table>
               </div>
-              <sc-if value="{{ khoYNoPrev }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;color:#b42318;font-size:12.5px;">Không có kỳ hệ thống hóa nào trước kỳ {{ khoYKy }}.</div></sc-if>
-            </sc-if>
-            <div style="display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #eef1f6;margin-top:16px;padding-top:14px;">
-              <button onclick="{{ khoBack }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 18px;border-radius:6px;">Hủy</button>
-              <button onclick="{{ khoDoSync }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">{{ khoYBtnIc }}</span>{{ khoYBtn }}</button>
+              <div style="margin-top:10px;"><span onclick="{{ khoNayAdd }}" title="Thêm dòng" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:#2f2fd0;font-size:13px;font-weight:600;"><span class="ic" style="font-size:20px;">add_circle</span>Thêm dòng</span></div>
             </div>
-          </div>
+          </sc-if>
 
           <!-- Kết quả đồng bộ Mẫu 03 kỳ trước -->
           <sc-if value="{{ khoYHasPv }}" hint-placeholder-val="{{ false }}">
@@ -2064,8 +2117,8 @@
             </div>
 
             <sc-if value="{{ ktShow }}" hint-placeholder-val="{{ false }}">
-              <div style="background:#fffaeb;border:1px solid #fedf89;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
-                <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#93370d;"><span class="ic" style="font-size:19px;color:#dc6803;">warning</span>Phát hiện {{ ktCount }} văn bản hết hiệu lực trong kỳ {{ ktPrev }} nhưng chưa có trong kết quả đã công bố của kỳ đó.</div>
+              <div style="background:#f9fafb;border:1px solid #e4e7ec;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#344054;"><span class="ic" style="font-size:19px;color:#667085;">warning</span>Phát hiện {{ ktCount }} văn bản hết hiệu lực trong kỳ {{ ktPrev }} nhưng chưa có trong kết quả đã công bố của kỳ đó.</div>
                 <span onclick="{{ openKt }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
               </div>
             </sc-if>
@@ -5397,14 +5450,46 @@ class Component extends DCLogic {
     const curDvCount = new Set(curList.flatMap(d=>{ const o = ov[d.id]; return ((o ? o.gan : d.gan)||[]).map(g=>g.dv).filter(Boolean); })).size;
     // Thêm mới (CSDLQG) / Bổ sung kỳ trước (Mẫu 03): Đồng bộ -> hiện bảng tại màn này -> Lưu mới đưa vào Danh sách văn bản HTH
     const isNayY = Y.loai==='nay';
+    // Thêm mới / Bổ sung kỳ trước: bảng có sẵn 1 dòng mẫu (STT 1) trước khi đồng bộ; nhập tay / nhập Excel / thêm dòng
+    const blankRow = (i)=>({ id:'MN-'+Date.now()+'-'+i, src:'tay', lv:'', loai:'', cq:'', so:'', ngay:'', ty:'', hieuLucNgay:'', hl:'', ghiChu:'' });
+    const padRows = (rs)=>{ const out = rs.slice(); if(!out.length) out.push(blankRow(0)); return out; };
+    const nayRows = (Y.preview && Y.preview.length) ? Y.preview : padRows([]);
+    const isSynced = (r)=>r.src==='csdl' || r.src==='mau03';
+    const setNayRows = (fn)=>this.setState(st=>{ const ks = st.khoSync||{}; const cur = (ks.preview && ks.preview.length) ? ks.preview : nayRows; return { khoSync:{ ...Y, ...ks, preview: fn(cur.map(r=>({ ...r }))) } }; });
+    const nayCell = (i, f)=>(e)=>{ const v = e && e.target ? e.target.value : e; setNayRows(rs=>{ rs[i] = { ...rs[i], [f]:v }; return rs; }); };
+    const toDoc = (r)=>{ const { src, lv, ghiChu, ...d } = r;
+      if(isSynced(r)) return { ...d, gan:d.gan||[], xoa:d.xoa||[] };
+      const base = { id:r.id, so:r.so, loai:r.loai, ty:r.ty, cq:r.cq, ngay:r.ngay, hieuLucNgay:r.hieuLucNgay, hl:r.hl||'Còn hiệu lực', nguon: r.src==='excel' ? 'excel' : 'manual', gan:[], xoa:[] };
+      if(isNayY) return { ...base, loaiHth:'nay' };
+      const units = r.lv ? dvOfLv(r.lv) : [];
+      return { ...base, loaiHth:'truoc', kyGoc:Y.kyTruoc, lvMau:r.lv||'', gan: units.length===1 ? [{ lv:r.lv, dv:units[0], src:'kethua', by:'Kỳ '+Y.kyTruoc, at:'' }] : [] }; };
     const doSync = ()=>{
       if(!KY){ alert('Vui lòng chọn Kỳ hệ thống hóa trước.'); return; }
       if(!isNayY && !Y.kyTruoc){ alert('Không có kỳ trước để đồng bộ.'); return; }
       const time = TODAY+' '+new Date().toTimeString().slice(0,5), seq = Date.now();
-      const pv = isNayY ? this.khoSampleNay(Y.cq, seq) : this.khoSampleTruoc(Y.kyTruoc, seq, lvNames, dvOfLv);
-      this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), preview:pv, previewAt:time } }));
+      const synced = isNayY ? this.khoSampleNay(Y.cq, seq).map(d=>({ ...d, src:'csdl', lv:'', ghiChu:'' }))
+        : this.khoSampleTruoc(Y.kyTruoc, seq, lvNames, dvOfLv).map(d=>({ ...d, src:'mau03', lv:d.lvMau||'', ghiChu:'' }));
+      const kept = nayRows.filter(r=>!isSynced(r) && r.so);
+      this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), preview:padRows([ ...synced, ...kept ]), previewAt:time } }));
     };
     const luuMau03 = ()=>{
+      {
+        const filled = nayRows.filter(r=>r.so || r.ty || r.loai);
+        if(!filled.length){ alert('Chưa có văn bản. Nhấn Đồng bộ, Nhập từ Excel hoặc nhập tay vào bảng.'); return; }
+        const thieu = nayRows.map((r,i)=>((r.so || r.ty || r.loai) && !(r.so && r.ty && r.loai)) ? i+1 : 0).filter(Boolean);
+        if(thieu.length){ alert('Dòng '+thieu.join(', ')+' thiếu Loại văn bản, Số ký hiệu hoặc Tên gọi.'); return; }
+        const nhom = isNayY ? 'VB HTH kỳ này' : 'VB HTH kỳ trước';
+        if(curList.length && !confirm('Lưu sẽ thay toàn bộ '+nhom+' hiện có ('+curList.length+' VB) bằng '+filled.length+' VB trong bảng. Tiếp tục?')) return;
+        this.setState(st=>{
+          const kd = { ...(st.khoData||{}) }; const cur = { csdl:[], heThong:[], tCsdl:'', tHt:'', ...(kd[KY]||store) }; delete cur.demo;
+          if(isNayY){ cur.csdl = filled.map(toDoc); cur.tCsdl = Y.previewAt||TODAY; }
+          else { cur.heThong = filled.map(toDoc); cur.tHt = (Y.previewAt||TODAY) + ' · Mẫu 03 kỳ ' + Y.kyTruoc; }
+          kd[KY] = cur;
+          return { khoData:kd, khoSub:'', khoSync:null, khoSel:{}, ktSearched:true, khoF:{} };
+        });
+        alert('Đã lưu '+filled.length+' văn bản vào Danh sách văn bản HTH.');
+        return;
+      }
       const pv = Y.preview || []; if(!pv.length){ alert('Chưa có dữ liệu. Vui lòng nhấn Đồng bộ trước.'); return; }
       const nhom = isNayY ? 'VB HTH kỳ này' : 'VB HTH kỳ trước';
       if(curList.length && !confirm('Lưu sẽ thay toàn bộ '+nhom+' hiện có ('+curList.length+' VB) bằng '+pv.length+' VB vừa đồng bộ. Tiếp tục?')) return;
@@ -5507,7 +5592,19 @@ class Component extends DCLogic {
       khoYSetTruoc: ()=>this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), loai:'truoc', ok:false } })),
       khoYCq: Y.cq, setKhoYCq: (e)=>{ const v = e && e.target ? e.target.value : e; this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), cq:v, preview:null, previewAt:'' } })); }, khoYTu: Y.tu, setKhoYTu: setY('tu'), khoYDen: Y.den, setKhoYDen: setY('den'),
       khoYKyTruoc: Y.kyTruoc, setKhoYKyTruoc: (e)=>{ const v = e && e.target ? e.target.value : e; this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), kyTruoc:v, preview:null, previewAt:'' } })); },
-      khoYHasPv: !!(Y.preview||[]).length, khoYPvTitle: isNayY ? 'Danh sách văn bản đồng bộ từ CSDLQG' : ('Danh sách văn bản Mẫu 03 kỳ '+Y.kyTruoc), khoYPvN: (Y.preview||[]).length, khoYPvAt: Y.previewAt||'', khoLuuMau03: luuMau03,
+      khoNayRows: nayRows.map((r,i)=>({ stt:i+1, ro: isSynced(r), ed: !isSynced(r), edLv: !isNayY && !isSynced(r), roLv: isNayY || isSynced(r), setLv:nayCell(i,'lv'), lv:r.lv||'', loai:r.loai||'', cq:r.cq||'', so:r.so||'', ngay:r.ngay||'', ty:r.ty||'', hieuLucNgay:r.hieuLucNgay||'', hl:r.hl||'', ghiChu:r.ghiChu||'',
+        setLoai:nayCell(i,'loai'), setCq:nayCell(i,'cq'), setSo:nayCell(i,'so'), setNgay:nayCell(i,'ngay'), setTy:nayCell(i,'ty'), setHlNgay:nayCell(i,'hieuLucNgay'), setHl:nayCell(i,'hl'), setGhiChu:nayCell(i,'ghiChu') })),
+      khoNayN: nayRows.filter(r=>r.so).length,
+      khoNayAdd: ()=>setNayRows(rs=>[ ...rs, blankRow(rs.length) ]),
+      khoNayReset: ()=>{ if(!confirm('Xóa toàn bộ dữ liệu trong bảng và trả về 1 dòng trống?')) return; this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), preview:null, previewAt:'' } })); },
+      khoNayExport: ()=>alert('Đã tải file mẫu: '+(isNayY ? 'Mau_Them_moi_VB_HTH.xlsx' : 'Mau_Bo_sung_VB_HTH_ky_truoc.xlsx')),
+      khoNayImport: ()=>{ const seq = Date.now();
+        const src = isNayY ? this.khoSampleNay(Y.cq, 'XL'+seq) : this.khoSampleTruoc(Y.kyTruoc, 'XL'+seq, lvNames, dvOfLv);
+        const xl = src.slice(0,3).map((d,i)=>({ ...d, id:'XL-'+seq+'-'+i, so: isNayY ? d.so.replace('/2026/','/2025/') : d.so.replace(/^(\d+)/, (m)=>String(+m+100)), src:'excel', lv: isNayY ? '' : (d.lvMau||''), ghiChu:'' }));
+        setNayRows(rs=>padRows([ ...rs.filter(r=>r.so || r.ty || r.loai), ...xl ]));
+        alert('Đã nhập '+xl.length+' dòng từ Excel (dữ liệu mẫu).'); },
+      khoLvAllOpts: lvNames.map(t=>({ t })),
+      khoYAny: true, khoYHasPv: false, khoYPvTitle: isNayY ? 'Danh sách văn bản đồng bộ từ CSDLQG' : ('Danh sách văn bản Mẫu 03 kỳ '+Y.kyTruoc), khoYPvN: (Y.preview||[]).length, khoYPvAt: Y.previewAt||'', khoLuuMau03: luuMau03,
       khoYPvRows: (Y.preview||[]).map((d,i)=>({ stt:i+1, lv:d.lvMau||'', loai:d.loai, cq:d.cq, so:d.so, ngay:d.ngay, ty:d.ty, hieuLucNgay:d.hieuLucNgay, hl:d.hl, ghiChu:d.ghiChu||'' })), khoYKyTruocOpts: prevKys.slice().reverse().map(t=>({ t })), khoYNoPrev: !prevKys.length,
       khoYKy: KY || '—',
       khoYCur: curList.length, khoYCurGan: curGanCount, khoYCurDv: curDvCount, khoYHasData: !!curList.length,
