@@ -399,7 +399,7 @@
           </div>
         </sc-if>
         <sc-if value="{{ item.isSub }}" hint-placeholder-val="{{ false }}">
-          <div onclick="{{ item.go }}" style="margin:1px 12px 1px 30px;padding:8px 14px;border-radius:6px;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12.5px;font-weight:{{ item.weight }};color:{{ item.fg }};background:{{ item.bg }};transition:all .2s ease;">
+          <div onclick="{{ item.go }}" style="margin:1px 12px 1px 30px;padding:8px 14px;border-radius:6px;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12.5px;font-weight:{{ item.weight }};color:{{ item.fg }};background-color:{{ item.bg }};">
             <span class="ic" style="font-size:16px;color:{{ item.iconFg }};">{{ item.icon }}</span>
             <span style="flex:1;">{{ item.label }}</span>
             <sc-if value="{{ item.badge }}" hint-placeholder-val="{{ false }}">
@@ -775,48 +775,6 @@
                 <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:14px;">
                   <sc-if value="{{ dinhHasToPublish }}" hint-placeholder-val="{{ false }}"><button onclick="{{ sendDinhList }}" style="height:34px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#177a4f;"><span class="ic" style="font-size:18px;">published_with_changes</span>Công bố lại</button></sc-if>
                   <button onclick="{{ openDinhAdd }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;" style-hover="background:#0c4280;"><span class="ic" style="font-size:20px;">add</span>Thêm mới</button>
-                </div>
-                <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-                  <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:8px;">
-                    <span class="ic" style="font-size:20px;color:#b8860b;">edit_note</span>
-                    <span style="font-size:14px;font-weight:700;color:#1e2939;">Danh sách đính chính</span>
-                    <span style="font-size:12px;font-weight:600;color:#9a5b08;background:#fbf2dc;border-radius:20px;padding:2px 10px;">{{ dinhSendableCount }} chờ công bố lại</span>
-                  </div>
-                  <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
-                    <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:center;color:#1e2939;">
-                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:150px;">Số, ký hiệu</sc-raw-th>
-                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:150px;">Trường đính chính</sc-raw-th>
-                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;">Giá trị cũ → mới</sc-raw-th>
-                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;">Lý do</sc-raw-th>
-                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:170px;">Trạng thái</sc-raw-th>
-                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:80px;text-align:center;">Thao tác</sc-raw-th>
-                    </sc-raw-tr></sc-raw-thead>
-                    <sc-raw-tbody>
-                      <sc-for list="{{ dinhChinhList }}" as="rec" hint-placeholder-count="3">
-                        <sc-raw-tr style="vertical-align:top;">
-                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#1e2939;">{{ rec.so }}</sc-raw-td>
-                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#1e2939;">{{ rec.truong }}</sc-raw-td>
-                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#475467;"><span style="text-decoration:line-through;color:#98a2b3;">{{ rec.giaTriCu }}</span> → <b style="color:#1e2939;">{{ rec.giaTriMoi }}</b></sc-raw-td>
-                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#475467;">{{ rec.lyDo }}</sc-raw-td>
-                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;"><span style="font-size:11.5px;font-weight:600;color:{{ rec.ttColor }};background:{{ rec.ttBg }};padding:3px 10px;border-radius:4px;white-space:nowrap;">{{ rec.ttLabel }}</span><sc-if value="{{ rec.isRejected }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#c0392b;margin-top:4px;">Lý do: {{ rec.lyDoTuChoi }}</div></sc-if></sc-raw-td>
-                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;text-align:center;">
-                            <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
-                              <sc-if value="{{ rec.isCreated }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.edit }}" title="Sửa" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span></sc-if>
-                              <sc-if value="{{ rec.isCreated }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.view }}" title="Xem" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span></sc-if>
-                              <sc-if value="{{ rec.isApproved }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.view }}" title="Xem" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span></sc-if>
-                            </div>
-                          </sc-raw-td>
-                        </sc-raw-tr>
-                      </sc-for>
-                    </sc-raw-tbody>
-                  </sc-raw-table>
-                  <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:14px 18px;font-size:13px;color:#1e2939;">
-                    <span>Hiển thị 1 - {{ dinhTotalCount }} của {{ dinhTotalCount }} mục</span>
-                    <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_left</span>
-                    <span style="min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #2f2fd0;color:#2f2fd0;border-radius:6px;font-weight:600;">1</span>
-                    <span class="ic" style="font-size:18px;color:#c0c6d0;">chevron_right</span>
-                    <span style="height:28px;display:inline-flex;align-items:center;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;color:#475467;">10 / page</span>
-                  </div>
                 </div>
               </sc-if>
 
