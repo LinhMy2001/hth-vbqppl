@@ -870,14 +870,13 @@
             <sc-if value="{{ dinhIsAddStep1 }}" hint-placeholder-val="{{ false }}">
               <div style="position:fixed;inset:0;background:rgba(16,36,58,.45);z-index:80;display:flex;align-items:center;justify-content:center;padding:24px;">
               <div style="background:#fff;border-radius:14px;padding:0 24px 0;width:520px;max-width:100%;box-shadow:0 20px 48px rgba(16,36,58,.28);">
-                <div style="display:flex;align-items:center;gap:10px;margin:0 -24px 20px;padding:16px 24px;border-bottom:1px solid #eef1f6;">
-                  <span class="ic" style="font-size:20px;color:#0e4c8f;">edit_document</span>
-                  <div style="font-size:15px;font-weight:700;color:#10243a;flex:1;">Thêm mới đính chính</div>
+                <div style="display:flex;align-items:center;gap:10px;margin:0 -24px 20px;padding:16px 24px;border-bottom:1px solid #e4e7ec;">
+                  <div style="font-size:16px;font-weight:700;color:#1e2939;flex:1;">Thêm mới đính chính</div>
                   <span onclick="{{ closeDinhAdd }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">close</span>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:18px;">
                   <div style="display:flex;flex-direction:column;gap:7px;">
-                    <label style="font-size:13px;font-weight:600;color:#1e2939;">Chọn kỳ <span style="color:#c0392b;">(*)</span></label>
+                    <label style="font-size:13px;font-weight:600;color:#1e2939;">Chọn kỳ <span style="color:#d92d20;">*</span></label>
                     <div style="position:relative;">
                       <sc-raw-select value="{{ setKyIdSel }}" onchange="{{ setSetKyId }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                         <option value="">-- Chọn kỳ --</option>
@@ -887,19 +886,24 @@
                     </div>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:7px;">
-                    <label style="font-size:13px;font-weight:600;color:#1e2939;">Loại đính chính <span style="color:#c0392b;">(*)</span></label>
-                    <div style="position:relative;">
-                      <sc-raw-select value="{{ dinhLoaiThaoTacSel }}" onchange="{{ setDinhLoaiThaoTac }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                        <option value="dinh-chinh">Đính chính văn bản</option>
-                        <option value="bo-sung">Bổ sung văn bản</option>
-                      </sc-raw-select>
-                      <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                    <label style="font-size:13px;font-weight:600;color:#1e2939;">Loại đính chính <span style="color:#d92d20;">*</span></label>
+                    <div style="display:flex;gap:12px;">
+                      <div onclick="{{ dinhPickDc }}" style="flex:1;border:1px solid {{ dinhDcBd }};background:{{ dinhDcBg }};border-radius:10px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column;gap:8px;">
+                        <span class="ic" style="width:34px;height:34px;border-radius:8px;background:#f2f4f7;color:#475467;display:inline-flex;align-items:center;justify-content:center;font-size:20px;">search</span>
+                        <div style="font-size:14px;font-weight:700;color:#1e2939;">Đính chính văn bản</div>
+                        <div style="font-size:12.5px;color:#667085;line-height:1.45;">Tìm kiếm văn bản theo thông tin văn bản hoặc Phụ lục văn bản, sau đó cập nhật lại thông tin văn bản.</div>
+                      </div>
+                      <div onclick="{{ dinhPickBs }}" style="flex:1;border:1px solid {{ dinhBsBd }};background:{{ dinhBsBg }};border-radius:10px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column;gap:8px;">
+                        <span class="ic" style="width:34px;height:34px;border-radius:8px;background:#f2f4f7;color:#475467;display:inline-flex;align-items:center;justify-content:center;font-size:20px;">add</span>
+                        <div style="font-size:14px;font-weight:700;color:#1e2939;">Bổ sung văn bản</div>
+                        <div style="font-size:12.5px;color:#667085;line-height:1.45;">Thêm mới văn bản còn thiếu vào đúng phụ lục của kỳ được chọn.</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div style="display:flex;justify-content:flex-end;gap:12px;margin:22px -24px 0;padding:16px 24px;border-top:1px solid #eef1f6;">
-                  <button onclick="{{ closeDinhAdd }}" style="height:40px;min-width:100px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 20px;border-radius:8px;">Hủy</button>
-                  <button onclick="{{ confirmDinhAdd }}" style="height:40px;min-width:100px;border:0;background:#1f8a5b;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 20px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;"><span class="ic" style="font-size:18px;">save</span>Lưu</button>
+                <div style="display:flex;justify-content:flex-end;gap:8px;margin:22px -24px 0;padding:14px 24px;border-top:1px solid #e4e7ec;">
+                  <button onclick="{{ closeDinhAdd }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;">Hủy</button>
+                  <button onclick="{{ confirmDinhAdd }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;" style-hover="background:#2323b0;">{{ dinhAddBtnT }}</button>
                 </div>
               </div>
               </div>
@@ -7057,6 +7061,12 @@ class Component extends DCLogic {
       setDinhLoai: (e)=>this.setState({ dinhLoaiSel: e.target.value }),
       setDinhLv: (e)=>this.setState({ dinhLvSel: e.target.value }),
       setDinhLoaiThaoTac: (e)=>this.setState({ dinhLoaiThaoTacSel: e.target.value, boSungAdd:false, addMau:'', addRows:[], dinhShowResults:false }),
+      ...(()=>{ const bs = s.dinhLoaiThaoTacSel==='bo-sung';
+        const pick = (v)=>()=>this.setState({ dinhLoaiThaoTacSel:v, boSungAdd:false, addMau:'', addRows:[], dinhShowResults:false });
+        return { dinhPickDc: pick('dinh-chinh'), dinhPickBs: pick('bo-sung'),
+          dinhDcBd: bs ? '#e4e7ec' : '#2f2fd0', dinhDcBg: bs ? '#fff' : '#f7f7ff',
+          dinhBsBd: bs ? '#2f2fd0' : '#e4e7ec', dinhBsBg: bs ? '#f7f7ff' : '#fff',
+          dinhAddBtnT: bs ? 'Bổ sung' : 'Đính chính' }; })(),
       doDinhSearch: ()=>{
         const st = this.state;
         if(st.role==='cv' && (st.dinhLoaiThaoTacSel||'dinh-chinh')==='bo-sung') return;
