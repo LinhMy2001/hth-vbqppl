@@ -1414,7 +1414,7 @@
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
-                  <sc-raw-select value="{{ kqLSt }}" onchange="{{ setKqLSt }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value="">Tất cả trạng thái</option><option value="nhap">Đã lưu</option><option value="gui">Đã gửi</option><option value="tralai">Bị trả lại</option><option value="dm">Đang tổng hợp</option><option value="pub">Đã công bố</option></sc-raw-select>
+                  <sc-raw-select value="{{ kqLSt }}" onchange="{{ setKqLSt }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value="">Tất cả trạng thái</option><option value="nhap">Đã lưu</option><option value="gui">Đã gửi</option><option value="tralai">Bị trả lại</option><option value="pub">Đã công bố</option></sc-raw-select>
                 </div>
                 <sc-if value="{{ kqIsDV }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 300px;">
@@ -1515,7 +1515,7 @@
                 <div style="display:flex;gap:8px;flex-wrap:wrap;">
                   <sc-if value="{{ kqDmCanTL }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqDmTL }}" style="height:34px;border:1px solid #fda29b;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#d92d20;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">undo</span>Trả lại đơn vị</button></sc-if>
                   <sc-if value="{{ kqCanEdit }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqSave }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button></sc-if>
-                  <sc-if value="{{ kqDvCanSend }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqSend }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">send</span>Gửi đầu mối</button></sc-if>
+                  <sc-if value="{{ kqDvCanSend }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqSend }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">send</span>Gửi</button></sc-if>
                   <sc-if value="{{ kqDmCanPub }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqPublish }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">campaign</span>Công bố</button></sc-if>
                   <sc-if value="{{ kqPub }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;"><sc-if value="{{ kqCanDinh }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqGoDinh }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">edit_document</span>Đính chính</button></sc-if></div></sc-if>
                 </div>
@@ -4946,7 +4946,7 @@ class Component extends DCLogic {
     Object.keys(s.kq||{}).forEach(ky=>{ const k = getK(s, ky);
       if(!isDM){ const u = k.units[DV]; if(u && u.created){ const st = k.pub ? PUB : ST[u.st||'nhap']; listRaw.push({ ky, who:DV, n:u.n||0, st, at:u.sentAt||u.at||'', editable: !k.pub && u.st!=='gui', open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : (u.st||'nhap') }); } }
       else {
-        if(k.dm.created){ listRaw.push({ ky, who:'Đầu mối · Kết quả tổng hợp', n:k.dm.n||0, st: k.pub ? PUB : ['Đang tổng hợp','#344054','#f2f4f7'], at:k.pubAt||k.dm.at||'', editable: !k.pub, open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : 'dm' }); }
+        if(k.dm.created){ listRaw.push({ ky, who:'Đầu mối · Kết quả tổng hợp', n:k.dm.n||0, st: k.pub ? PUB : ST.nhap, at:k.pubAt||k.dm.at||'', editable: !k.pub, open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : 'nhap' }); }
         dvAll.forEach(dv=>{ const u = k.units[dv]; if(u && u.created && (u.st==='gui' || u.st==='tralai')){ listRaw.push({ ky, who:dv, n:u.n||0, st: k.pub ? PUB : ST[u.st], at:u.sentAt||'', editable:false, open: ()=>openDetail(ky, dv), canTL: !k.pub && u.st==='gui', traLai: traLaiFn(ky, dv), stKey: k.pub ? 'pub' : u.st }); } });
       } });
     const listShown = listRaw.filter(r=>(!LF.ky || r.ky===LF.ky) && (!LF.st || r.stKey===LF.st));
@@ -5045,7 +5045,7 @@ class Component extends DCLogic {
         mc: ['01','02','03','04','05'].map(m=>({ t: u.created ? uc[m] : '—', fc: (u.created && uc[m]) ? '#10243a' : '#c0c6d0' })), aggT: inAgg ? 'Đã tổng hợp' : (u.st==='gui' ? 'Chưa tổng hợp' : '—'), aggC: inAgg ? '#067647' : '#b54708',
         canXem: !!u.created && (u.st==='gui' || u.st==='tralai'), xem: ()=>openDetail(dKY, dv), canTL: !K.pub && u.st==='gui', traLai: traLaiFn(dKY, dv), hasLyDo: u.st==='tralai' && !!u.lyDoTL, lyDoTL:u.lyDoTL||'' }; });
     const sentNow = Object.keys(K.units||{}).filter(dv=>K.units[dv].st==='gui');
-    const stD = K.pub ? PUB : (forUnit ? (tU.created ? ST[tU.st||'nhap'] : ['—','#98a2b3','#f9fafb']) : ['Đang tổng hợp','#344054','#f2f4f7']);
+    const stD = K.pub ? PUB : (forUnit ? (tU.created ? ST[tU.st||'nhap'] : ['—','#98a2b3','#f9fafb']) : ST.nhap);
     // ---------- VĂN BẢN ĐƠN VỊ ĐÃ NHẬN (menu mới) ----------
     const nL = luongN || 1;
     const nK = getK(s, KY); const nU = nK.units[DV] || {};
