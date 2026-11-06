@@ -2028,12 +2028,6 @@
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VB HTH</label>
                   <sc-raw-select value="{{ khoHth }}" onchange="{{ setKhoHth }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="nay">VB HTH kỳ này</option><option value="truoc">VB HTH kỳ trước</option></sc-raw-select>
                 </div>
-                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
-                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
-                  <sc-raw-select value="{{ khoTT }}" onchange="{{ setKhoTT }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;">
-                    <sc-for list="{{ khoTTOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
-                  </sc-raw-select>
-                </div>
                 <sc-if value="{{ khoIsDM }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 240px;min-width:180px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị phụ trách</label>
@@ -5498,7 +5492,7 @@ class Component extends DCLogic {
       khoLvOpts: lvNames.map(t=>({ t })), khoDvAllOpts: dvAll.map(t=>({ t })),
       khoResetF: ()=>this.setState({ khoF:{ tt:'' }, khoSel:{} }),
       khoChips: chips, khoHasChips: !!chips.length && (isDM || canSee),
-      ...(()=>{ const n = ['loai','hth','dv','nguon','tt'].filter(k=>F[k]).length; const on = !!s.khoMoreF && (isDM || canSee);
+      ...(()=>{ const n = ['loai','hth','dv','nguon'].filter(k=>F[k]).length; const on = !!s.khoMoreF && (isDM || canSee);
         return { khoMoreF:on, khoToggleMore:()=>this.setState(st=>({ khoMoreF:!st.khoMoreF })), khoMoreT:'Lọc thêm'+(n ? ' ('+n+')' : ''), khoMoreBd: on||n ? '#c9ccf5' : '#d0d5dd', khoMoreBg: on||n ? '#eef0ff' : '#fff', khoMoreC: on||n ? '#2f2fd0' : '#1e2939' }; })(),
       khoRows: s.ktSearched ? khoRows : [], khoCount: s.ktSearched ? khoRows.length : 0, khoTotal: all.length,
       khoEmpty: !!s.ktSearched && !khoRows.length,
