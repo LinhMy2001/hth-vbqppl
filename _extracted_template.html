@@ -438,21 +438,21 @@
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ statDvSel }}" onchange="{{ setStatDv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả đơn vị</option><sc-for list="{{ statDvOpts }}" as="dv" hint-placeholder-count="6"><option value="{{ dv }}">{{ dv }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ statDvSel }}" onchange="{{ setStatDv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value=""></option><sc-for list="{{ statDvOpts }}" as="dv" hint-placeholder-count="6"><option value="{{ dv }}">{{ dv }}</option></sc-for></sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Lĩnh vực</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ statLvSel }}" onchange="{{ setStatLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả lĩnh vực</option><sc-for list="{{ statLvOpts }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ statLvSel }}" onchange="{{ setStatLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value=""></option><sc-for list="{{ statLvOpts }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for></sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Trạng thái</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ statTtSel }}" onchange="{{ setStatTt }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả trạng thái</option><sc-for list="{{ statTtOpts }}" as="tt" hint-placeholder-count="3"><option value="{{ tt }}">{{ tt }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ statTtSel }}" onchange="{{ setStatTt }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value=""></option><sc-for list="{{ statTtOpts }}" as="tt" hint-placeholder-count="3"><option value="{{ tt }}">{{ tt }}</option></sc-for></sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
@@ -613,7 +613,7 @@
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Danh mục lĩnh vực</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ setLvSel }}" onchange="{{ setSetLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value="">Tất cả lĩnh vực</option>
+                    <option value=""></option>
                     <sc-for list="{{ setLvOpts }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
@@ -623,7 +623,7 @@
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Hiệu lực pháp lý</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ setHlSel }}" onchange="{{ setSetHl }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value="">Tất cả hiệu lực</option>
+                    <option value=""></option>
                     <sc-for list="{{ setHlOpts }}" as="hl" hint-placeholder-count="4"><option value="{{ hl }}">{{ hl }}</option></sc-for>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
@@ -745,7 +745,7 @@
                   <div style="display:flex;flex-direction:column;gap:7px;">
                     <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
                     <div style="position:relative;">
-                      <sc-raw-select value="{{ lsKy }}" onchange="{{ setLsKy }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả kỳ</option><sc-for list="{{ setKyOpts }}" as="ky" hint-placeholder-count="4"><option value="{{ ky.id }}">{{ ky.label }}</option></sc-for></sc-raw-select>
+                      <sc-raw-select value="{{ lsKy }}" onchange="{{ setLsKy }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value=""></option><sc-for list="{{ setKyOpts }}" as="ky" hint-placeholder-count="4"><option value="{{ ky.id }}">{{ ky.label }}</option></sc-for></sc-raw-select>
                       <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                     </div>
                   </div>
@@ -756,7 +756,7 @@
                   <div style="display:flex;flex-direction:column;gap:7px;">
                     <label style="font-size:13px;font-weight:700;color:#1e2939;">Cơ quan ban hành</label>
                     <div style="position:relative;">
-                      <sc-raw-select value="{{ lsCq }}" onchange="{{ setLsCq }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả cơ quan</option><sc-for list="{{ dinhCqOpts }}" as="cq" hint-placeholder-count="5"><option value="{{ cq }}">{{ cq }}</option></sc-for></sc-raw-select>
+                      <sc-raw-select value="{{ lsCq }}" onchange="{{ setLsCq }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value=""></option><sc-for list="{{ dinhCqOpts }}" as="cq" hint-placeholder-count="5"><option value="{{ cq }}">{{ cq }}</option></sc-for></sc-raw-select>
                       <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                     </div>
                   </div>
@@ -889,14 +889,14 @@
                     <div style="display:flex;flex-direction:column;gap:7px;">
                       <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Cơ quan ban hành</label>
                       <div style="position:relative;">
-                        <sc-raw-select value="{{ dinhCqSel }}" onchange="{{ setDinhCq }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả cơ quan</option><sc-for list="{{ dinhCqOpts }}" as="cq" hint-placeholder-count="5"><option value="{{ cq }}">{{ cq }}</option></sc-for></sc-raw-select>
+                        <sc-raw-select value="{{ dinhCqSel }}" onchange="{{ setDinhCq }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value=""></option><sc-for list="{{ dinhCqOpts }}" as="cq" hint-placeholder-count="5"><option value="{{ cq }}">{{ cq }}</option></sc-for></sc-raw-select>
                         <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                       </div>
                     </div>
                     <div style="display:flex;flex-direction:column;gap:7px;">
                       <label style="font-size:13px;font-weight:600;color:#1e2939;line-height:1.4;">Loại văn bản</label>
                       <div style="position:relative;">
-                        <sc-raw-select value="{{ dinhLoaiSel }}" onchange="{{ setDinhLoai }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả loại văn bản</option><sc-for list="{{ dinhLoaiOpts }}" as="loai" hint-placeholder-count="5"><option value="{{ loai }}">{{ loai }}</option></sc-for></sc-raw-select>
+                        <sc-raw-select value="{{ dinhLoaiSel }}" onchange="{{ setDinhLoai }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value=""></option><sc-for list="{{ dinhLoaiOpts }}" as="loai" hint-placeholder-count="5"><option value="{{ loai }}">{{ loai }}</option></sc-for></sc-raw-select>
                         <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                       </div>
                     </div>
@@ -1115,7 +1115,7 @@
                 <div style="display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đơn vị</label>
                   <sc-raw-select value="{{ sxSearchDonViSel }}" onchange="{{ setSxSearchDonVi }}" style="width:100%;height:42px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d8e0ea;border-radius:9px;background:#fff;color:#42566c;box-sizing:border-box;">
-                    <option value="">-- Tất cả --</option>
+                    <option value=""></option>
                     <sc-for list="{{ sxDonViOpts }}" as="u" hint-placeholder-count="5"><option value="{{ u }}">{{ u }}</option></sc-for>
                   </sc-raw-select>
                 </div>
@@ -1368,11 +1368,11 @@
               <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
                 <div style="display:flex;flex-direction:column;gap:6px;flex:1 1 240px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
-                  <sc-raw-select value="{{ kqLKy }}" onchange="{{ setKqLKy }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value="">Tất cả kỳ</option><sc-for list="{{ kqKyLabelOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ kqLKy }}" onchange="{{ setKqLKy }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value=""></option><sc-for list="{{ kqKyLabelOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 220px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
-                  <sc-raw-select value="{{ kqLSt }}" onchange="{{ setKqLSt }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value="">Tất cả trạng thái</option><option value="nhap">Đã lưu</option><option value="gui">Đã gửi</option><option value="tralai">Bị trả lại</option><option value="pub">Đã công bố</option></sc-raw-select>
+                  <sc-raw-select value="{{ kqLSt }}" onchange="{{ setKqLSt }}" style="height:36px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;"><option value=""></option><option value="nhap">Đã lưu</option><option value="gui">Đã gửi</option><option value="tralai">Bị trả lại</option><option value="pub">Đã công bố</option></sc-raw-select>
                 </div>
                 <sc-if value="{{ kqIsDV }}" hint-placeholder-val="{{ false }}">
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 300px;">
@@ -1490,7 +1490,7 @@
                   <sc-for list="{{ kqMauRows }}" as="m" hint-placeholder-count="5">
                     <sc-raw-tr style="background:{{ m.bg }};">
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ m.stt }}</sc-raw-td>
-                      <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;font-weight:600;color:#10243a;">{{ m.t }}</sc-raw-td>
+                      <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;font-weight:600;color:#10243a;">{{ m.t }}<sc-if value="{{ m.hasChg }}" hint-placeholder-val="{{ false }}"><div onclick="{{ m.openChg }}" title="Xem các thay đổi chưa công bố lại" style="margin-top:5px;display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:500;color:#2f2fd0;cursor:pointer;"><span class="ic" style="font-size:17px;color:#2f2fd0;">error</span>{{ m.chgT }}</div></sc-if></sc-raw-td>
                       <sc-raw-td style="padding:10px;border:1px solid #e4e8ee;font-size:12px;color:#667085;"><sc-if value="{{ m.is04 }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:5px;"><span class="ic" style="font-size:16px;color:#98a2b3;">info</span>{{ m.note }}</span></sc-if><sc-if value="{{ m.not04 }}" hint-placeholder-val="{{ true }}">{{ m.note }}</sc-if></sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;font-weight:700;">{{ m.n }}</sc-raw-td>
                       <sc-raw-td style="padding:8px 10px;text-align:center;border:1px solid #e4e8ee;"><div style="display:flex;gap:6px;justify-content:center;">
@@ -1502,6 +1502,47 @@
                 </sc-raw-tbody>
               </sc-raw-table>
             </div>
+           </sc-if>
+
+           <!-- Popup thay đổi chưa công bố lại theo phụ lục -->
+           <sc-if value="{{ kqChgOpen }}" hint-placeholder-val="{{ false }}">
+             <div onclick="{{ kqChgClose }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:24px;">
+               <div onclick="{{ stop }}" style="background:#fff;border-radius:10px;width:1000px;max-width:95%;max-height:85vh;overflow:auto;box-shadow:0 20px 60px rgba(8,28,52,.25);">
+                 <div style="padding:16px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid #e4e7ec;position:sticky;top:0;background:#fff;">
+                   <div><h3 style="margin:0;font-size:16px;font-weight:700;color:#1e2939;">Thay đổi chưa công bố lại</h3><div style="font-size:12.5px;color:#667085;margin-top:3px;">{{ kqChgTitle }} · {{ kqChgN }} thay đổi</div></div>
+                   <span onclick="{{ kqChgClose }}" class="ic" title="Đóng" style="cursor:pointer;font-size:22px;color:#667085;">close</span>
+                 </div>
+                 <div style="padding:20px;overflow-x:auto;">
+                   <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13.5px;color:#1e2939;border:1px solid #e4e7ec;min-width:860px;">
+                     <sc-raw-thead><sc-raw-tr style="background:#f5f6f8;">
+                       <sc-raw-th style="padding:11px 8px;width:46px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;">STT</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:140px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;">Số, ký hiệu</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:110px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;">Loại thay đổi</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:130px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;">Trường thay đổi</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;">Giá trị cũ → mới</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;">Lý do</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:150px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;">Người · Ngày</sc-raw-th>
+                     </sc-raw-tr></sc-raw-thead>
+                     <sc-raw-tbody>
+                       <sc-for list="{{ kqChgRows }}" as="c" hint-placeholder-count="2">
+                         <sc-raw-tr>
+                           <sc-raw-td style="padding:9px 8px;text-align:center;border:1px solid #e4e7ec;vertical-align:middle;">{{ c.stt }}</sc-raw-td>
+                           <sc-raw-td style="padding:9px 10px;border:1px solid #e4e7ec;vertical-align:middle;white-space:nowrap;">{{ c.so }}</sc-raw-td>
+                           <sc-raw-td style="padding:9px 10px;border:1px solid #e4e7ec;vertical-align:middle;">{{ c.loai }}</sc-raw-td>
+                           <sc-raw-td style="padding:9px 10px;border:1px solid #e4e7ec;vertical-align:middle;">{{ c.truong }}</sc-raw-td>
+                           <sc-raw-td style="padding:9px 10px;border:1px solid #e4e7ec;vertical-align:middle;line-height:1.45;"><span style="color:#98a2b3;text-decoration:line-through;">{{ c.cu }}</span> → {{ c.moi }}</sc-raw-td>
+                           <sc-raw-td style="padding:9px 10px;border:1px solid #e4e7ec;vertical-align:middle;line-height:1.45;">{{ c.lyDo }}</sc-raw-td>
+                           <sc-raw-td style="padding:9px 10px;border:1px solid #e4e7ec;vertical-align:middle;">{{ c.nguoi }}<div style="font-size:12px;color:#667085;">{{ c.ngay }}</div></sc-raw-td>
+                         </sc-raw-tr>
+                       </sc-for>
+                     </sc-raw-tbody>
+                   </sc-raw-table>
+                 </div>
+                 <div style="display:flex;justify-content:flex-end;padding:14px 20px;border-top:1px solid #e4e7ec;">
+                   <button onclick="{{ kqChgClose }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;">Đóng</button>
+                 </div>
+               </div>
+             </div>
            </sc-if>
 
            <!-- Popup đồng bộ kết quả RSTX vào Mẫu 04 -->
@@ -1626,7 +1667,7 @@
               </div>
               <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
                 <label style="font-size:13px;font-weight:700;color:#1e2939;">Lĩnh vực</label>
-                <sc-raw-select value="{{ dvnLv }}" onchange="{{ setDvnLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ dvnLvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                <sc-raw-select value="{{ dvnLv }}" onchange="{{ setDvnLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><sc-for list="{{ dvnLvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
               </div>
               <div style="display:flex;gap:8px;">
                 <button onclick="{{ applyDocKy }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:6px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
@@ -1638,11 +1679,11 @@
               <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:12px;padding-top:12px;border-top:1px dashed #e4e8ee;">
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 190px;min-width:150px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Cách nhận</label>
-                  <sc-raw-select value="{{ dvnSrc }}" onchange="{{ setDvnSrc }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="daumoi">Đầu mối gán</option><option value="donvi">Đơn vị tự chọn</option><option value="kethua">Kế thừa kỳ trước</option></sc-raw-select>
+                  <sc-raw-select value="{{ dvnSrc }}" onchange="{{ setDvnSrc }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><option value="daumoi">Đầu mối gán</option><option value="donvi">Đơn vị tự chọn</option><option value="kethua">Kế thừa kỳ trước</option></sc-raw-select>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VB HTH</label>
-                  <sc-raw-select value="{{ dvnHth }}" onchange="{{ setDvnHth }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="nay">Kỳ này</option><option value="truoc">Kỳ trước</option></sc-raw-select>
+                  <sc-raw-select value="{{ dvnHth }}" onchange="{{ setDvnHth }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><option value="nay">Kỳ này</option><option value="truoc">Kỳ trước</option></sc-raw-select>
                 </div>
               </div>
             </sc-if>
@@ -1969,7 +2010,7 @@
               <sc-if value="{{ khoCanSee }}" hint-placeholder-val="{{ true }}">
               <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
                 <label style="font-size:13px;font-weight:700;color:#1e2939;">Lĩnh vực</label>
-                <sc-raw-select value="{{ khoLv }}" onchange="{{ setKhoLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                <sc-raw-select value="{{ khoLv }}" onchange="{{ setKhoLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
               </div>
               </sc-if>
               <div style="display:flex;gap:8px;">
@@ -1984,21 +2025,21 @@
               <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:12px;padding-top:12px;border-top:1px dashed #e4e8ee;">
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;min-width:150px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VBQPPL</label>
-                  <sc-raw-select value="{{ khoLoai }}" onchange="{{ setKhoLoai }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="Luật">Luật</option><option value="Nghị định">Nghị định</option><option value="Thông tư">Thông tư</option><option value="Quyết định">Quyết định</option><option value="Nghị quyết">Nghị quyết</option></sc-raw-select>
+                  <sc-raw-select value="{{ khoLoai }}" onchange="{{ setKhoLoai }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><option value="Luật">Luật</option><option value="Nghị định">Nghị định</option><option value="Thông tư">Thông tư</option><option value="Quyết định">Quyết định</option><option value="Nghị quyết">Nghị quyết</option></sc-raw-select>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;min-width:150px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VB HTH</label>
-                  <sc-raw-select value="{{ khoHth }}" onchange="{{ setKhoHth }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="nay">VB HTH kỳ này</option><option value="truoc">VB HTH kỳ trước</option></sc-raw-select>
+                  <sc-raw-select value="{{ khoHth }}" onchange="{{ setKhoHth }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><option value="nay">VB HTH kỳ này</option><option value="truoc">VB HTH kỳ trước</option></sc-raw-select>
                 </div>
                 <sc-if value="{{ khoIsDM }}" hint-placeholder-val="{{ true }}">
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 240px;min-width:180px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị phụ trách</label>
-                  <sc-raw-select value="{{ khoDv }}" onchange="{{ setKhoDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ khoDvAllOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ khoDv }}" onchange="{{ setKhoDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><sc-for list="{{ khoDvAllOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
                 </div>
                 </sc-if>
                 <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 180px;min-width:150px;">
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Nguồn</label>
-                  <sc-raw-select value="{{ khoNguon }}" onchange="{{ setKhoNguon }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value="">Tất cả</option><option value="csdl">CSDLQG</option><option value="hethong">Hệ thống (kỳ trước)</option><option value="manual">Nhập tay</option><option value="excel">Excel</option></sc-raw-select>
+                  <sc-raw-select value="{{ khoNguon }}" onchange="{{ setKhoNguon }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><option value="csdl">CSDLQG</option><option value="hethong">Hệ thống (kỳ trước)</option><option value="manual">Nhập tay</option><option value="excel">Excel</option></sc-raw-select>
                 </div>
               </div>
             </sc-if>
@@ -2430,7 +2471,7 @@
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
                   <div style="position:relative;">
                     <sc-raw-select value="{{ m04Ky }}" onchange="{{ setM04Ky }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                      <option value="">-- Tất cả --</option>
+                      <option value=""></option>
                       <sc-for list="{{ m04KyOpts }}" as="k" hint-placeholder-count="3"><option value="{{ k }}">{{ k }}</option></sc-for>
                     </sc-raw-select>
                     <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -2440,7 +2481,7 @@
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
                   <div style="position:relative;">
                     <sc-raw-select value="{{ m04Tt }}" onchange="{{ setM04Tt }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                      <option value="">Tất cả trạng thái</option>
+                      <option value=""></option>
                       <option value="Đã lưu">Đã lưu</option><option value="Đã gửi">Đã gửi</option><option value="Bị trả lại">Bị trả lại</option>
                     </sc-raw-select>
                     <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -2569,7 +2610,7 @@
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị</label>
                   <div style="position:relative;">
                     <sc-raw-select value="{{ m04UvDv }}" onchange="{{ setM04UvDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                      <option value="">Tất cả đơn vị cấp dưới</option>
+                      <option value=""></option>
                       <sc-for list="{{ m04DvOpts }}" as="d" hint-placeholder-count="3"><option value="{{ d }}">{{ d }}</option></sc-for>
                     </sc-raw-select>
                     <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -2672,7 +2713,7 @@
                     <label style="font-size:13px;color:#1e2939;">Đơn vị rà soát</label>
                     <div style="position:relative;">
                       <sc-raw-select value="{{ m04SyncDv }}" onchange="{{ setM04SyncDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 30px 0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                        <option value="">-- Tất cả đơn vị --</option>
+                        <option value=""></option>
                         <sc-for list="{{ m04DvOpts }}" as="d" hint-placeholder-count="3"><option value="{{ d }}">{{ d }}</option></sc-for>
                       </sc-raw-select>
                       <span class="ic" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -2882,7 +2923,7 @@
                     <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
                     <div style="position:relative;">
                       <sc-raw-select value="{{ rsPlanKySel }}" onchange="{{ setRsPlanKySel }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                        <option value="">-- Tất cả --</option>
+                        <option value=""></option>
                         <sc-for list="{{ rsPlanKyOpts }}" as="k" hint-placeholder-count="2"><option value="{{ k }}">{{ k }}</option></sc-for>
                       </sc-raw-select>
                       <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -2892,7 +2933,7 @@
                     <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
                     <div style="position:relative;">
                       <sc-raw-select value="{{ rsPlanTtSel }}" onchange="{{ setRsPlanTtSel }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                        <option value="">Tất cả trạng thái</option>
+                        <option value=""></option>
                         <sc-if value="{{ isChuyenVien }}" hint-placeholder-val="{{ true }}">
                           <option value="Đã tạo">Đã tạo</option>
                         </sc-if>
@@ -3410,21 +3451,21 @@
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Cơ quan ban hành</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ rxCq }}" onchange="{{ setRxCq }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ rxCqOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ rxCq }}" onchange="{{ setRxCq }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value=""></option><sc-for list="{{ rxCqOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Lĩnh vực rà soát</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ rxLv }}" onchange="{{ setRxLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ rxLvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ rxLv }}" onchange="{{ setRxLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value=""></option><sc-for list="{{ rxLvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:13px;font-weight:600;color:#1e2939;">Quan hệ căn cứ</label>
                 <div style="position:relative;">
-                  <sc-raw-select value="{{ rxQh }}" onchange="{{ setRxQh }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">Tất cả</option><sc-for list="{{ rxQhOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
+                  <sc-raw-select value="{{ rxQh }}" onchange="{{ setRxQh }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value=""></option><sc-for list="{{ rxQhOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for></sc-raw-select>
                   <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                 </div>
               </div>
@@ -3503,14 +3544,14 @@
                 <div style="display:flex;flex-direction:column;gap:7px;">
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Tên mẫu biểu</label>
                   <div style="position:relative;">
-                    <sc-raw-select value="{{ tcMauSel }}" onchange="{{ setTcMau }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả mẫu biểu</option><sc-for list="{{ tcMauOpts }}" as="m" hint-placeholder-count="5"><option value="{{ m.ma }}">{{ m.label }}</option></sc-for></sc-raw-select>
+                    <sc-raw-select value="{{ tcMauSel }}" onchange="{{ setTcMau }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value=""></option><sc-for list="{{ tcMauOpts }}" as="m" hint-placeholder-count="5"><option value="{{ m.ma }}">{{ m.label }}</option></sc-for></sc-raw-select>
                     <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                   </div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:7px;">
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị thực hiện HTH</label>
                   <div style="position:relative;">
-                    <sc-raw-select value="{{ tcDonViHthSel }}" onchange="{{ setTcDonViHth }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả đơn vị</option><sc-for list="{{ tcDonViHthOpts }}" as="u" hint-placeholder-count="6"><option value="{{ u }}">{{ u }}</option></sc-for></sc-raw-select>
+                    <sc-raw-select value="{{ tcDonViHthSel }}" onchange="{{ setTcDonViHth }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value=""></option><sc-for list="{{ tcDonViHthOpts }}" as="u" hint-placeholder-count="6"><option value="{{ u }}">{{ u }}</option></sc-for></sc-raw-select>
                     <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                   </div>
                 </div>
@@ -3564,14 +3605,14 @@
                 <div style="display:flex;flex-direction:column;gap:7px;">
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Đơn vị</label>
                   <div style="position:relative;">
-                    <sc-raw-select value="{{ tcDonViSel }}" onchange="{{ setTcDonVi }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả đơn vị</option><sc-for list="{{ tcDonViOptions }}" as="u" hint-placeholder-count="5"><option value="{{ u }}">{{ u }}</option></sc-for></sc-raw-select>
+                    <sc-raw-select value="{{ tcDonViSel }}" onchange="{{ setTcDonVi }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value=""></option><sc-for list="{{ tcDonViOptions }}" as="u" hint-placeholder-count="5"><option value="{{ u }}">{{ u }}</option></sc-for></sc-raw-select>
                     <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                   </div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:7px;">
                   <label style="font-size:13px;font-weight:600;color:#1e2939;">Lĩnh vực</label>
                   <div style="position:relative;">
-                    <sc-raw-select value="{{ tcLvSel }}" onchange="{{ setTcLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value="">Tất cả lĩnh vực</option><sc-for list="{{ tcLvOptions }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for></sc-raw-select>
+                    <sc-raw-select value="{{ tcLvSel }}" onchange="{{ setTcLv }}" style="width:100%;height:40px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:8px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);"><option value=""></option><sc-for list="{{ tcLvOptions }}" as="lv" hint-placeholder-count="6"><option value="{{ lv }}">{{ lv }}</option></sc-for></sc-raw-select>
                     <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
                   </div>
                 </div>
@@ -3897,7 +3938,7 @@
                 <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Từ năm – Đến năm</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ kyHthSearchKySel }}" onchange="{{ setKyHthSearchKy }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:pointer;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value="">-- Tất cả --</option>
+                    <option value=""></option>
                     <sc-for list="{{ kyHthSearchKyOpts }}" as="ky" hint-placeholder-count="3"><option value="{{ ky.id }}">{{ ky.kyLabel }}</option></sc-for>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -4058,7 +4099,7 @@
                 <label style="font-size:13px;font-weight:700;color:#1e2939;">Kỳ hệ thống hóa</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ planSearchKySel }}" onchange="{{ setPlanSearchKy }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;color:#667085;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
-                    <option value="">-- Tất cả --</option>
+                    <option value=""></option>
                     <sc-for list="{{ planKyHthOpts }}" as="ky" hint-placeholder-count="2">
                       <option value="{{ ky.id }}">{{ ky.kyLabel }}</option>
                     </sc-for>
@@ -4978,7 +5019,14 @@ class Component extends DCLogic {
     // Mẫu 04: thêm mới = 0 VB; nhấn Sửa -> popup chọn ngày, cơ quan = đơn vị hiện tại -> Lưu: đồng bộ kết quả RSTX vào Mẫu 04
     const rstxInfo = forUnit ? (tU.rstx||null) : (K.dm.rstx||null);
     const kqCq = forUnit ? tDv : 'Bộ Tư pháp';
+    // Phát hiện thay đổi (đính chính / bổ sung đã lưu, chưa công bố lại) theo từng phụ lục – chỉ khi kết quả đã công bố
+    const DCMAP = { 'het-toan-bo':'01', 'het-mot-phan':'02', 'con-hieu-luc':'03', 'can-xu-ly':'04' };
+    const dcPending = (K.pub && isDM && !sel.dv) ? (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt!=='duyet') : [];
+    const mauOfRec = (r)=>{ if(r.plCode) return r.plCode; if(r.mauTab) return DCMAP[r.mauTab]||''; const x = allRows.find(a=>a.d.so===r.so); if(x && x.mau.length) return x.mau[0];
+      const v = String(r.giaTriMoi||''); if(r.truong==='Tình trạng hiệu lực'){ if(/một phần/i.test(v)) return '02'; if(/Hết hiệu lực/i.test(v)) return '01'; if(/Còn hiệu lực/i.test(v)) return '03'; } return ''; };
+    const chgOf = (code)=>dcPending.filter(r=>{ const mm = mauOfRec(r); return mm===code || (code==='05' && mm==='03'); });
     const mauRows = MAU.map((m,i)=>({ stt:i+1, code:m[0], t:'Mẫu '+m[0]+' – '+m[2], n:cnt[m[0]], is04: m[0]==='04', not04: m[0]!=='04',
+      ...(()=>{ const cs = chgOf(m[0]); return { hasChg: !!cs.length, chgT: 'Phát hiện '+cs.length+' thay đổi chưa công bố lại', openChg: ()=>this.setState({ kqChgMau: m[0] }) }; })(),
       note: m[0]==='04' ? (rstxInfo ? ('Đã đồng bộ RSTX '+rstxInfo.tu+' – '+rstxInfo.den+' · '+rstxInfo.at) : 'Nhấn Sửa để đồng bộ kết quả từ RSTX') : 'Chia theo tình trạng hiệu lực', bg: curMau===m[0] ? '#f7f7ff' : '#fff',
       xem: ()=>this.setState({ kqMau: m[0], kqMauMode:'xem', kqQ:'' }),
       sua: m[0]==='04' ? ()=>this.setState({ kqRstxPop:{ tu:(rstxInfo&&rstxInfo.tuIso)||'', den:(rstxInfo&&rstxInfo.denIso)||'' } }) : ()=>this.setState({ kqMau: m[0], kqMauMode:'sua', kqQ:'' }) }));
@@ -5099,6 +5147,10 @@ class Component extends DCLogic {
       kqDKy: dKY || '—', kqDWho: forUnit ? (tDv || '—') : 'Đầu mối · Kết quả tổng hợp', kqDForUnit: forUnit, kqDAgg: !forUnit,
       kqStT: stD[0], kqStC: stD[1], kqStB: stD[2],
       kqMauRows: mauRows, kqTotal: allRows.length,
+      ...(()=>{ const code = s.kqChgMau || ''; const cs = code ? chgOf(code) : []; const mm = MAU.find(x=>x[0]===code);
+        return { kqChgOpen: !!code && !!cs.length, kqChgTitle: mm ? ('Mẫu '+mm[0]+' – '+mm[2]) : '', kqChgN: cs.length,
+          kqChgRows: cs.map((r,i)=>({ stt:i+1, so:r.so||'', loai: r.loaiThaoTac==='bo-sung' ? 'Bổ sung văn bản' : 'Đính chính', truong:r.truong||'', cu:r.giaTriCu||'—', moi:r.giaTriMoi||'', lyDo:r.lyDo||'', ngay:r.ngay||'', nguoi:r.nguoi||'' })),
+          kqChgClose: ()=>this.setState({ kqChgMau:'' }) }; })(),
       kqRstxOpen: !!RP, kqRstxTu: RP ? RP.tu : '', kqRstxDen: RP ? RP.den : '', kqRstxCq: kqCq,
       setKqRstxTu: (e)=>{ const v = e.target.value; this.setState(st=>({ kqRstxPop:{ ...(st.kqRstxPop||{}), tu:v } })); },
       setKqRstxDen: (e)=>{ const v = e.target.value; this.setState(st=>({ kqRstxPop:{ ...(st.kqRstxPop||{}), den:v } })); },
@@ -5240,8 +5292,8 @@ class Component extends DCLogic {
       statOf('truocdv','VB kỳ trước của đơn vị','history','#6941c6','#f4ebff', all.filter(d=>isMine(d) && d.loaiHth==='truoc').length, setTT('cuadv', { hth:'truoc' }), tt==='cuadv' && F.hth==='truoc'),
     ];
     const ttOpts = isDM
-      ? [['','Tất cả'],['chua','Chưa gán lĩnh vực'],['da','Đã gán lĩnh vực'],['xoa','Đơn vị đã xóa']]
-      : [['','Tất cả'], ...(luong===2 ? [['conhan','Có thể nhận']] : []), ['cuadv','VB của đơn vị'], ...(luong===1 ? [['moi','Mới được gán']] : [])];
+      ? [['',''],['chua','Chưa gán lĩnh vực'],['da','Đã gán lĩnh vực'],['xoa','Đơn vị đã xóa']]
+      : [['',''], ...(luong===2 ? [['conhan','Có thể nhận']] : []), ['cuadv','VB của đơn vị'], ...(luong===1 ? [['moi','Mới được gán']] : [])];
     const ttLabel = (ttOpts.find(o=>o[0]===tt)||['',''])[1];
     const NGUON = { csdl:['CSDLQG','#0e7c6e','#e6f6f4'], hethong:['Hệ thống (kỳ trước)','#6941c6','#f4ebff'], manual:['Nhập tay','#475467','#f2f4f7'], excel:['Excel','#1f8a5b','#e3f4ec'] };
     const chips = [];
@@ -6952,9 +7004,9 @@ class Component extends DCLogic {
       boSungPlSel: s.boSungPlSel || '',
       setBoSungPl: (e)=>this.setState({ boSungPlSel: e.target.value }),
       boSungPlLabel: ({'01':'Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ','02':'Phụ lục II - Danh mục văn bản QPPL hết hiệu lực một phần','03':'Phụ lục III - Danh mục văn bản QPPL còn hiệu lực','04':'Phụ lục IV - Danh mục văn bản QPPL cần xử lý'})[s.boSungPlSel] || '',
-      showBoSungAdd: role==='cv' && (s.dinhLoaiThaoTacSel||'')==='bo-sung' && !!s.boSungAdd,
+      showBoSungAdd: (s.dinhLoaiThaoTacSel||'')==='bo-sung' && !!s.boSungAdd,
       showBoSungPicker: role==='cv' && (s.dinhLoaiThaoTacSel||'')==='bo-sung' && !s.boSungAdd,
-      showBoSungList: role==='cv' && (s.dinhLoaiThaoTacSel||'')==='bo-sung' && !s.boSungAdd,
+      showBoSungList: (s.dinhLoaiThaoTacSel||'')==='bo-sung' && !s.boSungAdd,
       boSungPlGroups: (()=>{
         const defs = [
           { code:'01', label:'Phụ lục I - Danh mục văn bản QPPL hết hiệu lực toàn bộ' },
@@ -7175,7 +7227,7 @@ class Component extends DCLogic {
 
             const rec = { id:'DC-'+String((st.dinhChinh||this.seedDinhChinh()).length+1).padStart(3,'0'),
               so:finalSo, loai:finalLoai, ty:finalTy, lv:finalLv,
-              truong: 'Đính chính thông tin VB',
+              truong: 'Đính chính thông tin VB', mauTab: st.dinhMauTab||'het-toan-bo',
               giaTriCu: d.so + ' (' + d.hl + ')',
               giaTriMoi: changes.length > 0 ? changes.join(', ') : 'Đính chính thông tin văn bản',
               lyDo: finalLyDo || 'Yêu cầu đính chính', nguoi:'Nguyễn Thị An', ngay:'05/07/2026', tt:'nhap', lyDoTuChoi:'' };
