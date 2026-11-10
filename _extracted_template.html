@@ -1647,7 +1647,7 @@
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;">
             <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh sách VBHTH đơn vị</h1>
-            <span title="Do đầu mối phân quyền theo kỳ" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border-radius:14px;padding:4px 10px;"><span class="ic" style="font-size:15px;">{{ khoSeeIc }}</span>{{ khoLuongText }}</span>
+            <span title="Do Đầu mối phân công theo kỳ" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border-radius:14px;padding:4px 10px;"><span class="ic" style="font-size:15px;">{{ khoSeeIc }}</span>{{ khoLuongText }}</span>
           </div>
 
           <!-- Thanh tìm kiếm -->
@@ -1977,7 +1977,7 @@
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;">
             <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh sách văn bản thuộc đối tượng hệ thống hóa</h1>
-            <sc-if value="{{ khoIsDV }}" hint-placeholder-val="{{ false }}"><span title="Do đầu mối phân quyền theo kỳ" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border-radius:14px;padding:4px 10px;"><span class="ic" style="font-size:15px;">{{ khoSeeIc }}</span>{{ khoLuongText }}</span></sc-if>
+            <sc-if value="{{ khoIsDV }}" hint-placeholder-val="{{ false }}"><span title="Do Đầu mối phân công theo kỳ" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border-radius:14px;padding:4px 10px;"><span class="ic" style="font-size:15px;">{{ khoSeeIc }}</span>{{ khoLuongText }}</span></sc-if>
           </div>
 
           <!-- Thanh tìm kiếm -->
@@ -2059,7 +2059,7 @@
               <div style="font-size:15px;font-weight:700;color:#1e2939;display:flex;align-items:center;gap:8px;">Danh sách văn bản<span style="font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;border-radius:12px;padding:2px 9px;">{{ khoCount }}</span></div>
               <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <sc-if value="{{ khoIsDM }}" hint-placeholder-val="{{ true }}">
-                <div onclick="{{ khoPermTog }}" title="{{ khoPermTitle }}" style="height:34px;display:flex;align-items:center;gap:6px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;cursor:{{ khoPermCur }};font-size:13px;font-weight:600;color:#1e2939;"><span class="ic" style="font-size:20px;color:{{ khoPermC }};">{{ khoPermIc }}</span>Phân quyền cho đơn vị được xem<sc-if value="{{ khoPermOn }}" hint-placeholder-val="{{ false }}"><span class="ic" style="font-size:14px;color:#98a2b3;">lock</span></sc-if></div>
+                <div onclick="{{ khoPermTog }}" title="{{ khoPermTitle }}" style="height:34px;display:flex;align-items:center;gap:6px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;cursor:{{ khoPermCur }};font-size:13px;font-weight:600;color:#1e2939;"><span class="ic" style="font-size:20px;color:{{ khoPermC }};">{{ khoPermIc }}</span>Phân công đơn vị thực hiện HTH<span class="ic" title="Chọn để đơn vị tự gán văn bản HTH theo lĩnh vực của mình; không chọn thì Đầu mối gán văn bản theo lĩnh vực HTH cho từng đơn vị." style="font-size:16px;color:#98a2b3;cursor:help;">info</span><sc-if value="{{ khoPermOn }}" hint-placeholder-val="{{ false }}"><span class="ic" style="font-size:14px;color:#98a2b3;">lock</span></sc-if></div>
                 <button onclick="{{ khoOpenSyncTruoc }}" title="Lấy dữ liệu VB HTH kỳ trước có sẵn trên hệ thống" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">history</span>Bổ sung VB HTH kỳ trước</button>
                 </sc-if>
                 <button style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">ios_share</span>Xuất</button>
@@ -4869,7 +4869,9 @@ class Component extends DCLogic {
       ['Thông tư','Hướng dẫn hoạt động đấu giá tài sản','25/06/2026','15/08/2026','Chưa có hiệu lực'],
     ];
     const kh = { 'Thông tư':'TT-BTP', 'Nghị định':'NĐ-CP', 'Quyết định':'QĐ-BTP' };
-    return rows.map((r,i)=>({ id:'CS-'+seq+'-'+i, so:String(i+1).padStart(2,'0')+'/2026/'+kh[r[0]], loai:r[0], ty:r[1], cq: r[0]==='Nghị định' ? 'Chính phủ' : cq, ngay:r[2], hieuLucNgay:r[3], hl:r[4], loaiHth:'nay', nguon:'csdl', gan:[], xoa:[] }));
+    // Dữ liệu demo cho quy tắc sinh ghi chú: ngày hết hiệu lực dự kiến (hetHlNgay), lý do hết hiệu lực một phần (lyDoMotPhan)
+    const EXTRA = { 1:{ hetHlNgay:'02/01/2029' }, 3:{ lyDoMotPhan:'Điều 5, Điều 7 bị bãi bỏ' }, 4:{ hetHlNgay:'01/07/2031' } };
+    return rows.map((r,i)=>({ id:'CS-'+seq+'-'+i, so:String(i+1).padStart(2,'0')+'/2026/'+kh[r[0]], loai:r[0], ty:r[1], cq: r[0]==='Nghị định' ? 'Chính phủ' : cq, ngay:r[2], hieuLucNgay:r[3], hl:r[4], loaiHth:'nay', nguon:'csdl', gan:[], xoa:[], ...(EXTRA[i]||{}) }));
   }
   khoSampleTruoc(prevKy, seq, lvNames, dvOfLv){
     const rows = [
@@ -4997,10 +4999,22 @@ class Component extends DCLogic {
     const mauEd = canEdit && s.kqMauMode==='sua';
     // Cột theo đúng template từng mẫu (mauColumns), đánh số tiếp từ (8)
     const kqColsRaw = curMau ? this.mauColumns(curMau) : [];
+    // Sinh ghi chú tự động (Mẫu 03, 05) — mốc kỳ = 31/12 năm cuối kỳ
+    const kyEndY = parseInt((String(dKY).match(/(\d{4})\D*$/)||[])[1], 10);
+    const toTime = (s)=>{ const m = String(s||'').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/); return m ? new Date(+m[3], +m[2]-1, +m[1]).getTime() : NaN; };
+    const autoGhiChu = (d, v)=>{
+      const hl = this.normalizeTthl(v.hl || d.hl);
+      if(hl==='Chưa có hiệu lực') return 'Chưa có hiệu lực';
+      if(hl==='Hết hiệu lực một phần' || hl==='Tạm ngưng hiệu lực một phần') return hl + (d.lyDoMotPhan ? ': '+d.lyDoMotPhan : '');
+      if(kyEndY && d.hetHlNgay){ const t = toTime(d.hetHlNgay), moc = new Date(kyEndY, 11, 31).getTime(), moc1 = new Date(kyEndY+1, 11, 31).getTime();
+        if(t > moc && t <= moc1) return 'Hết hiệu lực ngày '+d.hetHlNgay; }
+      return '';
+    };
     const kqColDef = (c, d, v)=>{
       if(v[c.key]!=null && v[c.key]!=='') return v[c.key];
       if(c.key==='loaiHl') return (c.options||[]).includes(v.hl) ? v.hl : '';
       if(c.key==='thoiDiemHL') return d.hieuLucNgay||'';
+      if(c.key==='ghiChu') return autoGhiChu(d, v);
       if(c.key==='htXuLyVB'){ const k = v.kn||''; if(!k || k==='Không cần xử lý') return ''; return ({ 'Bãi bỏ':'Bãi bỏ toàn bộ', 'Tạm ngưng hiệu lực':'Ngưng hiệu lực' })[k] || k; }
       if(c.key==='ndKienNghi') return v.lyDo||'';
       return '';
@@ -5436,7 +5450,8 @@ class Component extends DCLogic {
       const time = TODAY+' '+new Date().toTimeString().slice(0,5), seq = Date.now();
       const synced = isNayY ? this.khoSampleNay(Y.cq, seq).map(d=>({ ...d, src:'csdl', lv:'', ghiChu:'' }))
         : this.khoSampleTruoc(Y.kyTruoc, seq, lvNames, dvOfLv).map(d=>({ ...d, src:'mau03', lv:d.lvMau||'', ghiChu:'' }));
-      const kept = nayRows.filter(r=>!isSynced(r) && r.so);
+      // Bổ sung kỳ trước: Đồng bộ ghi đè toàn bộ bảng (kể cả dòng nhập tay). Thêm mới: giữ dòng nhập tay
+      const kept = isNayY ? nayRows.filter(r=>!isSynced(r) && r.so) : [];
       this.setState(st=>({ khoSync:{ ...Y, ...(st.khoSync||{}), preview:padRows([ ...synced, ...kept ]), previewAt:time } }));
     };
     const luuMau03 = ()=>{
@@ -5473,18 +5488,17 @@ class Component extends DCLogic {
       khoAllDocs: all.map(d=>({ ...d, units:[...new Set(actGan(d).map(g=>g.dv).filter(Boolean))], lvs:[...new Set(actGan(d).map(g=>g.lv))] })),
       khoSub: s.khoSub || '',
       isKhoGan: s.screen==='doclist' && !s.ktView && s.khoSub==='gan',
-      khoLuongN: luong, khoLuongText: (isDM ? 'Đầu mối' : (canSee ? 'Được xem DL tổng · tự chọn lĩnh vực' : 'Chưa được xem DL tổng · Đầu mối gán')),
+      khoLuongN: luong, khoLuongText: (isDM ? 'Đầu mối' : (canSee ? 'Đơn vị tự gán lĩnh vực' : 'Đầu mối gán lĩnh vực')),
       goDvNhan: this.go('dvnhan'), khoCanSee: isDM || canSee, khoNoSee: !isDM && !canSee, khoSeeIc: canSee ? 'visibility' : 'visibility_off',
-      // ---- Phân quyền đơn vị được xem
-      // ---- Phân quyền cho đơn vị được xem: 1 checkbox theo kỳ, áp dụng tất cả đơn vị con; đã tick thì không bỏ được
+      // ---- Phân công đơn vị thực hiện HTH: 1 checkbox theo kỳ, quyết định cách gán LV (không tick = Đầu mối gán; tick = đơn vị tự gán). Đã tick thì không bỏ được
       ...(()=>{ const on = !!(s.dvXemAll||{})[KY]; const at = on ? (s.dvXemAll[KY].at||'') : '';
         return { khoPermOn:on, khoPermIc: on ? 'check_box' : 'check_box_outline_blank', khoPermC: on ? '#98a2b3' : '#2f2fd0', khoPermCur: on ? 'not-allowed' : 'pointer',
-          khoPermNote: on ? ('Tất cả đơn vị con được xem · '+at) : 'Tất cả đơn vị con chưa được xem',
-          khoPermTitle: on ? 'Đã phân quyền trong kỳ '+KY+' — không bỏ được' : 'Tick để tất cả đơn vị con được xem dữ liệu tổng kỳ '+KY,
+          khoPermNote: on ? ('Đơn vị tự gán lĩnh vực · '+at) : 'Đầu mối gán lĩnh vực',
+          khoPermTitle: on ? 'Đã phân công đơn vị thực hiện HTH kỳ '+KY+' — không bỏ được' : 'Chọn để đơn vị tự gán văn bản HTH theo lĩnh vực của mình; không chọn thì Đầu mối gán văn bản theo lĩnh vực HTH cho từng đơn vị.',
           khoPermTog: ()=>{
             if(!KY){ alert('Vui lòng chọn Kỳ hệ thống hóa trước.'); return; }
-            if(on){ alert('Đã phân quyền cho đơn vị được xem trong kỳ '+KY+'. Không bỏ được.'); return; }
-            if(!confirm('Phân quyền cho tất cả '+dvAll.length+' đơn vị con được xem Danh sách văn bản HTH kỳ '+KY+'?\n\nĐơn vị con sẽ có menu Danh sách văn bản HTH và tự chọn lĩnh vực của mình để nhận văn bản.\nLưu ý: đã phân quyền thì KHÔNG bỏ được trong kỳ.')) return;
+            if(on){ alert('Đã phân công đơn vị thực hiện HTH kỳ '+KY+'. Không bỏ được.'); return; }
+            if(!confirm('Phân công '+dvAll.length+' đơn vị con tự thực hiện HTH kỳ '+KY+'?\n\nĐơn vị con sẽ có menu Danh sách văn bản HTH và tự gán văn bản theo lĩnh vực của mình.\nLưu ý: đã phân công thì KHÔNG bỏ được trong kỳ.')) return;
             this.setState(st=>({ dvXemAll:{ ...(st.dvXemAll||{}), [KY]:{ at:'04/11/2026', by:'Đầu mối' } } })); } }; })(),
       isKhoSync: s.screen==='doclist' && !s.ktView && s.khoSub==='sync',
       khoIsDM: isDM, khoIsDV: !isDM, khoL1: luong===1, khoL2: luong===2,
@@ -5500,7 +5514,7 @@ class Component extends DCLogic {
       khoDvLvText: lvOfDv.length ? lvOfDv.join(' · ') : 'Chưa cấu hình',
       khoDvNoLv: !lvOfDv.length,
       khoLvOfDv: lvOfDv.map(t=>({ t })),
-      khoLuongNote: isDM ? 'Đầu mối gán lĩnh vực cho văn bản; đơn vị được phân quyền xem có thể tự chọn lĩnh vực của mình để nhận văn bản.' : (canSee ? 'Đơn vị được phân quyền xem danh sách: tự chọn lĩnh vực của đơn vị để nhận văn bản. Văn bản đã nhận xem tại Danh sách VBHTH đơn vị.' : 'Đơn vị chưa được phân quyền xem danh sách. Văn bản do đầu mối gán xem tại Danh sách VBHTH đơn vị.'),
+      khoLuongNote: isDM ? 'Không tick Phân công đơn vị thực hiện HTH: Đầu mối gán lĩnh vực cho văn bản. Đã tick: đơn vị tự gán lĩnh vực của mình.' : (canSee ? 'Đầu mối đã phân công đơn vị thực hiện HTH: đơn vị tự gán lĩnh vực của đơn vị cho văn bản. Văn bản đã gán xem tại Danh sách VBHTH đơn vị.' : 'Đầu mối gán lĩnh vực cho văn bản. Văn bản được gán xem tại Danh sách VBHTH đơn vị.'),
       khoStats, khoTT: tt, khoTTOpts: ttOpts.map(o=>({ v:o[0], t:o[1] })),
       khoQ: F.q||'', khoLoai: F.loai||'', khoHth: F.hth||'', khoLv: F.lv||'', khoDv: F.dv||'', khoNguon: F.nguon||'',
       setKhoQ: setF('q'), setKhoLoai: setF('loai'), setKhoHth: setF('hth'), setKhoTT: setF('tt'), setKhoLv: setF('lv'), setKhoDv: setF('dv'), setKhoNguon: setF('nguon'),
