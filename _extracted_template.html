@@ -470,7 +470,7 @@
               <div style="background:#fff;border:1px solid #e4e9f0;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
                 <div style="display:flex;align-items:center;justify-content:space-between;">
                   <span style="width:40px;height:40px;border-radius:11px;background:{{ k.tint }};display:flex;align-items:center;justify-content:center;"><span class="ic" style="font-size:22px;color:{{ k.color }};">{{ k.icon }}</span></span>
-                  <span style="font-size:10.5px;font-weight:700;color:#94a3b8;font-family:ui-monospace,monospace;">{{ k.sub }}</span>
+                  <span style="font-size:10.5px;font-weight:700;color:#94a3b8;">{{ k.sub }}</span>
                 </div>
                 <div style="font-size:30px;font-weight:800;color:#10243a;margin-top:12px;line-height:1;">{{ k.value }}</div>
                 <div style="font-size:12.5px;color:#6b7a8d;margin-top:6px;">{{ k.label }}</div>
@@ -571,7 +571,7 @@
                             <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;">{{ doc.stt }}</sc-raw-td>
                             <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
                             <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.cq }}</sc-raw-td>
-                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;font-family:ui-monospace,monospace;font-size:11.5px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</sc-raw-td>
+                            <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;font-size:11.5px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</sc-raw-td>
                             <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.ngay }}</sc-raw-td>
                             <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.ty }}</sc-raw-td>
                             <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;color:#42566c;">{{ doc.e0 }}</sc-raw-td>
@@ -771,7 +771,7 @@
                       <div style="display:flex;gap:14px;">
                         <div style="flex:1;">
                           <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Số, ký hiệu</div>
-                          <div style="font-size:13.5px;font-weight:600;color:#2f54eb;font-family:ui-monospace,monospace;">{{ dinhVeRec.so }}</div>
+                          <div style="font-size:13.5px;font-weight:600;color:#2f54eb;">{{ dinhVeRec.so }}</div>
                         </div>
                         <div style="flex:1;">
                           <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Trạng thái</div>
@@ -929,7 +929,7 @@
                               <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;color:#475467;">{{ rec.lv }}</sc-raw-td>
                               <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;color:#475467;">{{ rec.loai }}</sc-raw-td>
                               <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;color:#475467;">{{ rec.cq }}</sc-raw-td>
-                              <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;font-family:ui-monospace,monospace;font-weight:600;color:#2f54eb;">{{ rec.so }}</sc-raw-td>
+                              <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;font-weight:600;color:#2f54eb;">{{ rec.so }}</sc-raw-td>
                               <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;color:#475467;">{{ rec.ngay }}</sc-raw-td>
                               <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;color:#1e2939;font-weight:500;line-height:1.4;">{{ rec.ty }}</sc-raw-td>
                               <sc-raw-td style="padding:10px 8px;border:1px solid #eef1f6;color:#475467;">{{ rec.coHieuLuc }}</sc-raw-td>
@@ -1051,7 +1051,7 @@
                             <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;font-weight:600;">{{ rec.stt }}</sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><sc-raw-select value="{{ rec.loai }}" style="width:100%;min-width:140px;height:36px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:7px;background:#fff;outline:none;box-sizing:border-box;"><option value="">-- Chọn --</option><option value="Luật">Luật</option><option value="Nghị định">Nghị định</option><option value="Thông tư">Thông tư</option><option value="Thông tư LT">Thông tư LT</option><option value="Quyết định">Quyết định</option><option value="Nghị quyết">Nghị quyết</option></sc-raw-select></sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.cq }}" style="width:100%;min-width:130px;height:36px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;"></sc-raw-td>
-                            <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.so }}" style="width:100%;min-width:120px;height:36px;font-family:ui-monospace,monospace;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#0e4c8f;font-weight:600;"></sc-raw-td>
+                            <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.so }}" style="width:100%;min-width:120px;height:36px;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#0e4c8f;font-weight:600;"></sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.ngay }}" style="width:100%;min-width:130px;height:36px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;"></sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.ten }}" style="width:100%;min-width:200px;height:36px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;"></sc-raw-td>
                             <sc-for list="{{ rec.rcells }}" as="c" hint-placeholder-count="4">
@@ -1457,7 +1457,7 @@
                   <sc-if value="{{ kqCanEdit }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqSave }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button></sc-if>
                   <sc-if value="{{ kqDvCanSend }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqSend }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">send</span>Gửi</button></sc-if>
                   <sc-if value="{{ kqDmCanPub }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqPublish }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">campaign</span>Công bố</button></sc-if>
-                  <sc-if value="{{ kqPub }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;"><sc-if value="{{ kqCanDinh }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqGoDinh }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">edit_document</span>Đính chính</button></sc-if></div></sc-if>
+                  <sc-if value="{{ kqPub }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;"><sc-if value="{{ kqCanRepub }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqRepublish }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">published_with_changes</span>Công bố lại</button></sc-if><sc-if value="{{ kqCanDinh }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqGoDinh }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">edit_document</span>Đính chính</button></sc-if></div></sc-if>
                 </div>
               </div>
               <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
@@ -2812,7 +2812,7 @@
                             <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;font-weight:600;">{{ rec.stt }}</sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><sc-raw-select value="{{ rec.loai }}" style="width:100%;min-width:140px;height:36px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:7px;background:#fff;color:#1e2939;outline:none;box-sizing:border-box;"><option value="">-- Chọn --</option><option value="Luật">Luật</option><option value="Nghị định">Nghị định</option><option value="Thông tư">Thông tư</option><option value="Thông tư LT">Thông tư LT</option><option value="Quyết định">Quyết định</option><option value="Nghị quyết">Nghị quyết</option><option value="(Chưa ban hành)">(Chưa ban hành)</option><option value="Chỉ thị của Ủy ban nhân dân...">Chỉ thị của Ủy ban nhân dân...</option><option value="Quyết định của Ủy ban nhâ...">Quyết định của Ủy ban nhâ...</option><option value="Nghị quyết của Hội đồng...">Nghị quyết của Hội đồng...</option></sc-raw-select></sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.cq }}" style="width:100%;min-width:130px;height:36px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#1e2939;"></sc-raw-td>
-                            <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.so }}" style="width:100%;min-width:120px;height:36px;font-family:ui-monospace,monospace;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#0e4c8f;font-weight:600;"></sc-raw-td>
+                            <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.so }}" style="width:100%;min-width:120px;height:36px;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#0e4c8f;font-weight:600;"></sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><div style="position:relative;min-width:130px;"><input value="{{ rec.ngay }}" style="width:100%;height:36px;font-family:inherit;font-size:12.5px;padding:0 30px 0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#1e2939;"><span class="ic" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:16px;color:#98a2b3;pointer-events:none;">calendar_today</span></div></sc-raw-td>
                             <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.ten }}" style="width:100%;min-width:200px;height:36px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#1e2939;"></sc-raw-td>
                             <sc-for list="{{ rec.rcells }}" as="c" hint-placeholder-count="2">
@@ -2854,7 +2854,7 @@
                           <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;font-weight:600;">{{ rec.stt }}</sc-raw-td>
                           <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><sc-raw-select value="{{ rec.loai }}" style="width:100%;min-width:140px;height:36px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #d0d5dd;border-radius:7px;background:#fff;color:#1e2939;outline:none;box-sizing:border-box;"><option value="">-- Chọn --</option><option value="Luật">Luật</option><option value="Nghị định">Nghị định</option><option value="Thông tư">Thông tư</option><option value="Thông tư LT">Thông tư LT</option><option value="Quyết định">Quyết định</option><option value="Nghị quyết">Nghị quyết</option><option value="(Chưa ban hành)">(Chưa ban hành)</option><option value="Chỉ thị của Ủy ban nhân dân...">Chỉ thị của Ủy ban nhân dân...</option><option value="Quyết định của Ủy ban nhâ...">Quyết định của Ủy ban nhâ...</option><option value="Nghị quyết của Hội đồng...">Nghị quyết của Hội đồng...</option></sc-raw-select></sc-raw-td>
                           <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.cq }}" style="width:100%;min-width:130px;height:36px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#1e2939;"></sc-raw-td>
-                          <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.so }}" style="width:100%;min-width:120px;height:36px;font-family:ui-monospace,monospace;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#0e4c8f;font-weight:600;"></sc-raw-td>
+                          <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.so }}" style="width:100%;min-width:120px;height:36px;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#0e4c8f;font-weight:600;"></sc-raw-td>
                           <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><div style="position:relative;min-width:130px;"><input value="{{ rec.ngay }}" style="width:100%;height:36px;font-family:inherit;font-size:12.5px;padding:0 30px 0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#1e2939;"><span class="ic" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:16px;color:#98a2b3;pointer-events:none;">calendar_today</span></div></sc-raw-td>
                           <sc-raw-td style="padding:6px 8px;border-right:1px solid #f1f4f8;"><input value="{{ rec.ten }}" style="width:100%;min-width:200px;height:36px;font-family:inherit;font-size:12.5px;padding:0 10px;border:1px solid #d0d5dd;border-radius:7px;outline:none;box-sizing:border-box;color:#1e2939;"></sc-raw-td>
                           <sc-for list="{{ rec.rcells }}" as="c" hint-placeholder-count="4">
@@ -3641,7 +3641,7 @@
                           <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;">{{ doc.stt }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.cq }}</sc-raw-td>
-                          <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;font-family:ui-monospace,monospace;font-size:11.5px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</sc-raw-td>
+                          <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;font-size:11.5px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.ngay }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.ty }}</sc-raw-td>
                           <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;color:#42566c;">{{ doc.e0 }}</sc-raw-td>
@@ -3676,7 +3676,7 @@
                         <sc-raw-td style="padding:10px 10px;text-align:center;color:#94a3b8;border-right:1px solid #f1f4f8;">{{ doc.stt }}</sc-raw-td>
                         <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
                         <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.cq }}</sc-raw-td>
-                        <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;font-family:ui-monospace,monospace;font-size:11.5px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</sc-raw-td>
+                        <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;font-size:11.5px;color:#0e4c8f;font-weight:600;">{{ doc.so }}</sc-raw-td>
                         <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;white-space:nowrap;">{{ doc.ngay }}</sc-raw-td>
                         <sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;">{{ doc.ty }}</sc-raw-td>
                         <sc-for list="{{ doc.extra }}" as="v" hint-placeholder-count="3"><sc-raw-td style="padding:10px 10px;border-right:1px solid #f1f4f8;color:#42566c;">{{ v.text }}</sc-raw-td></sc-for>
@@ -3837,7 +3837,7 @@
                 <sc-for list="{{ lvRows }}" as="lv" hint-placeholder-count="4">
                   <sc-raw-tr style="color:#1e2939;" style-hover="background:#f8fbff;">
                     <sc-raw-td style="padding:10px 12px;text-align:center;border:1px solid #d9dee6;">{{ lv.idx }}</sc-raw-td>
-                    <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-weight:600;color:#2f2fd0;border:1px solid #d9dee6;">{{ lv.ma }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px 12px;color:#1e2939;border:1px solid #d9dee6;">{{ lv.ma }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;font-weight:{{ lv.fw }};border:1px solid #d9dee6;">{{ lv.ten }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;text-align:center;border:1px solid #d9dee6;">{{ lv.cap }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;border:1px solid #d9dee6;">{{ lv.chaTen }}</sc-raw-td>
@@ -4301,7 +4301,7 @@
           <sc-raw-tbody>
             <sc-for list="{{ pickDocs }}" as="doc" hint-placeholder-count="6">
               <sc-raw-tr style="border-top:1px solid #eaecf0;" style-hover="background:#f9fafb;">
-                <sc-raw-td style="padding:10px 12px;font-family:ui-monospace,monospace;font-size:12px;color:#2f54eb;font-weight:600;white-space:nowrap;">{{ doc.so }}</sc-raw-td>
+                <sc-raw-td style="padding:10px 12px;font-size:12px;color:#2f54eb;font-weight:600;white-space:nowrap;">{{ doc.so }}</sc-raw-td>
                 <sc-raw-td style="padding:10px 12px;color:#475467;white-space:nowrap;">{{ doc.loai }}</sc-raw-td>
                 <sc-raw-td style="padding:10px 12px;color:#1e2939;">{{ doc.ty }}</sc-raw-td>
                 <sc-raw-td style="padding:10px 12px;text-align:center;"><span onclick="{{ doc.pick }}" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid #c7d2f5;background:#f2f5fe;" style-hover="background:#e6ecfd;">add</span></sc-raw-td>
@@ -4323,6 +4323,18 @@ class Component extends DCLogic {
 
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
+  }
+  // Công bố lại: áp dụng các bản ghi đính chính / bổ sung chưa công bố lại (dùng chung cho màn Kết quả và Đính chính)
+  applyRepublish(st, docsList){
+    const base = st.dinhChinh||this.seedDinhChinh();
+    const toPub = base.filter(x=>x.tt==='nhap'||x.tt==='luu');
+    const list = base.map(x=>(x.tt==='nhap'||x.tt==='luu')?{...x,tt:'duyet'}:x);
+    const patches = { ...(st.setDocPatches||{}) };
+    toPub.forEach(r=>{ const prev = patches[r.so]||{}; patches[r.so] = { ...prev, ...this.patchFromDinhRec(r) }; });
+    const counts = { ...(st.rsRepublishedCount||{}) };
+    const dl = docsList||[];
+    (st.plans||[]).forEach(pl=>{ counts[pl.ma] = list.filter(r=>r.tt==='duyet' && (dl.find(d=>d.so===r.so)||{}).ky===pl.ky).length; });
+    return { showSendDinh:false, dinhChinh:list, setDocPatches:patches, rsRepublishedCount:counts, setRepublished:true };
   }
   patchFromDinhRec(rec){
     const p = {};
@@ -5208,6 +5220,11 @@ class Component extends DCLogic {
         if(!confirm('Công bố kết quả hệ thống hóa kỳ '+dKY+' ('+allRows.length+' VB)?'+(notIn.length ? '\n\n'+notIn.length+' đơn vị chưa có kết quả trong tổng hợp ('+notIn.map(short).join(', ')+'): dùng dữ liệu hệ thống chia/đầu mối sửa.' : '')+'\n\nSau khi công bố, VB thuộc Mẫu 05 được đưa vào Tập hệ thống hóa theo cấu hình tiêu chí sắp xếp và đồng bộ lên CSDL quốc gia.')) return;
         const snap = ids.map(id=>{ const d = docMap[id], v = rowsObj[id]; return { so:d.so, loai:d.loai, ty:d.ty, cq:d.cq, ngay:d.ngay, hieuLucNgay:d.hieuLucNgay, lv:(d.lvs||[])[0]||'Chưa gán lĩnh vực', hl:v.hl, kn:v.kn }; });
         setKy(dKY, k=>{ k.pub = true; k.pubAt = TODAY; k.snap = snap; return k; }); },
+      kqCanRepub: dcPending.length>0,
+      kqRepublish: ()=>{
+        if(!confirm('Công bố lại kết quả hệ thống hóa kỳ '+dKY+' với '+dcPending.length+' thay đổi (đính chính, bổ sung)?\n\nCác thay đổi sẽ được cập nhật vào danh mục và Tập hệ thống hóa.')) return;
+        this.setState(st=>this.applyRepublish(st, []));
+        alert('Công bố lại thành công.'); },
       kqCanDinh: isDM, kqGoDinh: ()=>{ const ky = (s.kyHthList||[]).find(k=>(k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||'')))===dKY); this.go('dinhchinh')(); this.setState({ dinhStep:'add', dinhAddConfirmed:false, dinhLoaiThaoTacSel:'dinh-chinh', setKyIdSel: ky ? ky.id : '', dinhShowResults:false, dinhEditRecId:null }); },
       kqGoSet: ()=>{ const ky = (s.kyHthList||[]).find(k=>(k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||'')))===dKY); this.go('set')(); if(ky) this.setState({ setKyId: ky.id, setKyIdSel: ky.id }); },
       kqGoDoc: ()=>this.go('doclist')(),
@@ -7391,16 +7408,7 @@ class Component extends DCLogic {
       cancelSendDinh: ()=>this.setState({ showSendDinh:false }),
       dinhSendableCount: (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='nhap'||r.tt==='luu').length,
       dinhHasToPublish: (s.dinhChinh||this.seedDinhChinh()).some(r=>r.tt==='nhap'||r.tt==='luu'),
-      confirmSendDinh: ()=>this.setState(st=>{
-        const base = st.dinhChinh||this.seedDinhChinh();
-        const toPub = base.filter(x=>x.tt==='nhap'||x.tt==='luu');
-        const list = base.map(x=>(x.tt==='nhap'||x.tt==='luu')?{...x,tt:'duyet'}:x);
-        const patches = { ...(st.setDocPatches||{}) };
-        toPub.forEach(r=>{ const prev = patches[r.so]||{}; patches[r.so] = { ...prev, ...this.patchFromDinhRec(r) }; });
-        const counts = { ...(st.rsRepublishedCount||{}) };
-        (st.plans||[]).forEach(pl=>{ counts[pl.ma] = list.filter(r=>r.tt==='duyet' && (docs.find(d=>d.so===r.so)||{}).ky===pl.ky).length; });
-        return { showSendDinh:false, dinhChinh:list, setDocPatches:patches, rsRepublishedCount:counts, setRepublished:true };
-      }),
+      confirmSendDinh: ()=>this.setState(st=>this.applyRepublish(st, docs)),
       dinhPendingCount: (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='cho').length,
       dinhTotalCount: (s.dinhChinh||this.seedDinhChinh()).length,
       hasApprovedDinh: (s.dinhChinh||this.seedDinhChinh()).some(r=>r.tt==='duyet'),
