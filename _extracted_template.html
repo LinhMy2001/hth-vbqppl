@@ -4945,10 +4945,17 @@ class Component extends DCLogic {
     const norm = (h)=>this.normalizeTthl(h);
     const docsOf = (ky)=> ky===KY ? (khoAll||[]) : ((this.khoVals(s, ky, []).khoAllDocs)||[]);
     const countMau = (rowsObj)=>{ const c = { '01':0,'02':0,'03':0,'04':0,'05':0 }; Object.keys(rowsObj||{}).forEach(id=>{ mauOf(rowsObj[id]).forEach(m=>{ c[m]++; }); }); return c; };
-    const aggregate = (k, ds)=>{ const sent = Object.keys(k.units||{}).filter(dv=>k.units[dv].st==='gui'); const rows = {}; let nDv = 0;
-      ds.forEach((d,i)=>{ const u = (d.units||[]).find(x=>sent.includes(x)); const ur = u && k.units[u].rows ? k.units[u].rows[d.id] : null;
-        if(ur){ rows[d.id] = { ...ur, src:'dv', srcDv:u }; nDv++; } else { rows[d.id] = { hl:norm(d.hl), kn:'Không cần xử lý', lyDo:'', ghiChu:'', src:'auto' }; } });
-      return { created:true, rows, n:ds.length, at:TODAY, aggAt:TODAY, aggN:nDv, aggUnits:sent }; };
+    // Tổng hợp của Đầu mối:
+    //  - VB đã gán cho đơn vị: chỉ lấy kết quả của đơn vị ĐÃ GỬI; đơn vị chưa gửi thì không lấy
+    //  - VB chưa gán cho đơn vị nào (Đầu mối tự thực hiện): hệ thống chia theo quy tắc Mẫu 01–05 cho Đầu mối
+    const aggregate = (k, ds)=>{ const sent = Object.keys(k.units||{}).filter(dv=>k.units[dv].st==='gui'); const rows = {}; let nDv = 0, nDm = 0; const wait = new Set();
+      ds.forEach(d=>{ const us = d.units||[];
+        if(!us.length){ rows[d.id] = { hl:norm(d.hl), kn:'Không cần xử lý', lyDo:'', ghiChu:'', src:'auto' }; nDm++; return; }
+        const u = us.find(x=>sent.includes(x)); const ur = u && k.units[u].rows ? k.units[u].rows[d.id] : null;
+        if(ur){ rows[d.id] = { ...ur, src:'dv', srcDv:u }; nDv++; } else us.forEach(x=>{ if(!sent.includes(x)) wait.add(x); }); });
+      return { created:true, rows, n:Object.keys(rows).length, at:TODAY, aggAt:TODAY, aggN:nDv, aggDm:nDm, aggUnits:sent, aggWait:[...wait] }; };
+    const aggMsg = (agg)=>'Đã tổng hợp: '+agg.aggUnits.length+' đơn vị đã gửi ('+agg.aggN+' VB)'+(agg.aggDm ? '; '+agg.aggDm+' VB chưa gán cho đơn vị: hệ thống chia cho Đầu mối' : '')+'.'
+      +((agg.aggWait||[]).length ? '\n'+agg.aggWait.length+' đơn vị chưa gửi kết quả ('+agg.aggWait.join(', ')+'): chưa lấy vào tổng hợp.' : '');
     const view = s.kqView || 'list';
     const sel = s.kqSel || {};
     const ST = { nhap:['Đã lưu','#344054','#f2f4f7'], gui:['Đã gửi','#344054','#f2f4f7'], tralai:['Bị trả lại','#344054','#f2f4f7'] };
@@ -4984,9 +4991,10 @@ class Component extends DCLogic {
         if(!ds.length){ alert('Chưa có văn bản trong kỳ '+ky+'. Vào Danh sách văn bản HTH để lấy dữ liệu.'); return; }
         const k0 = getK(s, ky); if(k0.dm.created){ alert('Đã có kết quả tổng hợp kỳ '+ky+'. Mở kết quả trong danh sách để sửa.'); return; }
         const agg = aggregate(k0, ds);
+        if(!agg.n){ alert('Chưa có kết quả để tổng hợp kỳ '+ky+': chưa có đơn vị nào gửi kết quả và không có văn bản chưa gán cho đơn vị.'+((agg.aggWait||[]).length ? '\nĐơn vị chưa gửi: '+agg.aggWait.join(', ')+'.' : '')); return; }
         setKy(ky, k=>{ k.dm = agg; return k; });
         const c = countMau(agg.rows);
-        alert('Đã tổng hợp kết quả '+agg.aggUnits.length+' đơn vị đã gửi ('+agg.aggN+' VB); '+(agg.n-agg.aggN)+' VB còn lại hệ thống tự chia theo công thức.\nMẫu 01: '+c['01']+' · Mẫu 02: '+c['02']+' · Mẫu 03: '+c['03']+' · Mẫu 04: '+c['04']+' (nhấn Sửa Mẫu 04 để đồng bộ RSTX) · Mẫu 05: '+c['05']+'.');
+        alert(aggMsg(agg)+'\nMẫu 01: '+c['01']+' · Mẫu 02: '+c['02']+' · Mẫu 03: '+c['03']+' · Mẫu 04: '+c['04']+' (nhấn Sửa Mẫu 04 để đồng bộ RSTX) · Mẫu 05: '+c['05']+'.');
       }
       this.setState({ docKyApplied:addMa, docKySel:addMa, kqView:'detail', kqSel:{ ky, dv:'' }, kqMau:'', kqAddMa:'' });
     };
@@ -5038,7 +5046,7 @@ class Component extends DCLogic {
       const cells = kqColsRaw.map(col=>{ const val = kqColDef(col, d, v); const isSel = col.type==='select';
         return { v:val, ro:!mauEd, edText: mauEd && !isSel, edSel: mauEd && isSel, ph: col.type==='date' ? 'dd/mm/yyyy' : '',
           opts:(col.options||[]).map(o=>({ v: o.startsWith('--') ? '' : o, t:o })), set:(e)=>writeRow(d.id, { [col.key]: e.target.value }) }; });
-      const srcT = v.src==='dm' ? 'Đầu mối sửa' : (v.src==='dv' ? short(v.srcDv)+' gửi' : (v.src==='auto' ? 'Hệ thống chia (ĐV chưa gửi)' : ''));
+      const srcT = v.src==='dm' ? 'Đầu mối sửa' : (v.src==='dv' ? short(v.srcDv)+' gửi' : (v.src==='auto' ? 'Hệ thống chia (Đầu mối)' : ''));
       const srcC = '#475467';
       return { stt:idx+1, so:d.so, loai:d.loai, cq:d.cq||'', cells, ngay:d.ngay, ty:d.ty, dvT:(d.units||[]).map(short).join(', ')||'—', lvT:(d.lvs||[]).join(', ')||'—',
         hl:v.hl, hlC:'#344054', hlB:'#f2f4f7', kn:v.kn||'Không cần xử lý', knC:(v.kn && v.kn!=='Không cần xử lý') ? '#1e2939' : '#98a2b3', lyDo:v.lyDo||'', ghiChu:v.ghiChu||'',
@@ -5209,7 +5217,8 @@ class Component extends DCLogic {
       kqDmAgg: isDM && !sel.dv, kqDmCanPub: isDM && !sel.dv && !K.pub, kqPub: !!K.pub,
       kqSyncRstx: ()=>{ setKy(dKY, k=>{ const tgt = forUnit ? k.units[tDv].rows : k.dm.rows; Object.keys(tgt).forEach((id,i)=>{ const d = docMap[id]; if(!d) return; const x = rstxFor(d, ids.indexOf(id)); tgt[id] = { ...tgt[id], kn:x.kn, lyDo:x.lyDo }; }); if(forUnit) k.units[tDv].rstxAt = TODAY; else k.dm.rstxAt = TODAY; return k; }); },
       kqReAggAll: ()=>{ if(!confirm('Tổng hợp lại sẽ XÓA toàn bộ dữ liệu kết quả hiện tại của kỳ '+dKY+' (kể cả chỉnh sửa của đầu mối và Mẫu 04 đã đồng bộ RSTX), sau đó tổng hợp lại từ kết quả các đơn vị đã gửi.\n\nBạn có chắc không?')) return;
-        setKy(dKY, k=>{ k.dm = aggregate(k, docsD); return k; }); this.setState({ kqMau:'' }); setTimeout(()=>alert('Đã tổng hợp lại kết quả kỳ '+dKY+'.'), 0); },
+        const agg = aggregate(K, docsD);
+        setKy(dKY, k=>{ k.dm = agg; return k; }); this.setState({ kqMau:'' }); setTimeout(()=>alert('Tổng hợp lại kết quả kỳ '+dKY+'. '+aggMsg(agg)), 0); },
       kqReAgg: ()=>{ if(!confirm('Tổng hợp lại từ kết quả các đơn vị đã gửi? Các chỉnh sửa của đầu mối trên văn bản thuộc đơn vị đã gửi sẽ được thay bằng dữ liệu đơn vị.')) return;
         setKy(dKY, k=>{ const keep = k.dm.rows || {}; const agg = aggregate(k, docsD); Object.keys(agg.rows).forEach(id=>{ if(agg.rows[id].src!=='dv' && keep[id]) agg.rows[id] = keep[id]; }); k.dm = agg; return k; }); },
       kqSave: ()=>{ setKy(dKY, k=>{ if(forUnit && k.units[tDv]) k.units[tDv].at = TODAY; else k.dm.at = TODAY; return k; }); alert('Đã lưu kết quả.'); },
@@ -5217,7 +5226,7 @@ class Component extends DCLogic {
         setKy(dKY, k=>{ const u = k.units[DV]; u.st='gui'; u.sentAt=TODAY; delete u.lyDoTL; return k; }); },
       kqPublish: ()=>{
         const notIn = dvAll.filter(dv=>docsD.some(d=>(d.units||[]).includes(dv)) && !(K.dm.aggUnits||[]).includes(dv));
-        if(!confirm('Công bố kết quả hệ thống hóa kỳ '+dKY+' ('+allRows.length+' VB)?'+(notIn.length ? '\n\n'+notIn.length+' đơn vị chưa có kết quả trong tổng hợp ('+notIn.map(short).join(', ')+'): dùng dữ liệu hệ thống chia/đầu mối sửa.' : '')+'\n\nSau khi công bố, VB thuộc Mẫu 05 được đưa vào Tập hệ thống hóa theo cấu hình tiêu chí sắp xếp và đồng bộ lên CSDL quốc gia.')) return;
+        if(!confirm('Công bố kết quả hệ thống hóa kỳ '+dKY+' ('+allRows.length+' VB)?'+(notIn.length ? '\n\n'+notIn.length+' đơn vị chưa gửi kết quả ('+notIn.map(short).join(', ')+'): kết quả của các đơn vị này không có trong tổng hợp.' : '')+'\n\nSau khi công bố, VB thuộc Mẫu 05 được đưa vào Tập hệ thống hóa theo cấu hình tiêu chí sắp xếp và đồng bộ lên CSDL quốc gia.')) return;
         const snap = ids.map(id=>{ const d = docMap[id], v = rowsObj[id]; return { so:d.so, loai:d.loai, ty:d.ty, cq:d.cq, ngay:d.ngay, hieuLucNgay:d.hieuLucNgay, lv:(d.lvs||[])[0]||'Chưa gán lĩnh vực', hl:v.hl, kn:v.kn }; });
         setKy(dKY, k=>{ k.pub = true; k.pubAt = TODAY; k.snap = snap; return k; }); },
       kqCanRepub: dcPending.length>0,
