@@ -1430,8 +1430,42 @@
             <div style="font-size:12.5px;color:#475467;margin-bottom:14px;display:flex;align-items:center;gap:8px;"><span style="text-decoration:underline;color:#667085;">Hệ thống hóa VBQPPL</span><span>/</span><span onclick="{{ kqBack }}" style="text-decoration:underline;color:#667085;cursor:pointer;">Kết quả Hệ thống hóa</span><span>/</span><span style="color:#1e2939;">Kỳ {{ kqDKy }}</span></div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
               <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ kqBack }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>Kết quả hệ thống hóa kỳ {{ kqDKy }}</h1>
-              <span style="border-radius:14px;padding:5px 12px;font-size:12.5px;font-weight:600;color:{{ kqStC }};background:{{ kqStB }};">{{ kqStT }}</span>
+              <div style="display:flex;align-items:center;gap:10px;"><button onclick="{{ kqOpenHist }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">history</span>Lịch sử xử lý</button>
+              <span style="border-radius:14px;padding:5px 12px;font-size:12.5px;font-weight:600;color:{{ kqStC }};background:{{ kqStB }};">{{ kqStT }}</span></div>
             </div>
+            <!-- Popup Lịch sử xử lý kết quả HTH -->
+            <sc-if value="{{ kqHistOpen }}" hint-placeholder-val="{{ false }}">
+              <div onclick="{{ kqHistClose }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:70;padding:24px;">
+                <div onclick="{{ stop }}" style="background:#fff;border-radius:10px;width:620px;max-width:96%;max-height:86vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(8,28,52,.25);">
+                  <div style="padding:18px 22px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid #eef0f3;">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:8px;font-size:17px;font-weight:700;color:#1e2939;"><span class="ic" style="font-size:22px;">history</span>Lịch sử xử lý kết quả hệ thống hóa</div>
+                      <div style="font-size:12.5px;color:#667085;margin-top:4px;">{{ kqHistTitle }}</div>
+                    </div>
+                    <span onclick="{{ kqHistClose }}" class="ic" title="Đóng" style="cursor:pointer;font-size:22px;color:#667085;">close</span>
+                  </div>
+                  <div style="padding:18px 22px 22px;overflow-y:auto;">
+                    <sc-if value="{{ kqHistEmpty }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#98a2b3;text-align:center;padding:24px 0;">Chưa có lịch sử xử lý.</div></sc-if>
+                    <sc-for list="{{ kqHistRows }}" as="h" hint-placeholder-count="3">
+                      <div style="display:flex;gap:14px;">
+                        <div style="display:flex;flex-direction:column;align-items:center;width:14px;flex:0 0 14px;padding-top:16px;">
+                          <span style="width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid {{ h.dot }};box-sizing:border-box;"></span>
+                          <sc-if value="{{ h.line }}" hint-placeholder-val="{{ true }}"><span style="flex:1;width:2px;background:#e4e7ec;margin-top:4px;"></span></sc-if>
+                        </div>
+                        <div style="flex:1;min-width:0;background:#f9fafb;border:1px solid #eaecf0;border-radius:10px;padding:12px 16px;margin-bottom:14px;">
+                          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                            <span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#667085;"><span class="ic" style="font-size:16px;">schedule</span>{{ h.at }}</span>
+                            <span style="font-size:12px;font-weight:600;color:{{ h.fg }};background:{{ h.bg }};border-radius:12px;padding:2px 10px;">{{ h.lbl }}</span>
+                          </div>
+                          <div style="font-size:14.5px;font-weight:700;color:#1e2939;margin-top:8px;">{{ h.acc }}</div>
+                          <div style="font-size:13px;color:#667085;margin-top:2px;">{{ h.who }} · {{ h.org }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
             <sc-if value="{{ kqHasTraLai }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:center;background:#fef3f2;border:1px solid #fecdca;color:#b42318;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:16px;"><span class="ic" style="font-size:18px;">undo</span><span>{{ kqTraLaiNote }}</span></div></sc-if>
             <sc-if value="{{ kqLocked }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:center;background:#f9fafb;border:1px solid #eef1f6;color:#475467;border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:16px;"><span class="ic" style="font-size:17px;">lock</span><span>{{ kqLockT }}</span></div></sc-if>
 
@@ -4961,19 +4995,45 @@ class Component extends DCLogic {
     const ST = { nhap:['Đã lưu','#344054','#f2f4f7'], gui:['Đã gửi','#344054','#f2f4f7'], tralai:['Bị trả lại','#344054','#f2f4f7'] };
     const PUB = ['Đã công bố','#344054','#f2f4f7'];
     const openDetail = (ky, dv)=>this.setState({ docKyApplied: maOfKy(ky) || s.docKyApplied, docKySel: maOfKy(ky) || s.docKySel, kqView:'detail', kqSel:{ ky, dv: dv||'' }, kqMau:'', kqQ:'', kqUnitsOpen:false });
+    // ---------- LỊCH SỬ XỬ LÝ ----------
+    const USER = 'Nguyễn Thị An';
+    const NOWT = ()=>TODAY+' - '+new Date().toTimeString().slice(0,5);
+    const ORG_DM = 'Đầu mối · Bộ Tư pháp';
+    const logH = (obj, key, note, org)=>{ if(!obj) return; obj.hist = [ ...(obj.hist||[]), { at:NOWT(), key, who:USER, org:org||'' } ]; };
+    // Trạng thái lịch sử xử lý: Thêm mới, Lưu, Gửi, Bị trả lại, Đã công bố, Đính chính, Công bố lại
+    const HST = { them:['Thêm mới','#475467','#f2f4f7','#98a2b3'], luu:['Lưu','#475467','#f2f4f7','#98a2b3'], gui:['Gửi','#175cd3','#eff8ff','#2e90fa'],
+      tralai:['Bị trả lại','#c4320a','#fff6ed','#f79009'], congbo:['Đã công bố','#067647','#ecfdf3','#17b26a'],
+      dinhchinh:['Đính chính','#5925dc','#f4f3ff','#7a5af8'], congbolai:['Công bố lại','#067647','#ecfdf3','#17b26a'] };
+    // Tài khoản thực hiện theo đơn vị (dữ liệu mẫu)
+    const accOf = (org)=> org===ORG_DM ? 'btp_daumoi' : 'btp_' + String(org||'').split(/[\s,]+/).filter(w=>w && w[0]===w[0].toUpperCase()).map(w=>w[0]).join('').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d');
+    const tsOf = (s)=>{ const m = String(s||'').match(/(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\D+(\d{1,2}):(\d{2}))?/); return m ? new Date(+m[3], +m[2]-1, +m[1], +(m[4]||0), +(m[5]||0)).getTime() : 0; };
+    // Dữ liệu cũ chưa có hist: dựng lại từ các mốc thời gian đã lưu
+    const histOf = (k, dv)=>{ const o = dv ? (k.units||{})[dv] : k.dm; if(!o) return [];
+      let h;
+      if(o.hist && o.hist.length) h = o.hist.slice();
+      else { h = []; const org = dv || ORG_DM;
+        if(o.at) h.push({ at:o.at, key:'them', who:USER, org });
+        if(dv && o.sentAt) h.push({ at:o.sentAt, key:'gui', who:USER, org });
+        if(dv && o.tlAt) h.push({ at:o.tlAt, key:'tralai', who:USER, org:ORG_DM }); }
+      // Công bố của kỳ: hiện cả ở lịch sử Đầu mối và đơn vị
+      if(k.pub && !h.some(e=>e.key==='congbo')) h.push({ at:k.pubAt||'', key:'congbo', who:USER, org:ORG_DM });
+      // Đính chính: bản ghi đính chính / bổ sung của văn bản thuộc kết quả đã công bố của kỳ
+      if(k.pub && !dv){ const sos = new Set((k.snap||[]).map(x=>x.so));
+        (s.dinhChinh||[]).filter(r=>sos.has(r.so) || (r.ts && r.loaiThaoTac==='bo-sung')).forEach(r=>h.push({ at:r.ts||r.ngay||'', key:'dinhchinh', who:r.nguoi||USER, org:ORG_DM })); }
+      return h.sort((a,b)=>tsOf(a.at)-tsOf(b.at)); };
     const traLaiFn = (ky, dv)=>()=>{ const ly = prompt('Lý do trả lại kết quả kỳ '+ky+' của '+dv+':', ''); if(ly===null) return; if(!String(ly).trim()){ alert('Vui lòng nhập lý do trả lại.'); return; }
-      setKy(ky, k=>{ const x = k.units[dv] || { rows:{} }; x.st='tralai'; x.lyDoTL=String(ly).trim(); x.tlAt=TODAY; k.units[dv]=x; return k; }); };
+      setKy(ky, k=>{ const x = k.units[dv] || { rows:{} }; if(!x.hist) x.hist = histOf(k, dv); x.st='tralai'; x.lyDoTL=String(ly).trim(); x.tlAt=TODAY; logH(x, 'tralai', 'Lý do: '+String(ly).trim(), ORG_DM); k.units[dv]=x; return k; }); };
     // ---------- DANH SÁCH KẾT QUẢ ----------
     const LF = s.kqLF || {};
     const listRaw = [];
     Object.keys(s.kq||{}).forEach(ky=>{ const k = getK(s, ky);
-      if(!isDM){ const u = k.units[DV]; if(u && u.created){ const st = k.pub ? PUB : ST[u.st||'nhap']; listRaw.push({ ky, who:DV, n:u.n||0, st, at:u.sentAt||u.at||'', editable: !k.pub && u.st!=='gui', open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : (u.st||'nhap') }); } }
+      if(!isDM){ const u = k.units[DV]; if(u && u.created){ const st = k.pub ? PUB : ST[u.st||'nhap']; listRaw.push({ ky, hdv:DV, who:DV, n:u.n||0, st, at:u.sentAt||u.at||'', editable: !k.pub && u.st!=='gui', open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : (u.st||'nhap') }); } }
       else {
-        if(k.dm.created){ listRaw.push({ ky, who:'Đầu mối · Kết quả tổng hợp', n:k.dm.n||0, st: k.pub ? PUB : ST.nhap, at:k.pubAt||k.dm.at||'', editable: !k.pub, open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : 'nhap' }); }
-        dvAll.forEach(dv=>{ const u = k.units[dv]; if(u && u.created && (u.st==='gui' || u.st==='tralai')){ listRaw.push({ ky, who:dv, n:u.n||0, st: k.pub ? PUB : ST[u.st], at:u.sentAt||'', editable:false, open: ()=>openDetail(ky, dv), canTL: !k.pub && u.st==='gui', traLai: traLaiFn(ky, dv), stKey: k.pub ? 'pub' : u.st }); } });
+        if(k.dm.created){ listRaw.push({ ky, hdv:'', who:'Đầu mối · Kết quả tổng hợp', n:k.dm.n||0, st: k.pub ? PUB : ST.nhap, at:k.pubAt||k.dm.at||'', editable: !k.pub, open: ()=>openDetail(ky,''), canTL:false, stKey: k.pub ? 'pub' : 'nhap' }); }
+        dvAll.forEach(dv=>{ const u = k.units[dv]; if(u && u.created && (u.st==='gui' || u.st==='tralai')){ listRaw.push({ ky, hdv:dv, who:dv, n:u.n||0, st: k.pub ? PUB : ST[u.st], at:u.sentAt||'', editable:false, open: ()=>openDetail(ky, dv), canTL: !k.pub && u.st==='gui', traLai: traLaiFn(ky, dv), stKey: k.pub ? 'pub' : u.st }); } });
       } });
     const listShown = listRaw.filter(r=>(!LF.ky || r.ky===LF.ky) && (!LF.st || r.stKey===LF.st));
-    const kqListRows = listShown.map((r,i)=>({ stt:i+1, ky:r.ky, who:r.who, n:r.n, stT:r.st[0], stC:r.st[1], stB:r.st[2], at:r.at||'—', xem:r.open, canSua:r.editable, sua:r.open, canTL:r.canTL, traLai:r.traLai||(()=>{}) }));
+    const kqListRows = listShown.map((r,i)=>({ stt:i+1, ky:r.ky, who:r.who, n:r.n, stT:r.st[0], stC:r.st[1], stB:r.st[2], at:r.at||'—', xem:r.open, canSua:r.editable, sua:r.open, canTL:r.canTL, traLai:r.traLai||(()=>{}), hist: ()=>this.setState({ kqHist:{ ky:r.ky, dv:r.hdv, who:r.who } }) }));
     // ---------- THÊM MỚI ----------
     const addMa = s.kqAddMa || '';
     const createKq = ()=>{
@@ -4984,7 +5044,7 @@ class Component extends DCLogic {
         if(!mine.length){ alert('Đơn vị chưa có văn bản trong kỳ '+ky+'. Văn bản về đơn vị khi được gán/nhận lĩnh vực tại Danh sách văn bản HTH.'); return; }
         const ex = getK(s, ky).units[DV]; if(ex && ex.created){ alert('Đơn vị đã có kết quả kỳ '+ky+'. Mở kết quả trong danh sách để sửa.'); return; }
         const rows = {}; mine.forEach((d,i)=>{ rows[d.id] = { hl:norm(d.hl), kn:'Không cần xử lý', lyDo:'', ghiChu:'' }; });
-        setKy(ky, k=>{ k.units[DV] = { created:true, st:'nhap', rows, n:mine.length, at:TODAY }; return k; });
+        setKy(ky, k=>{ k.units[DV] = { created:true, st:'nhap', rows, n:mine.length, at:TODAY }; logH(k.units[DV], 'them', '', DV); return k; });
         const c = countMau(rows);
         alert('Đã chia '+mine.length+' văn bản vào các danh mục: Mẫu 01: '+c['01']+' · Mẫu 02: '+c['02']+' · Mẫu 03: '+c['03']+' · Mẫu 04: '+c['04']+' (nhấn Sửa Mẫu 04 để đồng bộ RSTX) · Mẫu 05: '+c['05']+'.');
       } else {
@@ -4992,7 +5052,7 @@ class Component extends DCLogic {
         const k0 = getK(s, ky); if(k0.dm.created){ alert('Đã có kết quả tổng hợp kỳ '+ky+'. Mở kết quả trong danh sách để sửa.'); return; }
         const agg = aggregate(k0, ds);
         if(!agg.n){ alert('Chưa có kết quả để tổng hợp kỳ '+ky+': chưa có đơn vị nào gửi kết quả và không có văn bản chưa gán cho đơn vị.'+((agg.aggWait||[]).length ? '\nĐơn vị chưa gửi: '+agg.aggWait.join(', ')+'.' : '')); return; }
-        setKy(ky, k=>{ k.dm = agg; return k; });
+        setKy(ky, k=>{ k.dm = agg; logH(k.dm, 'them', '', ORG_DM); return k; });
         const c = countMau(agg.rows);
         alert(aggMsg(agg)+'\nMẫu 01: '+c['01']+' · Mẫu 02: '+c['02']+' · Mẫu 03: '+c['03']+' · Mẫu 04: '+c['04']+' (nhấn Sửa Mẫu 04 để đồng bộ RSTX) · Mẫu 05: '+c['05']+'.');
       }
@@ -5168,6 +5228,11 @@ class Component extends DCLogic {
       kqInList: view==='list', kqInAdd: view==='add', kqInDetail: view==='detail',
       // list
       kqListRows, kqListEmpty: !kqListRows.length, kqListN: kqListRows.length,
+      // Popup Lịch sử xử lý kết quả HTH
+      ...(()=>{ const H = s.kqHist; if(!H) return { kqHistOpen:false, kqHistRows:[], kqHistTitle:'', kqHistEmpty:true, kqHistClose:()=>{} };
+        const k = getK(s, H.ky); const list = histOf(k, H.dv);
+        const rows = list.map((e,i)=>{ const c = HST[e.key] || HST.luu; return { at:e.at, acc:accOf(e.org), who:e.who, org:e.org, lbl:c[0], fg:c[1], bg:c[2], dot:c[3], line: i<list.length-1 }; });
+        return { kqHistOpen:true, kqHistRows:rows, kqHistEmpty:!rows.length, kqHistTitle:'Kỳ '+H.ky+' · '+H.who, kqHistClose:()=>this.setState({ kqHist:null }) }; })(),
       kqListEmptyT: listRaw.length ? 'Không có kết quả phù hợp bộ lọc.' : (isDM ? 'Chưa có kết quả hệ thống hóa. Bấm Thêm mới để tổng hợp kết quả các đơn vị đã gửi.' : 'Chưa có kết quả hệ thống hóa. Bấm Thêm mới để lập kết quả từ văn bản của đơn vị.'),
       kqLKy: LF.ky||'', setKqLKy:(e)=>this.setState(st=>({ kqLF:{ ...(st.kqLF||{}), ky:e.target.value } })),
       kqLSt: LF.st||'', setKqLSt:(e)=>this.setState(st=>({ kqLF:{ ...(st.kqLF||{}), st:e.target.value } })),
@@ -5218,21 +5283,22 @@ class Component extends DCLogic {
       kqSyncRstx: ()=>{ setKy(dKY, k=>{ const tgt = forUnit ? k.units[tDv].rows : k.dm.rows; Object.keys(tgt).forEach((id,i)=>{ const d = docMap[id]; if(!d) return; const x = rstxFor(d, ids.indexOf(id)); tgt[id] = { ...tgt[id], kn:x.kn, lyDo:x.lyDo }; }); if(forUnit) k.units[tDv].rstxAt = TODAY; else k.dm.rstxAt = TODAY; return k; }); },
       kqReAggAll: ()=>{ if(!confirm('Tổng hợp lại sẽ XÓA toàn bộ dữ liệu kết quả hiện tại của kỳ '+dKY+' (kể cả chỉnh sửa của đầu mối và Mẫu 04 đã đồng bộ RSTX), sau đó tổng hợp lại từ kết quả các đơn vị đã gửi.\n\nBạn có chắc không?')) return;
         const agg = aggregate(K, docsD);
-        setKy(dKY, k=>{ k.dm = agg; return k; }); this.setState({ kqMau:'' }); setTimeout(()=>alert('Tổng hợp lại kết quả kỳ '+dKY+'. '+aggMsg(agg)), 0); },
+        setKy(dKY, k=>{ const oh = histOf(k, ''); k.dm = agg; k.dm.hist = oh; return k; }); this.setState({ kqMau:'' }); setTimeout(()=>alert('Tổng hợp lại kết quả kỳ '+dKY+'. '+aggMsg(agg)), 0); },
       kqReAgg: ()=>{ if(!confirm('Tổng hợp lại từ kết quả các đơn vị đã gửi? Các chỉnh sửa của đầu mối trên văn bản thuộc đơn vị đã gửi sẽ được thay bằng dữ liệu đơn vị.')) return;
         setKy(dKY, k=>{ const keep = k.dm.rows || {}; const agg = aggregate(k, docsD); Object.keys(agg.rows).forEach(id=>{ if(agg.rows[id].src!=='dv' && keep[id]) agg.rows[id] = keep[id]; }); k.dm = agg; return k; }); },
-      kqSave: ()=>{ setKy(dKY, k=>{ if(forUnit && k.units[tDv]) k.units[tDv].at = TODAY; else k.dm.at = TODAY; return k; }); alert('Đã lưu kết quả.'); },
+      kqSave: ()=>{ setKy(dKY, k=>{ if(forUnit && k.units[tDv]){ k.units[tDv].at = TODAY; logH(k.units[tDv], 'luu', '', tDv); } else { k.dm.at = TODAY; logH(k.dm, 'luu', '', ORG_DM); } return k; }); alert('Đã lưu kết quả.'); },
       kqSend: ()=>{ if(!confirm('Gửi kết quả hệ thống hóa kỳ '+dKY+' ('+allRows.length+' VB) cho đầu mối? Sau khi gửi, đơn vị không sửa được cho đến khi đầu mối trả lại.')) return;
-        setKy(dKY, k=>{ const u = k.units[DV]; u.st='gui'; u.sentAt=TODAY; delete u.lyDoTL; return k; }); },
+        setKy(dKY, k=>{ const u = k.units[DV]; if(!u.hist) u.hist = histOf(k, DV); u.st='gui'; u.sentAt=TODAY; delete u.lyDoTL; logH(u, 'gui', allRows.length+' văn bản', DV); return k; }); },
       kqPublish: ()=>{
         const notIn = dvAll.filter(dv=>docsD.some(d=>(d.units||[]).includes(dv)) && !(K.dm.aggUnits||[]).includes(dv));
         if(!confirm('Công bố kết quả hệ thống hóa kỳ '+dKY+' ('+allRows.length+' VB)?'+(notIn.length ? '\n\n'+notIn.length+' đơn vị chưa gửi kết quả ('+notIn.map(short).join(', ')+'): kết quả của các đơn vị này không có trong tổng hợp.' : '')+'\n\nSau khi công bố, VB thuộc Mẫu 05 được đưa vào Tập hệ thống hóa theo cấu hình tiêu chí sắp xếp và đồng bộ lên CSDL quốc gia.')) return;
         const snap = ids.map(id=>{ const d = docMap[id], v = rowsObj[id]; return { so:d.so, loai:d.loai, ty:d.ty, cq:d.cq, ngay:d.ngay, hieuLucNgay:d.hieuLucNgay, lv:(d.lvs||[])[0]||'Chưa gán lĩnh vực', hl:v.hl, kn:v.kn }; });
-        setKy(dKY, k=>{ k.pub = true; k.pubAt = TODAY; k.snap = snap; return k; }); },
+        setKy(dKY, k=>{ if(!k.dm.hist) k.dm.hist = histOf(k, ''); k.pub = true; k.pubAt = TODAY; k.snap = snap; logH(k.dm, 'congbo', allRows.length+' văn bản', ORG_DM); return k; }); },
+      kqOpenHist: ()=>this.setState({ kqHist:{ ky:dKY, dv: isDM ? (sel.dv||'') : DV, who: isDM ? (sel.dv || 'Đầu mối · Kết quả tổng hợp') : DV } }),
       kqCanRepub: dcPending.length>0,
       kqRepublish: ()=>{
         if(!confirm('Công bố lại kết quả hệ thống hóa kỳ '+dKY+' với '+dcPending.length+' thay đổi (đính chính, bổ sung)?\n\nCác thay đổi sẽ được cập nhật vào danh mục và Tập hệ thống hóa.')) return;
-        this.setState(st=>this.applyRepublish(st, []));
+        this.setState(st=>this.applyRepublish(st, [])); setKy(dKY, k=>{ if(!k.dm.hist) k.dm.hist = histOf(k, ''); logH(k.dm, 'congbolai', dcPending.length+' thay đổi (đính chính, bổ sung)', ORG_DM); return k; });
         alert('Công bố lại thành công.'); },
       kqCanDinh: isDM, kqGoDinh: ()=>{ const ky = (s.kyHthList||[]).find(k=>(k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||'')))===dKY); this.go('dinhchinh')(); this.setState({ dinhStep:'add', dinhAddConfirmed:false, dinhLoaiThaoTacSel:'dinh-chinh', setKyIdSel: ky ? ky.id : '', dinhShowResults:false, dinhEditRecId:null }); },
       kqGoSet: ()=>{ const ky = (s.kyHthList||[]).find(k=>(k.kyLabel || ((k.tuNam||'')+' – '+(k.denNam||'')))===dKY); this.go('set')(); if(ky) this.setState({ setKyId: ky.id, setKyIdSel: ky.id }); },
@@ -7105,7 +7171,7 @@ class Component extends DCLogic {
             id:'BS-'+String(list.length+i+1).padStart(3,'0'),
             so:r.so||'(Chưa có số)', loai:r.loai||'', ty:r.ten||'', lv:r.lv||'',
             truong:'Bổ sung văn bản', giaTriCu:'—', giaTriMoi: plLabel + (r.so?(' · '+r.so):''),
-            lyDo:'Bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', tt:'luu', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code
+            lyDo:'Bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', ts: new Date().toLocaleDateString('en-GB')+' - '+new Date().toTimeString().slice(0,5), tt:'luu', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code
           });
         });
         this.setState({ setPlRows:prev, dinhChinh:list, boSungAdd:false, boSungSent:false, addMau:'', addRows:[], addSearch:false });
@@ -7286,7 +7352,7 @@ class Component extends DCLogic {
               truong: 'Đính chính thông tin VB', mauTab: st.dinhMauTab||'het-toan-bo',
               giaTriCu: d.so + ' (' + d.hl + ')',
               giaTriMoi: changes.length > 0 ? changes.join(', ') : 'Đính chính thông tin văn bản',
-              lyDo: finalLyDo || 'Yêu cầu đính chính', nguoi:'Nguyễn Thị An', ngay:'05/07/2026', tt:'nhap', lyDoTuChoi:'' };
+              lyDo: finalLyDo || 'Yêu cầu đính chính', nguoi:'Nguyễn Thị An', ngay:'05/07/2026', ts: new Date().toLocaleDateString('en-GB')+' - '+new Date().toTimeString().slice(0,5), tt:'nhap', lyDoTuChoi:'' };
             const list = (st.dinhChinh||this.seedDinhChinh()).slice();
             list.unshift(rec);
             return { dinhChinh:list, dinhDraft:nd, dinhEditSo:null, syncedDocs };
