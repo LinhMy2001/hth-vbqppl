@@ -720,6 +720,7 @@
                 <sc-if value="{{ !dinhIsList }}" hint-placeholder-val="{{ false }}"><span onclick="{{ closeDinhAdd }}" style="color:#667085;cursor:pointer;text-decoration:underline;">Đính chính</span><span>/</span><span>Thêm mới</span></sc-if>
               </div>
               <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Đính chính</h1>
+              <sc-if value="{{ dinhIsList }}" hint-placeholder-val="{{ true }}"><div style="margin-top:10px;display:flex;align-items:center;gap:8px;background:#fbf2dc;border:1px solid #f1dfae;border-radius:8px;padding:9px 12px;font-size:13px;color:#9a5b08;"><span class="ic" style="font-size:18px;">info</span><span>Các kết quả sau đính chính cần vào menu <b>Kết quả HTH</b> để thực hiện công bố lại.</span></div></sc-if>
             </div>
             <sc-if value="{{ dinhIsList }}" hint-placeholder-val="{{ true }}">
               <div style="background:#fff;border-radius:10px;padding:22px 24px 20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
@@ -746,6 +747,13 @@
                     <label style="font-size:13px;font-weight:700;color:#1e2939;">Ngày ban hành</label>
                     <input type="date" value="{{ lsNgay }}" onchange="{{ setLsNgay }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;">
                   </div>
+                  <div style="display:flex;flex-direction:column;gap:7px;">
+                    <label style="font-size:13px;font-weight:700;color:#1e2939;">Trạng thái</label>
+                    <div style="position:relative;">
+                      <sc-raw-select value="{{ lsTt }}" onchange="{{ setLsTt }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 32px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;"><option value="">-- Tất cả --</option><option value="luu">Đã lưu</option><option value="cb">Đã công bố</option></sc-raw-select>
+                      <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#667085;pointer-events:none;">expand_more</span>
+                    </div>
+                  </div>
                 </div>
                 <div style="display:flex;justify-content:flex-end;gap:12px;">
                   <button onclick="{{ doListSearch }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 18px;border-radius:6px;display:flex;align-items:center;justify-content:center;gap:8px;" style-hover="background:#2323b0;"><span class="ic" style="font-size:19px;">search</span>Tìm kiếm</button>
@@ -760,6 +768,44 @@
                 </div>
               </sc-if>
 
+                <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eef1f6;display:flex;align-items:center;gap:8px;">
+                    <span class="ic" style="font-size:20px;color:#b8860b;">edit_note</span>
+                    <span style="font-size:14px;font-weight:700;color:#1e2939;">Danh sách đính chính</span>
+                  </div>
+                  <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #d9dee6;">
+                    <sc-raw-thead><sc-raw-tr style="background:#f2f4f7;text-align:center;color:#1e2939;">
+                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:150px;">Số, ký hiệu</sc-raw-th>
+                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:150px;">Trường đính chính</sc-raw-th>
+                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;">Giá trị cũ → mới</sc-raw-th>
+                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;">Lý do</sc-raw-th>
+                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:170px;">Trạng thái</sc-raw-th>
+                      <sc-raw-th style="padding:11px 10px;font-weight:700;border:1px solid #d9dee6;width:80px;text-align:center;">Thao tác</sc-raw-th>
+                    </sc-raw-tr></sc-raw-thead>
+                    <sc-raw-tbody>
+                      <sc-for list="{{ dinhChinhList }}" as="rec" hint-placeholder-count="3">
+                        <sc-raw-tr style="vertical-align:top;">
+                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#1e2939;">{{ rec.so }}</sc-raw-td>
+                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#1e2939;">{{ rec.truong }}</sc-raw-td>
+                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#475467;"><span style="text-decoration:line-through;color:#98a2b3;">{{ rec.giaTriCu }}</span> → <b style="color:#1e2939;">{{ rec.giaTriMoi }}</b></sc-raw-td>
+                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;color:#475467;">{{ rec.lyDo }}</sc-raw-td>
+                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;"><span style="font-size:11.5px;font-weight:600;color:{{ rec.ttColor }};background:{{ rec.ttBg }};padding:3px 10px;border-radius:4px;white-space:nowrap;">{{ rec.ttLabel }}</span><sc-if value="{{ rec.isRejected }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;color:#c0392b;margin-top:4px;">Lý do: {{ rec.lyDoTuChoi }}</div></sc-if></sc-raw-td>
+                          <sc-raw-td style="border:1px solid #d9dee6;padding:10px;text-align:center;">
+                            <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                              <sc-if value="{{ rec.isCreated }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.edit }}" title="Sửa" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span></sc-if>
+                              <sc-if value="{{ rec.isCreated }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.view }}" title="Xem" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span></sc-if>
+                              <sc-if value="{{ rec.isApproved }}" hint-placeholder-val="{{ false }}"><span onclick="{{ rec.view }}" title="Xem" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span></sc-if>
+                            </div>
+                          </sc-raw-td>
+                        </sc-raw-tr>
+                      </sc-for>
+                    </sc-raw-tbody>
+                  </sc-raw-table>
+                  <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:14px 18px;font-size:13px;color:#1e2939;">
+                    <span>Tổng cộng: {{ dinhListCount }} mục</span>
+                  </div>
+                </div>
+
               <sc-if value="{{ showDinhVe }}" hint-placeholder-val="{{ false }}">
                 <div onclick="{{ closeDinhVe }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:90;padding:24px;">
                   <div onclick="{{ stop }}" style="background:#fff;border-radius:16px;width:520px;max-width:100%;box-shadow:0 20px 60px rgba(8,28,52,.35);overflow:hidden;">
@@ -768,6 +814,11 @@
                       <span onclick="{{ closeDinhVe }}" class="ic" style="font-size:22px;color:#94a3b8;cursor:pointer;">close</span>
                     </div>
                     <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+                      <div style="background:#f5f8fc;border:1px solid #e3eaf3;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;">
+                        <div style="display:flex;gap:8px;font-size:13px;"><span style="width:110px;flex:none;color:#6b7a8d;font-weight:600;">Kỳ HTH</span><b style="color:#1e2939;">{{ dinhVeRec.kyTen }}</b></div>
+                        <div style="display:flex;gap:8px;font-size:13px;"><span style="width:110px;flex:none;color:#6b7a8d;font-weight:600;">Mô tả kỳ</span><span style="color:#1e2939;">{{ dinhVeRec.kyMoTa }}</span></div>
+                        <div style="display:flex;gap:8px;font-size:13px;"><span style="width:110px;flex:none;color:#6b7a8d;font-weight:600;">Đính kèm</span><span style="color:#1e2939;">{{ dinhVeRec.kyFile }}</span></div>
+                      </div>
                       <div style="display:flex;gap:14px;">
                         <div style="flex:1;">
                           <div style="font-size:12px;font-weight:600;color:#6b7a8d;margin-bottom:4px;">Số, ký hiệu</div>
@@ -852,7 +903,12 @@
             <sc-if value="{{ dinhIsAddDinhChinh }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
                 <button onclick="{{ backDinhAddStep1 }}" style="border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#42566c;padding:8px 13px;border-radius:9px;display:flex;align-items:center;gap:6px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:18px;">arrow_back</span>Quay lại</button>
-                <div style="font-size:15px;font-weight:700;color:#10243a;">Đính chính văn bản</div>
+                <div style="font-size:15px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:6px;">Đính chính văn bản
+                  <span style="position:relative;display:inline-flex;">
+                    <span onclick="{{ toggleDinhInfo }}" class="ic" style="font-size:19px;color:#2f54eb;cursor:pointer;">info</span>
+                    <sc-if value="{{ dinhInfoOpen }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:26px;left:-8px;z-index:20;width:340px;background:#fff;border:1px solid #d8e0ea;border-radius:10px;box-shadow:0 8px 24px rgba(16,36,58,.16);padding:12px 14px;font-size:13px;font-weight:400;color:#1e2939;line-height:1.5;">Sau khi đính chính, người dùng truy cập menu <b>Kết quả hệ thống hóa</b> để thực hiện công bố lại. Kết quả mới chỉ có hiệu lực khi được công bố lại.</div></sc-if>
+                  </span>
+                </div>
               </div>
 
                 <div style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:22px 24px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
@@ -3970,13 +4026,23 @@
 
           <sc-if value="{{ !showKyHthForm }}" hint-placeholder-val="{{ true }}">
           <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:minmax(0,420px) auto;gap:14px 16px;align-items:end;">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Từ năm – Đến năm</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ kyHthSearchKySel }}" onchange="{{ setKyHthSearchKy }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:pointer;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                     <option value=""></option>
                     <sc-for list="{{ kyHthSearchKyOpts }}" as="ky" hint-placeholder-count="3"><option value="{{ ky.id }}">{{ ky.kyLabel }}</option></sc-for>
+                  </sc-raw-select>
+                  <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Đính kèm</label>
+                <div style="position:relative;">
+                  <sc-raw-select value="{{ kyHthFileSel }}" onchange="{{ setKyHthFileSel }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:pointer;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="">-- Tất cả --</option>
+                    <sc-for list="{{ kyHthFileOpts }}" as="f" hint-placeholder-count="3"><option value="{{ f }}">{{ f }}</option></sc-for>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
                 </div>
@@ -4001,9 +4067,9 @@
               <sc-raw-thead>
                 <sc-raw-tr style="background:#f2f4f7;color:#1e2939;">
                   <sc-raw-th style="padding:11px 12px;font-weight:700;width:64px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
-                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:190px;text-align:center;border:1px solid #d9dee6;">Từ năm – Đến năm</sc-raw-th>
-                  <sc-raw-th style="padding:11px 12px;font-weight:700;text-align:center;border:1px solid #d9dee6;">Mô tả</sc-raw-th>
-                  <sc-raw-th style="padding:11px 12px;font-weight:700;width:230px;text-align:center;border:1px solid #d9dee6;">Đính kèm</sc-raw-th>
+                  <sc-raw-th onclick="{{ kySortTu }}" style="padding:11px 12px;font-weight:700;width:190px;text-align:center;border:1px solid #d9dee6;cursor:pointer;"><span style="display:inline-flex;align-items:center;gap:4px;">Từ năm – Đến năm<span class="ic" style="font-size:16px;color:#98a2b3;">{{ kyIconTu }}</span></span></sc-raw-th>
+                  <sc-raw-th onclick="{{ kySortMoTa }}" style="padding:11px 12px;font-weight:700;text-align:center;border:1px solid #d9dee6;cursor:pointer;"><span style="display:inline-flex;align-items:center;gap:4px;">Mô tả<span class="ic" style="font-size:16px;color:#98a2b3;">{{ kyIconMoTa }}</span></span></sc-raw-th>
+                  <sc-raw-th onclick="{{ kySortFile }}" style="padding:11px 12px;font-weight:700;width:230px;text-align:center;border:1px solid #d9dee6;cursor:pointer;"><span style="display:inline-flex;align-items:center;gap:4px;">Đính kèm<span class="ic" style="font-size:16px;color:#98a2b3;">{{ kyIconFile }}</span></span></sc-raw-th>
                   <sc-raw-th style="padding:11px 12px;font-weight:700;width:150px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
                 </sc-raw-tr>
               </sc-raw-thead>
@@ -5694,12 +5760,19 @@ class Component extends DCLogic {
   renderVals(){
     const s = this.state;
     const role = s.role;
-    const kyHthBaseList = (s.kyHthList||[]).filter(k=>k.id==='KY-002' || ((k.tuNam||'')==='2024' && (k.denNam||'')==='2028'));
+    const kyHthBaseList = (s.kyHthList||[]).slice();
+    const kySortKey = s.kyHthSortKey || 'tuNam';
+    const kySortDir = s.kyHthSortDir || 'desc';
     const kyHthFilteredList = (()=>{
       const ky = String(s.kyHthSearchKy||'').trim();
-      if(!ky) return kyHthBaseList;
-      return kyHthBaseList.filter(k=>k.id===ky);
+      const fl = String(s.kyHthFileA||'').trim();
+      let list = kyHthBaseList.filter(k=> (!ky || k.id===ky) && (!fl || String(k.file||'').trim()===fl));
+      const val = (k)=> kySortKey==='tuNam' ? Number(k.tuNam||0) : String(k[kySortKey]||'').toLowerCase();
+      list = list.slice().sort((a,b)=>{ const x=val(a), y=val(b); const c = x<y ? -1 : (x>y ? 1 : 0); return kySortDir==='asc' ? c : -c; });
+      return list;
     })();
+    const kySortIcon = (key)=> kySortKey===key ? (kySortDir==='asc' ? 'arrow_upward' : 'arrow_downward') : 'unfold_more';
+    const kySortBy = (key)=>()=>this.setState(st=>{ const k = st.kyHthSortKey || 'tuNam'; const d = st.kyHthSortDir || 'desc'; return k===key ? { kyHthSortDir: d==='asc' ? 'desc' : 'asc' } : { kyHthSortKey:key, kyHthSortDir:'asc' }; });
     const mk = (key, icon, label, badge, badgeKind) => {
       const st = this.navStyle(key);
       const badges = { warn:['#fbe3c4','#9a5b08'], info:['#d7e7fb','#0e4c8f'] };
@@ -6354,10 +6427,16 @@ class Component extends DCLogic {
         } catch(err){ alert('Không xuất được tệp trên trình duyệt này.'); }
       },
       setKyHthSearchKy: (e)=>this.setState({ kyHthSearchKySel: e.target.value }),
+      kyHthFileSel: s.kyHthFileSel || '',
+      kyHthFileOpts: [...new Set(kyHthBaseList.map(k=>String(k.file||'').trim()).filter(Boolean))],
+      setKyHthFileSel: (e)=>this.setState({ kyHthFileSel: e.target.value }),
       applyKyHthSearch: ()=>this.setState(st=>({
-        kyHthSearchKy: String(st.kyHthSearchKySel||'').trim()
+        kyHthSearchKy: String(st.kyHthSearchKySel||'').trim(),
+        kyHthFileA: String(st.kyHthFileSel||'').trim()
       })),
-      resetKyHthSearch: ()=>this.setState({ kyHthSearchKySel:'', kyHthSearchKy:'' }),
+      resetKyHthSearch: ()=>this.setState({ kyHthSearchKySel:'', kyHthSearchKy:'', kyHthFileSel:'', kyHthFileA:'', kyHthSortKey:'tuNam', kyHthSortDir:'desc' }),
+      kySortTu: kySortBy('tuNam'), kySortMoTa: kySortBy('moTa'), kySortFile: kySortBy('file'),
+      kyIconTu: kySortIcon('tuNam'), kyIconMoTa: kySortIcon('moTa'), kyIconFile: kySortIcon('file'),
       kyHthDraftTuNam: (s.kyHthDraft&&s.kyHthDraft.tuNam)||'',
       kyHthDraftDenNam: (s.kyHthDraft&&s.kyHthDraft.denNam)||'',
       kyHthDraftMoTa: (s.kyHthDraft&&s.kyHthDraft.moTa)||'',
@@ -7171,10 +7250,10 @@ class Component extends DCLogic {
             id:'BS-'+String(list.length+i+1).padStart(3,'0'),
             so:r.so||'(Chưa có số)', loai:r.loai||'', ty:r.ten||'', lv:r.lv||'',
             truong:'Bổ sung văn bản', giaTriCu:'—', giaTriMoi: plLabel + (r.so?(' · '+r.so):''),
-            lyDo:'Bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', ts: new Date().toLocaleDateString('en-GB')+' - '+new Date().toTimeString().slice(0,5), tt:'luu', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code
+            lyDo:'Bổ sung văn bản vào '+plLabel, nguoi:'Nguyễn Thị An', ngay:'03/08/2026', ts: new Date().toLocaleDateString('en-GB')+' - '+new Date().toTimeString().slice(0,5), tt:'luu', lyDoTuChoi:'', loaiThaoTac:'bo-sung', plCode:code, kyId: st.setKyIdSel||''
           });
         });
-        this.setState({ setPlRows:prev, dinhChinh:list, boSungAdd:false, boSungSent:false, addMau:'', addRows:[], addSearch:false });
+        this.setState({ setPlRows:prev, dinhChinh:list, boSungAdd:false, boSungSent:false, addMau:'', addRows:[], addSearch:false, dinhStep:'list', dinhAddConfirmed:false, dinhShowResults:false });
       },
       sendBoSungToLd: ()=>{
         const st = this.state;
@@ -7213,8 +7292,9 @@ class Component extends DCLogic {
       setLsSo: (e)=>this.setState({ lsSo:e.target.value }),
       setLsCq: (e)=>this.setState({ lsCq:e.target.value }),
       setLsNgay: (e)=>this.setState({ lsNgay:e.target.value }),
-      doListSearch: ()=>this.setState(st=>({ lsAKy:st.lsKy||'', lsASo:st.lsSo||'', lsACq:st.lsCq||'', lsANgay:st.lsNgay||'' })),
-      resetListSearch: ()=>this.setState({ lsKy:'', lsSo:'', lsCq:'', lsNgay:'', lsAKy:'', lsASo:'', lsACq:'', lsANgay:'' }),
+      lsTt: s.lsTt||'', setLsTt: (e)=>this.setState({ lsTt:e.target.value }),
+      doListSearch: ()=>this.setState(st=>({ lsAKy:st.lsKy||'', lsASo:st.lsSo||'', lsACq:st.lsCq||'', lsANgay:st.lsNgay||'', lsATt:st.lsTt||'' })),
+      resetListSearch: ()=>this.setState({ lsKy:'', lsSo:'', lsCq:'', lsNgay:'', lsTt:'', lsAKy:'', lsASo:'', lsACq:'', lsANgay:'', lsATt:'' }),
       dinhMauSel: s.dinhMauTab||'het-toan-bo',
       setDinhMau: (e)=>this.setState({ dinhMauTab:e.target.value, dinhShowResults:false }),
       dinhMauOpts: [
@@ -7352,7 +7432,7 @@ class Component extends DCLogic {
               truong: 'Đính chính thông tin VB', mauTab: st.dinhMauTab||'het-toan-bo',
               giaTriCu: d.so + ' (' + d.hl + ')',
               giaTriMoi: changes.length > 0 ? changes.join(', ') : 'Đính chính thông tin văn bản',
-              lyDo: finalLyDo || 'Yêu cầu đính chính', nguoi:'Nguyễn Thị An', ngay:'05/07/2026', ts: new Date().toLocaleDateString('en-GB')+' - '+new Date().toTimeString().slice(0,5), tt:'nhap', lyDoTuChoi:'' };
+              lyDo: finalLyDo || 'Yêu cầu đính chính', nguoi:'Nguyễn Thị An', ngay:'05/07/2026', ts: new Date().toLocaleDateString('en-GB')+' - '+new Date().toTimeString().slice(0,5), tt:'nhap', lyDoTuChoi:'', kyId: st.setKyIdSel||'' };
             const list = (st.dinhChinh||this.seedDinhChinh()).slice();
             list.unshift(rec);
             return { dinhChinh:list, dinhDraft:nd, dinhEditSo:null, syncedDocs };
@@ -7384,6 +7464,8 @@ class Component extends DCLogic {
         if(so && !String(r.so||'').toLowerCase().includes(so)) return false;
         if(s.lsACq && r.cq && r.cq!==s.lsACq) return false;
         if(s.lsAKy && r.kyId && r.kyId!==s.lsAKy) return false;
+        if(s.lsATt==='cb' && r.tt!=='duyet') return false;
+        if(s.lsATt==='luu' && r.tt==='duyet') return false;
         if(s.lsANgay && r.ngayBH){ const p=s.lsANgay.split('-'); const vn=p[2]+'/'+p[1]+'/'+p[0]; if(String(r.ngayBH)!==vn) return false; }
         return true;
       }).map((r,ri)=>{
@@ -7392,7 +7474,7 @@ class Component extends DCLogic {
           nhap: ['Đã lưu','#0e4c8f','#eef3f9'],
           luu: ['Đã lưu','#0e4c8f','#eef3f9'],
           cho: ['Đã lưu','#0e4c8f','#eef3f9'],
-          duyet: ['Đã công bố lại','#52c41a','#f6ffed'],
+          duyet: ['Đã công bố','#52c41a','#f6ffed'],
           tuchoi: ['Từ chối','#ff4d4f','#fff1f0']
         };
         const m = map[r.tt] || map.cho;
@@ -7460,14 +7542,19 @@ class Component extends DCLogic {
         return { rejectIds:ids, rejectReason:'' };
       }),
       saveDinhList: ()=>this.setState(st=>({ dinhChinh: (st.dinhChinh||this.seedDinhChinh()).map(x=>(x.tt==='nhap')?{...x,tt:'luu'}:x), dinhStep:'list', dinhAddConfirmed:false, dinhShowResults:false })),
+      dinhInfoOpen: !!s.dinhInfoOpen,
+      toggleDinhInfo: ()=>this.setState(st=>({ dinhInfoOpen: !st.dinhInfoOpen })),
       showDinhVe: !!s.dinhVeId,
       dinhVeIsEdit: s.dinhVeMode==='edit',
       dinhVeRec: (()=>{
         const r = (s.dinhChinh||this.seedDinhChinh()).find(x=>x.id===s.dinhVeId);
         if(!r) return null;
-        const map = { nhap:['Đã lưu','#0e4c8f','#eef3f9'], luu:['Đã lưu','#0e4c8f','#eef3f9'], cho:['Đã lưu','#0e4c8f','#eef3f9'], duyet:['Đã công bố lại','#52c41a','#f6ffed'], tuchoi:['Đã lưu','#0e4c8f','#eef3f9'] };
+        const map = { nhap:['Đã lưu','#0e4c8f','#eef3f9'], luu:['Đã lưu','#0e4c8f','#eef3f9'], cho:['Đã lưu','#0e4c8f','#eef3f9'], duyet:['Đã công bố','#52c41a','#f6ffed'], tuchoi:['Đã lưu','#0e4c8f','#eef3f9'] };
         const m = map[r.tt] || map.cho;
-        return { ...r, ttLabel:m[0], ttColor:m[1], ttBg:m[2] };
+        const kyl = s.kyHthList||[];
+        const ky = kyl.find(k=>k.id===r.kyId) || kyl.find(k=>String(k.tuNam)==='2024') || kyl[0] || {};
+        return { ...r, ttLabel:m[0], ttColor:m[1], ttBg:m[2],
+          kyTen: ky.tuNam ? (ky.tuNam+' – '+ky.denNam) : '—', kyMoTa: ky.moTa||'—', kyFile: ky.file||'—' };
       })(),
       dinhVeGiaTriMoiVal: s.dinhVeGiaTriMoi!=null ? s.dinhVeGiaTriMoi : '',
       dinhVeLyDoVal: s.dinhVeLyDo!=null ? s.dinhVeLyDo : '',
@@ -7486,6 +7573,16 @@ class Component extends DCLogic {
       confirmSendDinh: ()=>this.setState(st=>this.applyRepublish(st, docs)),
       dinhPendingCount: (s.dinhChinh||this.seedDinhChinh()).filter(r=>r.tt==='cho').length,
       dinhTotalCount: (s.dinhChinh||this.seedDinhChinh()).length,
+      dinhListCount: (s.dinhChinh||this.seedDinhChinh()).filter(r=>{
+        const so=(s.lsASo||'').trim().toLowerCase();
+        if(so && !String(r.so||'').toLowerCase().includes(so)) return false;
+        if(s.lsACq && r.cq && r.cq!==s.lsACq) return false;
+        if(s.lsAKy && r.kyId && r.kyId!==s.lsAKy) return false;
+        if(s.lsATt==='cb' && r.tt!=='duyet') return false;
+        if(s.lsATt==='luu' && r.tt==='duyet') return false;
+        if(s.lsANgay && r.ngayBH){ const p=s.lsANgay.split('-'); const vn=p[2]+'/'+p[1]+'/'+p[0]; if(String(r.ngayBH)!==vn) return false; }
+        return true;
+      }).length,
       hasApprovedDinh: (s.dinhChinh||this.seedDinhChinh()).some(r=>r.tt==='duyet'),
       goToSetTab: ()=>this.go('set')(),
       // reject modal
