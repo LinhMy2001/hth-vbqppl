@@ -1394,10 +1394,11 @@
                     </div>
                     <div style="display:flex;gap:8px;flex:0 0 auto;">
                       <button onclick="{{ sxSortLvReset }}" style="height:32px;border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:11.5px;font-weight:600;color:#42566c;padding:0 10px;border-radius:8px;display:flex;align-items:center;gap:5px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:15px;">low_priority</span>Đánh số 1-N</button>
+                      <button onclick="{{ sxToggleAllLv }}" style="height:32px;border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:11.5px;font-weight:600;color:#42566c;padding:0 10px;border-radius:8px;display:flex;align-items:center;gap:5px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:15px;">unfold_less</span>{{ sxToggleAllLbl }}</button>
                       <button onclick="{{ sxSortLvAZ }}" style="height:32px;border:1px solid #d8e0ea;background:#fff;cursor:pointer;font-family:inherit;font-size:11.5px;font-weight:600;color:#42566c;padding:0 10px;border-radius:8px;display:flex;align-items:center;gap:5px;" style-hover="background:#f5f7fb;"><span class="ic" style="font-size:15px;">sort_by_alpha</span>Sắp tên A-Z</button>
                     </div>
                   </div>
-                  <div style="font-size:11.5px;color:#8094a8;margin-bottom:12px;">Bấm nút mũi tên hoặc nhập số để thay đổi thứ tự thứ bậc của Lĩnh vực</div>
+                  <div style="font-size:11.5px;color:#8094a8;margin-bottom:12px;">Lĩnh vực hiển thị dạng cây 2 cấp. Bấm mũi tên hoặc nhập số thứ tự để đổi vị trí: ở dòng cha là vị trí trong cấp 1 (di chuyển cả nhóm); ở dòng con là vị trí trong lĩnh vực cha.</div>
 
                   <sc-if value="{{ !sxHasDonVi }}" hint-placeholder-val="{{ true }}"><div style="min-height:180px;display:flex;align-items:center;justify-content:center;text-align:center;color:#98a2b3;font-size:13px;border:1px dashed #d8e0ea;border-radius:10px;background:#f8fafc;">Vui lòng chọn đơn vị trước</div></sc-if>
                   <sc-if value="{{ sxHasDonVi }}" hint-placeholder-val="{{ false }}">
@@ -1405,11 +1406,13 @@
                       <span class="ic" style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:18px;color:#94a3b8;">search</span>
                       <input value="{{ sxLvSearchVal }}" oninput="{{ setSxLvSearch }}" placeholder="Tìm kiếm nhanh tên lĩnh vực..." style="width:100%;font-family:inherit;font-size:13px;padding:9px 12px 9px 36px;border:1px solid #d8e0ea;border-radius:9px;outline:none;background:#f8fafc;box-sizing:border-box;">
                     </div>
-                    <div style="border:1px solid #e4e9f0;border-radius:10px;overflow:hidden;">
+                    <div style="font-size:12px;color:#8094a8;margin:-4px 0 8px;">{{ sxLvSummary }}</div>
+                    <div style="border:1px solid #e4e9f0;border-radius:10px;max-height:420px;overflow-y:auto;">
                       <sc-for list="{{ sxLvRows }}" as="row" hint-placeholder-count="5">
-                        <div style="display:flex;align-items:center;gap:12px;padding:9px 14px;border-top:1px solid #eef1f6;background:#fff;" style-hover="background:#f8fbff;">
-                          <span style="width:22px;height:22px;border-radius:50%;background:#eef1f6;color:#42566c;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:0 0 auto;">{{ row.stt }}</span>
-                          <span style="flex:1;font-size:13px;font-weight:600;color:#1e2939;">{{ row.label }}</span>
+                        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px 8px {{ row.pad }};border-top:1px solid #eef1f6;background:{{ row.bg }};" style-hover="background:#f8fbff;">
+                          <span style="display:{{ row.line }};width:12px;height:16px;margin-top:-14px;border-left:1px solid #c9d3e0;border-bottom:1px solid #c9d3e0;flex:0 0 auto;"></span>
+                          <span onclick="{{ row.toggle }}" class="ic" style="display:{{ row.twDisp }};visibility:{{ row.twVis }};font-size:20px;cursor:pointer;color:#42566c;flex:0 0 auto;">{{ row.twIc }}</span>
+                          <span style="flex:1;font-size:13px;font-weight:{{ row.nameW }};color:#1e2939;">{{ row.label }} <span style="font-size:12px;font-weight:500;color:#98a2b3;">{{ row.cnt }}</span></span>
                           <div style="display:flex;gap:2px;">
                             <span onclick="{{ row.up }}" class="ic" style="font-size:19px;cursor:pointer;color:{{ row.upColor }};">keyboard_arrow_up</span>
                             <span onclick="{{ row.down }}" class="ic" style="font-size:19px;cursor:pointer;color:{{ row.downColor }};">keyboard_arrow_down</span>
@@ -4877,6 +4880,41 @@ class Component extends DCLogic {
     });
   }
 
+  lvSubFor(cha){
+    // Dữ liệu mẫu lĩnh vực cấp 2 (minh họa)
+    const m = {
+      'Bổ trợ tư pháp': ['Luật sư','Công chứng','Đấu giá tài sản'],
+      'Trợ giúp pháp lý': ['Trợ giúp pháp lý trong tố tụng','Trợ giúp pháp lý ngoài tố tụng'],
+      'Giáo dục': ['Giáo dục mầm non','Giáo dục phổ thông'],
+      'Đất đai': ['Giao đất, cho thuê đất','Bồi thường, tái định cư'],
+    };
+    return (m[cha]||[]).slice();
+  }
+
+  defaultLvSub(order){
+    const o = {};
+    (order||[]).forEach(c=>{ const k=this.lvSubFor(c); if(k.length) o[c]=k; });
+    return o;
+  }
+
+  setSxSubMove(cha, index, dir){
+    return ()=>this.setState(st=>{ const sub = Object.assign({}, st.sxLvSub||{}); sub[cha] = this.moveOrderItem(sub[cha]||[], index, dir); return { sxLvSub: sub }; });
+  }
+
+  setSxSubRank(cha, label){
+    return (e)=>this.setState(st=>{
+      const rank = parseInt(e.target.value, 10);
+      if(isNaN(rank)) return st;
+      const sub = Object.assign({}, st.sxLvSub||{});
+      sub[cha] = this.reorderByRank((sub[cha]||[]).slice(), label, rank);
+      return { sxLvSub: sub };
+    });
+  }
+
+  toggleSxLv(cha){
+    return ()=>this.setState(st=>{ const c = Object.assign({}, st.sxLvCollapsed||{}); c[cha] = !c[cha]; return { sxLvCollapsed: c }; });
+  }
+
   moveOrderItem(list, index, dir){
     const a = (list||[]).slice();
     const j = index + dir;
@@ -8242,11 +8280,12 @@ class Component extends DCLogic {
       sxDonVi: s.sxDonVi || '',
       sxNgayBH: s.sxNgayBH || 'cu-moi',
       sxHasDonVi: !!s.sxDonVi,
-      openSxForm: ()=>this.setState({ sxForm:true, sxEditId:null, sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:this.defaultHlOrder(), sxPriorityOrder:this.defaultPriorityOrder(), sxShowHint:true, sxLvSearch:'' }),
+      openSxForm: ()=>this.setState({ sxForm:true, sxEditId:null, sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxLvSub:{}, sxLvCollapsed:{}, sxHlOrder:this.defaultHlOrder(), sxPriorityOrder:this.defaultPriorityOrder(), sxShowHint:true, sxLvSearch:'' }),
       closeSxForm: ()=>this.setState({ sxForm:false, sxEditId:null }),
       setSxDonVi: (e)=>{
         const donVi = e.target.value;
-        this.setState({ sxDonVi: donVi, sxLvOrder: donVi ? this.lvOptionsForUnit(donVi).slice() : [], sxLvSearch:'' });
+        const ord = donVi ? this.lvOptionsForUnit(donVi).slice() : [];
+        this.setState({ sxDonVi: donVi, sxLvOrder: ord, sxLvSub: this.defaultLvSub(ord), sxLvCollapsed:{}, sxLvSearch:'' });
       },
       setSxNgayBH: (e)=>this.setState({ sxNgayBH: e.target.value }),
       setSxNgayMoiCu: ()=>this.setState({ sxNgayBH: 'moi-cu' }),
@@ -8257,21 +8296,36 @@ class Component extends DCLogic {
       dismissSxHint: ()=>this.setState({ sxShowHint:false }),
       sxLvSearchVal: s.sxLvSearch||'',
       setSxLvSearch: (e)=>this.setState({ sxLvSearch: e.target.value }),
-      sxSortLvAZ: ()=>this.setState(st=>({ sxLvOrder: (st.sxLvOrder||[]).slice().sort((a,b)=>a.localeCompare(b,'vi')) })),
-      sxSortLvReset: ()=>this.setState(st=>({ sxLvOrder: st.sxDonVi ? this.lvOptionsForUnit(st.sxDonVi).slice() : [] })),
+      sxSortLvAZ: ()=>this.setState(st=>{ const az=(a,b)=>a.localeCompare(b,'vi'); const sub={}; Object.keys(st.sxLvSub||{}).forEach(k=>{ sub[k]=(st.sxLvSub[k]||[]).slice().sort(az); }); return { sxLvOrder: (st.sxLvOrder||[]).slice().sort(az), sxLvSub: sub }; }),
+      sxSortLvReset: ()=>this.setState(st=>{ const ord = st.sxDonVi ? this.lvOptionsForUnit(st.sxDonVi).slice() : []; return { sxLvOrder: ord, sxLvSub: this.defaultLvSub(ord) }; }),
+      sxToggleAllLbl: (()=>{ const ks=Object.keys(s.sxLvSub||{}).filter(k=>(s.sxLvSub[k]||[]).length); return (ks.length>0 && ks.every(k=>(s.sxLvCollapsed||{})[k])) ? 'Mở rộng tất cả' : 'Thu gọn tất cả'; })(),
+      sxToggleAllLv: ()=>this.setState(st=>{ const ks=Object.keys(st.sxLvSub||{}); const allC = ks.length>0 && ks.every(k=>(st.sxLvCollapsed||{})[k]); const c={}; ks.forEach(k=>{ c[k]=!allC; }); return { sxLvCollapsed: c }; }),
+      sxLvSummary: (()=>{ const o=s.sxLvOrder||[]; const n2=o.reduce((t,c)=>t+((s.sxLvSub||{})[c]||[]).length,0); return o.length+' lĩnh vực cấp 1 · '+n2+' lĩnh vực cấp 2'; })(),
       sxResetHl: ()=>this.setState({ sxHlOrder: this.defaultHlOrder() }),
-      sxResetAll: ()=>this.setState(st=>({ sxNgayBH:'cu-moi', sxLvOrder: st.sxDonVi ? this.lvOptionsForUnit(st.sxDonVi).slice() : [], sxHlOrder:this.defaultHlOrder(), sxPriorityOrder:this.defaultPriorityOrder() })),
+      sxResetAll: ()=>this.setState(st=>({ sxNgayBH:'cu-moi', sxLvOrder: st.sxDonVi ? this.lvOptionsForUnit(st.sxDonVi).slice() : [], sxLvSub: this.defaultLvSub(st.sxDonVi ? this.lvOptionsForUnit(st.sxDonVi) : []), sxHlOrder:this.defaultHlOrder(), sxPriorityOrder:this.defaultPriorityOrder() })),
       sxLvRows: (()=>{
         const q = (s.sxLvSearch||'').trim().toLowerCase();
-        const all = (s.sxLvOrder||[]).map((label,i,arr)=>({
-          label, stt:i+1, sttMax:arr.length,
-          setStt: this.setSxLvRank(label),
-          up: this.setSxLvMove(i,-1), down: this.setSxLvMove(i,1),
-          first: i===0, last: i===arr.length-1,
-          upColor: i===0 ? '#c9d3e0' : '#42566c',
-          downColor: i===arr.length-1 ? '#c9d3e0' : '#42566c',
-        }));
-        return q ? all.filter(r=>r.label.toLowerCase().includes(q)) : all;
+        const sub = s.sxLvSub||{}, col = s.sxLvCollapsed||{}, order = s.sxLvOrder||[], out = [];
+        const clr = (f,l)=>({ upColor: f ? '#c9d3e0' : '#42566c', downColor: l ? '#c9d3e0' : '#42566c' });
+        order.forEach((label,i)=>{
+          const kids = sub[label]||[];
+          const chaHit = !q || label.toLowerCase().includes(q);
+          const shown = q ? (chaHit ? kids : kids.filter(k=>k.toLowerCase().includes(q))) : kids;
+          if(q && !chaHit && !shown.length) return;
+          const closed = !q && !!col[label];
+          out.push(Object.assign({ label, stt:i+1, sttMax:order.length, setStt:this.setSxLvRank(label),
+            up:this.setSxLvMove(i,-1), down:this.setSxLvMove(i,1), pad:'14px', nameW:'700', line:'none', twDisp:'inline-block',
+            twIc: closed ? 'chevron_right' : 'expand_more', twVis: kids.length ? 'visible' : 'hidden',
+            toggle: kids.length ? this.toggleSxLv(label) : ()=>{}, cnt: kids.length ? '('+kids.length+')' : '', bg:'#fff' }, clr(i===0, i===order.length-1)));
+          if(closed) return;
+          shown.forEach(k=>{
+            const j = kids.indexOf(k);
+            out.push(Object.assign({ label:k, stt:j+1, sttMax:kids.length, setStt:this.setSxSubRank(label,k),
+              up:this.setSxSubMove(label,j,-1), down:this.setSxSubMove(label,j,1), pad:'36px', nameW:'500', line:'inline-block', twDisp:'none',
+              twIc:'', twVis:'hidden', toggle:()=>{}, cnt:'', bg:'#fcfdff' }, clr(j===0, j===kids.length-1)));
+          });
+        });
+        return out;
       })(),
       sxHlRows: (s.sxHlOrder||this.defaultHlOrder()).map((label,i,arr)=>({
         label, stt:i+1, sttMax:arr.length,
@@ -8297,6 +8351,7 @@ class Component extends DCLogic {
           donVi: st.sxDonVi,
           ngayBH: st.sxNgayBH || 'cu-moi',
           lvOrder: (st.sxLvOrder||[]).slice(),
+          lvSub: JSON.parse(JSON.stringify(st.sxLvSub||{})),
           hlOrder: (st.sxHlOrder||this.defaultHlOrder()).slice(),
           priorityOrder: (st.sxPriorityOrder && st.sxPriorityOrder.length===3) ? st.sxPriorityOrder.slice() : this.defaultPriorityOrder(),
         };
@@ -8313,11 +8368,11 @@ class Component extends DCLogic {
         stt:i+1,
         donVi:c.donVi,
         ngayLabel: c.ngayBH==='moi-cu' ? 'Mới → Cũ' : 'Cũ → Mới',
-        lvText: (c.lvOrder||[]).map((x,j)=>(j+1)+'. '+x).join(' · ') || '—',
+        lvText: (()=>{ const sub = c.lvSub||this.defaultLvSub(c.lvOrder); return (c.lvOrder||[]).map((x,j)=>(j+1)+'. '+x+((sub[x]||[]).length ? ' ('+sub[x].join(', ')+')' : '')).join(' · ') || '—'; })(),
         hlText: (c.hlOrder||[]).map((x,j)=>(j+1)+'. '+x).join(' · ') || '—',
         edit: ()=>this.setState({
           sxForm:true, sxEditId:c.id, sxDonVi:c.donVi, sxNgayBH:c.ngayBH||'cu-moi',
-          sxLvOrder:(c.lvOrder||[]).slice(), sxHlOrder:(c.hlOrder||this.defaultHlOrder()).slice(),
+          sxLvOrder:(c.lvOrder||[]).slice(), sxLvSub: JSON.parse(JSON.stringify(c.lvSub||this.defaultLvSub(c.lvOrder))), sxLvCollapsed:{}, sxHlOrder:(c.hlOrder||this.defaultHlOrder()).slice(),
           sxPriorityOrder:(c.priorityOrder&&c.priorityOrder.length===3)?c.priorityOrder.slice():this.defaultPriorityOrder(),
           sxShowHint:true, sxLvSearch:'',
         }),
