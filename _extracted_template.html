@@ -645,6 +645,14 @@
             <button onclick="{{ tkReset }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;color:#475467;">refresh</span>Nhập lại</button>
           </div>
 
+          <sc-if value="{{ tkNotYet }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="font-size:15px;font-weight:700;color:#1e2939;">Kết quả tìm kiếm</div>
+            <div style="text-align:center;color:#98a2b3;padding:36px 0 28px;"><span class="ic" style="font-size:30px;display:block;margin-bottom:6px;">search</span>Chọn điều kiện và nhấn Tìm kiếm để xem danh sách</div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ tkDone }}" hint-placeholder-val="{{ true }}">
           <div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
               <div>
@@ -682,6 +690,7 @@
             </sc-raw-table>
             <sc-if value="{{ tkEmpty }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;color:#98a2b3;padding:24px 0;">Không có dữ liệu</div></sc-if>
           </div>
+          </sc-if>
         </div>
       </sc-if>
 
@@ -4817,7 +4826,7 @@ class Component extends DCLogic {
       }
     });
   }
-  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showLvForm:false, lvEditId:null, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false, ktView:false, ktSearched:true, khoSub:'', khoSel:{}, kqView:'list', khoPermDraft:null, kqSel:{}, kqMau:'', m04View:'list', m04Draft:null, m04ShowAdd:false, m04ShowSync:false, m04ShowSend:false }); }
+  go(s){ return () => this.setState({ screen: s, selectedDoc: null, reviewUnit:null, reviewAgg:false, reviewType:null, reviewAdd:false, reviewPlanMa:null, sxForm:false, showPlanForm:false, planFormMode:'add', planViewMa:'', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', showLvForm:false, lvEditId:null, showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false, dinhStep:'list', dinhAddConfirmed:false, ktView:false, ktSearched:true, tkDone:false, tkCq:'', tkCqA:'', tkDv:'', tkDvA:'', tkTt:'', tkTtA:'', khoSub:'', khoSel:{}, kqView:'list', khoPermDraft:null, kqSel:{}, kqMau:'', m04View:'list', m04Draft:null, m04ShowAdd:false, m04ShowSync:false, m04ShowSend:false }); }
 
   reorderByRank(order, label, newRank){
     const list = (order||[]).slice();
@@ -5517,11 +5526,11 @@ class Component extends DCLogic {
           tkCq: s.tkCq||'', setTkCq:(e)=>this.setState({ tkCq:e.target.value, tkDv:'' }),
           tkDv: s.tkDv||'', tkDvOpts: dvOpts, setTkDv:(e)=>this.setState({ tkDv:e.target.value }),
           tkTt: s.tkTt||'', setTkTt:(e)=>this.setState({ tkTt:e.target.value }),
-          tkSearch:()=>this.setState(st=>({ tkCqA: st.tkCq||'', tkDvA: st.tkDv||'', tkTtA: st.tkTt||'' })),
-          tkReset:()=>this.setState({ tkKy:'', tkCq:'', tkCqA:'', tkDv:'', tkDvA:'', tkTt:'', tkTtA:'' }),
+          tkSearch:()=>this.setState(st=>({ tkCqA: st.tkCq||'', tkDvA: st.tkDv||'', tkTtA: st.tkTt||'', tkDone:true })),
+          tkReset:()=>this.setState({ tkKy:'', tkCq:'', tkCqA:'', tkDv:'', tkDvA:'', tkTt:'', tkTtA:'', tkDone:false }),
           tkSent:nSent, tkU:nU, tkURemain:nU-nSent, tkUPct:pct(nSent,nU), tkUBar:pct(nSent,nU)+'%',
           tkPub:nPub, tkC:nC, tkCRemain:nC-nPub, tkCPct:pct(nPub,nC), tkCBar:pct(nPub,nC)+'%',
-          tkRows:rows, tkEmpty:!rows.length,
+          tkDone:!!s.tkDone, tkNotYet:!s.tkDone, tkRows:rows, tkEmpty:!rows.length,
           tkExport:()=>alert('Xuất Excel thống kê kỳ '+tkKy+' ('+cqs.length+' cơ quan) — prototype.') };
       })(),
       kqCanRepub: dcPending.length>0,
