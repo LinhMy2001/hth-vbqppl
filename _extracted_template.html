@@ -588,6 +588,103 @@
         </div>
       </sc-if>
 
+      <!-- BÁO CÁO: Thống kê tình trạng gửi kết quả HTH -->
+      <sc-if value="{{ isTkGui }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:24px 32px 48px;">
+          <div style="font-size:13px;color:#1e2939;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+            <span style="text-decoration:underline;color:#667085;">Báo cáo thống kê</span><span>/</span><span>Thống kê tình trạng gửi kết quả HTH</span>
+          </div>
+          <h1 style="margin:0 0 16px;font-size:20px;font-weight:700;color:#10243a;">Thống kê tình trạng gửi kết quả HTH</h1>
+
+          <div style="background:#fff;border-radius:10px;padding:18px 22px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,36,58,.04);display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;">
+            <div style="display:flex;flex-direction:column;gap:7px;width:190px;">
+              <label style="font-size:13px;font-weight:600;color:#1e2939;">Kỳ hệ thống hóa</label>
+              <div style="position:relative;">
+                <sc-raw-select value="{{ tkKyVal }}" onchange="{{ setTkKy }}" style="width:100%;height:36px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                  <sc-for list="{{ tkKyOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+                </sc-raw-select>
+                <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#98a2b3;pointer-events:none;">expand_more</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;width:180px;">
+              <label style="font-size:13px;font-weight:600;color:#1e2939;">Loại cơ quan</label>
+              <div style="position:relative;">
+                <sc-raw-select value="{{ tkCq }}" onchange="{{ setTkCq }}" style="width:100%;height:36px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                  <option value=""></option>
+                  <option value="Bộ">Bộ</option>
+                  <option value="Tỉnh">Tỉnh</option>
+                  <option value="Xã">Xã</option>
+                </sc-raw-select>
+                <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#98a2b3;pointer-events:none;">expand_more</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;width:230px;">
+              <label style="font-size:13px;font-weight:600;color:#1e2939;display:flex;align-items:center;gap:4px;">Đơn vị<span class="ic" title="Danh sách đơn vị thay đổi theo Loại cơ quan đã chọn." style="font-size:15px;color:#98a2b3;cursor:help;">info</span></label>
+              <div style="position:relative;">
+                <sc-raw-select value="{{ tkDv }}" onchange="{{ setTkDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                  <option value=""></option>
+                  <sc-for list="{{ tkDvOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.t }}</option></sc-for>
+                </sc-raw-select>
+                <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#98a2b3;pointer-events:none;">expand_more</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px;width:160px;">
+              <label style="font-size:13px;font-weight:600;color:#1e2939;">Trạng thái</label>
+              <div style="position:relative;">
+                <sc-raw-select value="{{ tkTt }}" onchange="{{ setTkTt }}" style="width:100%;height:36px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
+                  <option value=""></option>
+                  <option value="gui">Đã gửi</option>
+                  <option value="chuagui">Chưa gửi</option>
+                  <option value="cb">Đã công bố</option>
+                  <option value="chuacb">Chưa công bố</option>
+                </sc-raw-select>
+                <span class="ic" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;color:#98a2b3;pointer-events:none;">expand_more</span>
+              </div>
+            </div>
+            <button onclick="{{ tkSearch }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+            <button onclick="{{ tkReset }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;color:#475467;">refresh</span>Nhập lại</button>
+          </div>
+
+          <div style="background:#fff;border-radius:10px;padding:18px 22px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <div>
+                <div style="font-size:15px;font-weight:700;color:#1e2939;">Kết quả tìm kiếm</div>
+                <div style="font-size:13px;color:#667085;margin-top:3px;">Đơn vị đã gửi <b style="color:#1e2939;">{{ tkSent }}/{{ tkU }}</b> (còn {{ tkURemain }}) · Cơ quan đã công bố <b style="color:#1e2939;">{{ tkPub }}/{{ tkC }}</b> (còn {{ tkCRemain }})<span class="ic" title="Đơn vị: chỉ tính đơn vị có văn bản được gán, thuộc cơ quan có phân công; chưa tạo kết quả, đã lưu, bị trả lại = chưa gửi. Cơ quan: tính cả cơ quan Đầu mối tự thực hiện." style="font-size:15px;color:#98a2b3;cursor:help;vertical-align:-3px;margin-left:4px;">info</span></div>
+              </div>
+              <button onclick="{{ tkExport }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;color:#475467;">download</span>Xuất Excel</button>
+            </div>
+            <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13.5px;color:#1e2939;border:1px solid #e4e7ec;">
+              <sc-raw-thead><sc-raw-tr style="background:#f5f6f8;">
+                <sc-raw-th style="padding:10px 8px;width:56px;text-align:center;border:1px solid #e4e7ec;font-size:12px;font-weight:700;text-transform:uppercase;">STT<br>(1)</sc-raw-th>
+                <sc-raw-th style="padding:10px 8px;text-align:center;border:1px solid #e4e7ec;font-size:12px;font-weight:700;text-transform:uppercase;">Cơ quan<br>(2)</sc-raw-th>
+                <sc-raw-th style="padding:10px 8px;text-align:center;border:1px solid #e4e7ec;font-size:12px;font-weight:700;text-transform:uppercase;">Đơn vị<br>(3)</sc-raw-th>
+                <sc-raw-th style="padding:10px 8px;width:190px;text-align:center;border:1px solid #e4e7ec;font-size:12px;font-weight:700;text-transform:uppercase;">Trạng thái gửi<br>(4)</sc-raw-th>
+                <sc-raw-th style="padding:10px 8px;width:190px;text-align:center;border:1px solid #e4e7ec;font-size:12px;font-weight:700;text-transform:uppercase;">Trạng thái công bố<br>(5)</sc-raw-th>
+              </sc-raw-tr></sc-raw-thead>
+              <sc-raw-tbody>
+                <sc-for list="{{ tkRows }}" as="r" hint-placeholder-count="4">
+                  <sc-raw-tr>
+                    <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e7ec;">{{ r.stt }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e7ec;">{{ r.cq }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;border:1px solid #e4e7ec;color:{{ r.dvFg }};">{{ r.dv }}</sc-raw-td>
+                    <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e7ec;">
+                      <sc-if value="{{ r.sent }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;border-radius:12px;padding:2px 10px;">Đã gửi</span><div style="font-size:12px;color:#667085;margin-top:3px;">{{ r.at }}</div></sc-if>
+                      <sc-if value="{{ r.notSent }}" hint-placeholder-val="{{ false }}"><span style="color:#98a2b3;">Chưa gửi</span></sc-if>
+                      <sc-if value="{{ r.na }}" hint-placeholder-val="{{ false }}"><span style="color:#98a2b3;">Không áp dụng</span></sc-if>
+                    </sc-raw-td>
+                    <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e7ec;">
+                      <sc-if value="{{ r.pub }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;border-radius:12px;padding:2px 10px;">Đã công bố</span><div style="font-size:12px;color:#667085;margin-top:3px;">{{ r.pubAt }}</div></sc-if>
+                      <sc-if value="{{ r.notPub }}" hint-placeholder-val="{{ false }}"><span style="color:#98a2b3;">Chưa công bố</span></sc-if>
+                    </sc-raw-td>
+                  </sc-raw-tr>
+                </sc-for>
+              </sc-raw-tbody>
+            </sc-raw-table>
+            <sc-if value="{{ tkEmpty }}" hint-placeholder-val="{{ false }}"><div style="text-align:center;color:#98a2b3;padding:24px 0;">Không có dữ liệu</div></sc-if>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isSet }}" hint-placeholder-val="{{ false }}">
         <div style="padding:24px 32px 48px;">
           <div style="font-size:13px;color:#1e2939;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
@@ -5361,6 +5458,72 @@ class Component extends DCLogic {
         const snap = ids.map(id=>{ const d = docMap[id], v = rowsObj[id]; return { so:d.so, loai:d.loai, ty:d.ty, cq:d.cq, ngay:d.ngay, hieuLucNgay:d.hieuLucNgay, lv:(d.lvs||[])[0]||'Chưa gán lĩnh vực', hl:v.hl, kn:v.kn }; });
         setKy(dKY, k=>{ if(!k.dm.hist) k.dm.hist = histOf(k, ''); k.pub = true; k.pubAt = TODAY; k.snap = snap; logH(k.dm, 'congbo', allRows.length+' văn bản', ORG_DM); return k; }); },
       kqOpenHist: ()=>this.setState({ kqHist:{ ky:dKY, dv: isDM ? (sel.dv||'') : DV, who: isDM ? (sel.dv || 'Đầu mối · Kết quả tổng hợp') : DV } }),
+      // ---------- BÁO CÁO: Thống kê tình trạng gửi kết quả HTH ----------
+      // Chỉ 2 trạng thái: Đã gửi, Đã công bố. Đơn vị chưa tạo KQ / Đã lưu / Bị trả lại = chưa gửi.
+      ...(()=>{
+        const tkKy = s.tkKy || ((plans.find(p=>p.ky===KY)||plans[0]||{}).ky) || KY;
+        const cap = s.tkCqA||'';
+        const ds = docsOf(tkKy); const k = getK(s, tkKy);
+        const lastAt = (h, key)=>{ const e = h.filter(x=>x.key===key).pop(); return e ? String(e.at).split(' - ')[0] : ''; };
+        // Cơ quan thực trên prototype: Bộ Tư pháp (đơn vị con có VB được gán trong kỳ)
+        const units = dvAll.filter(dv=>ds.some(d=>(d.units||[]).includes(dv)));
+        const btpUnits = units.map(dv=>{ const u = k.units[dv]; const h = u ? histOf(k, dv) : [];
+          const sent = !!u && (u.st==='gui' || (k.pub && h.some(e=>e.key==='gui')));
+          return { name:dv, sent, at: sent ? (lastAt(h,'gui') || u.sentAt || '') : '' }; });
+        const btp = { cap:'Bộ', name:'Bộ Tư pháp', cach: units.length ? 'Đơn vị gửi Đầu mối' : 'Đầu mối tự thực hiện', units:btpUnits, pub:!!k.pub, pubAt:k.pubAt||'' };
+        // Cơ quan mẫu để minh họa các trường hợp
+        const U = (a)=>a.map(x=>({ name:x[0], sent:x[1], at:x[2] }));
+        const DEMO = [
+          // Bộ
+          { cap:'Bộ', name:'Bộ Công an', cach:'Đơn vị gửi Đầu mối', units:U([['Cục Cảnh sát giao thông',true,'06/01/2029'],['Cục Quản lý xuất nhập cảnh',true,'09/01/2029'],['Cục Cảnh sát PCCC và CNCH',true,'11/01/2029'],['Cục An ninh mạng và PCTP sử dụng CNC',true,'14/01/2029']]), pub:true, pubAt:'28/01/2029' },
+          { cap:'Bộ', name:'Bộ Tài chính', cach:'Đơn vị gửi Đầu mối', units:U([['Vụ Pháp chế',true,'08/01/2029'],['Cục Thuế',false,''],['Cục Hải quan',true,'13/01/2029'],['Kho bạc Nhà nước',false,'']]), pub:false, pubAt:'' },
+          { cap:'Bộ', name:'Bộ Giáo dục và Đào tạo', cach:'Đơn vị gửi Đầu mối', units:U([['Vụ Pháp chế',false,''],['Vụ Giáo dục Đại học',false,''],['Cục Quản lý chất lượng',false,'']]), pub:false, pubAt:'' },
+          // Tỉnh
+          { cap:'Tỉnh', name:'UBND tỉnh Hà Tĩnh', cach:'Đơn vị gửi Đầu mối', units:U([['Sở Tư pháp',true,'10/01/2029'],['Sở Tài chính',true,'12/01/2029'],['Sở Nội vụ',false,''],['Sở Giáo dục và Đào tạo',true,'15/01/2029']]), pub:false, pubAt:'' },
+          { cap:'Tỉnh', name:'UBND tỉnh Nghệ An', cach:'Đơn vị gửi Đầu mối', units:U([['Sở Tư pháp',true,'05/01/2029'],['Sở Y tế',true,'07/01/2029'],['Sở Xây dựng',true,'12/01/2029']]), pub:true, pubAt:'25/02/2029' },
+          { cap:'Tỉnh', name:'UBND tỉnh Quảng Ninh', cach:'Đơn vị gửi Đầu mối', units:U([['Sở Tư pháp',true,'16/01/2029'],['Sở Công Thương',false,''],['Sở Nông nghiệp và Môi trường',false,''],['Sở Văn hóa, Thể thao và Du lịch',true,'20/01/2029'],['Ban Quản lý Khu kinh tế',false,'']]), pub:false, pubAt:'' },
+          // Xã (Đầu mối tự thực hiện)
+          { cap:'Xã', name:'UBND xã Bình An', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'20/02/2029' },
+          { cap:'Xã', name:'UBND xã Tân Lập', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'25/02/2029' },
+          { cap:'Xã', name:'UBND xã Hòa Bình', cach:'Đầu mối tự thực hiện', units:[], pub:false, pubAt:'' },
+          { cap:'Xã', name:'UBND phường Thạch Linh', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'27/02/2029' },
+          { cap:'Xã', name:'UBND xã Cẩm Xuyên', cach:'Đầu mối tự thực hiện', units:[], pub:false, pubAt:'' } ];
+        const ALL = [btp, ...DEMO];
+        // Combo Đơn vị: danh sách cơ quan theo Loại cơ quan đang chọn trên combo (chưa cần bấm Tìm kiếm)
+        const dvOpts = ALL.filter(c=>!s.tkCq || c.cap===s.tkCq).map(c=>({ v:c.name, t:c.name }));
+        const dvSel = s.tkDvA || '';
+        let cqs = ALL;
+        if(cap) cqs = cqs.filter(c=>c.cap===cap);
+        if(dvSel) cqs = cqs.filter(c=>c.name===dvSel);
+        const allU = cqs.filter(c=>c.cach==='Đơn vị gửi Đầu mối').flatMap(c=>c.units);
+        const nSent = allU.filter(u=>u.sent).length, nU = allU.length, nPub = cqs.filter(c=>c.pub).length, nC = cqs.length;
+        const pct = (a,b)=> b ? Math.round(a*100/b) : 0;
+        // Lọc theo Trạng thái (áp dụng khi bấm Tìm kiếm): Đã gửi / Chưa gửi lọc đơn vị; Đã công bố / Chưa công bố lọc cơ quan
+        const tt = s.tkTtA || '';
+        const uOk = (u)=> tt==='gui' ? u.sent : (tt==='chuagui' ? !u.sent : true);
+        const view = cqs.map(c=>({ ...c, units: c.units.filter(uOk) })).filter(c=>{
+          if(tt==='cb') return c.pub; if(tt==='chuacb') return !c.pub;
+          if(tt==='gui' || tt==='chuagui') return c.cach==='Đơn vị gửi Đầu mối' && c.units.length>0;
+          return true; });
+        // Bảng phẳng: mỗi dòng = 1 (cơ quan, đơn vị); cơ quan Đầu mối tự thực hiện = 1 dòng, cột gửi "Không áp dụng"
+        const rows = [];
+        view.forEach(c=>{ const isDvWay = c.cach==='Đơn vị gửi Đầu mối';
+          const base = { cq:c.name, pub:c.pub, notPub:!c.pub, pubAt:c.pubAt };
+          if(isDvWay) c.units.forEach(u=>rows.push({ ...base, dv:u.name, dvFg:'#1e2939', sent:u.sent, notSent:!u.sent, na:false, at:u.at }));
+          else rows.push({ ...base, dv:'— (Đầu mối tự thực hiện)', dvFg:'#98a2b3', sent:false, notSent:false, na:true, at:'' }); });
+        rows.forEach((r,i)=>{ r.stt = i+1; });
+        return { isTkGui: s.screen==='tkgui',
+          tkKyVal:tkKy, tkKyOpts: plans.map(p=>({ v:p.ky, t:p.ky })), setTkKy:(e)=>this.setState({ tkKy:e.target.value }),
+          tkCq: s.tkCq||'', setTkCq:(e)=>this.setState({ tkCq:e.target.value, tkDv:'' }),
+          tkDv: s.tkDv||'', tkDvOpts: dvOpts, setTkDv:(e)=>this.setState({ tkDv:e.target.value }),
+          tkTt: s.tkTt||'', setTkTt:(e)=>this.setState({ tkTt:e.target.value }),
+          tkSearch:()=>this.setState(st=>({ tkCqA: st.tkCq||'', tkDvA: st.tkDv||'', tkTtA: st.tkTt||'' })),
+          tkReset:()=>this.setState({ tkKy:'', tkCq:'', tkCqA:'', tkDv:'', tkDvA:'', tkTt:'', tkTtA:'' }),
+          tkSent:nSent, tkU:nU, tkURemain:nU-nSent, tkUPct:pct(nSent,nU), tkUBar:pct(nSent,nU)+'%',
+          tkPub:nPub, tkC:nC, tkCRemain:nC-nPub, tkCPct:pct(nPub,nC), tkCBar:pct(nPub,nC)+'%',
+          tkRows:rows, tkEmpty:!rows.length,
+          tkExport:()=>alert('Xuất Excel thống kê kỳ '+tkKy+' ('+cqs.length+' cơ quan) — prototype.') };
+      })(),
       kqCanRepub: dcPending.length>0,
       kqRepublish: ()=>{
         if(!confirm('Công bố lại kết quả hệ thống hóa kỳ '+dKY+' với '+dcPending.length+' thay đổi (đính chính, bổ sung)?\n\nCác thay đổi sẽ được cập nhật vào danh mục và Tập hệ thống hóa.')) return;
@@ -5818,6 +5981,9 @@ class Component extends DCLogic {
         ['set','menu_book','Tập hệ thống hóa'],
         ['tracuu','manage_search','Tra cứu dữ liệu HTH'],
         ['catalog','tune','Cấu hình tiêu chí sắp xếp'],
+      ]),
+      ...folder('navBcOpen','insights','Báo cáo thống kê',[
+        ['tkgui','monitoring','Thống kê tình trạng gửi kết quả HTH'],
       ]),
 
       mk('rstx','rule','Kết quả rà soát'),
