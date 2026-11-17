@@ -619,7 +619,7 @@
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:7px;width:230px;">
-              <label style="font-size:13px;font-weight:600;color:#1e2939;display:flex;align-items:center;gap:4px;">Đơn vị<span class="ic" title="Danh sách đơn vị thay đổi theo Loại cơ quan đã chọn." style="font-size:15px;color:#98a2b3;cursor:help;">info</span></label>
+              <label style="font-size:13px;font-weight:600;color:#1e2939;display:flex;align-items:center;gap:4px;">Cơ quan<span class="ic" title="Danh sách cơ quan thay đổi theo Loại cơ quan sau khi nhấn Tìm kiếm." style="font-size:15px;color:#98a2b3;cursor:help;">info</span></label>
               <div style="position:relative;">
                 <sc-raw-select value="{{ tkDv }}" onchange="{{ setTkDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13.5px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;outline:none;appearance:none;-webkit-appearance:none;box-sizing:border-box;">
                   <option value=""></option>
@@ -657,7 +657,7 @@
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
               <div>
                 <div style="font-size:15px;font-weight:700;color:#1e2939;">Kết quả tìm kiếm</div>
-                <div style="font-size:13px;color:#667085;margin-top:3px;">Đơn vị đã gửi <b style="color:#1e2939;">{{ tkSent }}/{{ tkU }}</b> (còn {{ tkURemain }}) · Cơ quan đã công bố <b style="color:#1e2939;">{{ tkPub }}/{{ tkC }}</b> (còn {{ tkCRemain }})<span class="ic" title="Đơn vị: chỉ tính đơn vị có văn bản được gán, thuộc cơ quan có phân công; chưa tạo kết quả, đã lưu, bị trả lại = chưa gửi. Cơ quan: tính cả cơ quan Đầu mối tự thực hiện." style="font-size:15px;color:#98a2b3;cursor:help;vertical-align:-3px;margin-left:4px;">info</span></div>
+                <div style="font-size:13px;color:#667085;margin-top:3px;"><sc-if value="{{ tkHasU }}" hint-placeholder-val="{{ true }}">Đơn vị đã gửi <b style="color:#1e2939;">{{ tkSent }}/{{ tkU }}</b> (còn {{ tkURemain }})</sc-if><sc-if value="{{ tkNoU }}" hint-placeholder-val="{{ false }}">Đơn vị đã gửi: Không áp dụng</sc-if> · Cơ quan đã công bố <b style="color:#1e2939;">{{ tkPub }}/{{ tkC }}</b> (còn {{ tkCRemain }})<span class="ic" title="Đơn vị: chỉ tính đơn vị có văn bản được gán, thuộc cơ quan có phân công; chưa tạo kết quả, đã lưu, bị trả lại = chưa gửi. Cơ quan: tính cả cơ quan Đầu mối tự thực hiện." style="font-size:15px;color:#98a2b3;cursor:help;vertical-align:-3px;margin-left:4px;">info</span></div>
               </div>
               <button onclick="{{ tkExport }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:7px;"><span class="ic" style="font-size:18px;color:#475467;">download</span>Xuất Excel</button>
             </div>
@@ -5492,14 +5492,16 @@ class Component extends DCLogic {
           { cap:'Tỉnh', name:'UBND tỉnh Nghệ An', cach:'Đơn vị gửi Đầu mối', units:U([['Sở Tư pháp',true,'05/01/2029'],['Sở Y tế',true,'07/01/2029'],['Sở Xây dựng',true,'12/01/2029']]), pub:true, pubAt:'25/02/2029' },
           { cap:'Tỉnh', name:'UBND tỉnh Quảng Ninh', cach:'Đơn vị gửi Đầu mối', units:U([['Sở Tư pháp',true,'16/01/2029'],['Sở Công Thương',false,''],['Sở Nông nghiệp và Môi trường',false,''],['Sở Văn hóa, Thể thao và Du lịch',true,'20/01/2029'],['Ban Quản lý Khu kinh tế',false,'']]), pub:false, pubAt:'' },
           // Xã (Đầu mối tự thực hiện)
-          { cap:'Xã', name:'UBND xã Bình An', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'20/02/2029' },
-          { cap:'Xã', name:'UBND xã Tân Lập', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'25/02/2029' },
-          { cap:'Xã', name:'UBND xã Hòa Bình', cach:'Đầu mối tự thực hiện', units:[], pub:false, pubAt:'' },
-          { cap:'Xã', name:'UBND phường Thạch Linh', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'27/02/2029' },
-          { cap:'Xã', name:'UBND xã Cẩm Xuyên', cach:'Đầu mối tự thực hiện', units:[], pub:false, pubAt:'' } ];
-        const ALL = [btp, ...DEMO];
-        // Combo Đơn vị: danh sách cơ quan theo Loại cơ quan đang chọn trên combo (chưa cần bấm Tìm kiếm)
-        const dvOpts = ALL.filter(c=>!s.tkCq || c.cap===s.tkCq).map(c=>({ v:c.name, t:c.name }));
+          { cap:'Xã', tinh:'UBND tỉnh Nghệ An', name:'UBND xã Bình An', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'20/02/2029' },
+          { cap:'Xã', tinh:'UBND tỉnh Quảng Ninh', name:'UBND xã Tân Lập', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'25/02/2029' },
+          { cap:'Xã', tinh:'UBND tỉnh Nghệ An', name:'UBND xã Hòa Bình', cach:'Đầu mối tự thực hiện', units:[], pub:false, pubAt:'' },
+          { cap:'Xã', tinh:'UBND tỉnh Hà Tĩnh', name:'UBND phường Thạch Linh', cach:'Đầu mối tự thực hiện', units:[], pub:true, pubAt:'27/02/2029' },
+          { cap:'Xã', tinh:'UBND tỉnh Hà Tĩnh', name:'UBND xã Cẩm Xuyên', cach:'Đầu mối tự thực hiện', units:[], pub:false, pubAt:'' } ];
+        // Thứ tự: các Bộ → Tỉnh 1 → các xã thuộc Tỉnh 1 → Tỉnh 2 → các xã thuộc Tỉnh 2 …
+        const RAW = [btp, ...DEMO], TINH = RAW.filter(c=>c.cap==='Tỉnh');
+        const ALL = [ ...RAW.filter(c=>c.cap==='Bộ'), ...TINH.flatMap(t=>[ t, ...RAW.filter(c=>c.cap==='Xã' && c.tinh===t.name) ]), ...RAW.filter(c=>c.cap==='Xã' && !TINH.some(t=>t.name===c.tinh)) ];
+        // Combo Cơ quan: danh sách theo Loại cơ quan đã áp dụng (đổi sau khi nhấn Tìm kiếm)
+        const dvOpts = ALL.filter(c=>!s.tkCqA || c.cap===s.tkCqA).map(c=>({ v:c.name, t:c.name }));
         const dvSel = s.tkDvA || '';
         let cqs = ALL;
         if(cap) cqs = cqs.filter(c=>c.cap===cap);
@@ -5523,12 +5525,12 @@ class Component extends DCLogic {
         rows.forEach((r,i)=>{ r.stt = i+1; });
         return { isTkGui: s.screen==='tkgui',
           tkKyVal:tkKy, tkKyOpts: plans.map(p=>({ v:p.ky, t:p.ky })), setTkKy:(e)=>this.setState({ tkKy:e.target.value }),
-          tkCq: s.tkCq||'', setTkCq:(e)=>this.setState({ tkCq:e.target.value, tkDv:'' }),
+          tkCq: s.tkCq||'', setTkCq:(e)=>this.setState({ tkCq:e.target.value }),
           tkDv: s.tkDv||'', tkDvOpts: dvOpts, setTkDv:(e)=>this.setState({ tkDv:e.target.value }),
           tkTt: s.tkTt||'', setTkTt:(e)=>this.setState({ tkTt:e.target.value }),
-          tkSearch:()=>this.setState(st=>({ tkCqA: st.tkCq||'', tkDvA: st.tkDv||'', tkTtA: st.tkTt||'', tkDone:true })),
+          tkSearch:()=>this.setState(st=>{ const c = st.tkCq||''; const dv = (st.tkDv && (!c || ALL.some(x=>x.name===st.tkDv && x.cap===c))) ? st.tkDv : ''; return { tkCqA:c, tkDv:dv, tkDvA:dv, tkTtA: st.tkTt||'', tkDone:true }; }),
           tkReset:()=>this.setState({ tkKy:'', tkCq:'', tkCqA:'', tkDv:'', tkDvA:'', tkTt:'', tkTtA:'', tkDone:false }),
-          tkSent:nSent, tkU:nU, tkURemain:nU-nSent, tkUPct:pct(nSent,nU), tkUBar:pct(nSent,nU)+'%',
+          tkSent:nSent, tkU:nU, tkURemain:nU-nSent, tkHasU:nU>0, tkNoU:nU===0, tkUPct:pct(nSent,nU), tkUBar:pct(nSent,nU)+'%',
           tkPub:nPub, tkC:nC, tkCRemain:nC-nPub, tkCPct:pct(nPub,nC), tkCBar:pct(nPub,nC)+'%',
           tkDone:!!s.tkDone, tkNotYet:!s.tkDone, tkRows:rows, tkEmpty:!rows.length,
           tkExport:()=>alert('Xuất Excel thống kê kỳ '+tkKy+' ('+cqs.length+' cơ quan) — prototype.') };
