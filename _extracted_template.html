@@ -343,14 +343,12 @@
 </helmet>
 <div style="display:flex;flex-direction:column;height:100vh;overflow:hidden;background:#f0f2f5;">
 
-  <header style="flex:0 0 auto;height:55px;display:flex;align-items:center;gap:16px;padding:0 22px;background:#001529;color:#fff;box-shadow:0 1.5px 4px rgba(0,0,0,.15);z-index:20;">
-    <div style="width:34px;height:34px;border-radius:50%;background:#da251d;display:flex;align-items:center;justify-content:center;flex:0 0 auto;border:1.5px solid #fff;box-shadow:0 1px 2px rgba(0,0,0,.2);">
-      <span class="ic" style="font-size:18px;color:#ffff00;font-weight:bold;">star</span>
+  <header style="flex:0 0 auto;height:55px;display:flex;align-items:center;gap:14px;padding:0 22px;background:#001529;color:#fff;box-shadow:0 1.5px 4px rgba(0,0,0,.15);z-index:20;">
+    <button onclick="{{ toggleNav }}" title="{{ navToggleTip }}" style="width:40px;height:40px;border:0;border-radius:8px;background:rgba(255,255,255,.08);color:#e6edf5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;" style-hover="background:rgba(255,255,255,.16);"><span class="ic" style="font-size:22px;">{{ navToggleIc }}</span></button>
+    <div style="width:34px;height:34px;border-radius:50%;background:#da251d;display:flex;align-items:center;justify-content:center;flex:0 0 auto;border:2px solid #f2c94c;box-shadow:0 1px 2px rgba(0,0,0,.2);">
+      <span class="ic" style="font-size:18px;color:#ffde59;font-weight:bold;">star</span>
     </div>
-    <div style="display:flex;flex-direction:column;line-height:1.2;">
-      <span style="font-size:11px;letter-spacing:.14em;color:#a6c1e1;font-weight:600;">BỘ TƯ PHÁP · CƠ SỞ DỮ LIỆU QUỐC GIA VBQPPL</span>
-      <span style="font-size:15px;font-weight:700;letter-spacing:.01em;color:#ffffff;">Hệ thống Kiểm tra · Rà soát · Hệ thống hóa văn bản QPPL</span>
-    </div>
+    <div style="font-size:17px;font-weight:700;letter-spacing:.01em;color:#ffffff;text-transform:uppercase;white-space:nowrap;">Phần mềm hỗ trợ kiểm tra, rà soát VBQPPL</div>
     <div style="flex:1 1 auto;"></div>
     <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:3px;">
       <button onclick="{{ setChuyenVien }}" style="border:0;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;padding:5px 10px;border-radius:4px;background:{{ roleCvBg }};color:{{ roleCvFg }};display:flex;align-items:center;gap:4px;transition:.15s;">
@@ -378,7 +376,7 @@
 
   <div style="flex:1 1 auto;display:flex;min-height:0;">
 
-    <aside style="flex:0 0 280px;background:#001529;color:#c5cdd8;display:flex;flex-direction:column;overflow-y:auto;padding:6px 0 24px;">
+    <aside style="display:{{ asideDisp }};flex:0 0 280px;background:#001529;color:#c5cdd8;flex-direction:column;overflow-y:auto;padding:6px 0 24px;">
       <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
         <sc-if value="{{ item.isGroup }}" hint-placeholder-val="{{ false }}">
           <div style="padding:12px 24px 6px;font-size:11px;font-weight:600;letter-spacing:.02em;color:#595959;text-transform:uppercase;">{{ item.label }}</div>
@@ -6424,6 +6422,10 @@ class Component extends DCLogic {
 
     return {
       role, roleLabel: role==='ld' ? 'Đầu mối' : 'Đơn vị',
+      toggleNav: ()=>this.setState(st=>({ navHidden: !st.navHidden })),
+      asideDisp: s.navHidden ? 'none' : 'flex',
+      navToggleIc: s.navHidden ? 'menu' : 'menu_open',
+      navToggleTip: s.navHidden ? 'Mở menu' : 'Thu gọn menu',
       roleCvBg: role==='cv' ? '#ffffff' : 'transparent', roleCvFg: role==='cv' ? '#0e4c8f' : '#d6e6fb',
       roleLdBg: role==='ld' ? '#ffffff' : 'transparent', roleLdFg: role==='ld' ? '#0e4c8f' : '#d6e6fb',
       setChuyenVien: () => this.setState({ role:'cv', reviewAgg:false, reviewUnit:null, khoF:{}, khoSel:{}, khoSub:'' }),
