@@ -4316,13 +4316,22 @@
 
           <sc-if value="{{ !showKyHthForm }}" hint-placeholder-val="{{ true }}">
           <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Kỳ HTH</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ kyHthSearchKySel }}" onchange="{{ setKyHthSearchKy }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:pointer;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                     <option value=""></option>
                     <sc-for list="{{ kyHthSearchKyOpts }}" as="ky" hint-placeholder-count="3"><option value="{{ ky.id }}">{{ ky.thoiGian }}</option></sc-for>
+                  </sc-raw-select>
+                  <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Loại kỳ</label>
+                <div style="position:relative;">
+                  <sc-raw-select value="{{ kyHthLoaiSel }}" onchange="{{ setKyHthLoaiSel }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:pointer;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+                    <option value="">Chọn loại kỳ</option><option value="Hệ thống hóa">Hệ thống hóa</option><option value="Chuyên đề">Chuyên đề</option><option value="Khác">Khác</option>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
                 </div>
@@ -6446,7 +6455,7 @@ class Component extends DCLogic {
     const kyHthFilteredList = (()=>{
       const ky = String(s.kyHthSearchKy||'').trim();
       const fl = String(s.kyHthFileA||'').trim();
-      let list = kyHthBaseList.filter(k=> (!ky || k.id===ky) && (!fl || String(k.file||'').trim()===fl));
+      let list = kyHthBaseList.filter(k=> (!ky || k.id===ky) && (!s.kyHthLoaiA || (k.loai||'')===s.kyHthLoaiA) && (!fl || String(k.file||'').trim()===fl));
       const val = (k)=> kySortKey==='tuNam' ? Number(k.tuNam||0) : String(k[kySortKey]||'').toLowerCase();
       list = list.slice().sort((a,b)=>{ const x=val(a), y=val(b); const c = x<y ? -1 : (x>y ? 1 : 0); return kySortDir==='asc' ? c : -c; });
       return list;
@@ -7123,13 +7132,14 @@ class Component extends DCLogic {
       },
       setKyHthSearchKy: (e)=>this.setState({ kyHthSearchKySel: e.target.value }),
       kyHthFileSel: s.kyHthFileSel || '',
+      kyHthLoaiSel: s.kyHthLoaiSel || '', setKyHthLoaiSel: (e)=>this.setState({ kyHthLoaiSel: e.target.value }),
       kyHthFileOpts: [...new Set(kyHthBaseList.map(k=>String(k.file||'').trim()).filter(Boolean))],
       setKyHthFileSel: (e)=>this.setState({ kyHthFileSel: e.target.value }),
       applyKyHthSearch: ()=>this.setState(st=>({
         kyHthSearchKy: String(st.kyHthSearchKySel||'').trim(),
-        kyHthFileA: String(st.kyHthFileSel||'').trim()
+        kyHthFileA: String(st.kyHthFileSel||'').trim(), kyHthLoaiA: st.kyHthLoaiSel||''
       })),
-      resetKyHthSearch: ()=>this.setState({ kyHthSearchKySel:'', kyHthSearchKy:'', kyHthFileSel:'', kyHthFileA:'', kyHthSortKey:'tuNam', kyHthSortDir:'desc' }),
+      resetKyHthSearch: ()=>this.setState({ kyHthSearchKySel:'', kyHthSearchKy:'', kyHthFileSel:'', kyHthFileA:'', kyHthLoaiSel:'', kyHthLoaiA:'', kyHthSortKey:'tuNam', kyHthSortDir:'desc' }),
       kySortTu: kySortBy('tuNam'), kySortMoTa: kySortBy('moTa'), kySortFile: kySortBy('file'), kySortLoai: kySortBy('loai'),
       kyIconTu: kySortIcon('tuNam'), kyIconMoTa: kySortIcon('moTa'), kyIconFile: kySortIcon('file'), kyIconLoai: kySortIcon('loai'),
       kyHthDraftLoai: (s.kyHthDraft&&s.kyHthDraft.loai)||'',
