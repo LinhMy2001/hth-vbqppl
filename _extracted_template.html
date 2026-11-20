@@ -4053,7 +4053,7 @@
             </div>
           </sc-if>
           <div style="margin-bottom:16px;">
-            <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;">Danh mục lĩnh vực</h1>
+            <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><sc-if value="{{ lvShowBack }}" hint-placeholder-val="{{ false }}"><span onclick="{{ lvBack }}" title="Quay lại danh sách" class="ic" style="font-size:22px;color:#10243a;cursor:pointer;">arrow_back</span></sc-if>Danh mục lĩnh vực</h1>
           </div>
 
           <sc-if value="{{ showLvForm }}" hint-placeholder-val="{{ false }}">
@@ -4138,7 +4138,23 @@
             </div>
           </sc-if>
 
-          <sc-if value="{{ !showLvForm }}" hint-placeholder-val="{{ true }}">
+          <sc-if value="{{ lvViewOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff;border-radius:10px;box-shadow:0 1px 2px rgba(16,36,58,.04);margin-bottom:18px;">
+              <div style="padding:16px 24px;border-bottom:1px solid #eef0f3;display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;color:#1e2939;"><span class="ic" style="font-size:20px;color:#475467;">visibility</span>Chi tiết lĩnh vực</div>
+              <div style="padding:20px 24px 22px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;">
+                  <div style="display:flex;flex-direction:column;gap:8px;"><label style="font-size:13.5px;font-weight:500;color:#1e2939;">Mã lĩnh vực</label><div style="min-height:38px;display:flex;align-items:center;font-size:14px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;color:#1e2939;box-sizing:border-box;">{{ lvV.ma }}</div></div>
+                  <div style="display:flex;flex-direction:column;gap:8px;"><label style="font-size:13.5px;font-weight:500;color:#1e2939;">Tên lĩnh vực</label><div style="min-height:38px;display:flex;align-items:center;font-size:14px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;color:#1e2939;box-sizing:border-box;">{{ lvV.ten }}</div></div>
+                  <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px;"><label style="font-size:13.5px;font-weight:500;color:#1e2939;">Đơn vị áp dụng</label><div style="min-height:38px;display:flex;align-items:center;font-size:14px;padding:6px 12px;border:1px solid #d0d5dd;border-radius:6px;color:#1e2939;box-sizing:border-box;">{{ lvV.donVi }}</div></div>
+                  <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px;"><label style="font-size:13.5px;font-weight:500;color:#1e2939;">Lĩnh vực cha</label><div style="min-height:38px;display:flex;align-items:center;font-size:14px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;color:#1e2939;box-sizing:border-box;">{{ lvV.cha }}</div></div>
+                  <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px;"><label style="font-size:13.5px;font-weight:500;color:#1e2939;">Mô tả</label><div style="min-height:88px;font-size:14px;padding:10px 12px;border:1px solid #d0d5dd;border-radius:6px;color:#1e2939;box-sizing:border-box;line-height:1.5;">{{ lvV.moTa }}</div></div>
+                </div>
+                <div style="display:flex;justify-content:flex-end;margin-top:20px;"><button onclick="{{ lvBack }}" style="height:40px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:#fff;padding:0 26px;border-radius:8px;">Thoát</button></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ lvShowList }}" hint-placeholder-val="{{ true }}">
           <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
             <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
               <div style="display:flex;flex-direction:column;gap:7px;">
@@ -4196,6 +4212,7 @@
                     <sc-raw-td style="padding:10px 12px;border:1px solid #d9dee6;">{{ lv.donViText }}</sc-raw-td>
                     <sc-raw-td style="padding:8px 12px;border:1px solid #d9dee6;">
                       <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+                        <span onclick="{{ lv.view }}" title="Xem" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
                         <span onclick="{{ lv.edit }}" title="Sửa" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#e8a317;background:#fff7e0;border:1px solid #f3d98b;border-radius:6px;cursor:pointer;">edit</span>
                         <span onclick="{{ lv.remove }}" title="Xóa" class="ic" style="font-size:17px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#d92d20;background:#fff0ee;border:1px solid #f5c2bd;border-radius:6px;cursor:pointer;">delete</span>
                       </div>
@@ -6991,6 +7008,11 @@ class Component extends DCLogic {
           isLinhVuc: s.screen==='linhvuc',
           lvDonVi: dv,
           showLvForm: !!s.showLvForm,
+          // Xem chi tiết lĩnh vực (chỉ đọc) + mũi tên quay lại danh sách
+          ...(()=>{ const vx = s.lvViewId ? all.find(y=>y.id===s.lvViewId) : null; const open = !!vx && !s.showLvForm;
+            return { lvViewOpen: open, lvShowList: !s.showLvForm && !open, lvShowBack: !!s.showLvForm || open,
+              lvV: vx ? { ma:vx.ma||"", ten:vx.ten||"", donVi:unitText(vx.donVis)||"—", cha:(vx.cha && all.find(y=>y.id===vx.cha)) ? all.find(y=>y.id===vx.cha).ten : "—", moTa:vx.moTa||"—" } : {},
+              lvBack: ()=>this.setState({ lvViewId:null, showLvForm:false, lvEditId:null, lvDraft:{ ma:"", ten:"", moTa:"", donVis:[], cha:"" } }) }; })(),
           lvFormTitle: s.lvEditId ? 'Sửa lĩnh vực' : 'Thêm mới lĩnh vực',
           lvDraftMa: dr.ma, lvDraftTen: dr.ten, lvDraftMoTa: dr.moTa,
           setLvDraftMa: setDr('ma'), setLvDraftTen: setDr('ten'), setLvDraftMoTa: setDr('moTa'),
@@ -7037,7 +7059,8 @@ class Component extends DCLogic {
           lvRows: ordered.map(o=>{ const x = o.x; return {
             ...x, idx:o.stt, donViText: unitText(x.donVis),
             cap: o.level+1, chaTen: (x.cha && own.find(y=>y.id===x.cha)) ? own.find(y=>y.id===x.cha).ten : '—', isChildRow: o.level>0, padLeft: o.level>0 ? '36px' : '12px', fw: o.level>0 ? '500' : '700',
-            edit: ()=>this.setState({ showLvForm:true, lvEditId:x.id, lvDraft:{ ma:x.ma, ten:x.ten, moTa:x.moTa==='—'?'':x.moTa, donVis:(x.donVis||[]).slice(), cha:x.cha||'' } }),
+            view: ()=>this.setState({ lvViewId:x.id, showLvForm:false }),
+            edit: ()=>this.setState({ lvViewId:null, showLvForm:true, lvEditId:x.id, lvDraft:{ ma:x.ma, ten:x.ten, moTa:x.moTa==='—'?'':x.moTa, donVis:(x.donVis||[]).slice(), cha:x.cha||'' } }),
             remove: ()=>{
               if((byCha[x.id]||[]).length){ alert('Lĩnh vực "'+x.ten+'" đang có lĩnh vực con. Vui lòng xóa các lĩnh vực con trước.'); return; }
               if(confirm('Xóa lĩnh vực "'+x.ten+'"?')) this.setState(st=>({ lvList:(st.lvList||this.lvSeed()).filter(y=>y.id!==x.id) }));
