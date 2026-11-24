@@ -2556,16 +2556,6 @@
                         </sc-raw-select>
                         <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
                       </div>
-                      <sc-if value="{{ formShowSyncOld }}" hint-placeholder-val="{{ false }}">
-                        <div style="flex:1 1 360px;display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:8px 12px;font-size:12.5px;color:#1d4ed8;">
-                          <span class="ic" style="font-size:17px;">info</span><span>Nhập tay hoặc nhập từ Excel. VB HTH kỳ trước có sẵn trên hệ thống được lấy tại nút <b>Tìm kiếm VB từ nhiều nguồn</b> ở màn Danh sách văn bản HTH.</span>
-                        </div>
-                      </sc-if>
-                      <sc-if value="{{ !formShowSyncOld }}" hint-placeholder-val="{{ true }}">
-                        <div style="flex:1 1 360px;display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:8px 12px;font-size:12.5px;color:#1d4ed8;">
-                          <span class="ic" style="font-size:17px;">info</span><span>Nhập tay hoặc nhập từ Excel. Văn bản từ CSDL quốc gia được đồng bộ tại nút <b>Tìm kiếm VB từ nhiều nguồn</b> ở màn Danh sách văn bản HTH.</span>
-                        </div>
-                      </sc-if>
                     </div>
                   </div>
                 </sc-if>
@@ -2728,10 +2718,6 @@
                 </div>
                 </sc-if>
 
-                <div style="display:flex;align-items:center;gap:8px;background:#eaf3ff;border:1px solid #cfe2fb;border-radius:6px;padding:10px 14px;margin-top:14px;font-size:12.5px;color:#1d4ed8;">
-                  <span class="ic" style="font-size:18px;">event_note</span>
-                  <span>Văn bản sẽ được tính là dữ liệu của kỳ: <b>{{ docKySelKy }}</b></span>
-                </div>
               </div>
               <div style="padding:14px 24px;display:flex;justify-content:flex-end;gap:10px;position:sticky;bottom:0;background:#fff;border-top:1px solid #eef1f6;">
                 <button onclick="{{ closeDocPanel }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">close</span>Hủy</button>
@@ -4064,8 +4050,10 @@
                 <div style="display:flex;flex-direction:column;gap:8px;">
                   <label style="font-size:13.5px;font-weight:600;color:#1e2939;display:flex;align-items:center;gap:4px;">Mã lĩnh vực <span style="color:#e5484d;">*</span><span class="ic" title="Gợi ý sẵn LV_&lt;Mã đơn vị&gt;_STT, có thể sửa. Không được trùng trong đơn vị." style="font-size:15px;color:#98a2b3;cursor:help;">info</span></label>
                   <div style="position:relative;">
+                    <sc-if value="{{ lvMaRO }}" hint-placeholder-val="{{ false }}"><input value="{{ lvDraftMa }}" readonly="true" disabled="true" style="width:100%;height:38px;font-family:inherit;font-size:14px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;background:#f2f4f7;color:#667085;"></sc-if>
+                    <sc-if value="{{ !lvMaRO }}" hint-placeholder-val="{{ true }}">
                     <input value="{{ lvDraftMa }}" oninput="{{ setLvDraftMa }}" placeholder="Nhập mã lĩnh vực" maxlength="50" style="width:100%;height:38px;font-family:inherit;font-size:14px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f2fd0;">
-                    <span onclick="{{ clearLvMa }}" class="ic" title="Xóa" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:16px;color:#98a2b3;cursor:pointer;">cancel</span>
+                    <span onclick="{{ clearLvMa }}" class="ic" title="Xóa" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:16px;color:#98a2b3;cursor:pointer;">cancel</span></sc-if>
                   </div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:8px;">
@@ -4156,7 +4144,11 @@
 
           <sc-if value="{{ lvShowList }}" hint-placeholder-val="{{ true }}">
           <div style="background:#fff;border-radius:12px;padding:22px 24px 20px;box-shadow:0 1px 2px rgba(16,36,58,.04);">
-            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:14px 16px;align-items:end;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Mã lĩnh vực</label>
+                <input value="{{ lvMaKw }}" oninput="{{ setLvMaKw }}" placeholder="Nhập mã lĩnh vực..." style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
+              </div>
               <div style="display:flex;flex-direction:column;gap:7px;">
                 <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Tên lĩnh vực</label>
                 <input value="{{ lvKw }}" oninput="{{ setLvKw }}" placeholder="Nhập tên lĩnh vực..." style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
@@ -4255,7 +4247,7 @@
                   </div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                  <label style="font-size:12.5px;font-weight:600;color:#42566c;display:flex;align-items:center;gap:4px;">Loại kỳ<span class="ic" title="Hệ thống hóa: được công bố và đưa vào Tập hệ thống hóa. Chuyên đề / Khác: chỉ để tra cứu và xuất danh mục. Thời gian kỳ do NSD chọn." style="font-size:15px;color:#98a2b3;cursor:help;">info</span></label>
+                  <label style="font-size:12.5px;font-weight:600;color:#42566c;display:flex;align-items:center;gap:4px;">Loại kỳ <span style="color:#c0392b;">*</span><span class="ic" title="Hệ thống hóa: được công bố và đưa vào Tập hệ thống hóa. Chuyên đề / Khác: chỉ để tra cứu và xuất danh mục. Thời gian kỳ do NSD chọn." style="font-size:15px;color:#98a2b3;cursor:help;">info</span></label>
                   <div style="position:relative;">
                     <sc-raw-select value="{{ kyHthDraftLoai }}" onchange="{{ setKyHthDraftLoai }}" disabled="{{ kyHthFormReadOnly }}" style="width:100%;height:42px;font-family:inherit;font-size:13.5px;padding:0 40px 0 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;background:{{ kyHthFieldBg }};appearance:none;-webkit-appearance:none;box-sizing:border-box;color:{{ kyHthFieldColor }};cursor:{{ kyHthFieldCursor }};" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
                       <option value="">Chọn loại</option>
@@ -4279,7 +4271,7 @@
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Mô tả</label>
-                  <textarea value="{{ kyHthDraftMoTa }}" oninput="{{ setKyHthDraftMoTa }}" readonly="{{ kyHthFormReadOnly }}" disabled="{{ kyHthFormReadOnly }}" rows="3" placeholder="Nhập mô tả kỳ hệ thống hóa..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;background:{{ kyHthFieldBg }};color:{{ kyHthFieldColor }};cursor:{{ kyHthFieldCursor }};"></textarea>
+                  <textarea value="{{ kyHthDraftMoTa }}" oninput="{{ setKyHthDraftMoTa }}" maxlength="255" readonly="{{ kyHthFormReadOnly }}" disabled="{{ kyHthFormReadOnly }}" rows="3" placeholder="Nhập mô tả kỳ hệ thống hóa..." style="width:100%;font-family:inherit;font-size:13.5px;padding:10px 12px;border:1px solid #cfd9e6;border-radius:9px;outline:none;resize:vertical;box-sizing:border-box;line-height:1.45;background:{{ kyHthFieldBg }};color:{{ kyHthFieldColor }};cursor:{{ kyHthFieldCursor }};"></textarea>
                 </div>
                 <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;">
                   <label style="font-size:12.5px;font-weight:600;color:#42566c;">Đính kèm</label>
@@ -4293,10 +4285,10 @@
                   <div style="display:flex;align-items:center;gap:12px;border:1.5px dashed #c3d2e4;border-radius:10px;padding:14px 16px;background:#f7faff;">
                     <span class="ic" style="font-size:26px;color:#0e4c8f;">upload_file</span>
                     <div style="flex:1;min-width:0;">
-                      <div style="font-size:13px;color:#5a6b7e;">Kéo thả hoặc <span onclick="{{ pickKyHthFile }}" style="color:#0e4c8f;font-weight:600;cursor:pointer;">chọn tệp</span> — PDF, DOCX, XLSX (tối đa 25MB)</div>
-                      <sc-if value="{{ kyHthDraftHasFile }}" hint-placeholder-val="{{ false }}">
-                        <div style="margin-top:6px;font-size:12.5px;font-weight:600;color:#0e4c8f;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">attach_file</span>{{ kyHthDraftFile }}</div>
-                      </sc-if>
+                      <div style="font-size:13px;color:#5a6b7e;">Kéo thả hoặc <span onclick="{{ pickKyHthFile }}" style="color:#0e4c8f;font-weight:600;cursor:pointer;">chọn tệp</span> — PDF, DOC, DOCX, XLSX (tối đa 5 tệp)</div>
+                      <sc-for list="{{ kyHthDraftFiles }}" as="f" hint-placeholder-count="0">
+                        <div style="margin-top:6px;font-size:12.5px;font-weight:600;color:#0e4c8f;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:16px;">attach_file</span>{{ f.name }}<span onclick="{{ f.rm }}" class="ic" title="Xóa tệp" style="font-size:16px;color:#d92d20;cursor:pointer;">close</span></div>
+                      </sc-for>
                     </div>
                   </div>
                   </sc-if>
@@ -4321,7 +4313,7 @@
                 <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Kỳ HTH</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ kyHthSearchKySel }}" onchange="{{ setKyHthSearchKy }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:pointer;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value=""></option>
+                    <option value="">-- Chọn kỳ HTH --</option>
                     <sc-for list="{{ kyHthSearchKyOpts }}" as="ky" hint-placeholder-count="3"><option value="{{ ky.id }}">{{ ky.thoiGian }}</option></sc-for>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
@@ -4340,8 +4332,7 @@
                 <label style="font-size:12.5px;font-weight:700;color:#1e2939;">Đính kèm</label>
                 <div style="position:relative;">
                   <sc-raw-select value="{{ kyHthFileSel }}" onchange="{{ setKyHthFileSel }}" style="width:100%;height:38px;font-family:inherit;font-size:13px;padding:0 34px 0 12px;border:1px solid #d0d5dd;border-radius:6px;outline:none;background:#fff;appearance:none;-webkit-appearance:none;box-sizing:border-box;color:#1e2939;cursor:pointer;" style-focus="border-color:#2f54eb;box-shadow:0 0 0 3px rgba(47,84,235,.12);">
-                    <option value="">-- Tất cả --</option>
-                    <sc-for list="{{ kyHthFileOpts }}" as="f" hint-placeholder-count="3"><option value="{{ f }}">{{ f }}</option></sc-for>
+                    <option value="">Tất cả</option><option value="co">Có</option><option value="khong">Không</option>
                   </sc-raw-select>
                   <span class="ic" style="position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;pointer-events:none;">expand_more</span>
                 </div>
@@ -6455,7 +6446,7 @@ class Component extends DCLogic {
     const kyHthFilteredList = (()=>{
       const ky = String(s.kyHthSearchKy||'').trim();
       const fl = String(s.kyHthFileA||'').trim();
-      let list = kyHthBaseList.filter(k=> (!ky || k.id===ky) && (!s.kyHthLoaiA || (k.loai||'')===s.kyHthLoaiA) && (!fl || String(k.file||'').trim()===fl));
+      let list = kyHthBaseList.filter(k=> (!ky || k.id===ky) && (!s.kyHthLoaiA || (k.loai||'')===s.kyHthLoaiA) && (!fl || (fl==='co') === !!String(k.file||'').trim()));
       const val = (k)=> kySortKey==='tuNam' ? Number(k.tuNam||0) : String(k[kySortKey]||'').toLowerCase();
       list = list.slice().sort((a,b)=>{ const x=val(a), y=val(b); const c = x<y ? -1 : (x>y ? 1 : 0); return kySortDir==='asc' ? c : -c; });
       return list;
@@ -6964,7 +6955,8 @@ class Component extends DCLogic {
         const byCha = {};
         own.forEach(x=>{ if(x.cha && own.some(y=>y.id===x.cha)) (byCha[x.cha] = byCha[x.cha] || []).push(x); });
         const rootsAll = own.filter(x=>!x.cha || !own.some(y=>y.id===x.cha));
-        const lvMatch = (x)=>!kw || x.ten.toLowerCase().includes(kw);
+        const mkw = (s.lvMaKwA||'').trim().toLowerCase();
+        const lvMatch = (x)=>(!kw || x.ten.toLowerCase().includes(kw)) && (!mkw || String(x.ma||'').toLowerCase().includes(mkw));
         const ordered = [];
         rootsAll.forEach(r=>{
           const rm = lvMatch(r);
@@ -7027,8 +7019,11 @@ class Component extends DCLogic {
           setLvDraftMa: setDr('ma'), setLvDraftTen: setDr('ten'), setLvDraftMoTa: setDr('moTa'),
           lvKw: s.lvKw||'',
           setLvKw: (e)=>this.setState({ lvKw:e.target.value }),
-          applyLvSearch: ()=>this.setState(st=>({ lvKwA:st.lvKw||'' })),
-          resetLvSearch: ()=>this.setState({ lvKw:'', lvKwA:'' }),
+          lvMaKw: s.lvMaKw||'',
+          setLvMaKw: (e)=>this.setState({ lvMaKw:e.target.value }),
+          lvMaRO: !!s.lvEditId,
+          applyLvSearch: ()=>this.setState(st=>({ lvKwA:st.lvKw||'', lvMaKwA:st.lvMaKw||'' })),
+          resetLvSearch: ()=>this.setState({ lvKw:'', lvKwA:'', lvMaKw:'', lvMaKwA:'' }),
           openLvForm: ()=>this.setState({ showLvForm:true, lvEditId:null, lvDraft:{ ma:nextCode(all), ten:'', moTa:'', donVis:[], cha:'' } }),
           closeLvForm: ()=>this.setState({ showLvForm:false, lvEditId:null, lvDraft:{ ma:'', ten:'', moTa:'', donVis:[], cha:'' } }),
           saveLv: ()=>{
@@ -7199,10 +7194,14 @@ class Component extends DCLogic {
         this.setState(st2=>({ kyHthDraft:{ ...(st2.kyHthDraft||{}), denNam:e.target.value } }));
       },
       setKyHthDraftMoTa: (e)=>this.setState(st=>({ kyHthDraft:{ ...(st.kyHthDraft||{}), moTa:e.target.value } })),
+      kyHthDraftFiles: String((s.kyHthDraft&&s.kyHthDraft.file)||'').split('; ').map(x=>x.trim()).filter(Boolean).map((name,i,arr)=>({ name,
+        rm: ()=>this.setState(st=>({ kyHthDraft:{ ...(st.kyHthDraft||{}), file: arr.filter((_,j)=>j!==i).join('; ') } })) })),
       pickKyHthFile: ()=>{
+        const cur = String((this.state.kyHthDraft&&this.state.kyHthDraft.file)||'').split('; ').map(x=>x.trim()).filter(Boolean);
+        if(cur.length>=5){ alert('Chỉ được đính kèm tối đa 5 tệp.'); return; }
         const name = window.prompt('Nhập tên tệp đính kèm (demo):', 'HuongDan_HTH.pdf');
-        if(name===null) return;
-        this.setState(st=>({ kyHthDraft:{ ...(st.kyHthDraft||{}), file:(name||'').trim() } }));
+        if(name===null || !String(name).trim()) return;
+        this.setState(st=>({ kyHthDraft:{ ...(st.kyHthDraft||{}), file:[...cur, String(name).trim()].join('; ') } }));
       },
       openKyHthForm: ()=>this.setState({ showKyHthForm:true, kyHthFormMode:'add', kyHthViewId:'', kyHthDraft:{ loai:'', tuNgay:'', denNgay:'', tuNam:'', denNam:'', moTa:'', file:'' } }),
       closeKyHthForm: ()=>this.setState({ showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'' }),
@@ -7211,6 +7210,7 @@ class Component extends DCLogic {
         const loai = String(d.loai||'').trim();
         const tuNgay = String(d.tuNgay||'').trim();
         const denNgay = String(d.denNgay||'').trim();
+        if(!loai){ alert('Vui lòng chọn Loại kỳ.'); return st; }
         if(!tuNgay){ alert('Vui lòng chọn Từ ngày.'); return st; }
         if(!denNgay){ alert('Vui lòng chọn Đến ngày.'); return st; }
         if(tuNgay > denNgay){ alert('Từ ngày phải nhỏ hơn hoặc bằng Đến ngày.'); return st; }
