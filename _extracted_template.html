@@ -2333,8 +2333,8 @@
               </div>
               </sc-if>
               <sc-if value="{{ khoCanSee }}" hint-placeholder-val="{{ true }}">
-              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 170px;min-width:150px;">
-                <label style="font-size:13px;font-weight:700;color:#1e2939;">Lĩnh vực</label>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 280px;min-width:240px;">
+                <label style="font-size:13px;font-weight:700;color:#1e2939;">Lĩnh vực - Đơn vị tham mưu soạn thảo</label>
                 <sc-raw-select value="{{ khoLv }}" onchange="{{ setKhoLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
               </div>
               </sc-if>
@@ -2352,12 +2352,6 @@
                   <label style="font-size:13px;font-weight:700;color:#1e2939;">Loại VBQPPL</label>
                   <sc-raw-select value="{{ khoLoai }}" onchange="{{ setKhoLoai }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><option value="Luật">Luật</option><option value="Nghị định">Nghị định</option><option value="Thông tư">Thông tư</option><option value="Quyết định">Quyết định</option><option value="Nghị quyết">Nghị quyết</option></sc-raw-select>
                 </div>
-                <sc-if value="{{ khoIsDM }}" hint-placeholder-val="{{ true }}">
-                <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 240px;min-width:180px;">
-                  <label style="font-size:13px;font-weight:700;color:#1e2939;">Đơn vị phụ trách</label>
-                  <sc-raw-select value="{{ khoDv }}" onchange="{{ setKhoDv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><sc-for list="{{ khoDvAllOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
-                </div>
-                </sc-if>
               </div>
             </sc-if>
           </div>
