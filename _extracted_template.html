@@ -1542,7 +1542,6 @@
                   <sc-raw-th style="padding:11px 10px;width:56px;text-align:center;border:1px solid #d9dee6;">STT</sc-raw-th>
                   <sc-raw-th style="padding:11px 10px;width:150px;text-align:center;border:1px solid #d9dee6;">Kỳ hệ thống hóa</sc-raw-th>
                   <sc-if value="{{ kqIsDV }}" hint-placeholder-val="{{ false }}"><sc-raw-th style="padding:11px 10px;text-align:center;border:1px solid #d9dee6;">{{ kqWhoLbl }}</sc-raw-th></sc-if>
-                  <sc-raw-th style="padding:11px 10px;width:100px;text-align:center;border:1px solid #d9dee6;">Số VB</sc-raw-th>
                   <sc-raw-th style="padding:11px 10px;width:160px;text-align:center;border:1px solid #d9dee6;">Trạng thái</sc-raw-th>
                   <sc-raw-th style="padding:11px 10px;width:130px;text-align:center;border:1px solid #d9dee6;">Ngày cập nhật</sc-raw-th>
                   <sc-raw-th style="padding:11px 10px;width:170px;text-align:center;border:1px solid #d9dee6;">Thao tác</sc-raw-th>
@@ -1553,7 +1552,6 @@
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.stt }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.ky }}</sc-raw-td>
                       <sc-if value="{{ kqIsDV }}" hint-placeholder-val="{{ false }}"><sc-raw-td style="padding:10px;border:1px solid #e4e8ee;">{{ r.who }}</sc-raw-td></sc-if>
-                      <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.n }}</sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;"><span style="border-radius:12px;padding:2px 10px;font-size:11.5px;font-weight:600;color:{{ r.stC }};background:{{ r.stB }};">{{ r.stT }}</span></sc-raw-td>
                       <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e8ee;">{{ r.at }}</sc-raw-td>
                       <sc-raw-td style="padding:8px 10px;border:1px solid #e4e8ee;">
@@ -5893,7 +5891,7 @@ class Component extends DCLogic {
       kqGoBack: ()=>{ const p = s.prevScreen && s.prevScreen!=='review' ? s.prevScreen : 'home'; this.go(p)(); },
       kqKyLabelOpts: plans.map(p=>({ t:p.ky, l:p.tgLabel||p.ky })),
       kqOpenAdd: ()=>this.setState({ kqView:'add', kqAddMa:'' }),
-      kqDvName: DV, kqWhoLbl: isDM ? "Kết quả của" : "Đơn vị", kqListCols: isDM ? 6 : 7,
+      kqDvName: DV, kqWhoLbl: isDM ? "Kết quả của" : "Đơn vị", kqListCols: isDM ? 5 : 6,
       // add
       kqAddMa: addMa, setKqAddMa:(e)=>this.setState({ kqAddMa:e.target.value }), kqAddOpts: plans.map(p=>({ v:p.ma, t:p.tgLabel||p.ky })),
       kqAddNote: isDM ? (()=>{ const ap = plans.find(p=>p.ma===addMa); const ky = ap ? ap.ky : ''; const pubT = (ap && ap.loai==='Hệ thống hóa') ? ' và công bố' : '';
