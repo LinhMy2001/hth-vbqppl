@@ -1695,7 +1695,7 @@
               </div>
             </sc-if>
             <sc-if value="{{ kqHasTraLai }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:center;background:#fef3f2;border:1px solid #fecdca;color:#b42318;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:16px;"><span class="ic" style="font-size:18px;">undo</span><span>{{ kqTraLaiNote }}</span></div></sc-if>
-            <sc-if value="{{ kqLocked }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:center;background:#f9fafb;border:1px solid #eef1f6;color:#475467;border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:16px;"><span class="ic" style="font-size:17px;">lock</span><span>{{ kqLockT }}</span></div></sc-if>
+            <sc-if value="{{ !!(kqLocked && kqLockT) }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:center;background:#f9fafb;border:1px solid #eef1f6;color:#475467;border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:16px;"><span class="ic" style="font-size:17px;">lock</span><span>{{ kqLockT }}</span></div></sc-if>
 
             <!-- Đầu mối: link thông tin đơn vị cấp dưới gửi lên -->
             <sc-if value="{{ kqDmAgg }}" hint-placeholder-val="{{ false }}">
@@ -1920,7 +1920,6 @@
               <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
                 <h1 style="margin:0;font-size:20px;font-weight:700;color:#10243a;display:flex;align-items:center;gap:8px;"><span onclick="{{ kqCloseMau }}" class="ic" style="font-size:22px;color:#667085;cursor:pointer;">arrow_back</span>Kết quả hệ thống hóa</h1>
                 <div style="display:flex;gap:8px;align-items:center;">
-                  <sc-if value="{{ !kqMauEd }}" hint-placeholder-val="{{ false }}"><span style="border-radius:14px;padding:5px 12px;font-size:12.5px;font-weight:600;color:{{ kqMauModeC }};background:{{ kqMauModeB }};">{{ kqMauModeT }}</span></sc-if>
                   <sc-if value="{{ kqMauEd }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqSave }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">save</span>Lưu</button></sc-if>
                   <sc-if value="{{ kqMauCanSend }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqMauSend }}" style="height:34px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">send</span>Gửi</button></sc-if>
                 </div>
@@ -2442,7 +2441,7 @@
 
             <sc-if value="{{ khoDvNoLv }}" hint-placeholder-val="{{ false }}">
               <sc-if value="{{ khoIsDV }}" hint-placeholder-val="{{ false }}">
-                <div style="background:#fef3f2;border:1px solid #fecdca;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#b42318;"><span class="ic" style="font-size:18px;">lock</span>Đơn vị chưa được cấu hình lĩnh vực (Danh mục lĩnh vực) — chỉ xem, không nhận được văn bản.</div>
+                <div style="background:#fef3f2;border:1px solid #fecdca;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#b42318;"><span class="ic" style="font-size:18px;">lock</span>Đơn vị chưa được cấu hình lĩnh vực (Danh mục lĩnh vực), không nhận được văn bản.</div>
               </sc-if>
             </sc-if>
 
@@ -5983,7 +5982,7 @@ class Component extends DCLogic {
         addVbDoc({ so:String(t.so).trim(), loai:t.loai, ty:String(t.ty).trim(), cq:String(t.cq).trim(), ngay:String(t.ngay).trim(), hl:'' }); },
       kqHlOpts: HLS.map(t=>({ t })),
       kqCanEdit: canEdit, kqLocked: !canEdit,
-      kqLockT: K.pub ? 'Kết quả đã công bố ngày '+(K.pubAt||'')+' — chỉ xem.' : (isDM && sel.dv ? 'Kết quả đơn vị gửi lên — chỉ xem. Đầu mối trả lại cho đơn vị, hoặc sửa trực tiếp trên danh sách tổng hợp.' : (tU.st==='gui' ? 'Đã gửi đầu mối ngày '+(tU.sentAt||'')+' — chờ đầu mối tổng hợp. Sửa được khi bị trả lại.' : '')),
+      kqLockT: K.pub ? '' : (isDM && sel.dv ? '' : (tU.st==='gui' ? 'Đã gửi đầu mối ngày '+(tU.sentAt||'')+' — chờ đầu mối tổng hợp. Sửa được khi bị trả lại.' : '')),
       kqHasTraLai: forUnit && tU.st==='tralai' && !!tU.lyDoTL, kqTraLaiNote: 'Đầu mối trả lại ngày '+(tU.tlAt||'')+': '+(tU.lyDoTL||''),
       kqRstxAt: (forUnit ? tU.rstxAt : K.dm.rstxAt) || '—',
       kqAggInfo: 'Tổng hợp ngày '+(K.dm.aggAt||'—')+' từ '+((K.dm.aggUnits||[]).length)+' đơn vị đã gửi ('+(K.dm.aggN||0)+' VB). Hiện có '+sentNow.length+' đơn vị đã gửi.',
