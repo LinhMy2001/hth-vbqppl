@@ -2335,7 +2335,7 @@
               <sc-if value="{{ khoCanSee }}" hint-placeholder-val="{{ true }}">
               <div style="display:flex;flex-direction:column;gap:6px;flex:0 1 280px;min-width:240px;">
                 <label style="font-size:13px;font-weight:700;color:#1e2939;">Lĩnh vực</label>
-                <sc-raw-select value="{{ khoLv }}" onchange="{{ setKhoLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                <sc-raw-select value="{{ khoLv }}" onchange="{{ setKhoLv }}" style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 10px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;color:#1e2939;box-sizing:border-box;"><option value=""></option><option value="__none__">(Chưa có lĩnh vực)</option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
               </div>
               </sc-if>
               <div style="display:flex;gap:8px;">
@@ -2387,23 +2387,27 @@
               </div>
             </div>
 
-            <sc-if value="{{ ktShow }}" hint-placeholder-val="{{ false }}">
-              <div style="background:#f9fafb;border:1px solid #e4e7ec;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
-                <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#344054;"><span class="ic" style="font-size:19px;color:#667085;">warning</span>Phát hiện {{ ktCount }} văn bản hết hiệu lực trong kỳ {{ ktPrev }} nhưng chưa có trong kết quả đã công bố của kỳ đó.</div>
-                <span onclick="{{ openKt }}" title="Xem chi tiết" class="ic" style="font-size:16px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;color:#2f2fd0;background:#eef0ff;border:1px solid #c9ccf5;border-radius:6px;cursor:pointer;">visibility</span>
-              </div>
-            </sc-if>
             <sc-if value="{{ khoDvNoLv }}" hint-placeholder-val="{{ false }}">
               <sc-if value="{{ khoIsDV }}" hint-placeholder-val="{{ false }}">
                 <div style="background:#fef3f2;border:1px solid #fecdca;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#b42318;"><span class="ic" style="font-size:18px;">lock</span>Đơn vị chưa được cấu hình lĩnh vực (Danh mục lĩnh vực) — chỉ xem, không nhận được văn bản.</div>
               </sc-if>
             </sc-if>
 
+            <sc-if value="{{ khoNoLvShow }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px;background:#fffaeb;border:1px solid #fedf89;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:#b54708;">
+                <span class="ic" style="font-size:19px;">warning</span>
+                <span>Có <b>{{ khoNoLvN }}</b> văn bản chưa có lĩnh vực. Vui lòng gán lĩnh vực.</span>
+                <span onclick="{{ khoNoLvGo }}" style="margin-left:auto;font-weight:600;color:#2f2fd0;cursor:pointer;text-decoration:underline;">Xem {{ khoNoLvN }} văn bản</span>
+              </div>
+            </sc-if>
             <sc-if value="{{ khoHasSel }}" hint-placeholder-val="{{ false }}">
               <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;background:#eef0ff;border:1px solid #c9ccf5;border-radius:8px;padding:8px 12px;margin-bottom:12px;font-weight:600;color:#2f2fd0;font-size:13px;">
                 <span style="display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:19px;">check_box</span>Đã chọn {{ khoSelCount }} văn bản</span>
                 <div style="display:flex;align-items:center;gap:8px;">
                   <button onclick="{{ khoClearSel }}" style="height:30px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;">Bỏ chọn</button>
+                  <sc-raw-select value="{{ khoLvPopV }}" onchange="{{ setKhoLvPopV }}" style="height:30px;min-width:200px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #c9ccf5;border-radius:6px;background:#fff;color:#1e2939;"><option value="">-- Chọn lĩnh vực --</option><sc-for list="{{ khoLvPopOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                  <sc-if value="{{ khoLvPopEmpty }}" hint-placeholder-val="{{ false }}"><span class="ic" title="Đơn vị chưa có lĩnh vực trong Danh mục lĩnh vực." style="font-size:17px;color:#98a2b3;cursor:help;">info</span></sc-if>
+                  <button onclick="{{ khoLvPopApply }}" style="height:30px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:17px;">sell</span>Gán lĩnh vực cho {{ khoSelCount }} văn bản</button>
                   <sc-if value="{{ khoDmL1 }}" hint-placeholder-val="{{ true }}">
                     <sc-raw-select value="{{ khoBGLv }}" onchange="{{ setKhoBGLv }}" style="height:30px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #c9ccf5;border-radius:6px;background:#fff;color:#1e2939;"><option value="">-- Chọn lĩnh vực --</option><sc-for list="{{ khoLvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
                     <sc-if value="{{ khoBGNeedDv }}" hint-placeholder-val="{{ false }}"><sc-raw-select value="{{ khoBGDv }}" onchange="{{ setKhoBGDv }}" style="height:30px;font-family:inherit;font-size:12.5px;padding:0 8px;border:1px solid #f79009;border-radius:6px;background:#fff;color:#1e2939;"><option value="">-- Chọn đơn vị --</option><sc-for list="{{ khoBGDvOpts }}" as="o" hint-placeholder-count="2"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select></sc-if>
@@ -2443,7 +2447,7 @@
                     <sc-raw-td style="padding:10px 12px;border:1px solid #e4e7ec;vertical-align:middle;text-align:center;white-space:nowrap;">{{ r.hieuLucNgay }}</sc-raw-td>
                     <sc-raw-td style="padding:10px;text-align:center;border:1px solid #e4e7ec;vertical-align:middle;">{{ r.hl }}</sc-raw-td>
                     <sc-raw-td style="padding:10px 12px;border:1px solid #e4e7ec;vertical-align:middle;">
-                      <sc-raw-select value="{{ r.lvPick }}" onchange="{{ r.setLvPick }}" style="width:100%;min-width:180px;height:32px;font-family:inherit;font-size:13px;color:#1e2939;padding:0 6px;border:1px solid #d0d5dd;border-radius:6px;background:#fff;cursor:pointer;"><option value="">{{ r.dmLvT }}</option><sc-for list="{{ r.lvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
+                      <sc-raw-select value="{{ r.lvPick }}" onchange="{{ r.setLvPick }}" style="width:100%;min-width:180px;height:32px;font-family:inherit;font-size:13px;color:{{ r.lvFc }};padding:0 6px;border:1px solid {{ r.lvBd }};border-radius:6px;background:{{ r.lvBg }};cursor:pointer;"><option value="">{{ r.dmLvT }}</option><sc-for list="{{ r.lvOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.t }}">{{ o.t }}</option></sc-for></sc-raw-select>
                       <sc-if value="{{ r.isChua }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:3px;border-radius:12px;padding:2px 9px;font-size:11.5px;font-weight:600;white-space:nowrap;color:#344054;background:#f2f4f7;border:1px solid #e4e7ec;"><span class="ic" style="font-size:14px;">warning</span>Chưa gán</span><div style="font-size:11px;color:#667085;margin-top:3px;">{{ r.hint }}</div></sc-if>
                       <sc-for list="{{ r.lvChips }}" as="c" hint-placeholder-count="1"><div style="display:inline-flex;flex-direction:column;border-radius:8px;padding:3px 9px;margin:2px 4px 2px 0;background:#f2f4f7;line-height:1.3;"><span style="font-size:12px;font-weight:600;color:#344054;">{{ c.t }}</span><span style="font-size:11px;color:#98a2b3;">{{ c.u }}</span></div></sc-for>
                       <sc-for list="{{ r.xoaChips }}" as="c" hint-placeholder-count="1"><div style="font-size:11px;color:#b42318;margin-top:3px;">{{ c.t }}</div></sc-for>
@@ -5375,7 +5379,8 @@ class Component extends DCLogic {
   khoAutoGan(docs, kind, at){
     const HT = 'Cục Hộ tịch, quốc tịch, chứng thực', BT = 'Cục Bổ trợ tư pháp', TG = 'Cục Trợ giúp pháp lý', KT = 'Cục Kiểm tra VBQPPL';
     // Dữ liệu mẫu: level 2 + lĩnh vực (level 3) của 10 VB kỳ này trên CSDLQG
-    const MAPN = [ ['Hộ tịch',HT], ['Hộ tịch',HT], ['Luật sư',BT], ['Hộ tịch',HT], ['Công chứng',BT], ['Hộ tịch',HT], ['Trợ giúp pháp lý',TG], ['Tư pháp',KT], ['Hộ tịch',HT], ['Bổ trợ tư pháp',BT] ];
+    // VB thứ 5 và 10: không có ĐV tham mưu soạn thảo (không có trong danh mục TRS) → Lĩnh vực trống, Đầu mối phải gán
+    const MAPN = [ ['Hộ tịch',HT], ['Hộ tịch',HT], ['Luật sư',BT], ['Hộ tịch',HT], ['',''], ['Hộ tịch',HT], ['Trợ giúp pháp lý',TG], ['Tư pháp',KT], ['Hộ tịch',HT], ['',''] ];
     return docs.map((d,i)=>{
       const p = kind==='truoc' ? [d.lvMau||'', d.dv2||''] : MAPN[i % MAPN.length];
       return { ...d, dv2:p[1], lvCsdl:p[0], gan: p[1] ? [{ lv:p[0], dv:p[1], src:'auto', by:'Hệ thống', at:at||'' }] : [], xoa:[], hint:'' };
@@ -6105,12 +6110,15 @@ class Component extends DCLogic {
     const tt = (F.tt===undefined) ? ttDefault : F.tt;
     const q = String(F.q||'').trim().toLowerCase();
     const setF = (k)=>(e)=>{ const v = e && e.target ? e.target.value : e; this.setState(st=>({ khoF:{ ...(st.khoF||{}), [k]:v }, khoSel:{} })); };
+    const lvEff = (d)=>((s.khoLvPick||{})[d.id]) || dvTenLv(d.dv2) || '';   // lĩnh vực đang hiển thị ở cột (8)
+    const NOLV = '__none__';
     const pass = (d)=>{
       if(s.khoDd && d.id===s.khoDd) return true;
+      if(F.lv===NOLV && lvEff(d)) return false;
       if(q && !String(d.so).toLowerCase().includes(q)) return false;
       if(F.loai && d.loai!==F.loai) return false;
       if(F.hth && d.loaiHth!==F.hth) return false;
-      if(F.lv && (((s.khoLvPick||{})[d.id]) || dvTenLv(d.dv2))!==F.lv) return false;
+      if(F.lv && F.lv!==NOLV && lvEff(d)!==F.lv) return false;
       if(F.dv && !actGan(d).some(g=>g.dv===F.dv)) return false;
       if(F.nguon && d.nguon!==F.nguon) return false;
       if(tt==='chua' && status(d)!=='chua') return false;
@@ -6147,7 +6155,7 @@ class Component extends DCLogic {
     if(tt) chipOf('Trạng thái: '+ttLabel, 'tt', '');
     if(F.hth) chipOf(F.hth==='truoc' ? 'VB HTH kỳ trước' : 'VB HTH kỳ này', 'hth', '');
     if(F.loai) chipOf('Loại: '+F.loai, 'loai', '');
-    if(F.lv) chipOf('Lĩnh vực: '+F.lv, 'lv', '');
+    if(F.lv) chipOf('Lĩnh vực: '+(F.lv===NOLV ? '(Chưa có lĩnh vực)' : F.lv), 'lv', '');
     if(F.dv) chipOf('Đơn vị: '+F.dv, 'dv', '');
     if(F.nguon) chipOf('Nguồn: '+NGUON[F.nguon][0], 'nguon', '');
     if(q) chipOf('"'+F.q+'"', 'q', '');
@@ -6187,7 +6195,8 @@ class Component extends DCLogic {
         id:d.id, stt:i+1, so:d.so, loai:d.loai||'', ngay:d.ngay||'', sub:(d.loai||'')+' · '+(d.ngay||''), ty:d.ty, hieuLucNgay:d.hieuLucNgay||'',
         hthT: d.loaiHth==='truoc' ? 'Kỳ trước' : 'Kỳ này', hthC:'#475467', hthB:'#f2f4f7',
         hl:this.normalizeTthl(d.hl), hlC:'#344054', hlB:'#f2f4f7',
-        isChua: false, dmLvShow: true, dmLvT: dvTenLv(d.dv2), hasLv: !!lvUniq.length, hint: d.hint && st0==='chua' ? d.hint : '',
+        isChua: false, dmLvShow: true, dmLvT: dvTenLv(d.dv2) || 'Chọn lĩnh vực *', hasLv: !!lvUniq.length,
+        noLv: !lvEff(d), lvBd: lvEff(d) ? '#d0d5dd' : '#f79009', lvBg: lvEff(d) ? '#fff' : '#fffaeb', lvFc: lvEff(d) ? '#1e2939' : '#b54708', hint: d.hint && st0==='chua' ? d.hint : '',
         lvChips: true ? [] : ag.map(g=>({ t:g.lv, u: g.dv ? shortDv(g.dv) : '' })),
         xoaChips: true ? [] : (d.xoa||[]).map(x=>({ t: shortDv(x)+' · đã xóa khỏi danh sách' })),
         // combobox gán LV trên dòng (đầu mối – luồng 1)
@@ -6344,6 +6353,17 @@ class Component extends DCLogic {
       isKhoSync: s.screen==='doclist' && !s.ktView && s.khoSub==='sync',
       khoIsDM: isDM, khoIsDV: !isDM, khoL1: luong===1, khoL2: luong===2,
       khoDmL1: false, khoDvL2: false,
+      // VB chưa có lĩnh vực: cảnh báo hiển thị đến khi toàn bộ danh sách đã có lĩnh vực; gán từng dòng hoặc gán hàng loạt
+      ...(()=>{ const n = all.filter(d=>!lvEff(d)).length; const P = s.khoLvPop || null;
+        return { khoNoLvN: n, khoNoLvShow: n>0, khoNoLvGo: ()=>this.setState(st=>({ khoF:{ ...(st.khoF||{}), lv:NOLV }, khoSel:{} })),
+          khoGanLvBtn: ()=>this.setState({ khoLvPop:{ lv:'' } }),
+          khoLvPopOpen: !!P, khoLvPopV: (P && P.lv) || '', khoLvPopOpts: lvPickOpts, khoLvPopEmpty: !lvPickOpts.length,
+          setKhoLvPopV: (e)=>{ const v = e.target.value; this.setState(st=>({ khoLvPop:{ ...(st.khoLvPop||{}), lv:v } })); },
+          khoLvPopClose: ()=>this.setState({ khoLvPop:null }),
+          khoLvPopApply: ()=>{ const v = (this.state.khoLvPop||{}).lv; if(!v){ alert('Vui lòng chọn Lĩnh vực.'); return; }
+            const ids = selIds.slice(); if(!ids.length){ alert('Vui lòng chọn ít nhất một văn bản.'); return; }
+            this.setState(st=>{ const m = { ...(st.khoLvPick||{}) }; ids.forEach(id=>{ m[id] = v; }); return { khoLvPick:m, khoSel:{}, khoLvPop:null }; });
+            alert('Đã gán lĩnh vực '+v+' cho '+ids.length+' văn bản.'); } }; })(),
       khoRoleDmBg: isDM ? '#fff' : 'transparent', khoRoleDmC: isDM ? '#2f2fd0' : '#667085', khoRoleDvBg: !isDM ? '#fff' : 'transparent', khoRoleDvC: !isDM ? '#2f2fd0' : '#667085',
       khoL1Bg: luong===1 ? '#fff' : 'transparent', khoL1C: luong===1 ? '#2f2fd0' : '#667085', khoL2Bg: luong===2 ? '#fff' : 'transparent', khoL2C: luong===2 ? '#2f2fd0' : '#667085',
       khoLuongVal: String(luong), khoSetLuong: (e)=>this.setState({ khoLuong: parseInt(e.target.value,10)||1, khoF:{}, khoSel:{} }),
