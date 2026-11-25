@@ -1893,13 +1893,13 @@
                 <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13.5px;color:#1e2939;border:1px solid #e4e7ec;min-width:{{ kqMinW }}px;">
                   <sc-raw-thead><sc-raw-tr style="background:#f5f6f8;color:#1e2939;">
                     <sc-raw-th style="padding:12px 8px;width:50px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">STT<br><span style="font-weight:600;">(1)</span></sc-raw-th>
-                    <sc-raw-th style="padding:12px 10px;width:120px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Lĩnh vực<br><span style="font-weight:600;">(2)</span></sc-raw-th>
-                    <sc-raw-th style="padding:12px 10px;width:110px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Loại văn bản<br><span style="font-weight:600;">(3)</span></sc-raw-th>
-                    <sc-raw-th style="padding:12px 10px;width:130px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Cơ quan ban hành văn bản<br><span style="font-weight:600;">(4)</span></sc-raw-th>
-                    <sc-raw-th style="padding:12px 10px;width:140px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Số, ký hiệu<br><span style="font-weight:600;">(5)</span></sc-raw-th>
-                    <sc-raw-th style="padding:12px 10px;width:110px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Ngày ban hành<br><span style="font-weight:600;">(6)</span></sc-raw-th>
-                    <sc-raw-th style="padding:12px 10px;min-width:240px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Tên gọi của văn bản / Trích yếu nội dung của văn bản<br><span style="font-weight:600;">(7)</span></sc-raw-th>
-                    <sc-for list="{{ kqCols }}" as="c" hint-placeholder-count="3"><sc-raw-th style="padding:12px 10px;min-width:{{ c.w }}px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">{{ c.label }}<br><span style="font-weight:600;">({{ c.num }})</span></sc-raw-th></sc-for>
+                    <sc-raw-th style="padding:12px 10px;width:120px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Lĩnh vực<sc-if value="{{ kqReqBase }}" hint-placeholder-val="{{ false }}"><span style="color:#d92d20;"> *</span></sc-if><br><span style="font-weight:600;">(2)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:110px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Loại văn bản<sc-if value="{{ kqReqBase }}" hint-placeholder-val="{{ false }}"><span style="color:#d92d20;"> *</span></sc-if><br><span style="font-weight:600;">(3)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:130px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Cơ quan ban hành văn bản<sc-if value="{{ kqReqBase }}" hint-placeholder-val="{{ false }}"><span style="color:#d92d20;"> *</span></sc-if><br><span style="font-weight:600;">(4)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:140px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Số, ký hiệu<sc-if value="{{ kqReqBase }}" hint-placeholder-val="{{ false }}"><span style="color:#d92d20;"> *</span></sc-if><br><span style="font-weight:600;">(5)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;width:110px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Ngày ban hành<sc-if value="{{ kqReqBase }}" hint-placeholder-val="{{ false }}"><span style="color:#d92d20;"> *</span></sc-if><br><span style="font-weight:600;">(6)</span></sc-raw-th>
+                    <sc-raw-th style="padding:12px 10px;min-width:240px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">Tên gọi của văn bản / Trích yếu nội dung của văn bản<sc-if value="{{ kqReqBase }}" hint-placeholder-val="{{ false }}"><span style="color:#d92d20;"> *</span></sc-if><br><span style="font-weight:600;">(7)</span></sc-raw-th>
+                    <sc-for list="{{ kqCols }}" as="c" hint-placeholder-count="3"><sc-raw-th style="padding:12px 10px;min-width:{{ c.w }}px;text-align:center;vertical-align:middle;border:1px solid #e4e7ec;font-size:12.5px;font-weight:700;text-transform:uppercase;line-height:1.45;">{{ c.label }}<sc-if value="{{ c.req }}" hint-placeholder-val="{{ false }}"><span style="color:#d92d20;"> *</span></sc-if><br><span style="font-weight:600;">({{ c.num }})</span></sc-raw-th></sc-for>
                     <sc-if value="{{ kqMauEd }}" hint-placeholder-val="{{ false }}"><sc-raw-th style="padding:12px 10px;width:90px;min-width:90px;border:1px solid #e4e7ec;background:#f5f6f8;"></sc-raw-th></sc-if>
                   </sc-raw-tr></sc-raw-thead>
                   <sc-raw-tbody>
@@ -4814,7 +4814,7 @@ class Component extends DCLogic {
     }
     if(code==='02'){
       return [
-        T('noiDungHetHl','Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực*',260,'(8)'),
+        T('noiDungHetHl','Nội dung, quy định hết hiệu lực, tạm ngưng hiệu lực',260,'(8)'),
         S('loaiHl','Loại (hết HL/tạm ngưng HL)',180,['-- Chọn --','Hết hiệu lực một phần','Ngưng hiệu lực một phần'],'(9)'),
         T('lyDo','Lý do',260,'(10)'),
         D('ngayHetHl','Ngày tháng năm (hết HL/tạm ngưng HL)',180,'(11)'),
@@ -4828,7 +4828,7 @@ class Component extends DCLogic {
     }
     if(code==='04'){
       return [
-        S('htXuLyVB','Kiến nghị hình thức xử lý văn bản*',210,['-- Chọn --','Sửa đổi, bổ sung','Thay thế','Bãi bỏ toàn bộ','Bãi bỏ một phần','Ban hành mới','Ngưng hiệu lực'],'(10)'),
+        S('htXuLyVB','Kiến nghị hình thức xử lý văn bản',210,['-- Chọn --','Sửa đổi, bổ sung','Thay thế','Bãi bỏ toàn bộ','Bãi bỏ một phần','Ban hành mới','Ngưng hiệu lực'],'(10)'),
         T('ndKienNghi','Nội dung/ lý do kiến nghị',260),
         T('cqChuTri','Cơ quan/ đơn vị chủ trì soạn thảo',200),
         D('thoiHan','Thời hạn phải xử lý',150),
@@ -4839,6 +4839,11 @@ class Component extends DCLogic {
       D('thoiDiemHL','Thời điểm có hiệu lực',160),
       T('ghiChu','Ghi chú',240),
     ];
+  }
+
+  // Cột riêng bắt buộc (*) khi thêm mới văn bản tại Xem / Sửa danh mục (cột chung (2)–(7) luôn bắt buộc)
+  mauReqKeys(code){
+    return ({ '01':['loaiHl','ngayHetHl'], '02':['noiDungHetHl','loaiHl','ngayHetHl'], '03':['thoiDiemHL'], '04':['htXuLyVB','ndKienNghi','cqChuTri','thoiHan'] })[code] || [];
   }
 
   blankAddRow(){
@@ -5595,8 +5600,9 @@ class Component extends DCLogic {
       const rs = NEWR.filter(n=>String(n.so||'').trim());
       if(!rs.length) return { ok:true, n:0 };
       for(let i=0;i<rs.length;i++){ const n = rs[i];
-        const miss = [['loai','Loại văn bản'],['cq','Cơ quan ban hành'],['ngay','Ngày ban hành'],['ty','Tên gọi của văn bản']].filter(x=>!String(n[x[0]]||'').trim()).map(x=>x[1]);
-        if(mauSel && !String((n.vals||{})[mauSel.key]||'').trim()) miss.push(mauSel.label);
+        const miss = [['lv','Lĩnh vực'],['loai','Loại văn bản'],['cq','Cơ quan ban hành'],['ngay','Ngày ban hành'],['ty','Tên gọi của văn bản']].filter(x=>!String(n[x[0]]||'').trim()).map(x=>x[1]);
+        const reqK = this.mauReqKeys(curMau);
+        this.mauColumns(curMau).filter(c=>reqK.includes(c.key) && !String((n.vals||{})[c.key]||'').trim()).forEach(c=>miss.push(c.label));
         if(miss.length){ alert('Văn bản '+n.so+': vui lòng nhập '+miss.join(', ')+'.'); return { ok:false }; }
         if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(String(n.ngay).trim())){ alert('Văn bản '+n.so+': Ngày ban hành không đúng định dạng dd/mm/yyyy.'); return { ok:false }; }
         const ex = allRows.find(r=>keySo(r.d.so)===keySo(n.so)); if(ex && ex.mau.includes(curMau)){ alert('Văn bản '+n.so+' đã có trong Mẫu '+curMau+'.'); return { ok:false }; }
@@ -5832,7 +5838,7 @@ class Component extends DCLogic {
       kqIs04: curMau==='04', kqMauCode: curMau, kqMauEd: mauEd,
       kqMauNote: curMau==='04' ? 'Kế thừa kết quả rà soát thường xuyên (RSTX)' : 'Chia theo tình trạng hiệu lực',
       kqMauModeT: mauEd ? 'Đang sửa' : 'Chỉ xem', kqMauModeC:'#344054', kqMauModeB:'#f2f4f7',
-      kqRows, kqCols: kqColsRaw.map((c,i)=>({ label:c.label, w:c.w, num:8+i })), kqColspan: 7+kqColsRaw.length+(mauEd ? 1 : 0),
+      kqRows, kqCols: kqColsRaw.map((c,i)=>({ label:c.label, w:c.w, num:8+i, req: canAddVb && this.mauReqKeys(curMau).includes(c.key) })), kqReqBase: canAddVb, kqColspan: 7+kqColsRaw.length+(mauEd ? 1 : 0),
       kqMinW: 900 + kqColsRaw.reduce((a,c)=>a+(c.w||150),0), kqN: kqRows.length, kqVbEmpty: !!curMau && !kqRows.length && !mauEd,
       kqQ: s.kqQ||'', setKqQ:(e)=>this.setState({ kqQ:e.target.value }),
       kqQd: s.kqQd||'', setKqQd:(e)=>this.setState({ kqQd:e.target.value }), kqLoaid: s.kqLoaid||'', setKqLoaid:(e)=>this.setState({ kqLoaid:e.target.value }),
