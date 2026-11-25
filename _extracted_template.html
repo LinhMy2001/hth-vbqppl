@@ -1706,9 +1706,8 @@
                   <span onclick="{{ kqOpenUnits }}" title="Xem danh sách đơn vị cấp dưới" style="font-size:14px;font-weight:600;color:#1e2939;text-decoration:underline;cursor:pointer;">Thông tin đơn vị cấp dưới gửi lên</span>
                   <span style="border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;">{{ kqSentN }}/{{ kqUnitN }} đơn vị đã gửi</span>
                   <sc-if value="{{ kqHasNewSent }}" hint-placeholder-val="{{ false }}"><span style="border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;color:#344054;background:#f2f4f7;">{{ kqNewSentN }} đơn vị chưa tổng hợp</span></sc-if>
-                  <sc-if value="{{ kqHasDup }}" hint-placeholder-val="{{ false }}"><span title="Văn bản có ở nhiều nguồn (Đầu mối và/hoặc nhiều đơn vị). Bấm icon (i) trên dòng để xem và xóa dòng không cần." style="display:inline-flex;align-items:center;gap:4px;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;color:#b54708;background:#fffaeb;"><span class="ic" style="font-size:15px;">info</span>{{ kqDupVbN }} văn bản trùng</span></sc-if>
                 </div>
-                <div style="display:flex;align-items:center;gap:8px;"><sc-if value="{{ kqDmCanPub }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqReAggAll }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">sync</span>Tổng hợp lại</button></sc-if></div>
+                <div style="display:flex;align-items:center;gap:8px;"><sc-if value="{{ kqHasDup }}" hint-placeholder-val="{{ false }}"><button onclick="{{ kqDupLOpenFn }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">arrow_forward</span>Xem danh sách văn bản trùng</button></sc-if><sc-if value="{{ kqDmCanPub }}" hint-placeholder-val="{{ true }}"><button onclick="{{ kqReAggAll }}" style="height:34px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;color:#475467;">sync</span>Tổng hợp lại</button></sc-if></div>
               </div>
             </sc-if>
 
@@ -1782,6 +1781,61 @@
                  </div>
                  <div style="display:flex;justify-content:flex-end;padding:14px 20px;border-top:1px solid #e4e7ec;">
                    <button onclick="{{ kqDupClose }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 16px;border-radius:6px;">Đóng</button>
+                 </div>
+               </div>
+             </div>
+           </sc-if>
+           <sc-if value="{{ kqDupLOpen }}" hint-placeholder-val="{{ false }}">
+             <div onclick="{{ kqDupLClose }}" style="position:fixed;inset:0;background:rgba(15,39,64,.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:24px;">
+               <div onclick="{{ stop }}" style="background:#fff;border-radius:10px;width:1080px;max-width:95%;max-height:88vh;overflow:auto;box-shadow:0 20px 60px rgba(8,28,52,.25);">
+                 <div style="margin:16px 20px 0;padding:14px 16px;background:#f5f8ff;border-radius:8px;display:flex;align-items:flex-start;gap:12px;">
+                   <span class="ic" style="font-size:22px;color:#2f54eb;background:#e6edff;border-radius:8px;padding:6px;">content_copy</span>
+                   <div style="flex:1;">
+                     <div style="font-size:16px;font-weight:700;color:#1e2939;">Danh sách {{ kqDupLN }} văn bản trùng nhau</div>
+                     <div style="font-size:12.5px;color:#2f54eb;margin-top:4px;line-height:1.5;">Văn bản trùng khi có từ 02 dòng trở lên trong cùng một mẫu của kết quả tổng hợp giống nhau ở các cột: Mẫu 01: (4), (5), (6), (7), (10) · Mẫu 02: (3) – (9), (11) · Mẫu 03: (3) – (8) · Mẫu 04: (3) – (9). Mẫu 05 không kiểm tra (sinh từ Mẫu 03). Văn bản nằm ở nhiều mẫu khác nhau theo công thức chia mẫu không tính là trùng. Chỉ cảnh báo, không tự động loại bỏ dữ liệu.</div>
+                   </div>
+                   <span onclick="{{ kqDupLClose }}" class="ic" title="Đóng" style="cursor:pointer;font-size:22px;color:#667085;">close</span>
+                 </div>
+                 <div style="margin:14px 20px 0;padding:12px 14px;border:1px solid #e4e7ec;border-radius:8px;display:flex;align-items:center;gap:10px;">
+                   <div style="position:relative;width:300px;max-width:100%;"><span class="ic" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a2b3;">search</span><input value="{{ kqDupLQ }}" oninput="{{ setKqDupLQ }}" placeholder="Tìm số ký hiệu, tên văn bản..." style="width:100%;height:36px;font-family:inherit;font-size:13px;padding:0 12px 0 34px;border:1px solid #d0d5dd;border-radius:6px;outline:none;box-sizing:border-box;"></div>
+                   <button onclick="{{ kqDupLSearch }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 16px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">search</span>Tìm kiếm</button>
+                   <div style="flex:1;"></div>
+                   <button onclick="{{ kqDupLExport }}" style="height:36px;border:1px solid #d0d5dd;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#1e2939;padding:0 14px;border-radius:6px;display:flex;align-items:center;gap:6px;"><span class="ic" style="font-size:18px;">download</span>Xuất dữ liệu</button>
+                 </div>
+                 <div style="margin:14px 20px 0;border:1px solid #e4e7ec;border-radius:8px;overflow-x:auto;">
+                   <sc-raw-table style="width:100%;border-collapse:collapse;font-size:13px;color:#1e2939;min-width:900px;">
+                     <sc-raw-thead><sc-raw-tr style="background:#f5f6f8;">
+                       <sc-raw-th style="padding:11px 8px;width:50px;text-align:center;border-bottom:1px solid #e4e7ec;font-weight:700;">STT</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:170px;text-align:center;border-bottom:1px solid #e4e7ec;font-weight:700;">Số, ký hiệu</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:110px;text-align:center;border-bottom:1px solid #e4e7ec;font-weight:700;">Ngày ban hành</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;text-align:center;border-bottom:1px solid #e4e7ec;font-weight:700;">Trích yếu / Tên văn bản</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:200px;text-align:center;border-bottom:1px solid #e4e7ec;font-weight:700;">Nguồn</sc-raw-th>
+                       <sc-raw-th style="padding:11px 10px;width:170px;text-align:center;border-bottom:1px solid #e4e7ec;font-weight:700;">Mẫu trùng lặp</sc-raw-th>
+                     </sc-raw-tr></sc-raw-thead>
+                     <sc-raw-tbody>
+                       <sc-for list="{{ kqDupLRows }}" as="c" hint-placeholder-count="3">
+                         <sc-raw-tr>
+                           <sc-raw-td style="padding:10px 8px;text-align:center;border-bottom:1px solid #eef1f6;">{{ c.stt }}</sc-raw-td>
+                           <sc-raw-td style="padding:10px;border-bottom:1px solid #eef1f6;"><span onclick="{{ c.open }}" title="Xem văn bản tại mẫu trùng đầu tiên" style="color:#2f54eb;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px;"><span class="ic" style="font-size:16px;">description</span>{{ c.so }}</span></sc-raw-td>
+                           <sc-raw-td style="padding:10px;text-align:center;border-bottom:1px solid #eef1f6;color:#667085;white-space:nowrap;">{{ c.ngay }}</sc-raw-td>
+                           <sc-raw-td style="padding:10px;border-bottom:1px solid #eef1f6;line-height:1.45;">{{ c.ty }}</sc-raw-td>
+                           <sc-raw-td style="padding:10px;border-bottom:1px solid #eef1f6;">{{ c.nguon }}</sc-raw-td>
+                           <sc-raw-td style="padding:10px;text-align:center;border-bottom:1px solid #eef1f6;"><sc-for list="{{ c.mau }}" as="m" hint-placeholder-count="2"><span onclick="{{ m.go }}" title="Xem văn bản tại {{ m.t }}" style="display:inline-block;margin:2px 3px;border:1px solid #91caff;background:#e6f4ff;color:#0958d9;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;cursor:pointer;">{{ m.t }}</span></sc-for></sc-raw-td>
+                         </sc-raw-tr>
+                       </sc-for>
+                       <sc-if value="{{ kqDupLEmpty }}" hint-placeholder-val="{{ false }}"><sc-raw-tr><sc-raw-td colspan="6" style="padding:20px;text-align:center;color:#98a2b3;">Không có dữ liệu</sc-raw-td></sc-raw-tr></sc-if>
+                     </sc-raw-tbody>
+                   </sc-raw-table>
+                   <div style="display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:10px 14px;font-size:13px;color:#475467;border-top:1px solid #eef1f6;">
+                     <span>{{ kqDupLInfo }}</span>
+                     <span onclick="{{ kqDupLPrev }}" class="ic" style="font-size:18px;cursor:pointer;color:#98a2b3;">chevron_left</span>
+                     <span style="border:1px solid #2f54eb;color:#2f54eb;border-radius:6px;padding:1px 8px;font-weight:600;">{{ kqDupLPg }}</span>
+                     <span onclick="{{ kqDupLNext }}" class="ic" style="font-size:18px;cursor:pointer;color:#98a2b3;">chevron_right</span>
+                     <span style="border:1px solid #d0d5dd;border-radius:6px;padding:2px 8px;">10 / page</span>
+                   </div>
+                 </div>
+                 <div style="display:flex;justify-content:flex-end;padding:16px 20px;margin-top:14px;background:#f9fafb;border-top:1px solid #eef1f6;">
+                   <button onclick="{{ kqDupLClose }}" style="height:36px;border:0;background:#2f2fd0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#fff;padding:0 20px;border-radius:6px;">Thoát</button>
                  </div>
                </div>
              </div>
@@ -4711,6 +4765,25 @@
 class Component extends DCLogic {
   state = { screen: 'linhvuc', ktSearched: true, navMgmtOpen: true, navQtOpen: false, navBcOpen: false, role: 'ld', catTab: 'het-toan-bo', showPlanForm: false, planFormMode:'add', planViewMa:'', plans:[{ ma:'KH-HTH/2009-2013-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2009–2013', kyId:'KY-000', ky:'2009 – 2013', donVi:'Bộ tư pháp', file:'KeHoach_2009_2013.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2014-2018-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2014–2018', kyId:'KY-00A', ky:'2014 – 2018', donVi:'Bộ tư pháp', file:'KeHoach_2014_2018.pdf', tt:'Hoàn thành', ttColor:'#1f8a5b', ttBg:'#e3f4ec', chiTiet:'' },{ ma:'KH-HTH/2019-2023-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2019–2023', kyId:'KY-001', ky:'2019 – 2023', donVi:'Bộ tư pháp', file:'KeHoach_2019_2023.pdf', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'' },{ ma:'KH-HTH/2024-2028-01', ten:'Kế hoạch hệ thống hóa văn bản QPPL kỳ 2024–2028', kyId:'KY-002', ky:'2024 – 2028', donVi:'Bộ tư pháp', file:'KeHoach_2024_2028.pdf', soKyHieu:'15/KH-STP', ngayBH:'15/03/2024', tt:'Đang thực hiện', ttColor:'#0e4c8f', ttBg:'#e8f0fb', chiTiet:'Kế hoạch triển khai hệ thống hóa văn bản QPPL kỳ 2024–2028 của Bộ tư pháp.' }], planDraft:{ ten:'', kyId:'', chiTiet:'', soKyHieu:'', ngayBH:'' }, planSearchTenSel:'', planSearchKySel:'', planSearchTen:'', planSearchKy:'', currentDonVi:'Bộ tư pháp', showKyHthForm:false, kyHthFormMode:'add', kyHthViewId:'', kyHthSearchKySel:'', kyHthSearchKy:'', kyHthList:[{ id:'KY-000', tuNam:'2009', denNam:'2013', loai:'Hệ thống hóa', tuNgay:'2009-01-01', denNgay:'2013-12-31', kyLabel:'2009 – 2013', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2009–2013.', file:'HuongDan_HTH_2009_2013.pdf' },{ id:'KY-00A', kyTruocId:'KY-000', tuNam:'2014', denNam:'2018', loai:'Hệ thống hóa', tuNgay:'2014-01-01', denNgay:'2018-12-31', kyLabel:'2014 – 2018', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2014–2018.', file:'HuongDan_HTH_2014_2018.pdf' },{ id:'KY-001', kyTruocId:'KY-00A', tuNam:'2019', denNam:'2023', loai:'Hệ thống hóa', tuNgay:'2019-01-01', denNgay:'2023-12-31', kyLabel:'2019 – 2023', moTa:'Kỳ hệ thống hóa văn bản QPPL toàn quốc 2019–2023.', file:'HuongDan_HTH_2019_2023.pdf' },{ id:'KY-002', kyTruocId:'KY-001', tuNam:'2024', denNam:'2028', loai:'Hệ thống hóa', tuNgay:'2024-01-01', denNgay:'2028-12-31', kyLabel:'2024 – 2028', moTa:'Kỳ hệ thống hóa văn bản QPPL đang triển khai.', file:'KeHoach_HTH_2024_2028.pdf' }], kyHthDraft:{ tuNam:'', denNam:'', moTa:'', file:'' }, selectedDoc: null, setTab: 'build', published: {}, docPanel: '', formMode: 'add', editDoc: null, reviewType: null, reviewPlanMa:null, rsHthCreated:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsHthDraft:{}, rsPlanPublished:{'KH-HTH/2009-2013-01':true,'KH-HTH/2014-2018-01':true,'KH-HTH/2019-2023-01':true}, rsPlanSent:{'KH-HTH/2019-2023-01':true}, rsPlanApproved:{'KH-HTH/2019-2023-01':true}, rsDetailDoc: null, reviewAdd: false, reviewAgg: false, reviewUnit: null, aggPublished: false, reviewAddMode: 'add', rsSent: {}, rsApproved: {}, rsSaved: {}, unitApproved: {}, hasSavedCategory: false, addMau: '', addRows: [], addSearch: false, rsAssigned: {}, rsMauRows: {}, dinhSearch: '', dinhCqSel:'', dinhLoaiSel:'', dinhLvSel:'', dinhCq:'', dinhLoai:'', dinhLv:'', dinhShowResults: false, dinhStep:'list', dinhAddConfirmed:false, dinhMauTab:'het-toan-bo', dinhDraft: {}, dinhChinh: null, rejectId: null, rejectReason: '', rsChecked: {}, rsPublished: {}, docKySel:'KH-HTH/2024-2028-01', docKyApplied:'KH-HTH/2024-2028-01', syncedDocs:{}, docSyncTime:'28/06/2025 · 08:15', tcType:null, tcMauSel:'', tcMau:'', tcDonViHthSel:'', tcDonViHth:'', tcLvSel:'', tcLinhVuc:'', tcFromSel:'', tcFrom:'', tcToSel:'', tcTo:'', tcDonViSel:'' , dinhEditSo: null, sxForm:false, sxConfigs:[{ id:'SX-DEMO', donVi:'Sở Tư pháp', ngayBH:'cu-moi', lvOrder:['Tư pháp','Hộ tịch','Lao động','Bổ trợ tư pháp','Trợ giúp pháp lý','Hỗ trợ pháp lý'], hlOrder:['Hết hiệu lực một phần','Còn hiệu lực','Hết hiệu lực toàn bộ','Tạm ngưng hiệu lực'], priorityOrder:['hieuLuc','linhVuc','ngayBanHanh'] }], sxDonVi:'', sxNgayBH:'cu-moi', sxLvOrder:[], sxHlOrder:[], sxPriorityOrder:[], sxShowHint:true, sxLvSearch:'', sxEditId:null, setSxDonViSel:'', setSxAppliedDonVi:'', setNgayBHSel:'cu-moi', setLvSel:'', setHlSel:'', setNgayBH:'cu-moi', setLv:'', setHl:'', setKyIdSel:'KY-001', setKyId:'KY-001', setDocPatches:{}, showSetPublishConfirm:false, setRepublished:false, showSetPublishSuccess:false, rsRepublishedCount:{}, showRsRepublishConfirm:false, showRsRepublishSuccess:false, statDvSel:'', statLvSel:'', statTtSel:'', statDv:'', statLv:'', statTt:'', showStatMau05:false, statMau05Unit:'', showRsCreateForm:false, rsCreatePlanMa:'', showAggConfirm:false, rsLdEditMode:false };
 
+  // Dữ liệu mẫu VB trùng (25/11): kỳ 2024 – 2028 đã có VB Đầu mối lấy + kết quả Cục Hộ tịch ĐÃ GỬI + kết quả tổng hợp của Đầu mối
+  // → VB của Cục Hộ tịch trùng với VB Đầu mối (cùng Loại, CQBH, Ngày BH, Số KH, Trích yếu, cùng mẫu) → nút "Xem danh sách văn bản trùng" hiện ngay
+  seedDupDemo = (()=>{ try {
+    const KY = '2024 – 2028', HT = 'Cục Hộ tịch, quốc tịch, chứng thực', T = '01/11/2026 08:30';
+    const norm = (h)=>this.normalizeTthl(h);
+    const dm = this.khoAutoGan(this.khoSampleNay('Bộ Tư pháp', 'DMDEMO'), 'kythis', T).map(d=>({ ...d, own:'DM' }));
+    const ht = this.khoAutoGan(this.khoSampleNay('Bộ Tư pháp', 'HTDEMO'), 'kythis', T).filter(d=>d.dv2===HT).map(d=>({ ...d, own:HT }));
+    const rstx = (cq)=>({ tu:'01/01/2024', den:'31/12/2028', tuIso:'2024-01-01', denIso:'2028-12-31', cq, at:'02/11/2026' });
+    const uRows = {}; ht.forEach(d=>{ uRows[d.id] = { hl:norm(d.hl), kn:'Không cần xử lý', lyDo:'', ghiChu:'' }; });
+    const aRows = {}; dm.forEach(d=>{ aRows[d.id] = { docId:d.id, hl:norm(d.hl), kn:'Không cần xử lý', lyDo:'', ghiChu:'', src:'auto' }; });
+    ht.forEach(d=>{ aRows[d.id+'@'+HT] = { ...uRows[d.id], docId:d.id, src:'dv', srcDv:HT }; });
+    Object.assign(this.state, {
+      khoData: { [KY]: { csdl:[ ...dm, ...ht ], heThong:[], tCsdl:T, tHt:'', fetched:{ DM:T, [HT]:T } } },
+      kq: { [KY]: { pub:false,
+        units: { [HT]: { created:true, st:'gui', rows:uRows, n:ht.length, at:'02/11/2026', sentAt:'03/11/2026', rstx:rstx(HT), rstxAt:'02/11/2026' } },
+        dm: { created:true, rows:aRows, n:Object.keys(aRows).length, at:'03/11/2026', aggAt:'03/11/2026', aggN:ht.length, aggDm:dm.length, aggUnits:[HT], aggWait:[], rstx:rstx('Bộ Tư pháp'), rstxAt:'03/11/2026' } } }
+    });
+  } catch(e){ console.log('seedDupDemo', e); } return true; })();
+
   updateDinhDraft(so, key, val){
     this.setState(st=>({ dinhDraft: { ...st.dinhDraft, [so]: { ...(st.dinhDraft[so]||{}), [key]: val } } }));
   }
@@ -5536,10 +5609,24 @@ class Component extends DCLogic {
       else { k.dm.rows[id] = { ...(k.dm.rows[id]||{}), ...patch, src:'dm', by:'Đầu mối', at:TODAY }; }
       return k; });
     const allRows = ids.map((id,i)=>{ const v = rowsObj[id]; const d = docMap[docIdOf(id, v)]; return { key:id, d, v, mau: mauOf(v), i }; });
-    // VB trùng: cùng Số ký hiệu (prototype dùng Số ký hiệu thay cho trường Mã văn bản)
-    const dupMap = {}; allRows.forEach(r=>{ const k0 = String(r.d.so||'').trim().toLowerCase(); (dupMap[k0] = dupMap[k0] || []).push(r); });
-    const dupOf = (r)=>dupMap[String(r.d.so||'').trim().toLowerCase()] || [];
-    const nDupVb = Object.keys(dupMap).filter(k0=>dupMap[k0].length>1).length;
+    // Rule trùng (chốt 25/11): cùng Loại VB + Cơ quan ban hành + Ngày ban hành + Số, ký hiệu + Trích yếu, xuất hiện ≥ 2 dòng trong CÙNG một mẫu.
+    // VB nằm ở nhiều mẫu khác nhau theo công thức (03+05, 02+03+05…) không tính trùng. Chỉ cảnh báo, không tự loại bỏ.
+    const dupKey = (d)=>[d.loai, d.cq, d.ngay, d.so, d.ty].map(x=>String(x||'').trim().toLowerCase().replace(/\s+/g,' ')).join('|');
+    // Rule theo TỪNG MẪU (chốt 25/11, thay rule 5 trường chung): trùng khi ≥ 2 dòng trong cùng mẫu giống nhau ở các cột:
+    //   Mẫu 01: (4)(5)(6)(7)(10) · Mẫu 02: (3)–(9),(11) · Mẫu 03: (3)–(8) · Mẫu 04: (3)–(9) · Mẫu 05: không kiểm tra (sinh từ Mẫu 03). Không so (2) Lĩnh vực.
+    const nz = (x)=>String(x||'').trim().toLowerCase().replace(/\s+/g,' ');
+    const dupVal = (k, d, v)=>{ if(v[k]!=null && v[k]!=='') return v[k];
+      if(k==='loaiHl') return v.hl||''; if(k==='thoiDiemHL') return d.hieuLucNgay||''; if(k==='ndKienNghi') return v.lyDo||'';
+      if(k==='htXuLyVB'){ const x = v.kn||''; return (!x || x==='Không cần xử lý') ? '' : x; } return ''; };
+    const DUP_COLS = { '01':['cq','so','ngay','ty','#ngayHetHl'], '02':['loai','cq','so','ngay','ty','#noiDungHetHl','#loaiHl','#ngayHetHl'], '03':['loai','cq','so','ngay','ty','#thoiDiemHL'], '04':['loai','cq','so','ngay','ty','#htXuLyVB','#ndKienNghi'] };
+    const mauKey = (r, c)=>c+'|'+DUP_COLS[c].map(f=>nz(f[0]==='#' ? dupVal(f.slice(1), r.d, r.v) : r.d[f])).join('|');
+    const cntMK = {}; allRows.forEach(r=>r.mau.forEach(c=>{ if(DUP_COLS[c]){ const k = mauKey(r, c); cntMK[k] = (cntMK[k]||0)+1; } }));
+    const rowDupMau = (r)=>r.mau.filter(c=>DUP_COLS[c] && cntMK[mauKey(r, c)]>=2);
+    const dupMap = {}; allRows.forEach(r=>{ const k0 = dupKey(r.d); (dupMap[k0] = dupMap[k0] || []).push(r); });
+    const dupMauOf = (list)=>MAU.map(m=>m[0]).filter(c=>(list||[]).some(r=>rowDupMau(r).includes(c)));
+    const dupOf = (r)=>{ const l = dupMap[dupKey(r.d)] || []; return dupMauOf(l).length ? l : []; };
+    const dupKeys = Object.keys(dupMap).filter(k0=>dupMauOf(dupMap[k0]).length);
+    const nDupVb = dupKeys.length;
     const cnt = {}; MAU.forEach(m=>{ cnt[m[0]] = allRows.filter(r=>r.mau.includes(m[0])).length; });
     const curMau = s.kqMau || '';
     const q = String(s.kqQ||'').trim().toLowerCase();
@@ -5661,7 +5748,7 @@ class Component extends DCLogic {
         hl:v.hl, hlC:'#344054', hlB:'#f2f4f7', kn:v.kn||'Không cần xử lý', knC:(v.kn && v.kn!=='Không cần xử lý') ? '#1e2939' : '#98a2b3', lyDo:v.lyDo||'', ghiChu:v.ghiChu||'',
         mauChips: MAU.map(m=>({ t:m[0], fc: r.mau.includes(m[0]) ? '#fff' : '#c0c6d0', bc: r.mau.includes(m[0]) ? '#667085' : '#f2f4f7' })),
         srcT, srcC, ed:mauEd, ro:!mauEd,
-        dup: !forUnit && dupOf(r).length>1, dupN: dupOf(r).length, openDup: ()=>this.setState({ kqDup: String(d.so||'').trim().toLowerCase() }),
+        dup: !forUnit && rowDupMau(r).includes(curMau), dupN: dupOf(r).length, openDup: ()=>this.setState({ kqDup: dupKey(d) }),
         // Sao chép: tạo dòng mới (chưa lưu) có thông tin giống dòng này, NSD sửa rồi nhấn Lưu
         copy: ()=>setNew(rs=>[ ...rs, { so:d.so||'', loai:d.loai||'', cq:d.cq||'', ngay:d.ngay||'', ty:d.ty||'', hl:v.hl||'', hieuLucNgay:d.hieuLucNgay||'', sug:false, picked:true,
           vals: Object.fromEntries(kqColsRaw.map(col=>[col.key, kqColDef(col, d, v)||''])) } ]),
@@ -5821,6 +5908,25 @@ class Component extends DCLogic {
       kqStT: stD[0], kqStC: stD[1], kqStB: stD[2],
       kqMauRows: mauRows, kqTotal: allRows.length,
       kqDupVbN: nDupVb, kqHasDup: !forUnit && nDupVb>0,
+      // Popup "Danh sách [n] văn bản trùng nhau" (mở từ nút Xem danh sách văn bản trùng)
+      ...(()=>{ const qd = String(s.kqDupLQd||'').trim().toLowerCase(); const PG = 10;
+        const groups = dupKeys.map(k0=>({ k0, list:dupMap[k0] })).filter(g=>!qd || String(g.list[0].d.so||'').toLowerCase().includes(qd) || String(g.list[0].d.ty||'').toLowerCase().includes(qd));
+        const pages = Math.max(1, Math.ceil(groups.length/PG)); const pg = Math.min(Math.max(1, s.kqDupLPg||1), pages);
+        const shownG = groups.slice((pg-1)*PG, pg*PG);
+        return { kqDupLOpen: !!s.kqDupList && !forUnit, kqDupLN: nDupVb, kqDupLQ: s.kqDupLQ||'',
+          kqDupLOpenFn: ()=>this.setState({ kqDupList:true, kqDupLQ:'', kqDupLQd:'', kqDupLPg:1 }),
+          kqDupLClose: ()=>this.setState({ kqDupList:false }),
+          setKqDupLQ: (e)=>this.setState({ kqDupLQ:e.target.value }),
+          kqDupLSearch: ()=>this.setState(st=>({ kqDupLQd:st.kqDupLQ||'', kqDupLPg:1 })),
+          kqDupLExport: ()=>alert('Đã xuất danh sách '+groups.length+' văn bản trùng (dữ liệu mẫu).'),
+          kqDupLEmpty: !groups.length,
+          kqDupLRows: shownG.map((g,i)=>{ const d = g.list[0].d; const src = [...new Set(g.list.map(r=>r.v.srcDv ? short(r.v.srcDv) : 'Đầu mối'))];
+            return { stt:(pg-1)*PG+i+1, so:d.so, ngay:d.ngay||'', ty:d.ty||'', loai:d.loai||'', cq:d.cq||'', nguon:src.join(', '),
+              // Cách A: bấm Số, ký hiệu → mẫu trùng đầu tiên; bấm chip Mẫu xx → đúng mẫu đó. Mở Xem / Sửa danh mục ở chế độ Xem, lọc sẵn Số, ký hiệu
+              mau: dupMauOf(g.list).map(c=>({ t:'Mẫu '+c, go: ()=>this.setState({ kqDupList:false, kqMau:c, kqMauMode:'xem', kqQ:d.so, kqQd:d.so, kqLoai:'', kqLoaid:'' }) })),
+              open: ()=>{ const c = dupMauOf(g.list)[0]; this.setState({ kqDupList:false, kqMau:c, kqMauMode:'xem', kqQ:d.so, kqQd:d.so, kqLoai:'', kqLoaid:'' }); } }; }),
+          kqDupLInfo: groups.length ? ('Hiển thị '+((pg-1)*PG+1)+'-'+Math.min(pg*PG, groups.length)+' trong '+groups.length+' bản ghi') : '',
+          kqDupLPg: String(pg), kqDupLPrev: ()=>this.setState({ kqDupLPg: Math.max(1, pg-1) }), kqDupLNext: ()=>this.setState({ kqDupLPg: Math.min(pages, pg+1) }) }; })(),
       ...(()=>{ const key = s.kqDup || ''; const list = key ? (dupMap[key]||[]) : [];
         const canDel = !forUnit && canEdit;
         return { kqDupOpen: !!key && list.length>0, kqDupTitle: list.length ? ('Văn bản '+list[0].d.so+' có '+list.length+' bản') : '',
