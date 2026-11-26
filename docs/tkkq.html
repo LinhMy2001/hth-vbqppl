@@ -61,7 +61,7 @@ td.c{text-align:center}td.r{text-align:right}
 .sub{padding:11px 22px 11px 56px;font-size:14.5px;color:#c5cdd8}
 .sub.act{background:#16325c;margin:2px 6px;border-radius:8px;color:#fff;padding-left:50px}
 .grp{background:#08152a}
-.kp{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:16px 0 4px}
+.kp{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:16px 0 4px}
 .k{border:1px solid #eaecf0;border-radius:8px;padding:12px 14px;cursor:pointer}
 .k:hover,.k.on{border-color:#1d39c4;background:#f5f7ff}
 .k .l{font-size:12px;color:#667085;line-height:1.35;min-height:32px}.k .n{font-size:22px;font-weight:700;color:#10243a;margin-top:4px}
@@ -110,7 +110,7 @@ let fDv='',more=false,dt=null; // dt = {dv, mau}
 const M=document.getElementById('main');
 const opt=(a,v)=>'<option></option>'+a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
 function cur(){return fDv?SL[DV.indexOf(fDv)]:ALL}
-const TIP='Đếm văn bản không trùng. Trùng = cùng Mã văn bản (CSDLQG); văn bản nhập tay: cùng Số, ký hiệu + Ngày ban hành + Cơ quan ban hành. Văn bản thuộc nhiều lĩnh vực, nhiều đơn vị hoặc nhiều mẫu chỉ đếm 1.';
+const TIP='Đếm văn bản không trùng. Trùng = giống nhau ở các cột (3)–(7): Loại VB, Cơ quan ban hành, Số ký hiệu, Ngày ban hành, Tên gọi/Trích yếu. Văn bản ở nhiều mẫu, nhiều lĩnh vực, nhiều đơn vị chỉ đếm 1.';
 function render(){
 const C=cur(), rowsIdx=DV.map((d,i)=>i).filter(i=>!fDv||DV[i]===fDv);
 M.innerHTML=`<div class="bc"><u>Báo cáo thống kê</u> / Thống kê kết quả HTH</div><h1>Thống kê kết quả hệ thống hóa <span class="ic tip" title="Chỉ thống kê kết quả hệ thống hóa đã công bố.">info</span></h1>
@@ -125,7 +125,7 @@ M.innerHTML=`<div class="bc"><u>Báo cáo thống kê</u> / Thống kê kết qu
  <div class="sec" style="margin:0">Số liệu ${fDv?'của '+fDv:'tất cả đơn vị'}</div>
  <button class="btn" onclick="toast('Đã xuất số liệu thống kê ra file Word (mô phỏng)')"><span class="ic">description</span>Xuất Word</button>
 </div>
-<div class="kp" style="margin-top:12px">${MAU.map((m,j)=>`<div class="k" style="cursor:default"><div class="l">Mẫu ${m[0]}<br>${m[1]}</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px"><div class="n" style="margin:0">${C[j]}</div><span class="ab v" title="Xem chi tiết Mẫu ${m[0]}" style="cursor:pointer" onclick="openDt(${fDv?DV.indexOf(fDv):-1},'${m[0]}')"><span class="ic">visibility</span></span></div></div>`).join('')}<div class="k" style="cursor:default"><div class="l">Tổng số văn bản <span class="ic tip" style="font-size:14px" title="${TIP} Tổng tính trên Mẫu 01–04.">info</span><br>&nbsp;</div><div class="n">${C[5]}</div></div></div>
+<div class="kp" style="margin-top:12px">${MAU.map((m,j)=>`<div class="k" style="cursor:default"><div class="l">Mẫu ${m[0]}<br>${m[1]}</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px"><div class="n" style="margin:0">${C[j]}</div><span class="ab v" title="Xem chi tiết Mẫu ${m[0]}" style="cursor:pointer" onclick="openDt(${fDv?DV.indexOf(fDv):-1},'${m[0]}')"><span class="ic">visibility</span></span></div></div>`).join('')}</div>
 </div>`;if(dt)M.innerHTML=detail()}
 function openDt(i,m){dt={dv:i,mau:m};render()}
 const TEN={'01':'Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực toàn bộ','02':'Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực một phần','03':'Danh mục văn bản quy phạm pháp luật còn hiệu lực','04':'Danh mục văn bản quy phạm pháp luật cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới','05':'Tập hệ thống hóa văn bản quy phạm pháp luật'};
