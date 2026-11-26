@@ -419,6 +419,10 @@
     <main style="flex:1 1 auto;overflow-y:auto;min-width:0;">
       <!--SCREENS-->
 
+      <sc-if value="{{ isKho }}" hint-placeholder-val="{{ false }}">
+        <iframe src="kho.html" title="Kho dữ liệu kết quả" style="display:block;width:100%;height:calc(100vh - 64px);border:0;"></iframe>
+      </sc-if>
+
       <sc-if value="{{ isStats }}" hint-placeholder-val="{{ false }}">
         <div style="padding:24px 32px 48px;">
           <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;">
@@ -6627,6 +6631,8 @@ class Component extends DCLogic {
       mk('rstx','rule','Kết quả rà soát'),
 
       mk('stats','bar_chart','Thống kê số liệu'),
+
+      mk('kho','inventory_2','Kho dữ liệu kết quả'),
     ];
 
     const stats = [
@@ -9040,6 +9046,7 @@ class Component extends DCLogic {
       sxSearchEmpty: !!(s.sxConfigs||[]).length && !!(s.sxSearchDonVi||'').trim() && !(s.sxConfigs||[]).some(c=>c.donVi===String(s.sxSearchDonVi||'').trim()),
       isSet: s.screen==='set',
       isStats: s.screen==='stats',
+      isKho: s.screen==='kho',
       isRxKq: s.screen==='rstx',
       ...(()=>{
         const kw = (s.rxKwA||'').trim().toLowerCase();
