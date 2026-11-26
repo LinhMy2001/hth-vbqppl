@@ -149,8 +149,8 @@ return `<div class="bc"><u>Báo cáo thống kê</u> / <u>Thống kê kết qu�
  <button class="btn p" onclick="render()"><span class="ic">search</span>Tìm kiếm</button>
  <button class="btn" onclick="dt.loai='';render()"><span class="ic">refresh</span>Nhập lại</button>
 </div>
-<div style="overflow-x:auto"><table style="min-width:${1100+cx.length*120}px"><tr>${base.map((h,i)=>`<th style="text-transform:uppercase">${h}<br>(${i+1})</th>`).join('')}${dt.dv<0?'<th>ĐƠN VỊ</th>':''}</tr>
-${R.map((r,i)=>`<tr><td class="c">${i+1}</td><td>${r[5]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="lnk">${r[0]}</span></td><td class="c">${r[4]}</td><td>${r[1]}</td>${xval(r,m).map(v=>`<td>${v}</td>`).join('')}${dt.dv<0?`<td>${DV[r[6]]}</td>`:''}</tr>`).join('')||`<tr><td colspan="${base.length+1}" class="c muted" style="padding:20px">Danh mục này chưa có văn bản.</td></tr>`}
+<div style="overflow-x:auto"><table style="min-width:${1100+cx.length*120}px"><tr>${base.map((h,i)=>`<th style="text-transform:uppercase">${h}<br>(${i+1})</th>`).join('')}</tr>
+${R.map((r,i)=>`<tr><td class="c">${i+1}</td><td>${r[5]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="lnk">${r[0]}</span></td><td class="c">${r[4]}</td><td>${r[1]}</td>${xval(r,m).map(v=>`<td>${v}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${base.length+1}" class="c muted" style="padding:20px">Danh mục này chưa có văn bản.</td></tr>`}
 </table></div>
 <div class="muted" style="margin-top:12px">Hiển thị <b style="color:#344054">${R.length}</b> văn bản</div>
 </div></div>`}
