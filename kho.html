@@ -132,8 +132,8 @@ M.innerHTML=bc('Tổng rà soát')+`<h1>Kho dữ liệu kết quả</h1><div cla
  <button class="btn p"><span class="ic">search</span>Tìm kiếm</button><button class="btn"><span class="ic">refresh</span>Nhập lại</button>
 </div>
 <div class="bar"><div class="tot">Tổng cộng: <b>${L.length}</b> mục</div>${scope=='me'?'<button class="btn p" onclick="go(4)"><span class="ic">add</span>Thêm mới</button>':''}</div>
-<table><tr><th style="width:50px">STT</th><th>Đợt tổng rà soát</th><th>Cơ quan</th><th>Tổng VB rà soát</th><th>Còn hiệu lực</th><th>Hết hiệu lực<br>toàn bộ / một phần</th><th>Cần xử lý</th><th>Đã xử lý</th><th>Chế độ</th><th>Ngày đưa vào kho</th><th style="width:150px">Thao tác</th></tr>
-${L.map((r,i)=>`<tr><td class="c">${i+1}</td><td><span class="lnk">${r.dot}</span></td><td>${r.cq}</td><td class="r">${r.tong.toLocaleString('vi')}</td><td class="r">${r.con}</td><td class="r">${r.het}</td><td class="r">${r.can}</td><td class="r">${r.da}</td><td class="c"><span class="tag">${r.pub?'Công khai':'Nội bộ'}</span></td><td class="c">${r.d}</td><td>${acts(r)}</td></tr>`).join('')}
+<table><tr><th style="width:50px">STT</th><th>Đợt tổng rà soát</th><th>Cơ quan</th><th>Chế độ</th><th>Ngày đưa vào kho</th><th style="width:150px">Thao tác</th></tr>
+${L.map((r,i)=>`<tr><td class="c">${i+1}</td><td><span class="lnk">${r.dot}</span></td><td>${r.cq}</td><td class="c"><span class="tag">${r.pub?'Công khai':'Nội bộ'}</span></td><td class="c">${r.d}</td><td>${acts(r)}</td></tr>`).join('')}
 </table>${pag(L.length)}</div>`}
 function s4(){const lech=new URLSearchParams(location.search).get('x');
 M.innerHTML=bc('<u>Tổng rà soát</u> / Thêm mới')+`<h1>Thêm mới kết quả tổng rà soát</h1><div class="card">
