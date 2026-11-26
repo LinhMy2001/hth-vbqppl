@@ -123,9 +123,8 @@ M.innerHTML=`<div class="bc"><u>Báo cáo thống kê</u> / Thống kê kết qu
 </div>
 <div class="bar" style="padding-top:16px;margin-bottom:0">
  <div class="sec" style="margin:0">Số liệu ${fDv?'của '+fDv:'tất cả đơn vị'}</div>
- <button class="btn" onclick="toast('Đã xuất số liệu thống kê ra file Word (mô phỏng)')"><span class="ic">description</span>Xuất Word</button>
 </div>
-<div class="kp" style="margin-top:12px">${MAU.map((m,j)=>`<div class="k" style="cursor:default"><div class="l">Mẫu ${m[0]}<br>${m[1]}</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px"><div class="n" style="margin:0">${C[j]}</div><span class="ab v" title="Xem chi tiết Mẫu ${m[0]}" style="cursor:pointer" onclick="openDt(${fDv?DV.indexOf(fDv):-1},'${m[0]}')"><span class="ic">visibility</span></span></div></div>`).join('')}</div>
+<div class="kp" style="margin-top:12px">${MAU.map((m,j)=>`<div class="k" style="cursor:default"><div class="l">Mẫu ${m[0]}<br>${m[1]}</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px"><div class="n" style="margin:0">${C[j]}</div><span style="display:flex;gap:6px"><span class="ab v" title="Xem chi tiết Mẫu ${m[0]}" style="cursor:pointer" onclick="openDt(${fDv?DV.indexOf(fDv):-1},'${m[0]}')"><span class="ic">visibility</span></span><span class="ab g" title="Xuất Word Mẫu ${m[0]}" style="cursor:pointer" onclick="toast('Đã xuất Mẫu ${m[0]} ra file Word (mô phỏng)')"><span class="ic">description</span></span></span></div></div>`).join('')}</div>
 </div>`;if(dt)M.innerHTML=detail()}
 function openDt(i,m){dt={dv:i,mau:m};render()}
 const TEN={'01':'Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực toàn bộ','02':'Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực một phần','03':'Danh mục văn bản quy phạm pháp luật còn hiệu lực','04':'Danh mục văn bản quy phạm pháp luật cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới','05':'Tập hệ thống hóa văn bản quy phạm pháp luật'};
