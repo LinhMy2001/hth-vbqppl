@@ -419,6 +419,10 @@
     <main style="flex:1 1 auto;overflow-y:auto;min-width:0;">
       <!--SCREENS-->
 
+      <sc-if value="{{ isTkkq }}" hint-placeholder-val="{{ false }}">
+        <iframe src="tkkq.html" title="Thống kê kết quả HTH" style="display:block;width:100%;height:calc(100vh - 64px);border:0;"></iframe>
+      </sc-if>
+
       <sc-if value="{{ isKho }}" hint-placeholder-val="{{ false }}">
         <iframe src="kho.html" title="Kho dữ liệu kết quả" style="display:block;width:100%;height:calc(100vh - 64px);border:0;"></iframe>
       </sc-if>
@@ -6626,6 +6630,7 @@ class Component extends DCLogic {
       ]),
       ...folder('navBcOpen','insights','Báo cáo thống kê',[
         ['tkgui','monitoring','Thống kê tình trạng gửi kết quả HTH'],
+        ['tkkq','analytics','Thống kê kết quả HTH'],
       ]),
 
       mk('rstx','rule','Kết quả rà soát'),
@@ -9047,6 +9052,7 @@ class Component extends DCLogic {
       isSet: s.screen==='set',
       isStats: s.screen==='stats',
       isKho: s.screen==='kho',
+      isTkkq: s.screen==='tkkq',
       isRxKq: s.screen==='rstx',
       ...(()=>{
         const kw = (s.rxKwA||'').trim().toLowerCase();

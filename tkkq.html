@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><title>Thống kê kết quả HTH – mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..500,0..1,0" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,'Segoe UI',sans-serif;background:#f0f2f5;color:#262626;font-size:13px}
+.ic{font-family:'Material Symbols Outlined';font-size:20px;line-height:1;vertical-align:middle;display:inline-block}
+.top{height:55px;background:#0b1b33;color:#fff;display:flex;align-items:center;padding:0 22px;gap:14px}
+.top .logo{width:30px;height:30px;border-radius:50%;background:#d92d20;display:flex;align-items:center;justify-content:center;color:#fdd835}
+.top b{font-size:17px;letter-spacing:.2px}.top .sp{flex:1}
+.av{width:32px;height:32px;border-radius:50%;background:#fb8c00;display:flex;align-items:center;justify-content:center;font-weight:700}
+.wrap{display:flex;min-height:calc(100vh - 55px)}
+.side{width:280px;flex-shrink:0;background:#0b1b33;color:#dbe3ee;padding-top:10px}
+.mi{display:flex;align-items:center;gap:14px;padding:13px 22px;font-size:15px;font-weight:500}
+.mi .ex{margin-left:auto;font-size:18px;color:#8fa0b6}
+.mi.act{background:#16325c;margin:4px 6px;border-radius:8px;color:#fff;padding:13px 16px}
+.main{flex:1;min-width:0;padding:22px 32px}
+.bc{font-size:13px;color:#667085;margin-bottom:8px}.bc u{color:#667085}
+h1{margin:0 0 14px;font-size:20px;color:#10243a}
+.card{background:#fff;border-radius:10px;padding:20px 24px}
+.tabs{display:flex;gap:28px;border-bottom:1px solid #eaecf0;margin-bottom:18px}
+.tab{padding:0 2px 10px;font-weight:600;color:#667085;cursor:pointer;font-size:14px}
+.tab.on{color:#1d39c4;border-bottom:2px solid #1d39c4}
+.row{display:flex;gap:14px;align-items:flex-end;flex-wrap:nowrap}.row .f{min-width:0}.row .btn,.row .lnk{flex-shrink:0;white-space:nowrap}.rad{white-space:nowrap}
+.f{display:flex;flex-direction:column;gap:7px}.f label{font-size:13px;font-weight:600;color:#1e2939}
+input,select,textarea{height:36px;border:1px solid #d0d5dd;border-radius:6px;padding:0 12px;font:inherit;font-size:13px;background:#fff;color:#1e2939}
+input::placeholder,textarea::placeholder{color:#98a2b3}
+input[readonly]{background:#f5f5f5;color:#667085}
+textarea{height:72px;padding:8px 12px;resize:vertical}
+.btn{height:36px;padding:0 16px;border-radius:6px;border:1px solid #d0d5dd;background:#fff;font:inherit;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:#344054}
+.btn.p{background:#1d39c4;border-color:#1d39c4;color:#fff}
+.btn .ic{font-size:18px}
+.rad{display:flex;gap:16px;align-items:center;height:36px}.rad label{font-weight:500;display:flex;gap:6px;align-items:center}
+.lnk{color:#1d39c4;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.bar{display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px;padding-top:16px;border-top:1px solid #f0f0f0}
+.tot b{color:#f04438}
+table{border-collapse:collapse;width:100%}
+th{background:#fafafa;font-weight:600;border:1px solid #f0f0f0;padding:10px 12px;font-size:12.5px;text-align:center;color:#1e2939}
+td{border:1px solid #f0f0f0;padding:10px 12px;color:#475467;vertical-align:middle}
+td.c{text-align:center}td.r{text-align:right}
+.tag{font-size:12px;color:#475467;background:#f2f4f7;border-radius:12px;padding:2px 10px;white-space:nowrap}
+.acts{display:flex;gap:6px;justify-content:center}
+.ab{width:28px;height:28px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;border:1px solid}
+.ab .ic{font-size:16px}
+.v{color:#4f46e5;border-color:#c7d2fe;background:#eef2ff}.e{color:#f59e0b;border-color:#fde68a;background:#fffbeb}
+.d{color:#ef4444;border-color:#fecaca;background:#fef2f2}.g{color:#475467;border-color:#d0d5dd;background:#fff}
+.pg{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-top:14px;color:#344054}
+.pg .n{border:1px solid #1d39c4;color:#1d39c4;border-radius:6px;padding:3px 9px}
+.tip{color:#98a2b3;font-size:16px;cursor:help}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px}
+.req{color:#f04438}
+.drop{border:1px dashed #b2bccc;border-radius:8px;padding:18px;text-align:center;color:#667085;background:#fcfcfd}
+.drop .ic{font-size:28px;color:#1d39c4}
+.sec{font-weight:700;color:#10243a;margin:6px 0 12px;font-size:14px}
+.foot{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid #f0f0f0}
+.diff{margin-top:14px;border:1px solid #fecaca;background:#fef2f2;border-radius:8px;padding:12px 14px}
+.diff table td,.diff table th{background:#fff}
+.muted{color:#98a2b3}
+.hl{font-weight:600;color:#1e2939}
+.emb .top,.emb .side{display:none}.emb .wrap{height:auto;min-height:100vh}
+.sub{padding:11px 22px 11px 56px;font-size:14.5px;color:#c5cdd8}
+.sub.act{background:#16325c;margin:2px 6px;border-radius:8px;color:#fff;padding-left:50px}
+.grp{background:#08152a}
+.kp{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:16px 0 4px}
+.k{border:1px solid #eaecf0;border-radius:8px;padding:12px 14px;cursor:pointer}
+.k:hover,.k.on{border-color:#1d39c4;background:#f5f7ff}
+.k .l{font-size:12px;color:#667085;line-height:1.35;min-height:32px}.k .n{font-size:22px;font-weight:700;color:#10243a;margin-top:4px}
+.num{color:#1d39c4;font-weight:600;cursor:pointer}.num:hover{text-decoration:underline}
+tr.sum td{font-weight:700;color:#10243a;background:#fafafa}
+.more{display:none;margin-top:14px}.more.open{display:flex}
+.toast{position:fixed;right:24px;bottom:24px;background:#10243a;color:#fff;padding:12px 16px;border-radius:8px;display:none;gap:8px;align-items:center}
+</style></head><body><script>if(window.self!==window.top)document.documentElement.classList.add("emb")</script>
+<div class="top"><span class="ic">menu_open</span><div class="logo"><span class="ic">star</span></div><b>PHẦN MỀM HỖ TRỢ KIỂM TRA, RÀ SOÁT VBQPPL</b><span class="sp"></span><span class="ic">notifications</span><span class="ic">settings</span><div class="av">NA</div><div style="line-height:1.2"><div style="font-weight:600">Nguyễn Thị An</div><div style="font-size:11px;color:#8fa0b6">Đầu mối · Bộ tư pháp</div></div></div>
+<div class="wrap">
+<div class="side">
+ <div class="mi"><span class="ic">dashboard</span>Trang chủ</div>
+ <div class="mi"><span class="ic">grid_view</span>Quản lý danh mục<span class="ic ex">expand_more</span></div>
+ <div class="mi"><span class="ic">account_tree</span>Hệ thống hóa VBQPPL<span class="ic ex">expand_more</span></div>
+ <div class="mi" style="color:#fff"><span class="ic">insights</span>Báo cáo thống kê<span class="ic ex">expand_less</span></div>
+ <div class="grp"><div class="sub">Thống kê tình trạng gửi kết quả HTH</div><div class="sub act">Thống kê kết quả HTH</div></div>
+ <div class="mi"><span class="ic">rule</span>Kết quả rà soát</div>
+ <div class="mi"><span class="ic">bar_chart</span>Thống kê số liệu</div>
+ <div class="mi"><span class="ic">inventory_2</span>Kho dữ liệu kết quả</div>
+</div>
+<div class="main" id="main"></div>
+</div>
+<div class="toast" id="toast"><span class="ic">description</span><span id="tmsg"></span></div>
+<script>
+const MAU=[['01','Hết hiệu lực toàn bộ'],['02','Hết hiệu lực một phần'],['03','Còn hiệu lực'],['04','Cần đình chỉ, sửa đổi, thay thế'],['05','Còn hiệu lực (Tập HTH)']];
+const DV=['Vụ Các vấn đề chung về XDPL','Cục Hộ tịch, quốc tịch, chứng thực','Cục Bổ trợ tư pháp','Vụ Pháp luật hình sự – hành chính'];
+// [Mẫu01..05, Tổng không trùng Mẫu 01–04]
+const SL=[[14,9,126,6,126,138],[21,12,183,9,183,201],[8,5,97,3,97,104],[17,11,142,7,142,158]];
+const ALL=[57,34,531,23,531,583]; // toàn bộ đơn vị, đã bỏ trùng (VB thuộc nhiều đơn vị chỉ đếm 1)
+const VB=[
+ ['15/2018/NĐ-CP','Quy định chi tiết thi hành Luật Hộ tịch','Nghị định','Chính phủ','15/11/2018','Hộ tịch',1,'01','Thay thế bởi NĐ 87/2020'],
+ ['04/2020/TT-BTP','Quy định chi tiết thi hành Luật Hộ tịch và NĐ 123/2015','Thông tư','Bộ Tư pháp','28/05/2020','Hộ tịch',1,'02','Sửa đổi Điều 12'],
+ ['04/2020/TT-BTP','Quy định chi tiết thi hành Luật Hộ tịch và NĐ 123/2015','Thông tư','Bộ Tư pháp','28/05/2020','Hộ tịch',1,'03','Hết hiệu lực một phần: Điều 12'],
+ ['60/2014/QH13','Luật Hộ tịch','Luật','Quốc hội','20/11/2014','Hộ tịch',1,'03',''],
+ ['23/2015/NĐ-CP','Cấp bản sao từ sổ gốc, chứng thực bản sao từ bản chính','Nghị định','Chính phủ','16/02/2015','Chứng thực; Hộ tịch',1,'04','Đề nghị sửa đổi'],
+ ['60/2014/QH13','Luật Hộ tịch','Luật','Quốc hội','20/11/2014','Hộ tịch',1,'05',''],
+ ['53/2014/QH13','Luật Công chứng','Luật','Quốc hội','20/06/2014','Bổ trợ tư pháp',2,'01','Thay thế bởi Luật Công chứng 2024'],
+ ['46/2024/QH15','Luật Công chứng','Luật','Quốc hội','26/11/2024','Bổ trợ tư pháp',2,'03',''],
+ ['08/2023/NĐ-CP','Sửa đổi nghị định về đấu giá tài sản','Nghị định','Chính phủ','05/04/2023','Bổ trợ tư pháp',2,'02','Hết hiệu lực Điều 3'],
+ ['34/2016/NĐ-CP','Quy định chi tiết Luật Ban hành VBQPPL','Nghị định','Chính phủ','14/05/2016','Xây dựng pháp luật',0,'01','Thay thế bởi NĐ 78/2025'],
+ ['64/2025/QH15','Luật Ban hành văn bản quy phạm pháp luật','Luật','Quốc hội','19/02/2025','Xây dựng pháp luật',0,'03',''],
+ ['15/2020/NĐ-CP','Xử phạt VPHC trong lĩnh vực bưu chính, viễn thông','Nghị định','Chính phủ','03/02/2020','Xử lý VPHC',3,'04','Đề nghị thay thế'],
+ ['118/2021/NĐ-CP','Quy định chi tiết Luật Xử lý vi phạm hành chính','Nghị định','Chính phủ','23/12/2021','Xử lý VPHC',3,'03',''],
+];
+let fDv='',more=false,dt=null; // dt = {dv, mau}
+const M=document.getElementById('main');
+const opt=(a,v)=>'<option></option>'+a.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join('');
+function cur(){return fDv?SL[DV.indexOf(fDv)]:ALL}
+const TIP='Đếm văn bản không trùng. Trùng = cùng Mã văn bản (CSDLQG); văn bản nhập tay: cùng Số, ký hiệu + Ngày ban hành + Cơ quan ban hành. Văn bản thuộc nhiều lĩnh vực, nhiều đơn vị hoặc nhiều mẫu chỉ đếm 1.';
+function render(){
+const C=cur(), rowsIdx=DV.map((d,i)=>i).filter(i=>!fDv||DV[i]===fDv);
+M.innerHTML=`<div class="bc"><u>Báo cáo thống kê</u> / Thống kê kết quả HTH</div><h1>Thống kê kết quả hệ thống hóa <span class="ic tip" title="Chỉ thống kê kết quả hệ thống hóa đã công bố.">info</span></h1>
+<div class="card">
+<div class="row">
+ <div class="f" style="width:200px"><label>Kỳ hệ thống hóa <span class="req">*</span></label><select><option selected>Kỳ 2019–2024</option><option>Kỳ 2024–2028</option></select></div>
+ <div class="f" style="flex:1"><label>Đơn vị</label><select onchange="fDv=this.value;render()">${opt(DV,fDv)}</select></div>
+ <button class="btn p" onclick="render()"><span class="ic">search</span>Tìm kiếm</button>
+ <button class="btn" onclick="fDv='';render()"><span class="ic">refresh</span>Nhập lại</button>
+</div>
+<div class="bar" style="padding-top:16px;margin-bottom:0">
+ <div class="sec" style="margin:0">Số liệu ${fDv?'của '+fDv:'tất cả đơn vị'}</div>
+ <button class="btn" onclick="toast('Đã xuất số liệu thống kê ra file Word (mô phỏng)')"><span class="ic">description</span>Xuất Word</button>
+</div>
+<div class="kp" style="margin-top:12px">${MAU.map((m,j)=>`<div class="k" style="cursor:default"><div class="l">Mẫu ${m[0]}<br>${m[1]}</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px"><div class="n" style="margin:0">${C[j]}</div><span class="ab v" title="Xem chi tiết Mẫu ${m[0]}" style="cursor:pointer" onclick="openDt(${fDv?DV.indexOf(fDv):-1},'${m[0]}')"><span class="ic">visibility</span></span></div></div>`).join('')}<div class="k" style="cursor:default"><div class="l">Tổng số văn bản <span class="ic tip" style="font-size:14px" title="${TIP} Tổng tính trên Mẫu 01–04.">info</span><br>&nbsp;</div><div class="n">${C[5]}</div></div></div>
+</div>`;if(dt)M.innerHTML=detail()}
+function openDt(i,m){dt={dv:i,mau:m};render()}
+const TEN={'01':'Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực toàn bộ','02':'Danh mục văn bản quy phạm pháp luật hết hiệu lực, tạm ngưng hiệu lực một phần','03':'Danh mục văn bản quy phạm pháp luật còn hiệu lực','04':'Danh mục văn bản quy phạm pháp luật cần tạm ngưng hiệu lực, sửa đổi, bổ sung, thay thế, bãi bỏ hoặc ban hành mới','05':'Tập hệ thống hóa văn bản quy phạm pháp luật'};
+const COLX={'01':['LOẠI (HẾT HL/TẠM NGƯNG HL)','LÝ DO','NGÀY THÁNG NĂM (HẾT HL/TẠM NGƯNG HL)'],'02':['NỘI DUNG, QUY ĐỊNH HẾT HIỆU LỰC, TẠM NGƯNG HIỆU LỰC','LOẠI (HẾT HL/TẠM NGƯNG HL)','LÝ DO','NGÀY THÁNG NĂM (HẾT HL/TẠM NGƯNG HL)'],'03':['THỜI ĐIỂM CÓ HIỆU LỰC','GHI CHÚ'],'04':['KIẾN NGHỊ HÌNH THỨC XỬ LÝ VĂN BẢN','NỘI DUNG / LÝ DO KIẾN NGHỊ','CƠ QUAN / ĐƠN VỊ CHỦ TRÌ SOẠN THẢO','THỜI HẠN PHẢI XỬ LÝ'],'05':['THỜI ĐIỂM CÓ HIỆU LỰC','GHI CHÚ']};
+// giá trị cột riêng theo mẫu (mô phỏng)
+const XV={'15/2018/NĐ-CP':['Hết hiệu lực toàn bộ','Thay thế bởi NĐ 87/2020/NĐ-CP','01/07/2020'],'53/2014/QH13':['Hết hiệu lực toàn bộ','Thay thế bởi Luật Công chứng 2024','01/07/2025'],'34/2016/NĐ-CP':['Hết hiệu lực toàn bộ','Thay thế bởi NĐ 78/2025/NĐ-CP','01/04/2025'],
+ '04/2020/TT-BTP':['Điều 12','Hết hiệu lực một phần','Sửa đổi bởi TT 03/2023/TT-BTP','01/09/2023'],'08/2023/NĐ-CP':['Điều 3','Hết hiệu lực một phần','Bãi bỏ bởi NĐ 47/2024/NĐ-CP','15/06/2024'],
+ '23/2015/NĐ-CP':['Sửa đổi, bổ sung','Không còn phù hợp Luật Công chứng 2024','Cục Hộ tịch, quốc tịch, chứng thực','31/12/2026'],'15/2020/NĐ-CP':['Thay thế','Mức phạt chưa phù hợp thực tiễn','Vụ Pháp luật hình sự – hành chính','30/06/2027']};
+function xval(r,m){if(m==='03'||m==='05')return [ {'60/2014/QH13':'01/01/2016','46/2024/QH15':'01/07/2025','64/2025/QH15':'01/04/2025','118/2021/NĐ-CP':'01/01/2022','04/2020/TT-BTP':'15/07/2020'}[r[0]]||'', r[8]];return XV[r[0]]||COLX[m].map(()=>'')}
+function detail(){
+const m=dt.mau, R=VB.filter(r=>(dt.dv<0||r[6]===dt.dv)&&r[7]===m&&(!dt.loai||r[2]===dt.loai)), cx=COLX[m];
+const base=['STT','LĨNH VỰC','LOẠI VĂN BẢN','CƠ QUAN BAN HÀNH VĂN BẢN','SỐ, KÝ HIỆU','NGÀY BAN HÀNH','TÊN GỌI CỦA VĂN BẢN / TRÍCH YẾU NỘI DUNG CỦA VĂN BẢN'].concat(cx);
+return `<div class="bc"><u>Báo cáo thống kê</u> / <u>Thống kê kết quả HTH</u> / Mẫu ${m}</div>
+<h1 style="display:flex;align-items:center;gap:8px"><span class="ic" style="cursor:pointer" title="Quay lại" onclick="dt=null;render()">arrow_back</span>Thống kê kết quả hệ thống hóa</h1>
+<div class="card" style="padding:0">
+<div style="padding:16px 24px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;gap:16px"><div><div style="font-size:15.5px;font-weight:700;color:#10243a">${TEN[m]}</div><div class="muted" style="margin-top:4px">${dt.dv<0?'Tất cả đơn vị':DV[dt.dv]} · Kết quả đã công bố · Kỳ 2019–2024 · ${m==='04'?'Kế thừa kết quả rà soát thường xuyên (RSTX)':'Chia theo tình trạng hiệu lực'}</div></div>
+<button class="btn" onclick="toast('Đã xuất Mẫu ${m} ra file Word (mô phỏng)')"><span class="ic">description</span>Xuất Word</button></div>
+<div style="padding:16px 24px">
+<div class="row" style="margin-bottom:16px">
+ <div class="f" style="flex:1"><label>Số, ký hiệu</label><input placeholder="Nhập số, ký hiệu văn bản"></div>
+ <div class="f" style="flex:1"><label>Loại VBQPPL</label><select onchange="dt.loai=this.value"><option value="">Chọn loại VBQPPL</option>${['Luật','Nghị định','Thông tư'].map(x=>`<option ${dt.loai==x?'selected':''}>${x}</option>`).join('')}</select></div>
+ <button class="btn p" onclick="render()"><span class="ic">search</span>Tìm kiếm</button>
+ <button class="btn" onclick="dt.loai='';render()"><span class="ic">refresh</span>Nhập lại</button>
+</div>
+<div style="overflow-x:auto"><table style="min-width:${1100+cx.length*120}px"><tr>${base.map((h,i)=>`<th style="text-transform:uppercase">${h}<br>(${i+1})</th>`).join('')}${dt.dv<0?'<th>ĐƠN VỊ</th>':''}</tr>
+${R.map((r,i)=>`<tr><td class="c">${i+1}</td><td>${r[5]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="lnk">${r[0]}</span></td><td class="c">${r[4]}</td><td>${r[1]}</td>${xval(r,m).map(v=>`<td>${v}</td>`).join('')}${dt.dv<0?`<td>${DV[r[6]]}</td>`:''}</tr>`).join('')||`<tr><td colspan="${base.length+1}" class="c muted" style="padding:20px">Danh mục này chưa có văn bản.</td></tr>`}
+</table></div>
+<div class="muted" style="margin-top:12px">Hiển thị <b style="color:#344054">${R.length}</b> văn bản</div>
+</div></div>`}
+function toast(s){const t=document.getElementById('toast');document.getElementById('tmsg').textContent=s;t.style.display='flex';setTimeout(()=>t.style.display='none',2500)}
+render();
+</script></body></html>
